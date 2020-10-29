@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Class 9: 21 10 2020 - ANCOVA is (also) just a linear model | Notes for Ecological Modelling</title>
+  <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Class 9: 21 10 2020 - ANCOVA is (also) just a linear model | Notes for Ecological Modelling" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Class 9: 21 10 2020 - ANCOVA is (also) just a linear model | Notes for Ecological Modelling" />
+  
+  <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Tiago A. Marques, Susana França, Ana Sofia Reboleira" />
+
+
+<meta name="date" content="2020-10-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="aula8.html"/>
+<link rel="next" href="aula10.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-a-regression"><i class="fa fa-check"></i><b>2.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#the-general-linear-model"><i class="fa fa-check"></i><b>2.2</b> The general linear model</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#bookdown-template-leftovers"><i class="fa fa-check"></i><b>2.3</b> Bookdown template leftovers</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>3</b> Class 6 13 10 2020</a><ul>
+<li class="chapter" data-level="3.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>3.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="3.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>3.2</b> Simulating regression data</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>3.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>4</b> Class 7 14 10 2020</a><ul>
+<li class="chapter" data-level="4.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>4.1</b> Task 1</a></li>
+<li class="chapter" data-level="4.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>4.2</b> Task 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>5</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
+<li class="chapter" data-level="5.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>5.1</b> The t-test</a></li>
+<li class="chapter" data-level="5.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>5.2</b> ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>6</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
+<li class="chapter" data-level="6.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>6.1</b> Common slope, different intercepts per treatment</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>7</b> Class 10: 27 10 2020</a><ul>
+<li class="chapter" data-level="7.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>7.1</b> Same story, another spin</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>8</b> Class 11: 03 10 2020 ANCOVA with different slopes: interactions</a><ul>
+<li class="chapter" data-level="8.1" data-path="aula11.html"><a href="aula11.html#modeling-a-data-set"><i class="fa fa-check"></i><b>8.1</b> Modeling a data set</a></li>
+<li class="chapter" data-level="8.2" data-path="aula11.html"><a href="aula11.html#conclusion"><i class="fa fa-check"></i><b>8.2</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>9</b> Final Words</a></li>
+<li class="chapter" data-level="10" data-path="agradecimentos.html"><a href="agradecimentos.html"><i class="fa fa-check"></i><b>10</b> Agradecimentos</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes for Ecological Modelling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="aula9" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</h1>
+<p>We move on to Analysis of Covariance, a.k.a. ANCOVA, which is essentially like an ANOVA to which we add a continuous explanatory covariate. The ANCOVA was traditionally used to compare means of an outcome variable between two or more groups taking into account (or to correct for) variability of other variables, called covariates. In other words, ANCOVA allows to compare the adjusted means of two or more independent groups. It’s just… another linear model with a fancy name! Words adapted from this (looooooooooong!) link <a href="https://www.datanovia.com/en/lessons/ancova-in-r/" class="uri">https://www.datanovia.com/en/lessons/ancova-in-r/</a>!</p>
+<p>This is an extremely common situation in biology/ecology data. Consider, as an example, you are trying to explain how the weight of a fish depends on its length, but you want to see if that relationship changes per year or site.</p>
+<p>Also, remember the dataset we considered in class 7. The data was simulated via this website: <a href="https://drawdata.xyz/" class="uri">https://drawdata.xyz/</a> and was named <code>data4lines.csv</code>. Those had (about) the same slope in 3 groups, and a different slope in a forth group. That could be analysed as an ANCOVA, and we will look at it that way at the end.</p>
+<p>Lets simulate some relevant data and fit the models</p>
+<div id="common-slope-different-intercepts-per-treatment" class="section level2">
+<h2><span class="header-section-number">6.1</span> Common slope, different intercepts per treatment</h2>
+<p>We begin with a situation where there are different intercepts per group, but a common slope across all groups. Contrast this with what we saw under the previous class, under chapter <a href="aula8.html#aula8">5</a>.</p>
+<p>To make it interesting, assume that we are simulating weights for 4 different species, and that weights depend on length (as they almost always do!).</p>
+<p>This would be interesting and could be some real data if say one wanted to compare the weights of the fishes of 4 different species, we had captured 50 animals from each species. But we know that the fish lengths across species might be different to begin with, and yet our key interest would be say the weight by species, and in that sense the length was essentially a confounding factor.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="co">#all slopes the same, diferent intercepts - no interactions</span></a>
+<a class="sourceLine" id="cb167-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb167-3" title="3">n&lt;-<span class="dv">200</span></a>
+<a class="sourceLine" id="cb167-4" title="4">nbygroup&lt;-<span class="dv">50</span></a>
+<a class="sourceLine" id="cb167-5" title="5">xs &lt;-<span class="st"> </span><span class="kw">runif</span>(n,<span class="dv">10</span>,<span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb167-6" title="6">tr &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;d&quot;</span>)</a>
+<a class="sourceLine" id="cb167-7" title="7">type &lt;-<span class="st"> </span><span class="kw">rep</span>(tr,<span class="dt">each=</span>nbygroup)</a>
+<a class="sourceLine" id="cb167-8" title="8">cores &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="dt">each=</span>nbygroup)</a>
+<a class="sourceLine" id="cb167-9" title="9">a&lt;-<span class="dv">3</span></a>
+<a class="sourceLine" id="cb167-10" title="10">b&lt;-<span class="dv">4</span></a>
+<a class="sourceLine" id="cb167-11" title="11">error&lt;-<span class="dv">4</span></a>
+<a class="sourceLine" id="cb167-12" title="12">ys &lt;-<span class="st"> </span>a<span class="op">+</span>b<span class="op">*</span>xs<span class="op">+</span></a>
+<a class="sourceLine" id="cb167-13" title="13"><span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;a&quot;</span>,<span class="dv">5</span>,<span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;b&quot;</span>,<span class="dv">8</span>,<span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;c&quot;</span>,<span class="dv">10</span>,<span class="dv">12</span>)))<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">4</span>)</a></code></pre></div>
+<p>We plot the data, all together, per group, and at the end adding the generating line to the plot. It’s not easy to make sense of it!</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb168-2" title="2"><span class="co">#all the data - uma salganhada!</span></a>
+<a class="sourceLine" id="cb168-3" title="3"><span class="kw">plot</span>(xs,ys,<span class="dt">col=</span>cores,<span class="dt">cex=</span><span class="fl">0.8</span>)</a>
+<a class="sourceLine" id="cb168-4" title="4"><span class="co">#plot the data</span></a>
+<a class="sourceLine" id="cb168-5" title="5"><span class="co">#par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))</span></a>
+<a class="sourceLine" id="cb168-6" title="6"><span class="kw">plot</span>(xs[type<span class="op">==</span><span class="st">&quot;a&quot;</span>],ys[type<span class="op">==</span><span class="st">&quot;a&quot;</span>],<span class="dt">col=</span>cores[type<span class="op">==</span><span class="st">&quot;a&quot;</span>])</a>
+<a class="sourceLine" id="cb168-7" title="7"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb168-8" title="8"><span class="kw">plot</span>(xs[type<span class="op">==</span><span class="st">&quot;b&quot;</span>],ys[type<span class="op">==</span><span class="st">&quot;b&quot;</span>],<span class="dt">col=</span>cores[type<span class="op">==</span><span class="st">&quot;b&quot;</span>])</a>
+<a class="sourceLine" id="cb168-9" title="9"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">8</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb168-10" title="10"><span class="kw">plot</span>(xs[type<span class="op">==</span><span class="st">&quot;c&quot;</span>],ys[type<span class="op">==</span><span class="st">&quot;c&quot;</span>],<span class="dt">col=</span>cores[type<span class="op">==</span><span class="st">&quot;c&quot;</span>])</a>
+<a class="sourceLine" id="cb168-11" title="11"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">10</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb168-12" title="12"><span class="kw">plot</span>(xs[type<span class="op">==</span><span class="st">&quot;d&quot;</span>],ys[type<span class="op">==</span><span class="st">&quot;d&quot;</span>],<span class="dt">col=</span>cores[type<span class="op">==</span><span class="st">&quot;d&quot;</span>])</a>
+<a class="sourceLine" id="cb168-13" title="13"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb168-14" title="14"><span class="co">#the data with each line added to it</span></a>
+<a class="sourceLine" id="cb168-15" title="15"><span class="co">#par(mfrow=c(1,1),mar=c(4,4,0.5,0.5))</span></a>
+<a class="sourceLine" id="cb168-16" title="16"><span class="kw">plot</span>(xs,ys,<span class="dt">col=</span>cores,<span class="dt">cex=</span><span class="fl">0.2</span>)</a>
+<a class="sourceLine" id="cb168-17" title="17"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb168-18" title="18"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">8</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb168-19" title="19"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">10</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb168-20" title="20"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">4</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<p>While not the best to look at the data, note that to visually confirm the value of the intercepts we can zoom out on the plot.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1"><span class="kw">plot</span>(xs,ys,<span class="dt">col=</span>cores,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">20</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">150</span>))</a>
+<a class="sourceLine" id="cb169-2" title="2"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb169-3" title="3"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">8</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb169-4" title="4"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">10</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb169-5" title="5"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb169-6" title="6"><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">c</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">5</span>,<span class="dv">3</span><span class="op">+</span><span class="dv">8</span>,<span class="dv">3</span><span class="op">+</span><span class="dv">10</span>,<span class="dv">3</span><span class="op">+</span><span class="dv">12</span>),<span class="dt">v=</span><span class="dv">0</span>,<span class="dt">col=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">1</span>),<span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<p>Now we run the corresponding linear model</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1"><span class="co">#fit the model</span></a>
+<a class="sourceLine" id="cb170-2" title="2">lm.ancova1 &lt;-<span class="st"> </span><span class="kw">summary</span>(<span class="kw">lm</span>(ys<span class="op">~</span>xs<span class="op">+</span>type))</a>
+<a class="sourceLine" id="cb170-3" title="3">lm.ancova1</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs + type)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -13.4694  -2.3640   0.2813   2.1063  11.6596 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  9.24244    1.57462   5.870 1.85e-08 ***
+## xs           3.92089    0.09997  39.220  &lt; 2e-16 ***
+## typeb        3.11952    0.80410   3.880 0.000143 ***
+## typec        5.80393    0.80324   7.226 1.10e-11 ***
+## typed        7.36736    0.80434   9.159  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.008 on 195 degrees of freedom
+## Multiple R-squared:  0.9011,	Adjusted R-squared:  0.8991 
+## F-statistic: 444.3 on 4 and 195 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We can check the model intercept coefficients</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1"><span class="co">#estimated values of each intercept</span></a>
+<a class="sourceLine" id="cb172-2" title="2">lm.ancova1<span class="op">$</span>coefficients[<span class="dv">1</span>]</a></code></pre></div>
+<pre><code>## [1] 9.242444</code></pre>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1">lm.ancova1<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lm.ancova1<span class="op">$</span>coefficients[<span class="dv">3</span>]</a></code></pre></div>
+<pre><code>## [1] 12.36196</code></pre>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1">lm.ancova1<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lm.ancova1<span class="op">$</span>coefficients[<span class="dv">4</span>]</a></code></pre></div>
+<pre><code>## [1] 15.04638</code></pre>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1">lm.ancova1<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lm.ancova1<span class="op">$</span>coefficients[<span class="dv">5</span>]</a></code></pre></div>
+<pre><code>## [1] 16.60981</code></pre>
+<p>and the common slope</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1">lm.ancova1<span class="op">$</span>coefficients[<span class="dv">2</span>]</a></code></pre></div>
+<pre><code>## [1] 3.920888</code></pre>
+<p>Check how these values are similar (they are estimates) to those we simulated above, slope was 4, and the intercepts were respectively 3+5,3+8,3+10 and 3+12.</p>
+<p>We can plot the estimated regression lines</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">2.5</span>,<span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb182-2" title="2"><span class="kw">plot</span>(xs,ys,<span class="dt">col=</span>cores,<span class="dt">main=</span><span class="st">&quot;Estimated regression lines&quot;</span>)</a>
+<a class="sourceLine" id="cb182-3" title="3"><span class="kw">abline</span>(lm.ancova1<span class="op">$</span>coefficients[<span class="dv">1</span>],lm.ancova1<span class="op">$</span>coefficients[<span class="dv">2</span>],<span class="dt">col=</span><span class="dv">1</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb182-4" title="4"><span class="kw">abline</span>(lm.ancova1<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lm.ancova1<span class="op">$</span>coefficients[<span class="dv">3</span>],lm.ancova1<span class="op">$</span>coefficients[<span class="dv">2</span>],<span class="dt">col=</span><span class="dv">2</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb182-5" title="5"><span class="kw">abline</span>(lm.ancova1<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lm.ancova1<span class="op">$</span>coefficients[<span class="dv">4</span>],lm.ancova1<span class="op">$</span>coefficients[<span class="dv">2</span>],<span class="dt">col=</span><span class="dv">3</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb182-6" title="6"></a>
+<a class="sourceLine" id="cb182-7" title="7"><span class="kw">abline</span>(lm.ancova1<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lm.ancova1<span class="op">$</span>coefficients[<span class="dv">5</span>],lm.ancova1<span class="op">$</span>coefficients[<span class="dv">2</span>],<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb182-8" title="8"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="dt">legend =</span> tr,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="dt">inset=</span><span class="fl">0.05</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p>But because we are in a simulation setting, we can contrast the estimated values agaist the reality (the real model).</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1"><span class="co">#In a simulated scenario, we can see we are close to the real values</span></a>
+<a class="sourceLine" id="cb183-2" title="2"><span class="kw">plot</span>(xs,ys,<span class="dt">col=</span>cores)</a>
+<a class="sourceLine" id="cb183-3" title="3"></a>
+<a class="sourceLine" id="cb183-4" title="4"><span class="co">#plot the lines</span></a>
+<a class="sourceLine" id="cb183-5" title="5"><span class="kw">abline</span>(a<span class="op">+</span><span class="dv">5</span>,b,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb183-6" title="6"><span class="kw">abline</span>(a<span class="op">+</span><span class="dv">8</span>,b,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb183-7" title="7"><span class="kw">abline</span>(a<span class="op">+</span><span class="dv">10</span>,b,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb183-8" title="8"><span class="kw">abline</span>(a<span class="op">+</span><span class="dv">12</span>,b,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb183-9" title="9"><span class="co">#gupo a</span></a>
+<a class="sourceLine" id="cb183-10" title="10"><span class="kw">abline</span>(lm.ancova1<span class="op">$</span>coefficients[<span class="dv">1</span>],lm.ancova1<span class="op">$</span>coefficients[<span class="dv">2</span>],<span class="dt">lwd=</span><span class="dv">1</span>,<span class="dt">col=</span><span class="dv">1</span>,<span class="dt">lty=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb183-11" title="11"><span class="co">#grupo b</span></a>
+<a class="sourceLine" id="cb183-12" title="12"><span class="co"># intercept+slope*xs+intercept especifico do grupo b</span></a>
+<a class="sourceLine" id="cb183-13" title="13"><span class="co"># (intercept+intercept especifico do grupo b)+ slope</span></a>
+<a class="sourceLine" id="cb183-14" title="14"><span class="kw">abline</span>(lm.ancova1<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lm.ancova1<span class="op">$</span>coefficients[<span class="dv">3</span>],lm.ancova1<span class="op">$</span>coefficients[<span class="dv">2</span>],<span class="dt">lwd=</span><span class="dv">1</span>,<span class="dt">col=</span><span class="dv">2</span>,<span class="dt">lty=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb183-15" title="15"><span class="co">#grupo c</span></a>
+<a class="sourceLine" id="cb183-16" title="16"><span class="kw">abline</span>(lm.ancova1<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lm.ancova1<span class="op">$</span>coefficients[<span class="dv">4</span>],lm.ancova1<span class="op">$</span>coefficients[<span class="dv">2</span>],<span class="dt">lwd=</span><span class="dv">1</span>,<span class="dt">col=</span><span class="dv">3</span>,<span class="dt">lty=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb183-17" title="17"><span class="co">#grupo d</span></a>
+<a class="sourceLine" id="cb183-18" title="18"><span class="kw">abline</span>(lm.ancova1<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lm.ancova1<span class="op">$</span>coefficients[<span class="dv">5</span>],lm.ancova1<span class="op">$</span>coefficients[<span class="dv">2</span>],<span class="dt">lwd=</span><span class="dv">1</span>,<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p>As we can see, they are quite close. The error is small compared with the effrect sizes, and the sample size is large enough we can estimate the parameters reasonably well.</p>
+<p>But how exactly do we get the predicted intercepts? To understand where they come from we need to see what R does (or, for that matter, what any other software would need to do!) in the background to fit a model with a factor covariate. Remember what the data is</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" title="1"><span class="co">#the data</span></a>
+<a class="sourceLine" id="cb184-2" title="2"><span class="kw">head</span>(<span class="kw">data.frame</span>(<span class="dt">ys=</span>ys,<span class="dt">xs=</span>xs,<span class="dt">type=</span>type),<span class="dv">10</span>)</a></code></pre></div>
+<pre><code>##          ys       xs type
+## 1  54.20623 11.13703    a
+## 2  70.99310 16.22299    a
+## 3  72.63496 16.09275    a
+## 4  70.92527 16.23379    a
+## 5  79.13262 18.60915    a
+## 6  74.28038 16.40311    a
+## 7  44.79477 10.09496    a
+## 8  57.97476 12.32551    a
+## 9  76.06322 16.66084    a
+## 10 68.36163 15.14251    a</code></pre>
+<p>before fitting a factor covariate, we need to replace it by dummy variables (k-1 dummy variables, where k is the number of levels of the factor). Below we look at a set of data lines that allow us to see observations from the diferent <code>type</code>s considered</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1"><span class="co">#explaining it</span></a>
+<a class="sourceLine" id="cb186-2" title="2"><span class="kw">data.frame</span>(<span class="dt">ys=</span>ys,<span class="dt">xs=</span>xs,<span class="dt">type=</span>type,<span class="dt">typeb=</span><span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;b&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="dt">typec=</span><span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;c&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="dt">typed=</span><span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;d&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>))[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">49</span>,<span class="dv">50</span>,<span class="dv">51</span>,<span class="dv">99</span>,<span class="dv">100</span>,<span class="dv">101</span>,<span class="dv">149</span>,<span class="dv">150</span>,<span class="dv">151</span>,<span class="dv">200</span>),]</a></code></pre></div>
+<pre><code>##           ys       xs type typeb typec typed
+## 1   54.20623 11.13703    a     0     0     0
+## 49  59.78224 12.43929    a     0     0     0
+## 50  80.00860 17.65460    a     0     0     0
+## 51  52.44224 10.73780    b     1     0     0
+## 99  64.03652 13.09647    b     1     0     0
+## 100 72.37184 17.42120    b     1     0     0
+## 101 56.35918 10.35457    c     0     1     0
+## 149 93.28892 19.80787    c     0     1     0
+## 150 77.14469 15.76813    c     0     1     0
+## 151 74.30940 14.39042    d     0     0     1
+## 200 81.84481 16.39205    d     0     0     1</code></pre>
+<p>So R first builds what is known as the design matrix. Notation wise Y= parameters <span class="math inline">\(\times\)</span> design matrix, or Y = <span class="math inline">\(\beta\)</span>X (see e.g. <a href="https://en.wikipedia.org/wiki/Design_matrix" class="uri">https://en.wikipedia.org/wiki/Design_matrix</a>)</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1"><span class="co">#the design matrix</span></a>
+<a class="sourceLine" id="cb188-2" title="2"><span class="kw">head</span>(<span class="kw">data.frame</span>(<span class="dt">xs=</span>xs,<span class="dt">typeb=</span><span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;b&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="dt">typec=</span><span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;c&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="dt">typed=</span><span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;d&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</a></code></pre></div>
+<pre><code>##         xs typeb typec typed
+## 1 11.13703     0     0     0
+## 2 16.22299     0     0     0
+## 3 16.09275     0     0     0
+## 4 16.23379     0     0     0
+## 5 18.60915     0     0     0
+## 6 16.40311     0     0     0</code></pre>
+<p>and that is what it uses for the fitting. Therefore, if we want to know the intercept of say <code>type</code> c, we need to sum the common intercept with the parameter associates with the dummy variable <code>typeb</code>.</p>
+<p>This would be an ANCOVA, and here we would conclude that the mean of the response was different for the different levels of <span class="math inline">\(z\)</span> , once accounting for the fact that the <span class="math inline">\(xs\)</span> varied. this is evident since all the coefficients estimates and associated precisions in the summary of the model above would lead to rejecting the null hypothesis that their value was 0, as can be seen by the corresponding very small p-values. Not a surprise, since we simulated them as different and the errors were small.</p>
+<p>Taks: Increase the simulated error or lower the coefficients until you get type II errors. Change also sample sizes and effect sizes to see the impacts on the model performance!</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="aula8.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="aula10.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ECOMODbook.pdf", "ECOMODbook.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

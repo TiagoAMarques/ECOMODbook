@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2020.7.22)  28 OCT 2020 09:04
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2020.7.22)  29 OCT 2020 10:26
 entering extended mode
 **./ECOMODbook.tex
 (ECOMODbook.tex
@@ -1180,13 +1180,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [11
 
 ] [12]
-Overfull \hbox (6.75pt too wide) in paragraph at lines 341--341
+Overfull \hbox (6.75pt too wide) in paragraph at lines 342--342
 []\TU/lmtt/m/n/10 ## glm(formula = peso ~ comp, family = gaussian(link = "ident
 ity"),[] 
  []
 
 
-Overfull \hbox (1.5pt too wide) in paragraph at lines 341--341
+Overfull \hbox (1.5pt too wide) in paragraph at lines 342--342
 []\TU/lmtt/m/n/10 ## (Dispersion parameter for gaussian family taken to be 5.83
 0492)[] 
  []
@@ -1236,7 +1236,7 @@ File: ECOMODbook_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type p
 df)
 <use ECOMODbook_files/figure-latex/unnamed-chunk-22-1.pdf>
 
-Overfull \hbox (64.5pt too wide) in paragraph at lines 669--669
+Overfull \hbox (64.5pt too wide) in paragraph at lines 670--670
 []\TU/lmtt/m/n/10 ## Warning in summary.lm(lm(ys ~ xs)): essentially perfect fi
 t: summary may be[] 
  []
@@ -1300,7 +1300,7 @@ File: ECOMODbook_files/figure-latex/unnamed-chunk-37-1.pdf Graphic file (type p
 df)
 <use ECOMODbook_files/figure-latex/unnamed-chunk-37-1.pdf>
 
-Overfull \vbox (2.25284pt too high) detected at line 1201
+Overfull \vbox (2.25284pt too high) detected at line 1202
  []
 
 [39]
@@ -1322,8 +1322,8 @@ df)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [43] [44]
-File: ../Aula7 14 10 2020/Aula7Task7.JPG Graphic file (type bmp)
-<../Aula7 14 10 2020/Aula7Task7.JPG>
+File: extfiles/Aula7Task7.JPG Graphic file (type bmp)
+<extfiles/Aula7Task7.JPG>
 [45]
 File: ECOMODbook_files/figure-latex/unnamed-chunk-42-1.pdf Graphic file (type p
 df)
@@ -1339,7 +1339,7 @@ File: ECOMODbook_files/figure-latex/unnamed-chunk-44-1.pdf Graphic file (type p
 df)
 <use ECOMODbook_files/figure-latex/unnamed-chunk-44-1.pdf>
 [48] [49]
-Overfull \hbox (237.73401pt too wide) in paragraph at lines 1533--1534
+Overfull \hbox (237.73401pt too wide) in paragraph at lines 1536--1537
 []\TU/lmr/m/n/10 and so, from the above output, that equates to \TU/lmtt/m/n/10
  y=lmlines$coefficients[1]+lmlines$coefficients[4],lmlines$coefficients[2]
  []
@@ -1382,7 +1382,7 @@ NOVA ARE JUST LINEAR MODELS
  []
 
 [56]
-Overfull \hbox (17.25pt too wide) in paragraph at lines 1738--1738
+Overfull \hbox (17.25pt too wide) in paragraph at lines 1741--1741
 []\TU/lmtt/m/n/10 ## alternative hypothesis: true difference in means is not eq
 ual to 0[] 
  []
@@ -1398,7 +1398,7 @@ NOVA ARE JUST LINEAR MODELS
  []
 
 [58]
-Overfull \hbox (17.25pt too wide) in paragraph at lines 1838--1838
+Overfull \hbox (17.25pt too wide) in paragraph at lines 1841--1841
 []\TU/lmtt/m/n/10 ## alternative hypothesis: true difference in means is not eq
 ual to 0[] 
  []
@@ -1417,19 +1417,19 @@ NOVA ARE JUST LINEAR MODELS
  []
 
 [60]
-Overfull \hbox (17.25pt too wide) in paragraph at lines 1913--1913
+Overfull \hbox (17.25pt too wide) in paragraph at lines 1916--1916
 []\TU/lmtt/m/n/10 ## alternative hypothesis: true difference in means is not eq
 ual to 0[] 
  []
 
 [61]
-Underfull \hbox (badness 2165) in paragraph at lines 1948--1949
+Underfull \hbox (badness 2165) in paragraph at lines 1951--1952
 \TU/lmr/m/n/10 We move on with perhaps the most famous example of a statistical
 
  []
 
 
-Overfull \vbox (0.25836pt too high) detected at line 1988
+Overfull \vbox (0.25836pt too high) detected at line 1991
  []
 
 
@@ -1465,7 +1465,7 @@ NOVA ARE JUST LINEAR MODELS
  []
 
 [66]
-Underfull \vbox (badness 10000) detected at line 2254
+Underfull \vbox (badness 10000) detected at line 2257
  []
 
 
@@ -1492,7 +1492,7 @@ NOVA ARE JUST LINEAR MODELS
 ]
 Chapter 6.
 
-Underfull \hbox (badness 2096) in paragraph at lines 2341--2341
+Underfull \hbox (badness 2096) in paragraph at lines 2344--2344
 []\TU/lmr/bx/n/14.4 Common slope, different intercepts per
  []
 
@@ -1587,7 +1587,7 @@ File: ECOMODbook_files/figure-latex/unnamed-chunk-104-1.pdf Graphic file (type
 pdf)
 <use ECOMODbook_files/figure-latex/unnamed-chunk-104-1.pdf>
 
-Underfull \vbox (badness 1009) detected at line 2849
+Underfull \vbox (badness 1009) detected at line 2852
  []
 
 [86]
@@ -1707,19 +1707,19 @@ Chapter 10.
 (ECOMODbook.bbl [107] [108
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3461.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3465.
 [109]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 3461.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 3465.
 (ECOMODbook.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 3461.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 3461.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 3465.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 3465.
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
  31240 strings out of 427232
- 571510 string characters out of 3141530
+ 571444 string characters out of 3141530
  772438 words of memory out of 3000000
  35404 multiletter control sequences out of 15000+200000
  538764 words of font info for 81 fonts, out of 3000000 for 9000

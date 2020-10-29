@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Class 10: 27 10 2020 | Notes for Ecological Modelling</title>
+  <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Class 10: 27 10 2020 | Notes for Ecological Modelling" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Class 10: 27 10 2020 | Notes for Ecological Modelling" />
+  
+  <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Tiago A. Marques, Susana França, Ana Sofia Reboleira" />
+
+
+<meta name="date" content="2020-10-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="aula9.html"/>
+<link rel="next" href="aula11.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-a-regression"><i class="fa fa-check"></i><b>2.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#the-general-linear-model"><i class="fa fa-check"></i><b>2.2</b> The general linear model</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#bookdown-template-leftovers"><i class="fa fa-check"></i><b>2.3</b> Bookdown template leftovers</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>3</b> Class 6 13 10 2020</a><ul>
+<li class="chapter" data-level="3.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>3.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="3.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>3.2</b> Simulating regression data</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>3.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>4</b> Class 7 14 10 2020</a><ul>
+<li class="chapter" data-level="4.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>4.1</b> Task 1</a></li>
+<li class="chapter" data-level="4.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>4.2</b> Task 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>5</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
+<li class="chapter" data-level="5.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>5.1</b> The t-test</a></li>
+<li class="chapter" data-level="5.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>5.2</b> ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>6</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
+<li class="chapter" data-level="6.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>6.1</b> Common slope, different intercepts per treatment</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>7</b> Class 10: 27 10 2020</a><ul>
+<li class="chapter" data-level="7.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>7.1</b> Same story, another spin</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>8</b> Class 11: 03 10 2020 ANCOVA with different slopes: interactions</a><ul>
+<li class="chapter" data-level="8.1" data-path="aula11.html"><a href="aula11.html#modeling-a-data-set"><i class="fa fa-check"></i><b>8.1</b> Modeling a data set</a></li>
+<li class="chapter" data-level="8.2" data-path="aula11.html"><a href="aula11.html#conclusion"><i class="fa fa-check"></i><b>8.2</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>9</b> Final Words</a></li>
+<li class="chapter" data-level="10" data-path="agradecimentos.html"><a href="agradecimentos.html"><i class="fa fa-check"></i><b>10</b> Agradecimentos</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes for Ecological Modelling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="aula10" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Class 10: 27 10 2020</h1>
+<p>In class 10 we actually had Miguel Pais talking about Individual Based Models.</p>
+<p>In this chapter we look again at the ANCOVA model presented in chapter <a href="aula9.html#aula9">6</a>, but under a different perspective. I decided to create this material as a bonus for students, to understand why the ANCOVA is what it is. As a bonus, this also provides a cautionary tale about the dangers of non-random sampling, or more generally, confounding due to unmeasured factors that might affect our response variable.</p>
+<p>Therefore,</p>
+<div id="same-story-another-spin" class="section level2">
+<h2><span class="header-section-number">7.1</span> Same story, another spin</h2>
+<p>As we noted above, the ANCOVA would be an useful model to compare means of an outcome variable between two or more groups taking into account (or to correct for) variability of other variables, often called covariates. In other words, ANCOVA allows to compare the adjusted means of two or more independent groups.</p>
+<p>Here we tell the same story from chapter <a href="aula9.html#aula9">6</a> under said perspective. We will do so with the help of two unlikely caracters. This is the story of two friends: a biologist that is exploring the weights of lizards, and his friend, a former biology that decided to take an MSc in Ecological Statistics!</p>
+<p>The biologist will be the hero of our story. He has a great name. George Ramsey Ernest Armitage Turner. Note that he has 5 names, unusal in the Anglosaxonic world, but not that uncommon is say Portugal. To make it easier, we’ll call him just by his initials. So… let’s call him Great :) Great’s fried, who’s a great friend, is simply called John. Boring, but hey, names aren’t something you can choose are they, and when you are just the sidekick on the story, you can’t complain!</p>
+<p>Great when on a journey to a distant archipelago where there are 4 islands, each potentially with a different species of lizard that Great is interested in. The folks providing names to islands where not has imaginative as Great’s parents, so the islands are called just A, B, C and D. Imagine that Great did a great job and collected a great sample of lizards in each island. Great is alos interested in the amount of insects available for the lizards in each of the islands. He thinks they might determine the weight of the lizards. Weight is related to condition, condition to fecundity and survival, and so on.</p>
+<p>Imagine Great wanted to compare the weights of lizard specimens he collected in each of the 4 islands. He happen to capture a number of animals in each island, and we will label them as A to D, as per the islands.</p>
+<p>(note, since this is a story, this time I am not showing you how the data was created (=simulated), for narrative reasons!)</p>
+<p>Great ploted the weights, in grams (g), of the captured lizards. These look like this:</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1"><span class="kw">hist</span>(ys,<span class="dt">main=</span><span class="st">&quot;Lizards pooled across 4 islands&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Weight (g)&quot;</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
+<p>The distribution is unimodal and about simetrical. When lizards are separated by island, they look like this</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1"><span class="kw">boxplot</span>(ys<span class="op">~</span>type,<span class="dt">ylab=</span><span class="st">&quot;Weight (g)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Island&quot;</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+<p>There seem to be clear differences in the weights per species, as a standard linear model (e.g. an ANOVA, see <a href="aula8.html#aula8">5</a>) will show:</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1"><span class="kw">summary</span>(<span class="kw">lm</span>(ys<span class="op">~</span>type))</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ type)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -25.7066  -5.3458  -0.5474   6.2330  22.9767 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   48.079      1.199  40.105  &lt; 2e-16 ***
+## typeB          9.305      1.695   5.489 1.24e-07 ***
+## typeC         20.254      1.695  11.947  &lt; 2e-16 ***
+## typeD         30.583      1.695  18.039  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 8.477 on 196 degrees of freedom
+## Multiple R-squared:  0.652,	Adjusted R-squared:  0.6467 
+## F-statistic: 122.4 on 3 and 196 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Great is happy, he had seen differents amounts of insects in each island and so he is already thinking about a paper he will write about how the size of the lizards depends on food availability.</p>
+<p>Further, he just had a great thought. He calls these GGTs: Great great thoughts. He is thinking about proposing that these correspond to different species in each island, and he is already dreaming about the names of his new species: he is considering naming them “slimus”, “normalis”, “fatis”, “fattissimus”, for animals in islands A, B, C and D, respectively. The plot would then read just like this, which looks… you guessed it… great.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" title="1">spnames &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;slimus&quot;</span>, <span class="st">&quot;normalis&quot;</span>, <span class="st">&quot;fatis&quot;</span>, <span class="st">&quot;fattissimus&quot;</span>)</a>
+<a class="sourceLine" id="cb194-2" title="2"><span class="kw">boxplot</span>(ys<span class="op">~</span>type,<span class="dt">ylab=</span><span class="st">&quot;Weight (g)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Island&quot;</span>,</a>
+<a class="sourceLine" id="cb194-3" title="3"><span class="dt">names=</span>spnames)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
+<p>Unfortunately, he goes to the pub and tells John about his findings. John has been doing some modelling courses at the Univeristy and is very interested about sampling.
+John asks Great a great set of questions: “How did you selected the lizards you captured? What about the lengths of the lizards? Were the animals from each island of about the same length? In other words, did you control the weights for length? Because longer animals will generaly heavier, you know?”</p>
+<p>Great had not thought about that yet, indeed. He’s feeling dizzy, might be the beers he had, might be the questions he was just asked! He rushes home and looks at the data. And in fact, the different lizards from the different islands have very different lengths to begin with, as we can see in the plot below.</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1"><span class="kw">boxplot</span>(xs<span class="op">~</span>type,<span class="dt">ylab=</span><span class="st">&quot;Length&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Species&quot;</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" title="1"><span class="kw">summary</span>(<span class="kw">lm</span>(xs<span class="op">~</span>type))</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = xs ~ type)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.30243 -0.60977 -0.06891  0.52388  1.41528 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  11.2298     0.1034  108.55   &lt;2e-16 ***
+## typeB         2.2413     0.1463   15.32   &lt;2e-16 ***
+## typeC         4.6822     0.1463   32.00   &lt;2e-16 ***
+## typeD         7.4886     0.1463   51.19   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.7315 on 196 degrees of freedom
+## Multiple R-squared:  0.9368,	Adjusted R-squared:  0.9358 
+## F-statistic: 968.6 on 3 and 196 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>In his mind Great has a vague memory of a teacher in Numerical Ecology that one should explore the data before modelling. He would have avoided this embarassement if he only had done that. Before leaving the pub he heard John saying he should look into ANCOVA’s. Something about “you need to test for the weights, accounting for differences in lengths!”.</p>
+<p>He goes into his books and finds that ANCOVA is just a linear model, where you model a response (weight, he realizes) with a factor (island) and a continous variable (lenght).</p>
+<p>He implements the models and, much to his despair, realizes that, once he you accounts for the length, the weights are not different per island. The damn lizards are exactly the same weight in the different islands once you account for their length… :(</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" title="1"><span class="kw">summary</span>(<span class="kw">lm</span>(ys<span class="op">~</span>xs<span class="op">+</span>type))</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs + type)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -27.4613  -4.7367   0.5201   4.2655  23.8079 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   5.3307     8.8751   0.601    0.549    
+## xs            3.8067     0.7838   4.857 2.45e-06 ***
+## typeB         0.7735     2.3798   0.325    0.746    
+## typeC         2.4305     4.0058   0.607    0.545    
+## typeD         2.0764     6.0853   0.341    0.733    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 8.027 on 195 degrees of freedom
+## Multiple R-squared:  0.6896,	Adjusted R-squared:  0.6832 
+## F-statistic: 108.3 on 4 and 195 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>He sees his paper further and further farther away. This is what we saw: the same line explains all the data, irrespectively of group. In other words, there is not a different relationship per species between weight and length! His great ecologycal theory goes to the bin!</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" title="1"><span class="kw">plot</span>(ys<span class="op">~</span>xs,<span class="dt">col=</span>cores)</a>
+<a class="sourceLine" id="cb200-2" title="2"><span class="kw">abline</span>(a,b,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<p>Now, that is dismaying, but interesting. So Great returns to the pub and he asks John: “Would the oposite be possible? Say things looked just the same, yet they were different after accounting for a confounding factor?”.</p>
+<p>“Yes”, John replied: “I have heard about that situation, but have never seen it in a real data set before. Of course that is hard to happen, because <em>the stars need to align</em>. But it can happen in theory. Imagine the situation where the relationship between length and weight is different per group. However, out of a strange confounding circumstance, the observed weights happen to be similar, because we sampled (just the right, in this case, wrong!) different lengthts in each species.”</p>
+<p>By now Great has a great headache, but he wants to see this with his own eyes, so he goes back home, sits in front of the computer, opens R and decides: “I will simulate this example”. That is what we will do here.</p>
+<p>Imagine the following example:</p>
+<p>The lizards relationship between weight and length is different per island. Say, akin to what we saw before. Just by magin, we have access to all the lizards in the island.</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" title="1"><span class="co">#all slopes the same, diferent intercepts - no interactions</span></a>
+<a class="sourceLine" id="cb201-2" title="2"><span class="kw">set.seed</span>(<span class="dv">12345</span>)</a>
+<a class="sourceLine" id="cb201-3" title="3">n&lt;-<span class="dv">2000</span></a>
+<a class="sourceLine" id="cb201-4" title="4">nbygroup&lt;-<span class="dv">500</span></a>
+<a class="sourceLine" id="cb201-5" title="5">xs &lt;-<span class="st"> </span><span class="kw">runif</span>(n,<span class="dv">10</span>,<span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb201-6" title="6">island &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>)</a>
+<a class="sourceLine" id="cb201-7" title="7">type &lt;-<span class="st"> </span><span class="kw">rep</span>(island,<span class="dt">each=</span>nbygroup)</a>
+<a class="sourceLine" id="cb201-8" title="8">cores &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="dt">each=</span>nbygroup)</a>
+<a class="sourceLine" id="cb201-9" title="9">a&lt;-<span class="dv">12</span></a>
+<a class="sourceLine" id="cb201-10" title="10">b&lt;-<span class="dv">4</span></a>
+<a class="sourceLine" id="cb201-11" title="11">error&lt;-<span class="dv">4</span></a>
+<a class="sourceLine" id="cb201-12" title="12">ys &lt;-<span class="st"> </span>a<span class="op">+</span>b<span class="op">*</span>xs<span class="op">+</span></a>
+<a class="sourceLine" id="cb201-13" title="13"><span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;A&quot;</span>,<span class="dv">5</span>,<span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;B&quot;</span>,<span class="dv">12</span>,<span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;C&quot;</span>,<span class="dv">18</span>,<span class="dv">22</span>)))<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb201-14" title="14"><span class="kw">plot</span>(xs,ys,<span class="dt">col=</span>cores)</a>
+<a class="sourceLine" id="cb201-15" title="15"><span class="kw">abline</span>(<span class="dv">12</span><span class="op">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb201-16" title="16"><span class="kw">abline</span>(<span class="dv">12</span><span class="op">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb201-17" title="17"><span class="kw">abline</span>(<span class="dv">12</span><span class="op">+</span><span class="dv">18</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb201-18" title="18"><span class="kw">abline</span>(<span class="dv">12</span><span class="op">+</span><span class="dv">22</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">4</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p>Now imagine, for the sake of argument, that in all islands we captured lizards with lengths spanning about 2 cm, but in island A we caught animals with about 18 cm, in B with about 16 cm, in c with about 15 cm and in D with about 14 cm, on average. We can simulate that non-random sampling process with respect to lenghth.</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" title="1">sampled.a&lt;-<span class="kw">which</span>(xs<span class="op">&gt;</span><span class="dv">17</span> <span class="op">&amp;</span><span class="st"> </span>xs<span class="op">&lt;</span><span class="dv">19</span> <span class="op">&amp;</span><span class="st"> </span>type<span class="op">==</span><span class="st">&quot;A&quot;</span>)</a>
+<a class="sourceLine" id="cb202-2" title="2">sampled.b&lt;-<span class="kw">which</span>(xs<span class="op">&gt;</span><span class="dv">15</span> <span class="op">&amp;</span><span class="st"> </span>xs<span class="op">&lt;</span><span class="dv">17</span> <span class="op">&amp;</span><span class="st"> </span>type<span class="op">==</span><span class="st">&quot;B&quot;</span>)</a>
+<a class="sourceLine" id="cb202-3" title="3">sampled.c&lt;-<span class="kw">which</span>(xs<span class="op">&gt;</span><span class="dv">14</span> <span class="op">&amp;</span><span class="st"> </span>xs<span class="op">&lt;</span><span class="dv">16</span> <span class="op">&amp;</span><span class="st"> </span>type<span class="op">==</span><span class="st">&quot;C&quot;</span>)</a>
+<a class="sourceLine" id="cb202-4" title="4">sampled.d&lt;-<span class="kw">which</span>(xs<span class="op">&gt;</span><span class="dv">13</span> <span class="op">&amp;</span><span class="st"> </span>xs<span class="op">&lt;</span><span class="dv">15</span> <span class="op">&amp;</span><span class="st"> </span>type<span class="op">==</span><span class="st">&quot;D&quot;</span>)</a>
+<a class="sourceLine" id="cb202-5" title="5">sample.all&lt;-<span class="kw">c</span>(sampled.a,sampled.b,sampled.c,sampled.d)</a>
+<a class="sourceLine" id="cb202-6" title="6"><span class="co">#select a biased sample!</span></a>
+<a class="sourceLine" id="cb202-7" title="7">xs2&lt;-xs[sample.all]</a>
+<a class="sourceLine" id="cb202-8" title="8">ys2&lt;-ys[sample.all]</a>
+<a class="sourceLine" id="cb202-9" title="9">type2&lt;-type[sample.all]</a>
+<a class="sourceLine" id="cb202-10" title="10">cores2&lt;-cores[sample.all]</a>
+<a class="sourceLine" id="cb202-11" title="11"><span class="kw">table</span>(type2)</a></code></pre></div>
+<pre><code>## type2
+##   A   B   C   D 
+## 119 116 108 100</code></pre>
+<p>Now, if this is our sample, what happens when we look at the weights alone? First, let’s look at the previous plot with the sampled data highlighted in colors and the non sampled data greyed out.</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" title="1"><span class="kw">plot</span>(xs,ys,<span class="dt">pch=</span><span class="st">&quot;.&quot;</span>,<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>)</a>
+<a class="sourceLine" id="cb204-2" title="2"><span class="kw">points</span>(xs2,ys2,<span class="dt">col=</span>cores2,<span class="dt">cex=</span><span class="fl">0.5</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" title="1"><span class="co">#abline(12+5,4,lwd=3,col=1)</span></a>
+<a class="sourceLine" id="cb205-2" title="2"><span class="co">#abline(12+12,4,lwd=3,col=2)</span></a>
+<a class="sourceLine" id="cb205-3" title="3"><span class="co">#abline(12+18,4,lwd=3,col=3)</span></a>
+<a class="sourceLine" id="cb205-4" title="4"><span class="co">#abline(12+22,4,lwd=3,col=4)</span></a></code></pre></div>
+<p>That was really not a random sample. And non-random samples always ask for trouble. Lets see what happens here. If we look at weights per island, there seems to be no effect:</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" title="1"><span class="kw">boxplot</span>(ys2<span class="op">~</span>type2)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<p>If we test formally for it with an ANOVA, it seems like there is absolutely no effect of weight:</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" title="1"><span class="kw">summary</span>(<span class="kw">lm</span>(ys2<span class="op">~</span>type2))</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys2 ~ type2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -13.918  -3.137   0.035   3.142  13.648 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  88.9384     0.4194 212.040   &lt;2e-16 ***
+## type2B       -0.4589     0.5970  -0.769    0.443    
+## type2C        0.4200     0.6081   0.691    0.490    
+## type2D        0.7764     0.6207   1.251    0.212    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.576 on 439 degrees of freedom
+## Multiple R-squared:  0.009992,	Adjusted R-squared:  0.003227 
+## F-statistic: 1.477 on 3 and 439 DF,  p-value: 0.2201</code></pre>
+<p>This is where we need to be smart. If we conducts the correct analysis, one that includes and adjusts for the effect of length, the differences in length to weight relationship are clear. The intercepts of the different lines are all different from each other.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" title="1"><span class="kw">summary</span>(<span class="kw">lm</span>(ys2<span class="op">~</span>type2<span class="op">+</span>xs2))</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys2 ~ type2 + xs2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -12.1010  -2.8430  -0.0603   2.7281  10.9553 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  18.2503     6.0704   3.006   0.0028 ** 
+## type2B        6.9837     0.8244   8.472  3.7e-16 ***
+## type2C       12.1627     1.1384  10.684  &lt; 2e-16 ***
+## type2D       16.2717     1.4349  11.340  &lt; 2e-16 ***
+## xs2           3.9374     0.3375  11.666  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.001 on 438 degrees of freedom
+## Multiple R-squared:  0.2447,	Adjusted R-squared:  0.2378 
+## F-statistic: 35.47 on 4 and 438 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Note this corresponds to comparing weights while not accounting for differences (in lengths), and comparing weights while accounting for those differences. In other words, we are interested in different intercepts in the left plot below, not in the boxplots of the right plot, that ignore the effect of length.</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb211-2" title="2"><span class="kw">plot</span>(xs2,ys2,<span class="dt">col=</span>cores2)</a>
+<a class="sourceLine" id="cb211-3" title="3"><span class="kw">abline</span>(<span class="dv">12</span><span class="op">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb211-4" title="4"><span class="kw">abline</span>(<span class="dv">12</span><span class="op">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb211-5" title="5"><span class="kw">abline</span>(<span class="dv">12</span><span class="op">+</span><span class="dv">18</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb211-6" title="6"><span class="kw">abline</span>(<span class="dv">12</span><span class="op">+</span><span class="dv">22</span>,<span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb211-7" title="7"><span class="kw">boxplot</span>(ys2<span class="op">~</span>type2)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
+<p>Actually, what the ANCOVA model does is equivalent to looking at the data by rotating the left plot above and see it in the “axis” we care about. That corresponds to the axis such that the slope of the regression lines are aligned with the x-axis of the Cartesian referential.</p>
+<p>I want to do this by implementing angular rotation but running out of time. That will involve implementing these transformations:</p>
+<p><a href="https://en.wikipedia.org/wiki/Rotation_of_axes" class="uri">https://en.wikipedia.org/wiki/Rotation_of_axes</a></p>
+<p>The plot will look just like this!</p>
+<p><img src="FigPlotRotatedAula10.JPG" /></p>
+<p>Naturally these were forced examples, caefully chosen to illustrate a point. But this was really interesting because it:</p>
+<ul>
+<li>illustrates how an ANCOVA is when we test for differences in a response (weight) as a function of a factor (island) while accounting for differences in a quatitative variable (length)</li>
+<li>shows the dangers of testing univariate hypothesis when several (in reality, usually many more than those we can record!) factors have an influence in the response.</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="aula9.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="aula11.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ECOMODbook.pdf", "ECOMODbook.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -163,7 +163,8 @@ $$y=\beta_0+\beta_1 xs_1+\beta_2 xs2$$
 That is the luxury of simulation, allowing you to test scenarios where "reality" is known, hence evaluating methods performance. 
 
 ```{r}
-folder<-"../Aula7 14 10 2020/"
+folder<-"extfiles/"
+#folder<-"../Aula7 14 10 2020/"
 d4l <- read.csv(file=paste0(folder,"data4lines.csv"))
 n <- nrow(d4l)
 ```
@@ -173,7 +174,7 @@ n <- nrow(d4l)
 
 The second task the students were faced was to create some regression data and the explore fitting models to it. 
 
-![](../Aula7 14 10 2020/Aula7Task7.JPG)
+![](extfiles/Aula7Task7.JPG)
 
 The data was simulated via this website: https://drawdata.xyz/ and was named `data4lines.csv`. Each student had its own dataset, here I work with my example.
 
@@ -181,7 +182,8 @@ We begin by reading the data in and plot it
 
 ```{r}
 #read the data
-folder<-"../Aula7 14 10 2020/"
+#folder<-"../Aula7 14 10 2020/"
+folder<-"extfiles/"
 data4lines <- read.csv(file=paste0(folder,"data4lines.csv"))
 #plot all the data
 plot(y~x,data=data4lines)

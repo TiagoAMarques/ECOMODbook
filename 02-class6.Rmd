@@ -7,7 +7,8 @@ We begin by reading the data in "lagartos.txt" and fitting a regression model to
 Read the data in
 
 ```{r}
-folder<-"../Aula6 13 10 2020/"
+#folder<-"../Aula6 13 10 2020/"
+folder<-"extfiles/"
 lagartos <- read.csv(file=paste0(folder,"lagartos.txt"), sep="")
 n <- nrow(lagartos)
 ```
