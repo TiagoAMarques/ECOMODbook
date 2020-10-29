@@ -1,0 +1,243 @@
+
+# Class 11: 03 10 2020 ANCOVA with different slopes: interactions {#aula11}
+
+The previous model assumed that the slopes were the same across the different groups. What woud change if they were different? We extend the previous case to where the slope of the relationship is also different per treatment.
+
+Simulate treatments, same as before, but this gives us the option to change later separately if we want.
+
+```{r}
+#----------------------------------------------------------------
+#all slopes different
+set.seed(1234)
+xs <- runif(200,10,20)
+tr <- c("a","b","c","d")
+type <- rep(tr,each=50)
+cores <- rep(1:4,each=50)
+```
+
+Now we simulate the response
+
+```{r}
+ys=3+
+ifelse(type=="a",5,ifelse(type=="b",8,ifelse(type=="c",10,12)))+
+4*xs+ifelse(type=="a",0.2,ifelse(type=="b",0.5,ifelse(type=="c",1,2)))*xs+
+rnorm(200,0,4)
+```
+
+note this is the same as what we have below, but below it might be simpler to understand that these do correspond to different intercepts and slopes per treatment
+
+```{r}
+#same as
+intercept=3+ifelse(type=="a",5,ifelse(type=="b",8,ifelse(type=="c",10,12)))
+slope=xs*(4+ifelse(type=="a",0.2,ifelse(type=="b",0.5,ifelse(type=="c",1,2))))
+ys=slope+intercept+rnorm(200,0,4)
+```
+
+We can look at the data
+
+```{r}
+par(mfrow=c(1,2),mar=c(4,4,0.5,0.5))
+plot(xs,ys,col=cores)
+abline(3+5,4+0.2,lwd=3,col=1)
+abline(3+8,4+0.5,lwd=3,col=2)
+abline(3+10,4+1,lwd=3,col=3)
+abline(3+12,4+2,lwd=3,col=4)
+```
+
+As before, it is actually not that easy to confirm the slopes and intercepts are different, as the intercept is not shown in the above plot. We can zoom out the plot and force that
+
+```{r}
+plot(xs,ys,col=cores,xlim=c(0,20),ylim=c(0,150))
+abline(3+5,4+0.2,lwd=3,col=1)
+abline(3+8,4+0.5,lwd=3,col=2)
+abline(3+10,4+1,lwd=3,col=3)
+abline(3+12,4+2,lwd=3,col=4)
+abline(h=c(3+5,3+8,3+10,3+12),v=0,col=c(1,2,3,4,1),lty=2)
+```
+
+Now, we implement the ANCOVA linear model, but with an *interaction* term!
+
+```{r}
+lm.ancova2=lm(ys~xs+type+xs*type)
+sum.lm.ancova2=summary(lm.ancova2)
+```
+
+and we look at the output of the model
+
+```{r}
+sum.lm.ancova2
+```
+
+check how this is an output similar to the ANOVA (implemented via `aov`, the R function that produces ANOVA tables from expressions akin to linear models)
+
+```{r}
+summary(aov(ys~xs+type+xs*type))
+```
+
+Note that the overall F statistic from the regression model has an F-statistic of 
+`r round(sum.lm.ancova2$fstatistic[1],1)`, with 
+`r round(sum.lm.ancova2$fstatistic[2],1)` and 
+`r round(sum.lm.ancova2$fstatistic[3],1)` degrees of freedom. That corresponds to the composite test with the null hypothesis "are all parameters equal to 0", which in the ANOVA table, is separated in 3 testes, one for each parameter, with 1, 3 and 3 degrees of freedom each. The residual degrees of freedom are naturally the same in all these tests.
+
+The most interesting aspect it that, naturally, we can check the values of the estimated coefficients, and in particular how to estimate the corresponding regression lines per group
+
+```{r}
+#type a
+lm.ancova2$coefficients[1]
+lm.ancova2$coefficients[2]
+#type b
+lm.ancova2$coefficients[1]+lm.ancova2$coefficients[3]
+lm.ancova2$coefficients[2]+lm.ancova2$coefficients[6]
+#type c
+lm.ancova2$coefficients[1]+lm.ancova2$coefficients[4]
+lm.ancova2$coefficients[2]+lm.ancova2$coefficients[7]
+#type b
+lm.ancova2$coefficients[1]+lm.ancova2$coefficients[5]
+lm.ancova2$coefficients[2]+lm.ancova2$coefficients[8]
+```
+
+we can now add these to the earlier plots, to see how well we have estimated the different lines per treatment
+
+```{r}
+#real lines
+par(mfrow=c(1,1),mar=c(4,4,0.5,0.5))
+plot(xs,ys,col=cores)
+abline(3+5,4+0.2,lwd=3,col=1)
+abline(3+8,4+0.5,lwd=3,col=2)
+abline(3+10,4+1,lwd=3,col=3)
+abline(3+12,4+2,lwd=3,col=4)
+#estimated lines
+#type a
+abline(lm.ancova2$coefficients[1],lm.ancova2$coefficients[2],lty=2,col=1)
+#type b
+abline(lm.ancova2$coefficients[1]+lm.ancova2$coefficients[3],
+lm.ancova2$coefficients[2]+lm.ancova2$coefficients[6],lty=2,col=1)
+#type c
+abline(lm.ancova2$coefficients[1]+lm.ancova2$coefficients[4],
+lm.ancova2$coefficients[2]+lm.ancova2$coefficients[7],lty=2,col=1)
+#type b
+abline(lm.ancova2$coefficients[1]+lm.ancova2$coefficients[5],
+lm.ancova2$coefficients[2]+lm.ancova2$coefficients[8],lty=2,col=1)
+legend("topleft",legend = tr,lwd=2,col=1:4,inset=0.05)
+legend("bottomright",legend =paste("Estimated",tr),lwd=1,lty=2,col=1:4,inset=0.05)
+```
+
+Remember, if this was a real analysis, you would not know the truth, so at best, you would be able to see the predicted lines, but not the real lines, just as in the plot below
+
+```{r}
+# In real life, we only see this
+plot(xs,ys,col=cores)
+#plot the lines
+abline(lm.ancova2$coefficients[1],lm.ancova2$coefficients[2],lwd=1,col=1,lty=2)
+abline(lm.ancova2$coefficients[1]+lm.ancova2$coefficients[3],lm.ancova2$coefficients[2],lwd=1,col=2,lty=2)
+abline(lm.ancova2$coefficients[1]+lm.ancova2$coefficients[4],lm.ancova2$coefficients[2],lwd=1,col=3,lty=2)
+abline(lm.ancova2$coefficients[1]+lm.ancova2$coefficients[5],lm.ancova2$coefficients[2],lwd=1,col=4,lty=2)
+legend("bottomright",legend =paste("Estimated",tr),lwd=1,lty=2,col=1:4,inset=0.05)
+```
+
+
+## Modeling a data set
+
+In a given dataset we might want to know if the interaction is needed or not, or in other words, if the different lines might have different slopes, or not.
+
+We illustrate that with the data set `data4lines.csv` that we conseidered before (add link here!)
+
+```{r}
+folder<-"../Aula7 14 10 2020/"
+d4l <- read.csv(file=paste0(folder,"data4lines.csv"))
+n <- nrow(d4l)
+```
+
+And now we fit a model without interaction, as we did before,
+
+```{r}
+#fit model per group
+lmANC<-lm(y~x+z,data=data4lines)
+summary(lmANC)
+```
+
+and after a model with the interaction term
+
+```{r}
+#fit model per group, with interaction
+lmlinesI<-lm(y~x+z+x:z,data=data4lines)
+summary(lmlinesI)
+```
+
+It seems like, based on AIC, the second model is best! Which makes total sence, since that indeed we had one line for one of the groups (`z`) that had a different slope! And that is the significant interaction term above, indicating it is different from the slope of group `a`.
+
+```{r}
+AIC(lmANC,lmlinesI)
+```
+
+Now lets go back to the data. Remember a plot we had on this dataset before? 
+
+We noted the plot was messy, including the pooled regression (the thick black line), the regressions fitted to independent data sets, one for each species (museums before!) (the solid lines), and the regressions resulting from the model with species as a factor covariate (dotted-dashed lines).
+
+```{r}
+#plot all the data
+plot(y~x,col=as.numeric(as.factor(z)),data=data4lines,pch=1)
+#completely independet regression lines
+abline(lm(y~x,data=data4lines[data4lines$z=="a",]),col=1,lty=4)
+abline(lm(y~x,data=data4lines[data4lines$z=="b",]),col=2,lty=4)
+abline(lm(y~x,data=data4lines[data4lines$z=="c",]),col=3,lty=4)
+abline(lm(y~x,data=data4lines[data4lines$z=="d",]),col=4,lty=4)
+#these are the wrong lines... why?
+abline(lmlinesG,lwd=3,lty=2)
+abline(lmANC$coefficients[1],lmANC$coefficients[2],col=1)
+abline(lmANC$coefficients[1]+lmANC$coefficients[3],lmANC$coefficients[2],col=2)
+abline(lmANC$coefficients[1]+lmANC$coefficients[4],lmANC$coefficients[2],col=3)
+abline(lmANC$coefficients[1]+lmANC$coefficients[5],lmANC$coefficients[2],col=4)
+```
+
+Now we can remove the independent lines (to clean it up a bit!) and just leave the no interaction model estimated values, then add the estimated lines from the interaction model below. Remember, AIC says it's the ones from the interactioon model that are the best representation of the data.
+
+```{r}
+#plot all the data
+plot(y~x,col=as.numeric(as.factor(z)),data=data4lines,pch=1)
+# #completely independent regression lines
+# abline(lm(y~x,data=data4lines[data4lines$z=="a",]),col=1,lty=4)
+# abline(lm(y~x,data=data4lines[data4lines$z=="b",]),col=2,lty=4)
+# abline(lm(y~x,data=data4lines[data4lines$z=="c",]),col=3,lty=4)
+# abline(lm(y~x,data=data4lines[data4lines$z=="d",]),col=4,lty=4)
+# no interaction lines
+abline(lmANC$coefficients[1],lmANC$coefficients[2],col=1)
+abline(lmANC$coefficients[1]+lmANC$coefficients[3],lmANC$coefficients[2],col=2)
+abline(lmANC$coefficients[1]+lmANC$coefficients[4],lmANC$coefficients[2],col=3)
+abline(lmANC$coefficients[1]+lmANC$coefficients[5],lmANC$coefficients[2],col=4)
+# model with interaction lines
+abline(lmlinesI$coefficients[1],lmlinesI$coefficients[2],col=1,lty=5)
+abline(lmlinesI$coefficients[1]+lmlinesI$coefficients[3],lmlinesI$coefficients[2]+lmlinesI$coefficients[6],col=2,lty=5)
+abline(lmlinesI$coefficients[1]+lmlinesI$coefficients[4],lmlinesI$coefficients[2]+lmlinesI$coefficients[7],col=3,lty=5)
+abline(lmlinesI$coefficients[1]+lmlinesI$coefficients[5],lmlinesI$coefficients[2]+lmlinesI$coefficients[8],col=4,lty=5)
+```
+
+Likewise, we could compare the lines from independent lines to those of the interaction model.
+
+```{r}
+#plot all the data
+plot(y~x,col=as.numeric(as.factor(z)),data=data4lines,pch=1)
+#completely independent regression lines
+abline(lm(y~x,data=data4lines[data4lines$z=="a",]),col=1,lty=4)
+abline(lm(y~x,data=data4lines[data4lines$z=="b",]),col=2,lty=4)
+abline(lm(y~x,data=data4lines[data4lines$z=="c",]),col=3,lty=4)
+abline(lm(y~x,data=data4lines[data4lines$z=="d",]),col=4,lty=4)
+# model with interaction lines
+abline(lmlinesI$coefficients[1],lmlinesI$coefficients[2],col=1,lty=5)
+abline(lmlinesI$coefficients[1]+lmlinesI$coefficients[3],lmlinesI$coefficients[2]+lmlinesI$coefficients[6],col=2,lty=5)
+abline(lmlinesI$coefficients[1]+lmlinesI$coefficients[4],lmlinesI$coefficients[2]+lmlinesI$coefficients[7],col=3,lty=5)
+abline(lmlinesI$coefficients[1]+lmlinesI$coefficients[5],lmlinesI$coefficients[2]+lmlinesI$coefficients[8],col=4,lty=5)
+```
+
+It is interesting to see that they are not very different, which is perhaps surprising but... actually... not surprising. Both use exaclty 8 parameters to describe the data... it's the same thing!!! Linear models are cool :) 
+
+## Conclusion
+
+The material in this and the last 3 lectures allows you to fully understand the outputs of simple regression models, and to see how some statistical models that you know from other names are just a linear model.
+
+It also helps you understand how the parameter values represent just features of the data and its generating process, and how we can recover estimates of the original relationships between the variables from said set of parameters.
+
+I recommend you explore the code and output above, and that in particular you experiment with changing means (parameter values for the real models), variances (the precision of how you would measure variables) and sample sizes (which gives you an indication of how much information you have to estimate the underlying reality). Understanding the outputs under these new scenarios is fundamental for progressing towards more complex regression models, like GLMs or GAMs, of which the above cases are just particular cases.
+
+Many additional interesting links on linear models exist online. This is just one of them: https://data-flair.training/blogs/r-linear-regression-tutorial/
+ 

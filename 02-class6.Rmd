@@ -1,0 +1,445 @@
+# Class 6 13 10 2020 {#aula6}
+
+## Implementing a regression
+
+We begin by reading the data in "lagartos.txt" and fitting a regression model to it.
+
+Read the data in
+
+```{r}
+folder<-"../Aula6 13 10 2020/"
+lagartos <- read.csv(file=paste0(folder,"lagartos.txt"), sep="")
+n <- nrow(lagartos)
+```
+
+We see that we have `r n` observations.
+
+Plot the data
+
+```{r}
+with(lagartos,plot(peso~comp))
+```
+
+A linear model seems adequate. Lets fit a regression line to the data
+
+```{r}
+lmlag <- lm(peso~comp,data=lagartos)
+summary(lmlag)
+```
+
+Remember that a linear model is just a special GLM:
+
+
+```{r}
+glmlag <- glm(peso~comp,data=lagartos,family=gaussian(link="identity"))
+summary(glmlag)
+```
+
+as we can see the output looks a bit different (after all, `lm` and `glm` are different functions!), but the results are exactly the same. This does not prove it, but it illustrates by example that a lm is just a GLM with a Gaussian response and an `identity` link function.
+
+Lets use the results from `lm`, while noting that everything else would be the same.
+
+The estimated regression line is 
+
+peso =`r round(summary(lmlag)$coefficients[1],2)` +`r round(summary(lmlag)$coefficients[2],2)` $\times$ comp 
+
+and the estimated R-squared is  `r round(summary(lmlag)$r.squared,2)`. The standard error associated with the model is estimated to be `r round(summary(lmlag)$sigma,4)`. Below we explain what each of these values correspond to.
+
+The estimated standard error corresponds to the standard deviation of the residuals of the model, that is, the diference between the observations and the predicted values given the model.
+
+The observation we have already, those are the `peso`. We can obtain the predicted `peso` for each observation with the function `predict`, but here we do it manually so that we see that the errors are just the observations minus the predictions.
+
+```{r}
+#get estimated values
+estimated<-with(lagartos,summary(lmlag)$coefficients[1]+summary(lmlag)$coefficients[2]*comp)
+# note this would be the same as
+# estimated<-predict(lmlag)
+```
+
+Now we can compute the residuals and their corresponding standard error 
+
+```{r}
+#get residuals
+#erros = observações - valores previstos
+# e= y- (a+bx)
+# y= (a+bx) + e
+resid<-lagartos$peso-estimated
+sd(resid)
+```
+
+Note as predict, we could use just the function `residuals` with the model object as argument to get us the residuals in a single line of code.
+
+The reason the above standard error is not exactly the same as in the model output above has to do with the degrees of freedom, a concepth that is hard to explain in this applied context, but relates to the number of available independent bits of information available. So turst me when I say that we loose a degree of freedom for each parameter estimated in a model. The exact value of the standard deviation as estimated in the model must account for that loss of one extra degree of freedom (associated with estimating the slope of the line), and so the standard formula of the `sd` needs to be adjusted for the lost degree of freedom, like this:
+
+```{r}
+#Residual Standard error (Like Standard Deviation)
+#the right way
+#Subtract one to ignore intercept
+k=length(lmlag$coefficients)-1 
+#get the error sum of squares
+SSE=sum(lmlag$residuals**2)
+#Residual Standard Error
+sqrt(SSE/(n-(1+k))) 
+#equivalently
+sqrt(var(resid)*(n-1)/(n-2))
+```
+
+Now we get the exact same value as above: `r sqrt(var(resid)*(n-1)/(n-2))`.
+
+The `summary` of the model above is very useful, but nothing like adding the estimated model to the plot with the data. We can easily add the line to the plot with function `abline` (tip: note the ab in `abline` correspond to the $a$ and $b$ in $y=a+bx$, but the function abline is "smart" enough to take an object of class `lm` and extract the corresponding $a$ and $b$ for plotting)
+
+```{r}
+#with(lagartos,plot(peso~comp))
+plot(peso~comp,data=lagartos)
+#these next 3 lines are equivalent
+abline(lmlag,col="orange")
+abline(a=11.72234,b=1.20233,col="pink")
+# y = a + bx
+abline(a=summary(lmlag)$coefficients[1,1],b=summary(lmlag)$coefficients[2,1],col="brown")
+```
+
+Note the last line works because the parameter estimates are hold in a component of the `summary` of the fitted model called `coefficients`
+
+```{r}
+summary(lmlag)$coefficients
+```
+
+Additionally, we can also add the residuals in the plot (we use the very handy function `segments`, that adds segments to plots, to do so)
+
+```{r}
+# get estimated/predicted values with function residuals
+estimated2<-predict(lmlag)
+#plot the data
+with(lagartos,plot(peso~comp,pch=21,bg="brown",col="green"))
+abline(lmlag,col=3,lty=2)
+#add residuals
+with(lagartos,segments(x0 = comp,y0 = peso, x1= comp, y1=estimated,lty=2,col="red"))
+```
+
+The regression line is the line that minimizes the sum of the red distances in the plot above. That is also why it is called a minimum squares estimate in the special case of a Gaussian model (in PT, é a reta dos mínimos quadrados).
+
+The residuals should, if the model is reasonable - and here that should be the case - be well approximated by a Gaussian distribution. Note we can get the values of the residuals by the difference between the observations and the estimated values, as we did above. We can look at their histogram below
+
+```{r}
+hist(resid,main="Residuals by hand",freq=FALSE)
+#adding the theorethical density of a Gaussian with mean 0 and the
+#correct standard error
+lines(seq(-8,8,by=0.1),dnorm(seq(-8,8,by=0.1),mean=0,sd=summary(lmlag)$sigma))
+```
+
+or alternatively we can use the bespoke function `residuals`
+
+```{r}
+resid2<-residuals(lmlag)
+hist(resid2,main="Residuals by function residuals")
+```
+
+It is often said that the $R^2$ represents the amount of variation in the response that the regression explains. Why is that?
+
+Because if you assume that all the variability in the response data, the $y_i$ the diference between the data points and a common mean
+
+$$\sum_{i=1}^n (y_i- \bar y)^2$$
+
+in an image, the sum of the square of these quantities
+
+```{r}
+#plot
+with(lagartos,plot(peso~comp))
+abline(lmlag,col=3,lty=2)
+abline(h=mean(lagartos$peso))
+with(lagartos,segments(x0 = comp,y0 = peso, x1= comp, y1=mean(peso),lty=2,col=2))
+```
+
+
+```{r}
+all.var<-sum((lagartos$peso-mean(lagartos$peso))^2)
+all.var
+```
+
+and the variability that is not explained is the one that remains in the errors (the corresponding plot was shown above)
+
+$$\sum_{i=1}^n (y_i- \hat y_i)^2$$
+
+```{r}
+error.var<-sum((lagartos$peso-estimated)^2)
+error.var
+```
+
+then the ratio of those two quantities is what is NOT explained by the regression model, and therefore, 1 minus that is what explained by the regression model.
+
+```{r}
+1-error.var/all.var
+```
+
+And that... as noted above... is the $R^2$=`r round(summary(lmlag)$r.squared,4)`. This comes from the fact that all of the variability in the data (the $y$, the response, here the `peso`) can be decomposed into the variability explained by the model, and the unexplained variability, that of the errors. In a formula
+
+$$SS_{TOTAL}=SS_{REGRESSÃO}+SS_{ERRO}$$
+
+Note naturally we could also represent in an image what is explained by the regression model, which is
+
+$$\sum_{i=1}^n (\hat y_i- \bar y)^2$$
+
+```{r}
+#plot
+with(lagartos,plot(peso~comp))
+abline(lmlag,col=3,lty=2)
+abline(h=mean(lagartos$peso))
+with(lagartos,segments(x0 = comp,y0 = estimated, x1= comp, y1=mean(peso),lty=2,col=2))
+```
+
+and that naturally is obtained as
+
+```{r}
+reg.var<-sum((mean(lagartos$peso)-estimated)^2)
+reg.var
+```
+
+and hence the total variability is given by the sum $SS_{REGRESSÃO}+SS_{ERRO}$
+
+```{r}
+reg.var+error.var
+all.var
+```
+
+So, always remember that 
+
+$$SS_{TOTAL}=SS_{REGRESSÃO}+SS_{ERRO}$$
+
+This is also something that comes out often in books without a clear explanation of the reaon why that holds. While here I show it by example, it could be easily demonstrated algebraically if one wanted that
+
+$$\sum_{i=1}^n (y_i- \bar y)^2=\sum_{i=1}^n (\hat y_i- \bar y)^2 + \sum_{i=1}^n (y_i- \hat y_i)^2$$
+
+If you want that, this 28 minute video shows you the proof: https://www.youtube.com/watch?v=aQ32qTjqqJM
+I think it could take just 5 minutes ;) but many thanks to Dmitry Leiderman for having it out there! He does it in the context of ANOVA, but ANOVA is just a special case of regression, were you have a continous response and a single categorical explanatory variable. Therefore, have fun !
+
+## Simulating regression data
+
+Using the above, simulate data assuming that the TRUE relation between the weight and length of a lizzard was given by
+
+$$ peso = 12 + 1.2 * comp $$
+
+We consider that the usual length of a lizard can be between 5 and 20 cm, and  the standard error is 4.
+
+As in the data we will have 97 lizards
+
+Then you were told to create the lengths:
+
+```{r}
+set.seed(121)
+n=97
+#lengths
+xs=runif(n,5,20)
+hist(xs,main="Lenths (cm)")
+```
+
+and then to create weights of lizards
+
+```{r}
+a=12
+b=1.2
+ys=a+b*xs
+```
+
+If we plot the data, all points are in a single line. Why, because there is no randomness.
+
+```{r}
+plot(xs,ys)
+```
+
+This means that if you try to run a model, it gives you a warning that the model might be unreliable
+
+```{r}
+summary(lm(ys~xs))
+```
+
+
+So... , we add some variance, and plot the data:
+
+```{r}
+ys=a+b*xs+rnorm(n,0,4)
+plot(xs,ys)
+```
+
+Using the code above, experiment with changing the standard deviation of the error, and see what happens to the estimated $R^2$, to the parameter estimates, to the estimated error, and to how close the estimated regression mode is to the true model (note this is the amazing advantage of a simulation, which we do not have in real data, we know what reality is, and a true model exists!). This will give you a good feeling for what a regression model is and what is does, and what it can't do. An example of what it can't give you is reliable estimates when the error is large compared to the systematic part of the model.
+
+```{r}
+n <- 97
+#simular comprimentos
+comp.sim <- runif(n,5,20)
+a<-12
+b<-1.2
+#simular pesos
+peso.sim<-a+b*comp.sim+rnorm(n,mean=0,sd=2)
+data.sim=data.frame(csim=comp.sim,psim=peso.sim)
+plot(psim~csim,data=data.sim)
+mod.sim<-lm(psim~csim,data=data.sim)
+abline(mod.sim,col="red")
+summary(mod.sim)
+abline(a,b,col="green")
+legend("topleft",legend=c("Estimated line","True model"),col=c("red","green"),lty=1,inset=0.05)
+```
+
+### What is the effect of increasing the error: a simulation experiment
+
+Now, let's consider there's more and less variance. We also add to each plot the real line (that with the true parameter values) and the one with the estimated parameter values.
+
+```{r}
+par(mfrow=c(2,3))
+ys=a+b*xs+rnorm(n,0,1)
+plot(xs,ys)
+mod1=lm(ys~xs)
+abline(mod1,col="red")
+abline(a,b,col="green")
+ys=a+b*xs+rnorm(n,0,2)
+plot(xs,ys)
+mod2=lm(ys~xs)
+abline(mod2,col="red")
+abline(a,b,col="green")
+ys=a+b*xs+rnorm(n,0,4)
+plot(xs,ys)
+mod4=lm(ys~xs)
+abline(mod4,col="red")
+abline(a,b,col="green")
+ys=a+b*xs+rnorm(n,0,10)
+plot(xs,ys)
+mod10=lm(ys~xs)
+abline(mod10,col="red")
+abline(a,b,col="green")
+ys=a+b*xs+rnorm(n,0,20)
+plot(xs,ys)
+mod20=lm(ys~xs)
+abline(mod20,col="red")
+abline(a,b,col="green")
+ys=a+b*xs+rnorm(n,0,100)
+plot(xs,ys)
+mod100=lm(ys~xs)
+abline(mod100,col="red")
+abline(a,b,col="green")
+```
+
+Not surprisingly, as the variance increases, we get data that more and more looks like it is not coming from a real linear process.
+
+You can also look at the model summaries, and there you can see that, in fact, the models become essentially useless as the variance increases! You can see that both from the correlation, but also by the predictions generated from the model (comparing to the truth), and also the significance of the coefficients associated with the regression parameters.
+
+Make no mistake, the reality is always the same, in terms of the fixed part of the model, it's just the variance that increases.
+
+Also, don't get confused, the different green lines might look different, but they are always exactly the same line! You can check that by forcing the y axis to span the same limits.
+
+
+```{r}
+par(mfrow=c(2,3))
+ys=a+b*xs+rnorm(n,0,1)
+plot(xs,ys,ylim=c(-400,400))
+mod1=lm(ys~xs)
+abline(mod1,col="red")
+abline(a,b,col="green")
+ys=a+b*xs+rnorm(n,0,2)
+plot(xs,ys,ylim=c(-400,400))
+mod2=lm(ys~xs)
+abline(mod2,col="red")
+abline(a,b,col="green")
+ys=a+b*xs+rnorm(n,0,4)
+plot(xs,ys,ylim=c(-400,400))
+mod4=lm(ys~xs)
+abline(mod4,col="red")
+abline(a,b,col="green")
+ys=a+b*xs+rnorm(n,0,10)
+plot(xs,ys,ylim=c(-400,400))
+mod10=lm(ys~xs)
+abline(mod10,col="red")
+abline(a,b,col="green")
+ys=a+b*xs+rnorm(n,0,20)
+plot(xs,ys,ylim=c(-400,400))
+mod20=lm(ys~xs)
+abline(mod20,col="red")
+abline(a,b,col="green")
+ys=a+b*xs+rnorm(n,0,100)
+plot(xs,ys,ylim=c(-400,400))
+mod100=lm(ys~xs)
+abline(mod100,col="red")
+abline(a,b,col="green")
+```
+
+but since then you loose all the ability to look at the actual data in some of the plots, that is not really that useful!
+
+Below I look at the summary of each model. Look at correlations, at the estimated values for the parameters, their corresponding variances and the $R^2$.
+
+```{r}
+summary(mod1)
+summary(mod2)
+summary(mod4)
+summary(mod10)
+summary(mod20)
+summary(mod100)
+
+```
+
+As an example, we can plot the $R^2$ as a function of the variance
+
+
+```{r}
+plot(c(1,2,4,10,20,100),c(summary(mod1)$r.squared,summary(mod2)$r.squared,summary(mod4)$r.squared,summary(mod10)$r.squared,summary(mod20)$r.squared,summary(mod100)$r.squared))
+```
+
+That is quite interesting actually... There seems to be a nonlinear relationship, but we only have a sample size of six (different standard deviatios, i.e., variances, as variance is standard deviation squared), so hard to tell...
+
+Let's show off in R...
+
+
+```{r}
+sds=seq(0.5,100,by=0.5)
+nsds=length(sds)
+#an object to hold the correlations
+Rsqs=numeric(nsds)
+for (i in 1:nsds){
+  #create data
+  ys=a+b*xs+rnorm(n,0,sds[i])
+  #estimate model
+  modi=lm(ys~xs)
+  #get R-squared
+  Rsqs[i]=summary(modi)$r.squared
+}
+#and at the end... plot results
+plot(sds,Rsqs)
+```
+
+How cool is that!! Actually, this means we can model the $R^2$ as a function of the original variance! But we would not be able to model it using a linear model...
+
+You are not supposed to know about this yet, but I'll continue to show off. Let's use a GAM
+
+```{r}
+library(mgcv)
+gam1=gam(Rsqs~s(sds),link=log)
+#make predictions to plot the estimated GAM model
+predRsqs=predict.gam(gam1,newdata = list(sds=sds),type="response")
+plot(sds,Rsqs)
+lines(sds,predRsqs,col="red")
+```
+
+Aha... remember what we talked in class today? It seems like we have overfitted. Then, I constrain the GAM.
+
+
+```{r}
+library(mgcv)
+gam1=gam(Rsqs~s(sds,k=3),link=log)
+#make predictions to plot the estimated GAM model
+predRsqs=predict.gam(gam1,newdata = list(sds=sds),type="response")
+plot(sds,Rsqs)
+lines(sds,predRsqs,col="red")
+```
+
+That was too much...
+
+
+```{r}
+library(mgcv)
+gam1=gam(Rsqs~s(sds,k=6),link=log)
+#make predictions to plot the estimated GAM model
+predRsqs=predict.gam(gam1,newdata = list(sds=sds),type="response")
+plot(sds,Rsqs)
+lines(sds,predRsqs,col="red")
+```
+
+That is already overfitting... conclusion, the GAM is not the right tool here :)
+
+What is...? Well, stay tuned and one day you'll learn!

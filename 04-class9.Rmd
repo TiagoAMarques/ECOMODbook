@@ -1,0 +1,165 @@
+
+# Class 9: 21 10 2020 - ANCOVA is (also) just a linear model {#aula9}
+
+
+We move on to Analysis of Covariance, a.k.a. ANCOVA, which is essentially like an ANOVA to which we add a continuous explanatory covariate. The ANCOVA was traditionally used to compare means of an outcome variable between two or more groups taking into account (or to correct for) variability of other variables, called covariates. In other words, ANCOVA allows to compare the adjusted means of two or more independent groups. It’s just… another linear model with a fancy name! Words adapted from this (looooooooooong!) link https://www.datanovia.com/en/lessons/ancova-in-r/!
+
+
+This is an extremely common situation in biology/ecology data. Consider, as an example, you are trying to explain how the weight of a fish depends on its length, but you want to see if that relationship changes per year or site.
+
+Also, remember the dataset we considered in class 7. The data was simulated via this website: https://drawdata.xyz/ and was named `data4lines.csv`. Those had (about) the same slope in 3 groups, and a different slope in a forth group. That could be analysed as an ANCOVA, and we will look at it that way at the end.
+
+Lets simulate some relevant data and fit the models
+
+## Common slope, different intercepts per treatment
+
+We begin with a situation where there are different intercepts per group, but a common slope across all groups. Contrast this with what we saw under the previous class, under chapter \@ref(aula8).
+
+To make it interesting, assume that we are simulating weights for 4 different species, and that weights depend on length (as they almost always do!).
+
+This would be interesting and could be some real data if say  one wanted to compare the weights of the fishes of 4 different species, we had captured 50 animals from each species. But we know that the fish lengths across species might be different to begin with, and yet our key interest would be say the weight by species, and in that sense the length was essentially a confounding factor. 
+
+```{r}
+#all slopes the same, diferent intercepts - no interactions
+set.seed(1234)
+n<-200
+nbygroup<-50
+xs <- runif(n,10,20)
+tr <- c("a","b","c","d")
+type <- rep(tr,each=nbygroup)
+cores <- rep(1:4,each=nbygroup)
+a<-3
+b<-4
+error<-4
+ys <- a+b*xs+
+ifelse(type=="a",5,ifelse(type=="b",8,ifelse(type=="c",10,12)))+rnorm(n,0,4)
+```
+
+We plot the data, all together, per group, and at the end adding the generating line to the plot. It's not easy to make sense of it!
+
+```{r}
+par(mfrow=c(2,3),mar=c(4,4,0.5,0.5))
+#all the data - uma salganhada!
+plot(xs,ys,col=cores,cex=0.8)
+#plot the data
+#par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))
+plot(xs[type=="a"],ys[type=="a"],col=cores[type=="a"])
+abline(3+5,4,lwd=3,col=1)
+plot(xs[type=="b"],ys[type=="b"],col=cores[type=="b"])
+abline(3+8,4,lwd=3,col=2)
+plot(xs[type=="c"],ys[type=="c"],col=cores[type=="c"])
+abline(3+10,4,lwd=3,col=3)
+plot(xs[type=="d"],ys[type=="d"],col=cores[type=="d"])
+abline(3+12,4,lwd=3,col=4)
+#the data with each line added to it
+#par(mfrow=c(1,1),mar=c(4,4,0.5,0.5))
+plot(xs,ys,col=cores,cex=0.2)
+abline(3+5,4,lwd=3,col=1)
+abline(3+8,4,lwd=3,col=2)
+abline(3+10,4,lwd=3,col=3)
+abline(3+12,4,lwd=3,col=4)
+```
+
+While not the best to look at the data, note that to visually confirm the value of the intercepts we can zoom out on the plot.
+
+```{r}
+plot(xs,ys,col=cores,xlim=c(0,20),ylim=c(0,150))
+abline(3+5,4,lwd=3,col=1)
+abline(3+8,4,lwd=3,col=2)
+abline(3+10,4,lwd=3,col=3)
+abline(3+12,4,lwd=3,col=4)
+abline(h=c(3+5,3+8,3+10,3+12),v=0,col=c(1,2,3,4,1),lty=2)
+```
+
+Now we run the corresponding linear model
+
+```{r}
+
+#fit the model
+lm.ancova1 <- summary(lm(ys~xs+type))
+lm.ancova1
+```
+
+We can check the model intercept coefficients
+
+```{r}
+#estimated values of each intercept
+lm.ancova1$coefficients[1]
+lm.ancova1$coefficients[1]+lm.ancova1$coefficients[3]
+lm.ancova1$coefficients[1]+lm.ancova1$coefficients[4]
+lm.ancova1$coefficients[1]+lm.ancova1$coefficients[5]
+```
+
+and the common slope
+
+```{r}
+lm.ancova1$coefficients[2]
+```
+
+Check how these values are similar (they are estimates) to those we simulated above, slope was 4, and the intercepts were respectively 3+5,3+8,3+10 and 3+12.
+
+We can plot the estimated regression lines
+
+```{r}
+par(mfrow=c(1,1),mar=c(4,4,2.5,0.5))
+plot(xs,ys,col=cores,main="Estimated regression lines")
+abline(lm.ancova1$coefficients[1],lm.ancova1$coefficients[2],col=1,lwd=2)
+abline(lm.ancova1$coefficients[1]+lm.ancova1$coefficients[3],lm.ancova1$coefficients[2],col=2,lwd=2)
+abline(lm.ancova1$coefficients[1]+lm.ancova1$coefficients[4],lm.ancova1$coefficients[2],col=3,lwd=2)
+
+abline(lm.ancova1$coefficients[1]+lm.ancova1$coefficients[5],lm.ancova1$coefficients[2],col=4,lwd=2)
+legend("topleft",legend = tr,lwd=2,col=1:4,inset=0.05)
+```
+
+But because we are in a simulation setting, we can contrast the estimated values agaist the reality (the real model).
+
+```{r}
+
+#In a simulated scenario, we can see we are close to the real values
+plot(xs,ys,col=cores)
+
+#plot the lines
+abline(a+5,b,lwd=2,col=1)
+abline(a+8,b,lwd=2,col=2)
+abline(a+10,b,lwd=2,col=3)
+abline(a+12,b,lwd=2,col=4)
+#gupo a
+abline(lm.ancova1$coefficients[1],lm.ancova1$coefficients[2],lwd=1,col=1,lty=2)
+#grupo b
+# intercept+slope*xs+intercept especifico do grupo b
+# (intercept+intercept especifico do grupo b)+ slope
+abline(lm.ancova1$coefficients[1]+lm.ancova1$coefficients[3],lm.ancova1$coefficients[2],lwd=1,col=2,lty=2)
+#grupo c
+abline(lm.ancova1$coefficients[1]+lm.ancova1$coefficients[4],lm.ancova1$coefficients[2],lwd=1,col=3,lty=2)
+#grupo d
+abline(lm.ancova1$coefficients[1]+lm.ancova1$coefficients[5],lm.ancova1$coefficients[2],lwd=1,col=4,lty=2)
+```
+
+As we can see, they are quite close. The error is small compared with the effrect sizes, and the sample size is large enough we can estimate the parameters reasonably well.
+
+But how exactly do we get the predicted intercepts? To understand where they come from we need to see what R does (or, for that matter, what any other software would need to do!) in the background to fit a model with a factor covariate. Remember what the data is
+
+```{r}
+#the data
+head(data.frame(ys=ys,xs=xs,type=type),10)
+```
+
+before fitting a factor covariate, we need to replace it by dummy variables (k-1 dummy variables, where k is the number of levels of the factor). Below we look at a set of data lines that allow us to see observations from the diferent `type`s considered
+
+```{r}
+#explaining it
+data.frame(ys=ys,xs=xs,type=type,typeb=ifelse(type=="b",1,0),typec=ifelse(type=="c",1,0),typed=ifelse(type=="d",1,0))[c(1,49,50,51,99,100,101,149,150,151,200),]
+```
+
+So R first builds what is known as the design matrix. Notation wise Y= parameters $\times$ design matrix, or Y = $\beta$X (see e.g. https://en.wikipedia.org/wiki/Design_matrix)
+
+```{r}
+#the design matrix
+head(data.frame(xs=xs,typeb=ifelse(type=="b",1,0),typec=ifelse(type=="c",1,0),typed=ifelse(type=="d",1,0)))
+```
+
+and that is what it uses for the fitting. Therefore, if we want to know the intercept of say `type` c, we need to sum the common intercept with the parameter associates with the dummy variable `typeb`.
+
+This would be an ANCOVA, and here we would conclude that the mean of the response was different for the different levels of $z$ , once accounting for the fact that the $xs$ varied. this is evident since all the coefficients estimates and associated precisions in the summary of the model above would lead to rejecting the null hypothesis that their value was 0, as can be seen by the corresponding very small p-values. Not a surprise, since we simulated them as different and the errors were small.
+
+Taks: Increase the simulated error or lower the coefficients until you get type II errors. Change also sample sizes and effect sizes to see the impacts on the model performance!

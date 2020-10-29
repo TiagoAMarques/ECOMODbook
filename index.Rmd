@@ -1,0 +1,20 @@
+--- 
+title: "Notes for Ecological Modelling"
+author: "Tiago A. Marques, Susana França, Ana Sofia Reboleira"
+date: "`r Sys.Date()`"
+bibliography:
+- book.bib
+- packages.bib
+description: This is based on Yihui Xie's a minimal example of using the bookdown package to write a book.
+  The output format for this example is bookdown::gitbook.
+documentclass: book
+link-citations: yes
+site: bookdown::bookdown_site
+biblio-style: apalike
+---
+
+# Introduction
+
+These notes were written in 2020, during the ecological modelling classes (Modelação Ecológica, ME in short). While it all started as just a way to teach the course, it latter became obvious that with a bit of extra effort put into it these might become material that would be useful to others beyond the ME students.
+
+For the current version I am keeping chapters as individual lectures. Once the classes are over I might organize them into sensible chapters for a possible book on statistical models for ecological data.

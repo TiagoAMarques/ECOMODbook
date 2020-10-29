@@ -1,0 +1,196 @@
+# Class 10: 27 10 2020 {#aula10}
+
+In class 10 we actually had Miguel Pais talking about Individual Based Models. 
+
+In this chapter we look again at the ANCOVA model presented in chapter \@ref(aula9), but under a different perspective. I decided to create this material as a bonus for students, to understand why the ANCOVA is what it is. As a bonus, this also provides a cautionary tale about the dangers of non-random sampling, or more generally, confounding due to unmeasured factors that might affect our response variable.
+
+Therefore, 
+
+## Same story, another spin
+
+As we noted above, the ANCOVA would be an useful model to compare means of an outcome variable between two or more groups taking into account (or to correct for) variability of other variables, often called covariates. In other words, ANCOVA allows to compare the adjusted means of two or more independent groups.
+
+Here we tell the same story from chapter \@ref(aula9) under said perspective. We will do so with the help of two unlikely caracters. This is the story of two friends: a biologist that is exploring the weights of lizards, and his friend, a former biology that decided to take an MSc in Ecological Statistics!
+
+The biologist will be the hero of our story. He has a great name. George Ramsey Ernest Armitage Turner. Note that he has 5 names, unusal in the Anglosaxonic world, but not that uncommon is say Portugal. To make it easier, we'll call him just by his initials. So... let's call him Great :) Great's fried, who's a great friend, is simply called John. Boring, but hey, names aren't something you can choose are they, and when you are just the sidekick on the story, you can't complain!
+
+Great when on a journey to a distant archipelago where there are 4 islands, each potentially with a different species of lizard that Great is interested in. The folks providing names to islands where not has imaginative as Great's parents, so the islands are called just A, B, C and D. Imagine that Great did a great job and collected a great sample of lizards in each island. Great is alos interested in the amount of insects available for the lizards in each of the islands. He thinks they might determine the weight of the lizards. Weight is related to condition, condition to fecundity and survival, and so on. 
+
+Imagine Great wanted to compare the weights of lizard specimens he collected in each of the 4 islands. He happen to capture a number of animals in each island, and we will label them as A to D, as per the islands.
+
+(note, since this is a story, this time I am not showing you how the data was created (=simulated), for narrative reasons!)
+
+```{r,echo=FALSE}
+#all slopes the same, diferent intercepts - no interactions
+set.seed(1234)
+n<-200
+nbygroup<-50
+xs <- runif(n,10,20)
+xs<-sort(xs)
+islands <- c("A","B","C","D")
+type <- rep(islands,each=nbygroup)
+cores <- rep(1:4,each=nbygroup)
+a<-3
+b<-4
+error<-8
+ys <- a+b*xs+rnorm(n,0,error)
+```
+
+Great ploted the weights, in grams (g), of the captured lizards. These look like this:
+
+```{r}
+hist(ys,main="Lizards pooled across 4 islands",xlab="Weight (g)")
+```
+
+The distribution is unimodal and about simetrical. When lizards are separated by island, they look like this
+
+```{r}
+boxplot(ys~type,ylab="Weight (g)",xlab="Island")
+```
+
+There seem to be clear differences in the weights per species, as a standard linear model (e.g. an ANOVA, see \@ref(aula8)) will show:
+
+```{r}
+summary(lm(ys~type))
+```
+
+Great is happy, he had seen differents amounts of insects in each island and so he is already thinking about a paper he will write about how the size of the lizards depends on food availability.
+
+Further, he just had a great thought. He calls these GGTs: Great great thoughts. He is thinking about proposing that these correspond to different species in each island, and he is already dreaming about the names of his new species: he is considering naming them "slimus", "normalis", "fatis", "fattissimus", for animals in islands A, B, C and D, respectively. The plot would then read just like this, which looks... you guessed it... great.
+
+```{r}
+spnames <- c("slimus", "normalis", "fatis", "fattissimus")
+boxplot(ys~type,ylab="Weight (g)",xlab="Island",
+names=spnames)
+```
+
+Unfortunately, he goes to the pub and tells John about his findings. John has been doing some modelling courses at the Univeristy and is very interested about sampling. 
+John asks Great a great set of questions: "How did you selected the lizards you captured? What about the lengths of the lizards? Were the animals from each island of about the same length? In other words, did you control the weights for length? Because longer animals will generaly heavier, you know?"
+
+Great had not thought about that yet, indeed. He's feeling dizzy, might be the  beers he had, might be the questions he was just asked! He rushes home and looks at the data. And in fact, the different lizards from the  different islands have very different lengths to begin with, as we can see in the plot below.
+
+```{r}
+boxplot(xs~type,ylab="Length",xlab="Species")
+summary(lm(xs~type))
+```
+
+In his mind Great has a vague memory of a teacher in Numerical Ecology that one should explore the data before modelling. He would have avoided this embarassement if he only had done that. Before leaving the pub he heard John saying he should look into ANCOVA's. Something about "you need to test for the weights, accounting for differences in lengths!". 
+
+He goes into his books and finds that ANCOVA is just a linear model, where you model a response (weight, he realizes)  with a factor (island) and a continous variable (lenght).
+
+He implements the models and, much to his despair, realizes that, once he you accounts for the length, the weights are not different per island. The damn lizards are exactly the same weight in the different islands once you account for their length... :(
+
+```{r}
+summary(lm(ys~xs+type))
+```
+
+He sees his paper further and further farther away. This is what we saw: the same line explains all the data, irrespectively of group. In other words, there is not a different relationship per species between weight and length! His great ecologycal theory goes to the bin!
+
+```{r}
+plot(ys~xs,col=cores)
+abline(a,b,lwd=3,lty=2)
+```
+
+Now, that is dismaying, but interesting. So Great returns to the pub and he asks John: "Would the oposite be possible? Say things looked just the same, yet they were different after accounting for a confounding factor?". 
+
+"Yes", John replied: "I have heard about that situation, but have never seen it in a real data set before. Of course that is hard to happen, because *the stars need to align*. But it can happen in theory. Imagine the situation where the relationship between length and weight is different per group. However, out of a strange confounding circumstance, the observed weights happen to be similar, because we sampled (just the right, in this case, wrong!) different lengthts in each species."
+
+By now Great has a great headache, but he wants to see this with his own eyes, so he goes back home, sits in front of the computer, opens R and decides: "I will simulate this example". That is what we will do here.
+
+Imagine the following example:
+
+The lizards relationship between weight and length is different per island. Say, akin to what we saw before. Just by magin, we have access to all the lizards in the island.
+
+```{r}
+#all slopes the same, diferent intercepts - no interactions
+set.seed(12345)
+n<-2000
+nbygroup<-500
+xs <- runif(n,10,20)
+island <- c("A","B","C","D")
+type <- rep(island,each=nbygroup)
+cores <- rep(1:4,each=nbygroup)
+a<-12
+b<-4
+error<-4
+ys <- a+b*xs+
+ifelse(type=="A",5,ifelse(type=="B",12,ifelse(type=="C",18,22)))+rnorm(n,0,4)
+plot(xs,ys,col=cores)
+abline(12+5,4,lwd=3,col=1)
+abline(12+12,4,lwd=3,col=2)
+abline(12+18,4,lwd=3,col=3)
+abline(12+22,4,lwd=3,col=4)
+```
+
+Now imagine, for the sake of argument, that in all islands we captured lizards with lengths spanning about 2 cm, but in island A we caught animals with about 18 cm, in B with about 16 cm, in c with about 15 cm and in D with about 14 cm, on average. We can simulate that non-random sampling process with respect to lenghth.
+
+```{r}
+sampled.a<-which(xs>17 & xs<19 & type=="A")
+sampled.b<-which(xs>15 & xs<17 & type=="B")
+sampled.c<-which(xs>14 & xs<16 & type=="C")
+sampled.d<-which(xs>13 & xs<15 & type=="D")
+sample.all<-c(sampled.a,sampled.b,sampled.c,sampled.d)
+#select a biased sample!
+xs2<-xs[sample.all]
+ys2<-ys[sample.all]
+type2<-type[sample.all]
+cores2<-cores[sample.all]
+table(type2)
+```
+
+Now, if this is our sample, what happens when we look at the weights alone? First, let's look at the previous plot with the sampled data highlighted in colors and the non sampled data greyed out.
+
+```{r}
+plot(xs,ys,pch=".",col="grey")
+points(xs2,ys2,col=cores2,cex=0.5)
+#abline(12+5,4,lwd=3,col=1)
+#abline(12+12,4,lwd=3,col=2)
+#abline(12+18,4,lwd=3,col=3)
+#abline(12+22,4,lwd=3,col=4)
+```
+
+That was really not a random sample. And non-random samples always ask for trouble. Lets see what happens here. If we look at weights per island, there seems to be no effect:
+
+```{r}
+boxplot(ys2~type2)
+```
+
+If we test formally for it with an ANOVA, it seems like there is absolutely no effect of weight:
+
+```{r}
+summary(lm(ys2~type2))
+```
+
+
+This is where we need to be smart. If we conducts the correct analysis, one that includes and adjusts for the effect of length, the differences in length to weight relationship are clear. The intercepts of the different lines are all different from each other.
+
+```{r}
+summary(lm(ys2~type2+xs2))
+```
+
+Note this corresponds to comparing weights while not accounting for differences (in lengths), and comparing weights while accounting for those differences. In other words, we are interested in different intercepts in the left plot below, not in the boxplots of the right plot, that ignore the effect of length.
+
+```{r}
+par(mfrow=c(1,2))
+plot(xs2,ys2,col=cores2)
+abline(12+5,4,lwd=3,col=1)
+abline(12+12,4,lwd=3,col=2)
+abline(12+18,4,lwd=3,col=3)
+abline(12+22,4,lwd=3,col=4)
+boxplot(ys2~type2)
+```
+
+Actually, what the ANCOVA model does is equivalent to looking at the data by rotating the left plot above and see it in the "axis" we care about. That corresponds to the axis such that the slope of the regression lines are aligned with the x-axis of the Cartesian referential.
+
+I want to do this by implementing angular rotation but running out of time. That will involve implementing these transformations:
+
+https://en.wikipedia.org/wiki/Rotation_of_axes
+
+The plot will look just like this!
+
+![](FigPlotRotatedAula10.JPG)
+
+Naturally these were forced examples, caefully chosen to illustrate a point. But this was really interesting because it:
+
+* illustrates how an ANCOVA is when we test for differences in a response (weight) as a function of a factor (island) while accounting for differences in a quatitative variable (length)
+* shows the dangers of testing univariate hypothesis when several (in reality, usually many more than those we can record!) factors have an influence in the response.
