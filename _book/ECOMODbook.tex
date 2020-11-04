@@ -37,7 +37,7 @@
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
   pdftitle={Notes for Ecological Modelling},
-  pdfauthor={Tiago A. Marques, Susana França, Ana Sofia Reboleira},
+  pdfauthor={Tiago A. Marques},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
@@ -112,8 +112,8 @@
 \bibliographystyle{apalike}
 
 \title{Notes for Ecological Modelling}
-\author{Tiago A. Marques, Susana França, Ana Sofia Reboleira}
-\date{2020-10-29}
+\author{Tiago A. Marques}
+\date{2020-11-04}
 
 \begin{document}
 \maketitle
@@ -125,14 +125,22 @@
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
 
-These notes were written in 2020, during the ecological modelling classes (Modelação Ecológica, ME in short). While it all started as just a way to teach the course, it latter became obvious that with a bit of extra effort put into it these might become material that would be useful to others beyond the ME students.
+These notes were written in 2020, during the ecological modelling classes (Modelação Ecológica, ME in short). While it all started as just a way to teach the course, it soon became obvious that with a bit of extra effort put into it these notes might become material that would be useful to others beyond the ME students. This is being written as a bookdown project. Maybe one day it will become a book, for now, these are essentially notes I am using for my course on ``Modelação Ecológica'' at FCUL.
 
-For the current version I am keeping chapters as individual lectures. Once the classes are over I might organize them into sensible chapters for a possible book on statistical models for ecological data.
+In particular, I have started thinking about whether this could be a book in two stages, a first part that would appeal to students in Ecologia Numérica, and a second part aimed at students from Modelação Ecológica. The former might be more focused on a traditional approach to statistics, focussed on procedures and statistical tests. TYhe second would be more about the way to think about data and how one might go about to do the best job possible regarding inferences by thinking carefully on how to model the data.
 
-\hypertarget{intro}{%
-\chapter{Introduction}\label{intro}}
+For the current version I am keeping chapters as individual lectures. Once the Ecological Modelling classes are over I might organize them into sensible chapters for a possible book on statistical models for ecological data.
 
-This is being written as a bookdown project. Maybe one day it will become a book, for now, these are notes I am using for my course on ``Modelação Ecológica'' at FCUL.
+\hypertarget{about-regression}{%
+\chapter{About regression}\label{about-regression}}
+
+Some references woth looking into.
+
+An intro to R: \citep{Zuur2009a}
+
+Models for ecological data: \citep{Zuur2007}
+
+More on regression and extending the linear model (just an example): \citep[\citet{Zuur2009b}]{Faraway2006}
 
 \hypertarget{what-is-a-regression}{%
 \section{What is a regression?}\label{what-is-a-regression}}
@@ -174,35 +182,21 @@ with residuals
 
 being Gaussian, i.e.~\(e_i\)\textasciitilde Gau(0,\(\sigma\)), and where the link function is the identity (i.e.~\(f(E(y))=1 \times E(y)=E(y)\)).
 
-\hypertarget{bookdown-template-leftovers}{%
-\section{Bookdown template leftovers}\label{bookdown-template-leftovers}}
+\hypertarget{handson}{%
+\chapter{Hands On Regression}\label{handson}}
 
-You can label chapter and section titles using \texttt{\{\#label\}} after them, e.g., we can reference Chapter \ref{intro}. If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \ref{methods}.
+Here we come up wit a story\ldots{} an example about regression.
 
-Figures and tables with captions will be placed in \texttt{figure} and \texttt{table} environments, respectively.
+A simple regression is just the situation where we want to model a response variable as a function of a single explanatory variable. As an examples, say, the time a fish takes to react to a predator introduced in an aquarium by getting into shelter, as a function of the water temperature. Let's simulate some data that would represent this scenario, but I am not showing you the way the data was simulated just yet.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{par}\NormalTok{(}\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{.1}\NormalTok{, }\FloatTok{.1}\NormalTok{))}
-\KeywordTok{plot}\NormalTok{(pressure, }\DataTypeTok{type =} \StringTok{'b'}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{19}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+Nonetheless, let me tell you that the reaction times were created in object \texttt{react}, the temperatures in object \texttt{temp}, and these were then packed as a \texttt{data.frame} called \texttt{reaction}.
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{ECOMODbook_files/figure-latex/nice-fig-1} 
-
-}
-
-\caption{Here is a nice figure!}\label{fig:nice-fig}
-\end{figure}
-
-Reference a figure by its code chunk label with the \texttt{fig:} prefix, e.g., see Figure \ref{fig:nice-fig}. Similarly, you can reference tables generated from \texttt{knitr::kable()}, e.g., see Table \ref{tab:nice-tab}.
+The first few lines of the simulated data are shown in Table \ref{tab:Ttab1}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(}
-  \KeywordTok{head}\NormalTok{(iris, }\DecValTok{20}\NormalTok{), }\DataTypeTok{caption =} \StringTok{'Here is a nice table!'}\NormalTok{,}
+  \KeywordTok{head}\NormalTok{(reaction, }\DecValTok{5}\NormalTok{), }\DataTypeTok{caption =} \StringTok{'The simulated dataset'}\NormalTok{,}
   \DataTypeTok{booktabs =} \OtherTok{TRUE}
 \NormalTok{)}
 \end{Highlighting}
@@ -210,40 +204,149 @@ Reference a figure by its code chunk label with the \texttt{fig:} prefix, e.g., 
 
 \begin{table}
 
-\caption{\label{tab:nice-tab}Here is a nice table!}
+\caption{\label{tab:Ttab1}The simulated dataset}
 \centering
-\begin{tabular}[t]{rrrrl}
+\begin{tabular}[t]{rr}
 \toprule
-Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
+react & temp\\
 \midrule
-5.1 & 3.5 & 1.4 & 0.2 & setosa\\
-4.9 & 3.0 & 1.4 & 0.2 & setosa\\
-4.7 & 3.2 & 1.3 & 0.2 & setosa\\
-4.6 & 3.1 & 1.5 & 0.2 & setosa\\
-5.0 & 3.6 & 1.4 & 0.2 & setosa\\
-\addlinespace
-5.4 & 3.9 & 1.7 & 0.4 & setosa\\
-4.6 & 3.4 & 1.4 & 0.3 & setosa\\
-5.0 & 3.4 & 1.5 & 0.2 & setosa\\
-4.4 & 2.9 & 1.4 & 0.2 & setosa\\
-4.9 & 3.1 & 1.5 & 0.1 & setosa\\
-\addlinespace
-5.4 & 3.7 & 1.5 & 0.2 & setosa\\
-4.8 & 3.4 & 1.6 & 0.2 & setosa\\
-4.8 & 3.0 & 1.4 & 0.1 & setosa\\
-4.3 & 3.0 & 1.1 & 0.1 & setosa\\
-5.8 & 4.0 & 1.2 & 0.2 & setosa\\
-\addlinespace
-5.7 & 4.4 & 1.5 & 0.4 & setosa\\
-5.4 & 3.9 & 1.3 & 0.4 & setosa\\
-5.1 & 3.5 & 1.4 & 0.3 & setosa\\
-5.7 & 3.8 & 1.7 & 0.3 & setosa\\
-5.1 & 3.8 & 1.5 & 0.3 & setosa\\
+3.864305 & 11.84882\\
+6.002570 & 17.02374\\
+5.400667 & 15.73326\\
+4.462596 & 11.68052\\
+6.689445 & 19.43839\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-You can write citations, too. For example, we are using the \textbf{bookdown} package \citep{R-bookdown} in this sample book, which was built on top of R Markdown and \textbf{knitr} \citep{xie2015}.
+The data is shown in figure \ref{fig:Freg}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{.1}\NormalTok{, }\FloatTok{.1}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(react}\OperatorTok{~}\NormalTok{temp,}\DataTypeTok{xlab=}\StringTok{"Temperature (degrees, Celcius)"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Reaction time (seconds)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{ECOMODbook_files/figure-latex/Freg-1} 
+
+}
+
+\caption{An example regression data set that could be eplained by a linear regression}\label{fig:Freg}
+\end{figure}
+
+It seems like there is a linear relationship between the predictor (temperature) and the response (the reaction time). We could therepore model it with a simple linear regression. We can do that using R´s function \texttt{lm}. We do so here and then look at the summary of the object produced.
+
+The required argument for \texttt{lm} is the \texttt{formula} that defines the regression model. The symbol \texttt{\textasciitilde{}}is used to represent ``as a function of''. So here we will want something like ``reaction time \textasciitilde{} water temperature''.
+
+While this might seem like a detail, it is a good policy to always fit models using explicitly the \texttt{data} argument, instead of fitting the model to objects hanging around the workspace. Learn how to be tidy!
+
+Therefore, while the imideate result would be the same, we suggest that you do not do this
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod0<-}\KeywordTok{lm}\NormalTok{(react}\OperatorTok{~}\NormalTok{temp)}
+\end{Highlighting}
+\end{Shaded}
+
+nor this
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod0<-}\KeywordTok{lm}\NormalTok{(reaction}\OperatorTok{$}\NormalTok{react}\OperatorTok{~}\NormalTok{reaction}\OperatorTok{$}\NormalTok{temp)}
+\end{Highlighting}
+\end{Shaded}
+
+but always consider this
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod0<-}\KeywordTok{lm}\NormalTok{(react}\OperatorTok{~}\NormalTok{temp,}\DataTypeTok{data=}\NormalTok{reaction)}
+\KeywordTok{summary}\NormalTok{(mod0)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = react ~ temp, data = reaction)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.43172 -0.13223 -0.01381  0.13843  0.49265 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  0.55487    0.15642   3.547 0.000881 ***
+## temp         0.31442    0.01015  30.986  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.2182 on 48 degrees of freedom
+## Multiple R-squared:  0.9524,	Adjusted R-squared:  0.9514 
+## F-statistic: 960.2 on 1 and 48 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+This will be easier to read for others, makes you tidy, and will save you headaches when using functions like \texttt{predict} over the resulting fitted model.
+
+We can the estimated regression line to the above plot. I color it red to remind us of the fact that this is an estimated line, not the true line that generated the data. While in general we do not know this with real data, here I know the model that was used to simulate the data. Just for comparison I can add it to the plot to compare with the estimated regression line.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(react}\OperatorTok{~}\NormalTok{temp,}\DataTypeTok{xlab=}\StringTok{"Temperature (degrees, Celcius)"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Reaction time (seconds)"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(mod0,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\StringTok{"red"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(beta0,beta1,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\StringTok{"green"}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\StringTok{"topleft"}\NormalTok{,}\DataTypeTok{legend=}\KeywordTok{c}\NormalTok{(}\StringTok{"Real model"}\NormalTok{,}\StringTok{"Estimated Regression Line"}\NormalTok{),}\DataTypeTok{col=}\KeywordTok{c}\NormalTok{(}\StringTok{"green"}\NormalTok{,}\StringTok{"red"}\NormalTok{),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{, }\DataTypeTok{inset=}\FloatTok{0.05}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+The estimated line and the true line are very similar, as expected since we have a reasonable sample size, a small error, and a model that is the reality. With real data, this will be the exception, not the rule. All models are wrong, but some are useful. The linear regression model is perhaps one of the simplest, but also one of the most widely used, and hence, one of those that has been extremely useful. But of course, its simplicity is also its major disadvantage, as we shall see.
+
+\hypertarget{the-assumptions-are-on-the-residuals-not-the-data}{%
+\section{The assumptions are on the residuals, not the data}\label{the-assumptions-are-on-the-residuals-not-the-data}}
+
+Imagine that you have a single variable that you are interested in modelling. This is the concentration of an enzime in the blood of small rodents, from 4 diffferent species. This is represented in the image below \ref{fig:figrodents}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(ys,}\DataTypeTok{breaks=}\DecValTok{0}\OperatorTok{:}\DecValTok{40}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"Concentration of enzime (mg/L)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{ECOMODbook_files/figure-latex/figrodents-1} 
+
+}
+
+\caption{Concentration of an enzime (mg/L) in the blood of small rodents, from 4 diffferent species}\label{fig:figrodents}
+\end{figure}
+
+A poor (conventional and traditional) biologist would die if shown this dataset, but the truth is there would be no reason for it. If one accounts for the different species, this is what we see. Clear differences between two groups of species.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{boxplot}\NormalTok{(ys}\OperatorTok{~}\NormalTok{type,}\DataTypeTok{ylab=}\StringTok{"Concentration of enzime (mg/L)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+And further, we can see that the remaining residuals are a beautiful Gaussian. Not a surprise, since this was simulated data, from a Gaussian model :) !
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{type)),}\DataTypeTok{main=}\StringTok{""}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"Residuals"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+The take home message from the story: what the data looks like might be irrelevant. The patterns that remain in the residuals, if any, those are the ones we might need to worry about. So do not transform data just becasue the data looks odd. It might just be Gaussian data in disguise!
 
 \hypertarget{aula6}{%
 \chapter{Class 6 13 10 2020}\label{aula6}}
@@ -274,7 +377,7 @@ Plot the data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-2-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-10-1.pdf}
 
 A linear model seems adequate. Lets fit a regression line to the data
 
@@ -429,7 +532,7 @@ The \texttt{summary} of the model above is very useful, but nothing like adding 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-8-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-16-1.pdf}
 
 Note the last line works because the parameter estimates are hold in a component of the \texttt{summary} of the fitted model called \texttt{coefficients}
 
@@ -459,7 +562,7 @@ Additionally, we can also add the residuals in the plot (we use the very handy f
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-10-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-18-1.pdf}
 
 The regression line is the line that minimizes the sum of the red distances in the plot above. That is also why it is called a minimum squares estimate in the special case of a Gaussian model (in PT, é a reta dos mínimos quadrados).
 
@@ -474,7 +577,7 @@ The residuals should, if the model is reasonable - and here that should be the c
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-11-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-19-1.pdf}
 
 or alternatively we can use the bespoke function \texttt{residuals}
 
@@ -485,7 +588,7 @@ or alternatively we can use the bespoke function \texttt{residuals}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-20-1.pdf}
 
 It is often said that the \(R^2\) represents the amount of variation in the response that the regression explains. Why is that?
 
@@ -505,7 +608,7 @@ in an image, the sum of the square of these quantities
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-13-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-21-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -563,7 +666,7 @@ Note naturally we could also represent in an image what is explained by the regr
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-17-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-25-1.pdf}
 
 and that naturally is obtained as
 
@@ -634,7 +737,7 @@ Then you were told to create the lengths:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-20-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-28-1.pdf}
 
 and then to create weights of lizards
 
@@ -654,7 +757,7 @@ If we plot the data, all points are in a single line. Why, because there is no r
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-22-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-30-1.pdf}
 
 This means that if you try to run a model, it gives you a warning that the model might be unreliable
 
@@ -699,7 +802,7 @@ So\ldots{} , we add some variance, and plot the data:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-24-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-32-1.pdf}
 
 Using the code above, experiment with changing the standard deviation of the error, and see what happens to the estimated \(R^2\), to the parameter estimates, to the estimated error, and to how close the estimated regression mode is to the true model (note this is the amazing advantage of a simulation, which we do not have in real data, we know what reality is, and a true model exists!). This will give you a good feeling for what a regression model is and what is does, and what it can't do. An example of what it can't give you is reliable estimates when the error is large compared to the systematic part of the model.
 
@@ -748,7 +851,7 @@ Using the code above, experiment with changing the standard deviation of the err
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-25-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-33-1.pdf}
 
 \hypertarget{what-is-the-effect-of-increasing-the-error-a-simulation-experiment}{%
 \subsection{What is the effect of increasing the error: a simulation experiment}\label{what-is-the-effect-of-increasing-the-error-a-simulation-experiment}}
@@ -791,7 +894,7 @@ Now, let's consider there's more and less variance. We also add to each plot the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-26-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-34-1.pdf}
 
 Not surprisingly, as the variance increases, we get data that more and more looks like it is not coming from a real linear process.
 
@@ -837,7 +940,7 @@ Also, don't get confused, the different green lines might look different, but th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-27-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-35-1.pdf}
 
 but since then you loose all the ability to look at the actual data in some of the plots, that is not really that useful!
 
@@ -1011,7 +1114,7 @@ As an example, we can plot the \(R^2\) as a function of the variance
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-29-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-37-1.pdf}
 
 That is quite interesting actually\ldots{} There seems to be a nonlinear relationship, but we only have a sample size of six (different standard deviatios, i.e., variances, as variance is standard deviation squared), so hard to tell\ldots{}
 
@@ -1036,7 +1139,7 @@ Let's show off in R\ldots{}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-30-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-38-1.pdf}
 
 How cool is that!! Actually, this means we can model the \(R^2\) as a function of the original variance! But we would not be able to model it using a linear model\ldots{}
 
@@ -1053,7 +1156,7 @@ You are not supposed to know about this yet, but I'll continue to show off. Let'
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-31-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-39-1.pdf}
 
 Aha\ldots{} remember what we talked in class today? It seems like we have overfitted. Then, I constrain the GAM.
 
@@ -1068,7 +1171,7 @@ Aha\ldots{} remember what we talked in class today? It seems like we have overfi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-32-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-40-1.pdf}
 
 That was too much\ldots{}
 
@@ -1083,7 +1186,7 @@ That was too much\ldots{}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-33-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-41-1.pdf}
 
 That is already overfitting\ldots{} conclusion, the GAM is not the right tool here :)
 
@@ -1192,7 +1295,7 @@ We find our first type I error, \texttt{xs4} is found statistically significant,
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-37-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-45-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1245,7 +1348,7 @@ However, even after several runs, we never make a type II error. That must mean 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-38-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-46-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1296,7 +1399,7 @@ That was an overkill, now there is so much noise must seeds we use do not allow 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-39-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-47-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1349,7 +1452,7 @@ back to all correct. Now, let's change seed again
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-40-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-48-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1419,7 +1522,7 @@ We begin by reading the data in and plot it
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-42-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-50-1.pdf}
 
 Now, to turn this a bit more interesting, we come up with a narrative.
 
@@ -1435,7 +1538,7 @@ These correspond to observations from weights and lenghts of a sample of animals
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-43-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-51-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1476,7 +1579,7 @@ Now, the plot thickens. These animals actually came from 4 different museums, an
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-44-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-52-1.pdf}
 
 We see a patter in the data, the data from the different museums tend to cluster. He decides to investigate. Note folks providing names to museum in this country are a bit borring, and the museums are called ``a'', ``b'', ``c'' and ``d''.
 
@@ -1551,7 +1654,7 @@ So now we can add all these estimated regression lines to the plot
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-46-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-54-1.pdf}
 
 note that, not surprisingly, all these lines have the same slope. Or in other words, the model we considered assumes that the slope of the model is the same across museums (which, remember, we know if not true!). We can easily check that the intercepts (i.e.~where the lines cross when length=x=0) of all lines are indeed easy to get from the model's output
 
@@ -1576,7 +1679,7 @@ note that, not surprisingly, all these lines have the same slope. Or in other wo
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-47-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-55-1.pdf}
 
 Now, the smart biologist then says that he could also fit a separate line to each museum's data. And so he does, and that looks like this:
 
@@ -1593,7 +1696,7 @@ Now, the smart biologist then says that he could also fit a separate line to eac
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-48-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-56-1.pdf}
 
 Naturally, now the lines do not have the same slope, and we can compare all these in a single plot. This plot is really messy, as it includes the pooled regression (the thick black line), the regressions fitted to independent data sets, one for each museum (the solid lines), and the regressions resulting from the model with museum as a factor covariate (dotted-dashed lines).
 
@@ -1615,7 +1718,7 @@ Naturally, now the lines do not have the same slope, and we can compare all thes
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-49-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-57-1.pdf}
 
 But what is the best model to describe the data? That is a mistery that will remain to unfold. For that we will need and additional complication in a regression model: interactions.
 
@@ -1716,7 +1819,7 @@ Look at the data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-56-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-64-1.pdf}
 
 Now, we can run the usual t-test
 
@@ -1816,7 +1919,7 @@ Look at the data, we can see much more variation
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-61-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-69-1.pdf}
 
 Now, we can run the usual t-test
 
@@ -1891,7 +1994,7 @@ Look at the data, we can see again lower variation, but the difference across tr
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-65-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-73-1.pdf}
 
 Now, we can run the usual t-test
 
@@ -2071,7 +2174,7 @@ We can actually look at the simulated data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-75-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-83-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2218,7 +2321,7 @@ Just to finish up this example, we could now plot the true means per treatment, 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-81-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-89-1.pdf}
 
 It's not easy to see because these overlap (large sample size, high precision) but the estimated means are really close to the real means. It's a bit easier to see if we separate in 4 plots and zoom in on the mean of each treatment, but still the blue lines are all on top of each other, since the mean value was estimated real close to truth (truth=2, estimated = 1.9967984).
 
@@ -2256,7 +2359,7 @@ It's not easy to see because these overlap (large sample size, high precision) b
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-82-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-90-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2394,7 +2497,7 @@ We plot the data, all together, per group, and at the end adding the generating 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-86-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-94-1.pdf}
 
 While not the best to look at the data, note that to visually confirm the value of the intercepts we can zoom out on the plot.
 
@@ -2409,7 +2512,7 @@ While not the best to look at the data, note that to visually confirm the value 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-87-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-95-1.pdf}
 
 Now we run the corresponding linear model
 
@@ -2517,7 +2620,7 @@ We can plot the estimated regression lines
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-91-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-99-1.pdf}
 
 But because we are in a simulation setting, we can contrast the estimated values agaist the reality (the real model).
 
@@ -2544,7 +2647,7 @@ But because we are in a simulation setting, we can contrast the estimated values
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-92-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-100-1.pdf}
 
 As we can see, they are quite close. The error is small compared with the effrect sizes, and the sample size is large enough we can estimate the parameters reasonably well.
 
@@ -2652,7 +2755,7 @@ Great ploted the weights, in grams (g), of the captured lizards. These look like
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-97-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-105-1.pdf}
 
 The distribution is unimodal and about simetrical. When lizards are separated by island, they look like this
 
@@ -2662,7 +2765,7 @@ The distribution is unimodal and about simetrical. When lizards are separated by
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-98-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-106-1.pdf}
 
 There seem to be clear differences in the weights per species, as a standard linear model (e.g.~an ANOVA, see \ref{aula8}) will show:
 
@@ -2707,7 +2810,7 @@ Further, he just had a great thought. He calls these GGTs: Great great thoughts.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-100-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-108-1.pdf}
 
 Unfortunately, he goes to the pub and tells John about his findings. John has been doing some modelling courses at the Univeristy and is very interested about sampling.
 John asks Great a great set of questions: ``How did you selected the lizards you captured? What about the lengths of the lizards? Were the animals from each island of about the same length? In other words, did you control the weights for length? Because longer animals will generaly heavier, you know?''
@@ -2720,7 +2823,7 @@ Great had not thought about that yet, indeed. He's feeling dizzy, might be the b
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-101-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-109-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2796,7 +2899,7 @@ He sees his paper further and further farther away. This is what we saw: the sam
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-103-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-111-1.pdf}
 
 Now, that is dismaying, but interesting. So Great returns to the pub and he asks John: ``Would the oposite be possible? Say things looked just the same, yet they were different after accounting for a confounding factor?''.
 
@@ -2831,7 +2934,7 @@ The lizards relationship between weight and length is different per island. Say,
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-104-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-112-1.pdf}
 
 Now imagine, for the sake of argument, that in all islands we captured lizards with lengths spanning about 2 cm, but in island A we caught animals with about 18 cm, in B with about 16 cm, in c with about 15 cm and in D with about 14 cm, on average. We can simulate that non-random sampling process with respect to lenghth.
 
@@ -2866,7 +2969,7 @@ Now, if this is our sample, what happens when we look at the weights alone? Firs
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-106-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-114-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2885,7 +2988,7 @@ That was really not a random sample. And non-random samples always ask for troub
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-107-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-115-1.pdf}
 
 If we test formally for it with an ANOVA, it seems like there is absolutely no effect of weight:
 
@@ -2964,7 +3067,7 @@ Note this corresponds to comparing weights while not accounting for differences 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-110-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-118-1.pdf}
 
 Actually, what the ANCOVA model does is equivalent to looking at the data by rotating the left plot above and see it in the ``axis'' we care about. That corresponds to the axis such that the slope of the regression lines are aligned with the x-axis of the Cartesian referential.
 
@@ -2987,11 +3090,107 @@ Naturally these were forced examples, caefully chosen to illustrate a point. But
 \end{itemize}
 
 \hypertarget{aula11}{%
-\chapter{Class 11: 03 10 2020 ANCOVA with different slopes: interactions}\label{aula11}}
+\chapter{Class 11: 03 11 2020 ANCOVA with different slopes: interactions}\label{aula11}}
 
-The previous model assumed that the slopes were the same across the different groups. What woud change if they were different? We extend the previous case to where the slope of the relationship is also different per treatment.
+\hypertarget{about-interactions}{%
+\section{About interactions}\label{about-interactions}}
 
-Simulate treatments, same as before, but this gives us the option to change later separately if we want.
+Interactions are useful when the influence of a covariate on the response variable depends on the level of a second covariate. As an example, consider two different diets that we are trying to assess the efficacy on terms of weight gain. We record weight gains for both sexes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#--------------------------------------------------------}
+\CommentTok{#Interactions}
+\CommentTok{#### with factor covariates}
+\CommentTok{#--------------------------------------------------------}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{n=}\DecValTok{100}
+\NormalTok{sexo=}\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"M"}\NormalTok{,}\StringTok{"F"}\NormalTok{),}\DataTypeTok{each=}\NormalTok{n)}
+\NormalTok{dieta=}\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Controlo"}\NormalTok{,}\StringTok{"Nova"}\NormalTok{),}\DataTypeTok{times=}\NormalTok{n)}
+\NormalTok{ys=}\DecValTok{10}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\NormalTok{(sexo}\OperatorTok{==}\StringTok{"M"}\NormalTok{)}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{(dieta}\OperatorTok{==}\StringTok{"Nova"}\NormalTok{)}\OperatorTok{-}\DecValTok{4}\OperatorTok{*}\NormalTok{(sexo}\OperatorTok{==}\StringTok{"M"}\NormalTok{)}\OperatorTok{*}\NormalTok{(dieta}\OperatorTok{==}\StringTok{"Nova"}\NormalTok{)}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{n,}\DataTypeTok{mean=}\DecValTok{0}\NormalTok{,}\DataTypeTok{sd=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(ys}\OperatorTok{~}\KeywordTok{as.factor}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(sexo,dieta)))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-119-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lmSDi=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{sexo}\OperatorTok{*}\NormalTok{dieta)}
+\KeywordTok{summary}\NormalTok{(lmSDi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ sexo * dieta)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.7590 -1.2968 -0.1798  1.1942  6.7145 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)       9.8022     0.2673  36.675  < 2e-16 ***
+## sexoM             3.4188     0.3780   9.045  < 2e-16 ***
+## dietaNova         1.9653     0.3780   5.200 5.00e-07 ***
+## sexoM:dietaNova  -4.0457     0.5345  -7.569 1.44e-12 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.89 on 196 degrees of freedom
+## Multiple R-squared:  0.3015,	Adjusted R-squared:  0.2908 
+## F-statistic:  28.2 on 3 and 196 DF,  p-value: 3.326e-15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FloatTok{0.2}\NormalTok{))}
+\KeywordTok{interaction.plot}\NormalTok{(}\DataTypeTok{x.factor=}\NormalTok{sexo, }\DataTypeTok{trace.factor=}\NormalTok{dieta, }\DataTypeTok{response=}\NormalTok{ys)}
+\KeywordTok{interaction.plot}\NormalTok{(}\DataTypeTok{x.factor=}\NormalTok{dieta, }\DataTypeTok{trace.factor=}\NormalTok{sexo, }\DataTypeTok{response=}\NormalTok{ys)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-119-2.pdf}
+
+We can see what these interaction plots might look like for different realities.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#interaction plots}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{121}\NormalTok{)}
+\CommentTok{# different interactions and abcense of interaction}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfcol=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{),}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FloatTok{0.2}\NormalTok{))}
+\CommentTok{#large negative interaction}
+\NormalTok{ys=}\DecValTok{10}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\NormalTok{(sexo}\OperatorTok{==}\StringTok{"M"}\NormalTok{)}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{(dieta}\OperatorTok{==}\StringTok{"Nova"}\NormalTok{)}\OperatorTok{-}\DecValTok{4}\OperatorTok{*}\NormalTok{(sexo}\OperatorTok{==}\StringTok{"M"}\NormalTok{)}\OperatorTok{*}\NormalTok{(dieta}\OperatorTok{==}\StringTok{"Nova"}\NormalTok{)}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{n,}\DataTypeTok{mean=}\DecValTok{0}\NormalTok{,}\DataTypeTok{sd=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{interaction.plot}\NormalTok{(}\DataTypeTok{x.factor=}\NormalTok{sexo, }\DataTypeTok{trace.factor=}\NormalTok{dieta, }\DataTypeTok{response=}\NormalTok{ys)}
+\KeywordTok{interaction.plot}\NormalTok{(}\DataTypeTok{x.factor=}\NormalTok{dieta, }\DataTypeTok{trace.factor=}\NormalTok{sexo, }\DataTypeTok{response=}\NormalTok{ys)}
+\CommentTok{#positive interaction}
+\NormalTok{ys=}\DecValTok{10}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\NormalTok{(sexo}\OperatorTok{==}\StringTok{"M"}\NormalTok{)}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{(dieta}\OperatorTok{==}\StringTok{"Nova"}\NormalTok{)}\OperatorTok{+}\DecValTok{4}\OperatorTok{*}\NormalTok{(sexo}\OperatorTok{==}\StringTok{"M"}\NormalTok{)}\OperatorTok{*}\NormalTok{(dieta}\OperatorTok{==}\StringTok{"Nova"}\NormalTok{)}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{n,}\DataTypeTok{mean=}\DecValTok{0}\NormalTok{,}\DataTypeTok{sd=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{interaction.plot}\NormalTok{(}\DataTypeTok{x.factor=}\NormalTok{sexo, }\DataTypeTok{trace.factor=}\NormalTok{dieta, }\DataTypeTok{response=}\NormalTok{ys)}
+\KeywordTok{interaction.plot}\NormalTok{(}\DataTypeTok{x.factor=}\NormalTok{dieta, }\DataTypeTok{trace.factor=}\NormalTok{sexo, }\DataTypeTok{response=}\NormalTok{ys)}
+\CommentTok{#no interaction}
+\NormalTok{ys=}\DecValTok{10}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\NormalTok{(sexo}\OperatorTok{==}\StringTok{"M"}\NormalTok{)}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{(dieta}\OperatorTok{==}\StringTok{"Nova"}\NormalTok{)}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{n,}\DataTypeTok{mean=}\DecValTok{0}\NormalTok{,}\DataTypeTok{sd=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{interaction.plot}\NormalTok{(}\DataTypeTok{x.factor=}\NormalTok{sexo, }\DataTypeTok{trace.factor=}\NormalTok{dieta, }\DataTypeTok{response=}\NormalTok{ys)}
+\KeywordTok{interaction.plot}\NormalTok{(}\DataTypeTok{x.factor=}\NormalTok{dieta, }\DataTypeTok{trace.factor=}\NormalTok{sexo, }\DataTypeTok{response=}\NormalTok{ys)}
+\CommentTok{#small negative interaction}
+\NormalTok{ys=}\DecValTok{10}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\NormalTok{(sexo}\OperatorTok{==}\StringTok{"M"}\NormalTok{)}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{(dieta}\OperatorTok{==}\StringTok{"Nova"}\NormalTok{)}\OperatorTok{-}\DecValTok{2}\OperatorTok{*}\NormalTok{(sexo}\OperatorTok{==}\StringTok{"M"}\NormalTok{)}\OperatorTok{*}\NormalTok{(dieta}\OperatorTok{==}\StringTok{"Nova"}\NormalTok{)}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{n,}\DataTypeTok{mean=}\DecValTok{0}\NormalTok{,}\DataTypeTok{sd=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{interaction.plot}\NormalTok{(}\DataTypeTok{x.factor=}\NormalTok{sexo, }\DataTypeTok{trace.factor=}\NormalTok{dieta, }\DataTypeTok{response=}\NormalTok{ys)}
+\KeywordTok{interaction.plot}\NormalTok{(}\DataTypeTok{x.factor=}\NormalTok{dieta, }\DataTypeTok{trace.factor=}\NormalTok{sexo, }\DataTypeTok{response=}\NormalTok{ys)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-120-1.pdf}
+
+\hypertarget{task-1-implementing-the-ancova-with-different-slopes}{%
+\section{Task 1 Implementing the ANCOVA with different slopes}\label{task-1-implementing-the-ancova-with-different-slopes}}
+
+The previous model, explored in Chapters \ref{aula9} and \ref{aula10}, assumed that the slopes were the same across the different groups. But that might not be the case in many scenarios.
+
+What would change if they were different? We extend the previous case to the scenario where the slope of the relationship is also different per treatment.
+
+We simulate treatments and data, just in the same way as before, but this gives us the option to change things later in this chapter only, and do it separately if we want.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3016,7 +3215,7 @@ Now we simulate the response
 \end{Highlighting}
 \end{Shaded}
 
-note this is the same as what we have below, but below it might be simpler to understand that these do correspond to different intercepts and slopes per treatment
+If the above code is opaque, we present a different implementation below. Note the code that follows is just the same as the code above, but it might be simpler to understand that the setting implies that we have both different intercepts and slopes per treatment.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3027,7 +3226,7 @@ note this is the same as what we have below, but below it might be simpler to un
 \end{Highlighting}
 \end{Shaded}
 
-We can look at the data
+We can look at the resulting data, as well as the real model that generated the data (as usual, data is the sistematic component induced by the assumed model to which we add some random error)
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3040,9 +3239,9 @@ We can look at the data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-114-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-124-1.pdf}
 
-As before, it is actually not that easy to confirm the slopes and intercepts are different, as the intercept is not shown in the above plot. We can zoom out the plot and force that
+As before, it is actually not that easy to confirm the slopes and intercepts are different, as the intercept is not shown in the above plot. We can zoom out the plot to show us the intercepts (Figure \ref{fig:FCR}), which are by definition, where the lines cross the vertical dashed line, i.e., when x=0 in the Cartesian referential.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3055,9 +3254,16 @@ As before, it is actually not that easy to confirm the slopes and intercepts are
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-115-1.pdf}
+\begin{figure}
 
-Now, we implement the ANCOVA linear model, but with an \emph{interaction} term!
+{\centering \includegraphics[width=0.8\linewidth]{ECOMODbook_files/figure-latex/FCR-1} 
+
+}
+
+\caption{Zooming out on the data so that the (fifferent) intercepts are visible}\label{fig:FCR}
+\end{figure}
+
+Now, we implement the ANCOVA linear model, but with an \emph{interaction} term between the \texttt{type} and \texttt{xs}. An interaction between two variables, say \texttt{A} and \texttt{B}, is defined in R syntax as \texttt{A*B}, and so for the corresponding linear model we specify
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3066,7 +3272,7 @@ Now, we implement the ANCOVA linear model, but with an \emph{interaction} term!
 \end{Highlighting}
 \end{Shaded}
 
-and we look at the output of the model
+We can look at the output of the model
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3081,27 +3287,27 @@ and we look at the output of the model
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -13.2514  -2.7831  -0.2006   3.0000  10.1051 
+## -14.5511  -2.7070   0.2239   2.2766  11.3763 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)   7.0480     3.4994   2.014 0.045397 *  
-## xs            4.2667     0.2345  18.198  < 2e-16 ***
-## typeb         4.5418     4.6361   0.980 0.328489    
-## typec         3.7997     4.7096   0.807 0.420787    
-## typed        15.9380     4.8844   3.263 0.001305 ** 
-## xs:typeb      0.1848     0.3160   0.585 0.559468    
-## xs:typec      0.8442     0.3103   2.721 0.007106 ** 
-## xs:typed      1.2325     0.3203   3.848 0.000162 ***
+## (Intercept)   7.9570     3.1985   2.488 0.013707 *  
+## xs            4.2084     0.2143  19.638  < 2e-16 ***
+## typeb        10.6830     4.2375   2.521 0.012513 *  
+## typec         2.8307     4.3047   0.658 0.511588    
+## typed         7.5008     4.4644   1.680 0.094556 .  
+## xs:typeb     -0.2342     0.2889  -0.811 0.418617    
+## xs:typec      0.9924     0.2836   3.500 0.000579 ***
+## xs:typed      1.7875     0.2927   6.106 5.54e-09 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 4.331 on 192 degrees of freedom
-## Multiple R-squared:  0.9578,	Adjusted R-squared:  0.9562 
-## F-statistic: 622.3 on 7 and 192 DF,  p-value: < 2.2e-16
+## Residual standard error: 3.958 on 192 degrees of freedom
+## Multiple R-squared:  0.965,	Adjusted R-squared:  0.9637 
+## F-statistic: 755.2 on 7 and 192 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-check how this is an output similar to the ANOVA (implemented via \texttt{aov}, the R function that produces ANOVA tables from expressions akin to linear models)
+This is an output similar to the corresponding ANOVA table (implemented via \texttt{aov}, the R function that produces ANOVA tables from expressions akin to linear models). The difference is that in such a case the outputs come in terms of the variables, not their levels. This would be
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3110,113 +3316,97 @@ check how this is an output similar to the ANOVA (implemented via \texttt{aov}, 
 \end{Shaded}
 
 \begin{verbatim}
-##              Df Sum Sq Mean Sq  F value   Pr(>F)    
-## xs            1  48776   48776 2600.680  < 2e-16 ***
-## type          3  32550   10850  578.501  < 2e-16 ***
-## xs:type       3    379     126    6.742 0.000239 ***
-## Residuals   192   3601      19                      
+##              Df Sum Sq Mean Sq F value   Pr(>F)    
+## xs            1  49119   49119 3134.87  < 2e-16 ***
+## type          3  32682   10894  695.28  < 2e-16 ***
+## xs:type       3   1034     345   21.99 2.77e-12 ***
+## Residuals   192   3008      16                     
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
 
 Note that the overall F statistic from the regression model has an F-statistic of
-622.3, with
+755.2, with
 7 and
 192 degrees of freedom. That corresponds to the composite test with the null hypothesis ``are all parameters equal to 0'', which in the ANOVA table, is separated in 3 testes, one for each parameter, with 1, 3 and 3 degrees of freedom each. The residual degrees of freedom are naturally the same in all these tests.
 
-The most interesting aspect it that, naturally, we can check the values of the estimated coefficients, and in particular how to estimate the corresponding regression lines per group
+Naturally, we can now evaluate the values of the estimated coefficients, and in particular we can use them to estimate the corresponding regression lines per group. For type \texttt{a} we have this
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{#type a}
-\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}
+\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{];lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## (Intercept) 
-##    7.048022
+##    7.957025
 \end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{verbatim}
 ##       xs 
-## 4.266671
+## 4.208363
 \end{verbatim}
+
+in other words, \texttt{ys}=7.9570252+4.2083626 \(\times\) \texttt{xs} , for type \texttt{b} we have this
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{#type b}
-\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{3}\NormalTok{]}
+\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{3}\NormalTok{];lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{6}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## (Intercept) 
-##     11.5898
+##    18.64006
 \end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{6}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{verbatim}
 ##       xs 
-## 4.451449
+## 3.974212
 \end{verbatim}
+
+in other words, \texttt{ys}=18.640062+3.9742116 \(\times\) \texttt{xs}, for type \texttt{c} we have this
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{#type c}
-\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{4}\NormalTok{]}
+\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{4}\NormalTok{];lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{7}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## (Intercept) 
-##    10.84769
+##    10.78774
 \end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{7}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{verbatim}
 ##       xs 
-## 5.110884
+## 5.200757
 \end{verbatim}
+
+in other words, \texttt{ys}=10.7877404+5.2007572 \(\times\) \texttt{xs}, and for type \texttt{d} we have this
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{#type b}
-\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{5}\NormalTok{]}
+\CommentTok{#type d}
+\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{5}\NormalTok{];lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{8}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## (Intercept) 
-##    22.98597
+##    15.45779
 \end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{8}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{verbatim}
 ##       xs 
-## 5.499171
+## 5.995865
 \end{verbatim}
+
+in other words, \texttt{ys}=15.4577929+5.995865 \(\times\) \texttt{xs}.
 
 we can now add these to the earlier plots, to see how well we have estimated the different lines per treatment
 
@@ -3231,22 +3421,22 @@ we can now add these to the earlier plots, to see how well we have estimated the
 \KeywordTok{abline}\NormalTok{(}\DecValTok{3}\OperatorTok{+}\DecValTok{12}\NormalTok{,}\DecValTok{4}\OperatorTok{+}\DecValTok{2}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{,}\DataTypeTok{col=}\DecValTok{4}\NormalTok{)}
 \CommentTok{#estimated lines}
 \CommentTok{#type a}
-\KeywordTok{abline}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\DecValTok{1}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{)}
 \CommentTok{#type b}
 \KeywordTok{abline}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{3}\NormalTok{],}
-\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{6}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\DecValTok{1}\NormalTok{)}
+\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{6}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{)}
 \CommentTok{#type c}
 \KeywordTok{abline}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{4}\NormalTok{],}
-\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{7}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\DecValTok{1}\NormalTok{)}
+\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{7}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\DecValTok{3}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{)}
 \CommentTok{#type b}
 \KeywordTok{abline}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{5}\NormalTok{],}
-\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{8}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\DecValTok{1}\NormalTok{)}
+\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{8}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{)}
 \KeywordTok{legend}\NormalTok{(}\StringTok{"topleft"}\NormalTok{,}\DataTypeTok{legend =}\NormalTok{ tr,}\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{,}\DataTypeTok{inset=}\FloatTok{0.05}\NormalTok{)}
-\KeywordTok{legend}\NormalTok{(}\StringTok{"bottomright"}\NormalTok{,}\DataTypeTok{legend =}\KeywordTok{paste}\NormalTok{(}\StringTok{"Estimated"}\NormalTok{,tr),}\DataTypeTok{lwd=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{,}\DataTypeTok{inset=}\FloatTok{0.05}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\StringTok{"bottomright"}\NormalTok{,}\DataTypeTok{legend =}\KeywordTok{paste}\NormalTok{(}\StringTok{"Estimated"}\NormalTok{,tr),}\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{,}\DataTypeTok{inset=}\FloatTok{0.05}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-120-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-132-1.pdf}
 
 Remember, if this was a real analysis, you would not know the truth, so at best, you would be able to see the predicted lines, but not the real lines, just as in the plot below
 
@@ -3256,21 +3446,61 @@ Remember, if this was a real analysis, you would not know the truth, so at best,
 \KeywordTok{plot}\NormalTok{(xs,ys,}\DataTypeTok{col=}\NormalTok{cores)}
 \CommentTok{#plot the lines}
 \KeywordTok{abline}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],}\DataTypeTok{lwd=}\DecValTok{1}\NormalTok{,}\DataTypeTok{col=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
-\KeywordTok{abline}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{3}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],}\DataTypeTok{lwd=}\DecValTok{1}\NormalTok{,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
-\KeywordTok{abline}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{4}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],}\DataTypeTok{lwd=}\DecValTok{1}\NormalTok{,}\DataTypeTok{col=}\DecValTok{3}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
-\KeywordTok{abline}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{5}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],}\DataTypeTok{lwd=}\DecValTok{1}\NormalTok{,}\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{3}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{6}\NormalTok{],}\DataTypeTok{lwd=}\DecValTok{1}\NormalTok{,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{4}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{7}\NormalTok{],}\DataTypeTok{lwd=}\DecValTok{1}\NormalTok{,}\DataTypeTok{col=}\DecValTok{3}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{5}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{8}\NormalTok{],}\DataTypeTok{lwd=}\DecValTok{1}\NormalTok{,}\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
 \KeywordTok{legend}\NormalTok{(}\StringTok{"bottomright"}\NormalTok{,}\DataTypeTok{legend =}\KeywordTok{paste}\NormalTok{(}\StringTok{"Estimated"}\NormalTok{,tr),}\DataTypeTok{lwd=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{,}\DataTypeTok{inset=}\FloatTok{0.05}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-121-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-133-1.pdf}
 
-\hypertarget{modeling-a-data-set}{%
-\section{Modeling a data set}\label{modeling-a-data-set}}
+It is interesting to note that the slopes were in general closer to the true values than the intercepts.
 
-In a given dataset we might want to know if the interaction is needed or not, or in other words, if the different lines might have different slopes, or not.
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(knitr)}
+\CommentTok{#true intercepts}
+\NormalTok{TI<-}\KeywordTok{unique}\NormalTok{(}\DecValTok{3}\OperatorTok{+}\KeywordTok{ifelse}\NormalTok{(type}\OperatorTok{==}\StringTok{"a"}\NormalTok{,}\DecValTok{5}\NormalTok{,}\KeywordTok{ifelse}\NormalTok{(type}\OperatorTok{==}\StringTok{"b"}\NormalTok{,}\DecValTok{8}\NormalTok{,}\KeywordTok{ifelse}\NormalTok{(type}\OperatorTok{==}\StringTok{"c"}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{12}\NormalTok{))))}
+\CommentTok{#true slopes}
+\NormalTok{TS<-}\KeywordTok{unique}\NormalTok{(}\DecValTok{4}\OperatorTok{+}\KeywordTok{ifelse}\NormalTok{(type}\OperatorTok{==}\StringTok{"a"}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\KeywordTok{ifelse}\NormalTok{(type}\OperatorTok{==}\StringTok{"b"}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\KeywordTok{ifelse}\NormalTok{(type}\OperatorTok{==}\StringTok{"c"}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))))}
+\CommentTok{#estimated intercepts}
+\NormalTok{EI<-}\KeywordTok{round}\NormalTok{(}\KeywordTok{c}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{3}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{4}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{5}\NormalTok{]),}\DecValTok{1}\NormalTok{)}
+\CommentTok{#estimated slopes}
+\NormalTok{ES<-}\KeywordTok{round}\NormalTok{(}\KeywordTok{c}\NormalTok{(lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{6}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{7}\NormalTok{],lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lm.ancova2}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{8}\NormalTok{]),}\DecValTok{1}\NormalTok{)}
+\CommentTok{#pooled table}
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Type"}\NormalTok{,}\StringTok{"Intercept (true)"}\NormalTok{,}\StringTok{"Intercept (estimated)"}\NormalTok{,}\StringTok{"Slope (true)"}\NormalTok{,}\StringTok{"Slope (estimated)"}\NormalTok{),}\KeywordTok{rbind}\NormalTok{(}\KeywordTok{unique}\NormalTok{(type),TI,EI,TS,ES)))}
+\end{Highlighting}
+\end{Shaded}
 
-We illustrate that with the data set \texttt{data4lines.csv} that we conseidered before (add link here!)
+\begin{tabular}{l|l|l|l|l|l}
+\hline
+  &  & (Intercept) & (Intercept) & (Intercept) & (Intercept)\\
+\hline
+ & Type & a & b & c & d\\
+\hline
+TI & Intercept (true) & 8 & 11 & 13 & 15\\
+\hline
+EI & Intercept (estimated) & 8 & 18.6 & 10.8 & 15.5\\
+\hline
+TS & Slope (true) & 4.2 & 4.5 & 5 & 6\\
+\hline
+ES & Slope (estimated) & 4.2 & 4 & 5.2 & 6\\
+\hline
+\end{tabular}
+
+Can you think about an intuitive reason for that being the case? The answer lies in figure \ref{fig:FCR}. There is no data near the intercept, so there is actually more information abot the slope than about the intercept. Things could have been different if the data for the continous response was also available around the value 0.
+
+\hypertarget{task-2-modeling-a-data-set}{%
+\section{Task 2 Modeling a data set}\label{task-2-modeling-a-data-set}}
+
+In a given dataset we might want to explain a continous variable as a function of a couple of explanatory variables, specifically a continous variable and a factor. As we have seen before, this could be attempted via an ANCOVA, with or without an interaction term.Therefore, a relevant question might be to know if the interaction is needed or not, or in other words, if the different lines expressing the relationship between the countinous covariate and the response might be have different slopes per level of the factor covariate, or if on the other hand, a comon slope might be possible, with different per level of the factor covariate. A third even simpler model is the one where the factor covariate is not relevant at all, or, in other words, single line would be the most parcimonious way to model the data.
+
+We illustrate that with the data set \texttt{data4lines.csv} that we considered before in chapter \ref{aula7}, which was created using the website \url{https://drawdata.xyz/}. To make our story a bit more intersting we again come up with a narrative.
+
+A biologist is interested in estimating what might have been the weight of a fish for which he found an operculum in the in the stomach of a dead otter (\emph{Lutra lutra}). The operculum was 300 mm in diameter. He knows the fish was a barbel (genera: \emph{Barbus}). We will call this biologist Carlos. His wife is called Conceição, and Conceição enjoys thinking about hard questions. Carlos found the dead otter in the margins of the Guadiana river in Portugal. It seems hard to believe that the otter might have eaten such a large fish. It might have been the largest fish ever eaten by a \emph{Lutra lutra}, which the biologist would love to report in the next Ichtiology congress. To answer his question he visited the museum and he was able to find a sample of fish from the genus \emph{Barbus}. Therefore he labouriosly weighed fish and measured opeculuns\ldots{} The resulting data are our data!
+
+Carlos reads the data in
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3281,12 +3511,52 @@ We illustrate that with the data set \texttt{data4lines.csv} that we conseidered
 \end{Highlighting}
 \end{Shaded}
 
-And now we fit a model without interaction, as we did before,
+He plots the data ad he sees a pattern that seems to be somewaht linear. He knows about linear regression and he fits a line to the data, and then shows the resulting plot with data, model and predictions to Conceição.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm0 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{d4l)}
+\end{Highlighting}
+\end{Shaded}
+
+Carlos is winning, claiming that unfortunately, he suspects that the fish was not the largest ever reported. A Spanish ictiologist reported an otter having eaten a fish with 220 grams. And with his model, he predicts the opperculum belonged to a fish with a weight of about 213.7 gr (\ref{fig:wod}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#plot all the data}
+\KeywordTok{plot}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{xlab=} \StringTok{"Operculum diameters (mm)"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Fish length (gr)"}\NormalTok{,}\DataTypeTok{data=}\NormalTok{d4l)}
+\KeywordTok{abline}\NormalTok{(lm0,}\DataTypeTok{lty=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\NormalTok{sizeo,}\DataTypeTok{h=}\NormalTok{lm0}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lm0}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\NormalTok{sizeo,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{ECOMODbook_files/figure-latex/wod-1} 
+
+}
+
+\caption{Pooled model of fish weight as a function of operculum diameter. Dashed lines represent predictions for a fish with a 300 mm operculum.}\label{fig:wod}
+\end{figure}
+
+Conceição looks at the plots, wonders once again why she married Carlos, and asks: ``What was the actual species of the operculun in your dead otter? And by the way, please, for the last time, can you put the dead otter in the garbage? It is the second time that I confuse it with a rabbit in the freezer\ldots! One day you might have a bad surprise for dinner!''. Carlos thinks about this as says, it was \emph{Barbus sclateri}. And Maria says: ``Well, is the relationship between operculum diameter and fish length the same for all the species?''. Carlos - perhaps not the sharpest tool in the box as we by now have come to realize - nonetheless manages to realize what Conceição is asking about. He knows the animals in the museum were identified to the species level, and he redoes the plot coloring the points by species.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{col=}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.factor}\NormalTok{(z)),}\DataTypeTok{data=}\NormalTok{d4l,}\DataTypeTok{pch=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-138-1.pdf}
+
+And the question that now arises in Carlos mind is, what might the best model to represent this data set, where he has measurements of two numeric variables, \texttt{weight\textasciitilde{}diameter} across 4 groups of observations, defined by \texttt{species}.
+
+Carlos decides he can fit a linear model with both \texttt{x} and \texttt{z} as independent variables, without an interaction. Note this is the conventional ANCOVA model, just as we did before.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{#fit model per group}
-\NormalTok{lmANC<-}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x}\OperatorTok{+}\NormalTok{z,}\DataTypeTok{data=}\NormalTok{data4lines)}
+\NormalTok{lmANC<-}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x}\OperatorTok{+}\NormalTok{z,}\DataTypeTok{data=}\NormalTok{d4l)}
 \KeywordTok{summary}\NormalTok{(lmANC)}
 \end{Highlighting}
 \end{Shaded}
@@ -3294,7 +3564,7 @@ And now we fit a model without interaction, as we did before,
 \begin{verbatim}
 ## 
 ## Call:
-## lm(formula = y ~ x + z, data = data4lines)
+## lm(formula = y ~ x + z, data = d4l)
 ## 
 ## Residuals:
 ##    Min     1Q Median     3Q    Max 
@@ -3315,12 +3585,12 @@ And now we fit a model without interaction, as we did before,
 ## F-statistic: 91.38 on 4 and 133 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-and after a model with the interaction term
+Maria reminds him again that life is more complicated than what he'd like to imagine: ``Why don't you try a model with an interaction term between opperculum diameter and species?''. And so he does.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{#fit model per group, with interaction}
-\NormalTok{lmlinesI<-}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x}\OperatorTok{+}\NormalTok{z}\OperatorTok{+}\NormalTok{x}\OperatorTok{:}\NormalTok{z,}\DataTypeTok{data=}\NormalTok{data4lines)}
+\NormalTok{lmlinesI<-}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x}\OperatorTok{+}\NormalTok{z}\OperatorTok{+}\NormalTok{x}\OperatorTok{:}\NormalTok{z,}\DataTypeTok{data=}\NormalTok{d4l)}
 \KeywordTok{summary}\NormalTok{(lmlinesI)}
 \end{Highlighting}
 \end{Shaded}
@@ -3328,7 +3598,7 @@ and after a model with the interaction term
 \begin{verbatim}
 ## 
 ## Call:
-## lm(formula = y ~ x + z + x:z, data = data4lines)
+## lm(formula = y ~ x + z + x:z, data = d4l)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
@@ -3352,33 +3622,36 @@ and after a model with the interaction term
 ## F-statistic: 144.5 on 7 and 130 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-It seems like, based on AIC, the second model is best! Which makes total sence, since that indeed we had one line for one of the groups (\texttt{z}) that had a different slope! And that is the significant interaction term above, indicating it is different from the slope of group \texttt{a}.
+It seems like, based on AIC, the model with the interaction is the most parsimonious (remember: most parcimonious model is the one with lowest AIC)!
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{AIC}\NormalTok{(lmANC,lmlinesI)}
+\KeywordTok{AIC}\NormalTok{(lm0,lmANC,lmlinesI)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ##          df      AIC
+## lm0       3 1533.741
 ## lmANC     6 1433.414
 ## lmlinesI  9 1321.927
 \end{verbatim}
 
-Now lets go back to the data. Remember a plot we had on this dataset before?
+Which if you ignore the story for a moment, makes total sence, since that indeed we had one line for one of the groups (\texttt{z}) that had a different slope! And that is the significant interaction term above, indicating it is different from the slope of group \texttt{a}.
 
-We noted the plot was messy, including the pooled regression (the thick black line), the regressions fitted to independent data sets, one for each species (museums before!) (the solid lines), and the regressions resulting from the model with species as a factor covariate (dotted-dashed lines).
+Now lets go back to the data. Remember a plot we had on this dataset before?We noted the plot was messy, including the pooled regression (the thick black line), the regressions fitted to independent data sets, one for each species (museums before!) (the solid lines), and the regressions resulting from the model with species as a factor covariate (dotted-dashed lines).
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{#plot all the data}
-\KeywordTok{plot}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{col=}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.factor}\NormalTok{(z)),}\DataTypeTok{data=}\NormalTok{data4lines,}\DataTypeTok{pch=}\DecValTok{1}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{col=}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.factor}\NormalTok{(z)),}\DataTypeTok{data=}\NormalTok{d4l,}\DataTypeTok{pch=}\DecValTok{1}\NormalTok{)}
 \CommentTok{#completely independet regression lines}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{data4lines[data4lines}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"a"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{data4lines[data4lines}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"b"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{data4lines[data4lines}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"c"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{3}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{data4lines[data4lines}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"d"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{d4l[d4l}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"a"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{d4l[d4l}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"b"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{d4l[d4l}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"c"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{3}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{d4l[d4l}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"d"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
+\CommentTok{#fit model to pooled data}
+\NormalTok{lmlinesG<-}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{d4l)}
 \CommentTok{#these are the wrong lines... why?}
 \KeywordTok{abline}\NormalTok{(lmlinesG,}\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
 \KeywordTok{abline}\NormalTok{(lmANC}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{],lmANC}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],}\DataTypeTok{col=}\DecValTok{1}\NormalTok{)}
@@ -3388,19 +3661,19 @@ We noted the plot was messy, including the pooled regression (the thick black li
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-126-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-142-1.pdf}
 
-Now we can remove the independent lines (to clean it up a bit!) and just leave the no interaction model estimated values, then add the estimated lines from the interaction model below. Remember, AIC says it's the ones from the interactioon model that are the best representation of the data.
+Now we can remove the independent lines (to clean it up a bit!) and just leave the no interaction model estimated values, then add the estimated lines from the interaction model below. Remember, AIC says its the ones from the interactioon model that are the best representation of the data.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{#plot all the data}
-\KeywordTok{plot}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{col=}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.factor}\NormalTok{(z)),}\DataTypeTok{data=}\NormalTok{data4lines,}\DataTypeTok{pch=}\DecValTok{1}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{col=}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.factor}\NormalTok{(z)),}\DataTypeTok{data=}\NormalTok{d4l,}\DataTypeTok{pch=}\DecValTok{1}\NormalTok{)}
 \CommentTok{# #completely independent regression lines}
-\CommentTok{# abline(lm(y~x,data=data4lines[data4lines$z=="a",]),col=1,lty=4)}
-\CommentTok{# abline(lm(y~x,data=data4lines[data4lines$z=="b",]),col=2,lty=4)}
-\CommentTok{# abline(lm(y~x,data=data4lines[data4lines$z=="c",]),col=3,lty=4)}
-\CommentTok{# abline(lm(y~x,data=data4lines[data4lines$z=="d",]),col=4,lty=4)}
+\CommentTok{# abline(lm(y~x,data=d4l[d4l$z=="a",]),col=1,lty=4)}
+\CommentTok{# abline(lm(y~x,data=d4l[d4l$z=="b",]),col=2,lty=4)}
+\CommentTok{# abline(lm(y~x,data=d4l[d4l$z=="c",]),col=3,lty=4)}
+\CommentTok{# abline(lm(y~x,data=d4l[d4l$z=="d",]),col=4,lty=4)}
 \CommentTok{# no interaction lines}
 \KeywordTok{abline}\NormalTok{(lmANC}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{],lmANC}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],}\DataTypeTok{col=}\DecValTok{1}\NormalTok{)}
 \KeywordTok{abline}\NormalTok{(lmANC}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lmANC}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{3}\NormalTok{],lmANC}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],}\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
@@ -3414,19 +3687,19 @@ Now we can remove the independent lines (to clean it up a bit!) and just leave t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-127-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-143-1.pdf}
 
 Likewise, we could compare the lines from independent lines to those of the interaction model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{#plot all the data}
-\KeywordTok{plot}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{col=}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.factor}\NormalTok{(z)),}\DataTypeTok{data=}\NormalTok{data4lines,}\DataTypeTok{pch=}\DecValTok{1}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{col=}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.factor}\NormalTok{(z)),}\DataTypeTok{data=}\NormalTok{d4l,}\DataTypeTok{pch=}\DecValTok{1}\NormalTok{)}
 \CommentTok{#completely independent regression lines}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{data4lines[data4lines}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"a"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{data4lines[data4lines}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"b"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{data4lines[data4lines}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"c"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{3}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{data4lines[data4lines}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"d"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{d4l[d4l}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"a"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{d4l[d4l}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"b"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{d4l[d4l}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"c"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{3}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{data=}\NormalTok{d4l[d4l}\OperatorTok{$}\NormalTok{z}\OperatorTok{==}\StringTok{"d"}\NormalTok{,]),}\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{4}\NormalTok{)}
 \CommentTok{# model with interaction lines}
 \KeywordTok{abline}\NormalTok{(lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{],lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],}\DataTypeTok{col=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{5}\NormalTok{)}
 \KeywordTok{abline}\NormalTok{(lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{3}\NormalTok{],lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{6}\NormalTok{],}\DataTypeTok{col=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{5}\NormalTok{)}
@@ -3435,14 +3708,604 @@ Likewise, we could compare the lines from independent lines to those of the inte
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-128-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-144-1.pdf}
 
 It is interesting to see that they are not very different, which is perhaps surprising but\ldots{} actually\ldots{} not surprising. Both use exaclty 8 parameters to describe the data\ldots{} it's the same thing!!! Linear models are cool :)
+
+OK, I have completely forgoten about Carlos and Conceição\ldots{} or maybe it's too late and I am just sleepy. But if the right model for \emph{Barbus sclatery}, which happens to correspond to the ``green'' species, is the one based on the interaction term, then\ldots{} the fish weight might be 283.6, as shown below.
+
+Carlos might have something to present at the congress after all! He goes to sleep, happy. As he is starting to dream with his ``best talk'' award he still manages to hear Conceição saying something in the distance like ``\ldots{} have you\ldots{} considered\ldots{} variability \ldots{} prediction\ldots{} maybe not realy larger than 220 gr\ldots{}''. The last thought that goes through his mind before the dream turns into a nightmare where he is on that congress naked is\ldots{} ``Why did I married that woman''?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#plot all the data}
+\KeywordTok{plot}\NormalTok{(y}\OperatorTok{~}\NormalTok{x,}\DataTypeTok{col=}\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{as.factor}\NormalTok{(z)),}\DataTypeTok{data=}\NormalTok{d4l,}\DataTypeTok{pch=}\DecValTok{1}\NormalTok{)}
+\CommentTok{#completely independent regression lines}
+\KeywordTok{abline}\NormalTok{(lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{],lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],}\DataTypeTok{col=}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{5}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{3}\NormalTok{],lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{6}\NormalTok{],}\DataTypeTok{col=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{5}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{4}\NormalTok{],lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{7}\NormalTok{],}\DataTypeTok{col=}\DecValTok{3}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{5}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{5}\NormalTok{],lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{8}\NormalTok{],}\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{5}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\DecValTok{300}\NormalTok{,}\DataTypeTok{h=}\NormalTok{lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\OperatorTok{+}\NormalTok{lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{4}\NormalTok{]}\OperatorTok{+}\NormalTok{(lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\OperatorTok{+}\NormalTok{lmlinesI}\OperatorTok{$}\NormalTok{coefficients[}\DecValTok{7}\NormalTok{])}\OperatorTok{*}\NormalTok{sizeo,}\DataTypeTok{col=}\StringTok{"green"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-145-1.pdf}
+
+\hypertarget{interactions-between-continous-covariates}{%
+\section{Interactions between continous covariates}\label{interactions-between-continous-covariates}}
+
+The examples above were interactions with factors, but interactions can occur also across strictly continous variables. An example follows
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#--------------------------------------------------------}
+\CommentTok{#Interactions}
+\CommentTok{#### With continous covariates}
+\CommentTok{#--------------------------------------------------------}
+\CommentTok{#sample size}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{121}\NormalTok{)}
+\NormalTok{n=}\DecValTok{100}
+\CommentTok{#get a response variable}
+\NormalTok{xs1=}\KeywordTok{runif}\NormalTok{(n,}\DecValTok{30}\NormalTok{,}\DecValTok{90}\NormalTok{)}
+\CommentTok{#get a second variable}
+\NormalTok{xs2=}\KeywordTok{rgamma}\NormalTok{(n,}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{)}
+\CommentTok{#define the linear predictor}
+\NormalTok{ys=}\DecValTok{20}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{xs1}\DecValTok{-4}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(n,}\DecValTok{2}\NormalTok{)}
+
+\CommentTok{#to make it easier}
+\NormalTok{xs12=xs1}\OperatorTok{*}\NormalTok{xs2}
+
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(xs1,ys)}
+\KeywordTok{plot}\NormalTok{(xs2,ys)}
+\KeywordTok{plot}\NormalTok{(xs12,ys)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-146-1.pdf}
+
+We can fit different models to such data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#-----------------------------------}
+\CommentTok{#models with interaction}
+\CommentTok{#model with interaction}
+\NormalTok{m1=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
+\CommentTok{#just the interaction term}
+\NormalTok{m1B=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
+\CommentTok{#same as m1}
+\NormalTok{m1C=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2)}
+\CommentTok{#same as just the interaction term}
+\NormalTok{m1D=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs12)}
+\CommentTok{#-----------------------------------}
+\CommentTok{#models without the interaction term}
+\NormalTok{mxs1xs2=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2)}
+\NormalTok{mxs1=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1)}
+\NormalTok{mxs2=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs2)}
+
+
+\KeywordTok{summary}\NormalTok{(m1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2 + xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7590 -0.6134  0.1005  0.6850  2.5857 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 23.21760    1.22479  18.956  < 2e-16 ***
+## xs1          1.97682    0.02030  97.368  < 2e-16 ***
+## xs2         -5.06833    1.09787  -4.617 1.21e-05 ***
+## xs1:xs2      3.01992    0.01876 160.986  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9462 on 96 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(m1B)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.780 -19.984   1.668  19.739  57.329 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  82.7735     7.4909   11.05   <2e-16 ***
+## xs1:xs2       3.9363     0.1196   32.90   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 27.28 on 98 degrees of freedom
+## Multiple R-squared:  0.917,	Adjusted R-squared:  0.9161 
+## F-statistic:  1083 on 1 and 98 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(m1C)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs1 * xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7590 -0.6134  0.1005  0.6850  2.5857 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 23.21760    1.22479  18.956  < 2e-16 ***
+## xs1          1.97682    0.02030  97.368  < 2e-16 ***
+## xs2         -5.06833    1.09787  -4.617 1.21e-05 ***
+## xs1:xs2      3.01992    0.01876 160.986  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9462 on 96 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(m1D)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs12)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.780 -19.984   1.668  19.739  57.329 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  82.7735     7.4909   11.05   <2e-16 ***
+## xs12          3.9363     0.1196   32.90   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 27.28 on 98 degrees of freedom
+## Multiple R-squared:  0.917,	Adjusted R-squared:  0.9161 
+## F-statistic:  1083 on 1 and 98 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#ploting the data and partial models}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{),}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FloatTok{0.2}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(xs1,ys)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(xs2,ys)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs2),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(xs12,ys)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs12),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-147-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#compare models using say AIC}
+
+\KeywordTok{AIC}\NormalTok{(m1,mxs1,mxs2,mxs1xs2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         df       AIC
+## m1       5  278.6349
+## mxs1     3 1076.8927
+## mxs2     3 1183.9971
+## mxs1xs2  4  836.8333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#--------------------------------------------}
+\CommentTok{# A 4 way interaction model}
+\CommentTok{#but in reality there is only 1 second order interaction}
+\CommentTok{#--------------------------------------------}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\CommentTok{#get a response variable}
+\NormalTok{xs1=}\KeywordTok{runif}\NormalTok{(n,}\DecValTok{30}\NormalTok{,}\DecValTok{90}\NormalTok{)}
+\CommentTok{#get a second variable}
+\NormalTok{xs2=}\KeywordTok{rgamma}\NormalTok{(n,}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{)}
+\CommentTok{#get a response variable}
+\NormalTok{xs3=}\KeywordTok{runif}\NormalTok{(n,}\DecValTok{3}\NormalTok{,}\DecValTok{6}\NormalTok{)}
+\CommentTok{#get a second variable}
+\NormalTok{xs4=}\KeywordTok{rgamma}\NormalTok{(n,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\CommentTok{#define the linear predictor}
+\NormalTok{ys=}\DecValTok{20}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{xs1}\DecValTok{-4}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs3}\OperatorTok{+}\NormalTok{xs4}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(n,}\DecValTok{2}\NormalTok{)}
+\NormalTok{modK=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{*}\NormalTok{xs3}\OperatorTok{*}\NormalTok{xs4)}
+\NormalTok{modL=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs3}\OperatorTok{+}\NormalTok{xs4}\OperatorTok{+}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
+\KeywordTok{summary}\NormalTok{(modK)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs1 * xs2 * xs3 * xs4)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.38930 -0.54310  0.05557  0.65213  3.01609 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)      1.687e+01  2.363e+01   0.714    0.477    
+## xs1              1.897e+00  3.753e-01   5.056 2.47e-06 ***
+## xs2              6.907e+00  2.383e+01   0.290    0.773    
+## xs3              2.413e+00  5.412e+00   0.446    0.657    
+## xs4              2.543e+01  2.372e+01   1.072    0.287    
+## xs1:xs2          3.024e+00  3.697e-01   8.180 2.64e-12 ***
+## xs1:xs3          1.438e-02  8.635e-02   0.167    0.868    
+## xs2:xs3         -2.400e+00  5.403e+00  -0.444    0.658    
+## xs1:xs4         -1.958e-01  3.457e-01  -0.567    0.573    
+## xs2:xs4         -3.026e+01  2.485e+01  -1.218    0.227    
+## xs3:xs4         -5.713e+00  5.582e+00  -1.024    0.309    
+## xs1:xs2:xs3     -6.552e-04  8.407e-02  -0.008    0.994    
+## xs1:xs2:xs4      2.623e-01  3.558e-01   0.737    0.463    
+## xs1:xs3:xs4      4.987e-02  8.132e-02   0.613    0.541    
+## xs2:xs3:xs4      6.737e+00  5.736e+00   1.175    0.243    
+## xs1:xs2:xs3:xs4 -6.164e-02  8.242e-02  -0.748    0.457    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.053 on 84 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 6.03e+04 on 15 and 84 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(modL)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2 + xs3 + xs4 + xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.6674 -0.5841  0.1184  0.6866  2.7579 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 21.15925    1.46383  14.455  < 2e-16 ***
+## xs1          1.99914    0.02291  87.247  < 2e-16 ***
+## xs2         -3.30066    1.29741  -2.544  0.01259 *  
+## xs3          1.19397    0.12449   9.591 1.36e-15 ***
+## xs4          0.76218    0.24032   3.171  0.00205 ** 
+## xs1:xs2      2.99210    0.02131 140.432  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.054 on 94 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 1.806e+05 on 5 and 94 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\hypertarget{aula13}{%
+\chapter{Class 12: 04 11 2020 Interactions between continous covariates}\label{aula13}}
+
+The examples above were interactions with factors, but interactions can occur also across strictly continous variables. An example follows
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#--------------------------------------------------------}
+\CommentTok{#Interactions}
+\CommentTok{#### With continous covariates}
+\CommentTok{#--------------------------------------------------------}
+\CommentTok{#sample size}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{121}\NormalTok{)}
+\NormalTok{n=}\DecValTok{100}
+\CommentTok{#get a response variable}
+\NormalTok{xs1=}\KeywordTok{runif}\NormalTok{(n,}\DecValTok{30}\NormalTok{,}\DecValTok{90}\NormalTok{)}
+\CommentTok{#get a second variable}
+\NormalTok{xs2=}\KeywordTok{rgamma}\NormalTok{(n,}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{)}
+\CommentTok{#define the linear predictor}
+\NormalTok{ys=}\DecValTok{20}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{xs1}\DecValTok{-4}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(n,}\DecValTok{2}\NormalTok{)}
+
+\CommentTok{#to make it easier}
+\NormalTok{xs12=xs1}\OperatorTok{*}\NormalTok{xs2}
+
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(xs1,ys)}
+\KeywordTok{plot}\NormalTok{(xs2,ys)}
+\KeywordTok{plot}\NormalTok{(xs12,ys)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-148-1.pdf}
+
+We can fit different models to such data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#-----------------------------------}
+\CommentTok{#models with interaction}
+\CommentTok{#model with interaction}
+\NormalTok{m1=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
+\CommentTok{#just the interaction term}
+\NormalTok{m1B=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
+\CommentTok{#same as m1}
+\NormalTok{m1C=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2)}
+\CommentTok{#same as just the interaction term}
+\NormalTok{m1D=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs12)}
+\CommentTok{#-----------------------------------}
+\CommentTok{#models without the interaction term}
+\NormalTok{mxs1xs2=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2)}
+\NormalTok{mxs1=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1)}
+\NormalTok{mxs2=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs2)}
+
+
+\KeywordTok{summary}\NormalTok{(m1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2 + xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7590 -0.6134  0.1005  0.6850  2.5857 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 23.21760    1.22479  18.956  < 2e-16 ***
+## xs1          1.97682    0.02030  97.368  < 2e-16 ***
+## xs2         -5.06833    1.09787  -4.617 1.21e-05 ***
+## xs1:xs2      3.01992    0.01876 160.986  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9462 on 96 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(m1B)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.780 -19.984   1.668  19.739  57.329 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  82.7735     7.4909   11.05   <2e-16 ***
+## xs1:xs2       3.9363     0.1196   32.90   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 27.28 on 98 degrees of freedom
+## Multiple R-squared:  0.917,	Adjusted R-squared:  0.9161 
+## F-statistic:  1083 on 1 and 98 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(m1C)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs1 * xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7590 -0.6134  0.1005  0.6850  2.5857 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 23.21760    1.22479  18.956  < 2e-16 ***
+## xs1          1.97682    0.02030  97.368  < 2e-16 ***
+## xs2         -5.06833    1.09787  -4.617 1.21e-05 ***
+## xs1:xs2      3.01992    0.01876 160.986  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9462 on 96 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(m1D)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs12)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.780 -19.984   1.668  19.739  57.329 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  82.7735     7.4909   11.05   <2e-16 ***
+## xs12          3.9363     0.1196   32.90   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 27.28 on 98 degrees of freedom
+## Multiple R-squared:  0.917,	Adjusted R-squared:  0.9161 
+## F-statistic:  1083 on 1 and 98 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#ploting the data and partial models}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{),}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FloatTok{0.2}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(xs1,ys)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(xs2,ys)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs2),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(xs12,ys)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs12),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-149-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#compare models using say AIC}
+
+\KeywordTok{AIC}\NormalTok{(m1,mxs1,mxs2,mxs1xs2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         df       AIC
+## m1       5  278.6349
+## mxs1     3 1076.8927
+## mxs2     3 1183.9971
+## mxs1xs2  4  836.8333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#--------------------------------------------}
+\CommentTok{# A 4 way interaction model}
+\CommentTok{#but in reality there is only 1 second order interaction}
+\CommentTok{#--------------------------------------------}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\CommentTok{#get a response variable}
+\NormalTok{xs1=}\KeywordTok{runif}\NormalTok{(n,}\DecValTok{30}\NormalTok{,}\DecValTok{90}\NormalTok{)}
+\CommentTok{#get a second variable}
+\NormalTok{xs2=}\KeywordTok{rgamma}\NormalTok{(n,}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{)}
+\CommentTok{#get a response variable}
+\NormalTok{xs3=}\KeywordTok{runif}\NormalTok{(n,}\DecValTok{3}\NormalTok{,}\DecValTok{6}\NormalTok{)}
+\CommentTok{#get a second variable}
+\NormalTok{xs4=}\KeywordTok{rgamma}\NormalTok{(n,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\CommentTok{#define the linear predictor}
+\NormalTok{ys=}\DecValTok{20}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{xs1}\DecValTok{-4}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs3}\OperatorTok{+}\NormalTok{xs4}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(n,}\DecValTok{2}\NormalTok{)}
+\NormalTok{modK=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{*}\NormalTok{xs3}\OperatorTok{*}\NormalTok{xs4)}
+\NormalTok{modL=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs3}\OperatorTok{+}\NormalTok{xs4}\OperatorTok{+}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
+\KeywordTok{summary}\NormalTok{(modK)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs1 * xs2 * xs3 * xs4)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.38930 -0.54310  0.05557  0.65213  3.01609 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)      1.687e+01  2.363e+01   0.714    0.477    
+## xs1              1.897e+00  3.753e-01   5.056 2.47e-06 ***
+## xs2              6.907e+00  2.383e+01   0.290    0.773    
+## xs3              2.413e+00  5.412e+00   0.446    0.657    
+## xs4              2.543e+01  2.372e+01   1.072    0.287    
+## xs1:xs2          3.024e+00  3.697e-01   8.180 2.64e-12 ***
+## xs1:xs3          1.438e-02  8.635e-02   0.167    0.868    
+## xs2:xs3         -2.400e+00  5.403e+00  -0.444    0.658    
+## xs1:xs4         -1.958e-01  3.457e-01  -0.567    0.573    
+## xs2:xs4         -3.026e+01  2.485e+01  -1.218    0.227    
+## xs3:xs4         -5.713e+00  5.582e+00  -1.024    0.309    
+## xs1:xs2:xs3     -6.552e-04  8.407e-02  -0.008    0.994    
+## xs1:xs2:xs4      2.623e-01  3.558e-01   0.737    0.463    
+## xs1:xs3:xs4      4.987e-02  8.132e-02   0.613    0.541    
+## xs2:xs3:xs4      6.737e+00  5.736e+00   1.175    0.243    
+## xs1:xs2:xs3:xs4 -6.164e-02  8.242e-02  -0.748    0.457    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.053 on 84 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 6.03e+04 on 15 and 84 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(modL)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2 + xs3 + xs4 + xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.6674 -0.5841  0.1184  0.6866  2.7579 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 21.15925    1.46383  14.455  < 2e-16 ***
+## xs1          1.99914    0.02291  87.247  < 2e-16 ***
+## xs2         -3.30066    1.29741  -2.544  0.01259 *  
+## xs3          1.19397    0.12449   9.591 1.36e-15 ***
+## xs4          0.76218    0.24032   3.171  0.00205 ** 
+## xs1:xs2      2.99210    0.02131 140.432  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.054 on 94 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 1.806e+05 on 5 and 94 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\hypertarget{conlusion-on-linear-regression}{%
+\chapter{Conlusion on linear regression}\label{conlusion-on-linear-regression}}
 
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
 
-The material in this and the last 3 lectures allows you to fully understand the outputs of simple regression models, and to see how some statistical models that you know from other names are just a linear model.
+The material in previous 4 lectures allows you to fully understand the outputs of simple regression models, and to see how some statistical models that you know by other names, like an ANOVA or a the t-test, are just simple special cases of a linear model.
 
 It also helps you understand how the parameter values represent just features of the data and its generating process, and how we can recover estimates of the original relationships between the variables from said set of parameters.
 
@@ -3450,15 +4313,46 @@ I recommend you explore the code and output above, and that in particular you ex
 
 Many additional interesting links on linear models exist online. This is just one of them: \url{https://data-flair.training/blogs/r-linear-regression-tutorial/}
 
+\hypertarget{aula12}{%
+\chapter{Class 12: 04 11 2020 Maximum likelihood and all that}\label{aula12}}
+
+\hypertarget{aula13a}{%
+\chapter{Class 13a: 4 11 2020 Maximum likelihood and all that}\label{aula13a}}
+
+\hypertarget{aula14}{%
+\chapter{Class 14: 10 10 2020}\label{aula14}}
+
+\hypertarget{aula15}{%
+\chapter{Class 15: 11 11 2020}\label{aula15}}
+
+\hypertarget{aula16}{%
+\chapter{Class 16: 17 11 2020}\label{aula16}}
+
 \hypertarget{final-words}{%
 \chapter{Final Words}\label{final-words}}
 
 We have finished a nice book.
 
-\hypertarget{agradecimentos}{%
-\chapter{Agradecimentos}\label{agradecimentos}}
+\hypertarget{aknowledgments}{%
+\chapter{Aknowledgments}\label{aknowledgments}}
 
-A todos os meus alunos de Modelação Ecológica 2020/2021 que ajudaram com comentários a tornar este documento um pouco mais fácil de ler :)
+A number of colleagues have contributed with comments, upfront anf foremost Susana França and Ana Sofia Reboleira, my partners in Crime at FCUL, co-teachers for Modelação Ecológica and Ecologia Numérica at FCUL, the courses that inspired tis manuscript.
+
+To all my students in Ecologica Numérica and Modelação Ecológica 2020/2021 which questions every time make me realize that what an ecological statistician might think is straightfoward is far from it for a biologist. Without aknowledging that gap, that difference in the way brains are wired, the efforts to convey statistcs to biologists are flawed from the beggining.
+
+To Dinis Pestana, the person that first made me believe that it was possible to make the biology to statistics transition.
+
+To Russel-Alpizar Jara for incintivating me to go to St Andrews, which I see as one of the epicenters of ecologicasl statistics in the 20th century. I was so fortunate to end there and be able to be part of the fantastic family of CREEMinals.
+
+I have been fortunate to have exposed to the minds of a set of amazing scientists and statisticians.
+
+To Steve Buckland, my PhD Supervisor at CREEM that opened to me the world of distance sampling. Steve was the best supervisor I could have asked for. Not only for the support provided, but also for all the opportunites he exposed me to during that period. Teaching in CREEM's Distance Sampling workshops during my PhD years was possibly the source of many of the great things that happenned after. Point in case all the polar bear work that has been the most amazing work-life experience.
+
+To David Borchers, the most amazing statistical brain I have ever had the pleasure to meet and work with. A generous brain that I have often picked up on, always generous with his brilliant contributions. If I could pick a brain for work, I'd pick David's!
+
+To Eric Rexstad, with whom I was fortunate to share an office during his sabattical at CREEM many years ago. As I was starting a PhD his constant challenges, tips and thoughts made me realize what kind of scientist I would like to become one day. Not there yet, but still trying!
+
+To Len Thomas, an office mate at first, a colleague after, as he claims wasting my time with bad ideas during my Phd (not true!), my boss since I had a PhD and a good friend. If Carlsberg made bosses, Len would be their poster child ;)
 
   \bibliography{book.bib,packages.bib}
 

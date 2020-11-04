@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Introduction | Notes for Ecological Modelling</title>
+  <title>Chapter 2 About regression | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Introduction | Notes for Ecological Modelling" />
+  <meta property="og:title" content="Chapter 2 About regression | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Introduction | Notes for Ecological Modelling" />
+  <meta name="twitter:title" content="Chapter 2 About regression | Notes for Ecological Modelling" />
   
   <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2020-10-31" />
+<meta name="date" content="2020-11-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,12 +132,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
-<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-a-regression"><i class="fa fa-check"></i><b>2.1</b> What is a regression?</a></li>
-<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#the-general-linear-model"><i class="fa fa-check"></i><b>2.2</b> The general linear model</a></li>
-<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#bookdown-template-leftovers"><i class="fa fa-check"></i><b>2.3</b> Bookdown template leftovers</a></li>
+<li class="chapter" data-level="2" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>2</b> About regression</a><ul>
+<li class="chapter" data-level="2.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>2.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="2.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>2.2</b> The general linear model</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>3</b> Hands On Regression</a></li>
+<li class="chapter" data-level="3" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>3</b> Hands On Regression</a><ul>
+<li class="chapter" data-level="3.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>3.1</b> The assumptions are on the residuals, not the data</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>4</b> Class 6 13 10 2020</a><ul>
 <li class="chapter" data-level="4.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>4.1</b> Implementing a regression</a></li>
 <li class="chapter" data-level="4.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>4.2</b> Simulating regression data</a><ul>
@@ -158,17 +159,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>8</b> Class 10: 27 10 2020</a><ul>
 <li class="chapter" data-level="8.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>8.1</b> Same story, another spin</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>9</b> Class 11: 03 10 2020 ANCOVA with different slopes: interactions</a><ul>
-<li class="chapter" data-level="9.1" data-path="aula11.html"><a href="aula11.html#modeling-a-data-set"><i class="fa fa-check"></i><b>9.1</b> Modeling a data set</a></li>
-<li class="chapter" data-level="9.2" data-path="aula11.html"><a href="aula11.html#conclusion"><i class="fa fa-check"></i><b>9.2</b> Conclusion</a></li>
+<li class="chapter" data-level="9" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>9</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a><ul>
+<li class="chapter" data-level="9.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>9.1</b> About interactions</a></li>
+<li class="chapter" data-level="9.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>9.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="9.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>9.3</b> Task 2 Modeling a data set</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>10</b> Class 12: 3 11 2020</a></li>
-<li class="chapter" data-level="11" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>11</b> Class 13: 4 11 2020</a></li>
-<li class="chapter" data-level="12" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>12</b> Class 14: 10 10 2020</a></li>
-<li class="chapter" data-level="13" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>13</b> Class 15: 11 11 2020</a></li>
-<li class="chapter" data-level="14" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>14</b> Class 16: 17 11 2020</a></li>
-<li class="chapter" data-level="15" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>15</b> Final Words</a></li>
-<li class="chapter" data-level="16" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>16</b> Aknowledgments</a></li>
+<li class="chapter" data-level="10" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>10</b> Class 12: 04 11 2020 Interactions between continous covariates</a></li>
+<li class="chapter" data-level="11" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>11</b> Conlusion on linear regression</a><ul>
+<li class="chapter" data-level="11.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>11.1</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>12</b> Class 12: 04 11 2020 Maximum likelihood and all that</a></li>
+<li class="chapter" data-level="13" data-path="aula13a.html"><a href="aula13a.html"><i class="fa fa-check"></i><b>13</b> Class 13a: 4 11 2020 Maximum likelihood and all that</a></li>
+<li class="chapter" data-level="14" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>14</b> Class 14: 10 10 2020</a></li>
+<li class="chapter" data-level="15" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>15</b> Class 15: 11 11 2020</a></li>
+<li class="chapter" data-level="16" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>16</b> Class 16: 17 11 2020</a></li>
+<li class="chapter" data-level="17" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>17</b> Final Words</a></li>
+<li class="chapter" data-level="18" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>18</b> Aknowledgments</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -190,9 +196,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Introduction</h1>
-<p>This is being written as a bookdown project. Maybe one day it will become a book, for now, these are notes I am using for my course on “Modelação Ecológica” at FCUL.</p>
+<div id="about-regression" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> About regression</h1>
+<p>Some references woth looking into.</p>
+<p>An intro to R: <span class="citation">(Zuur, Ieno, and Meesters <a href="#ref-Zuur2009a" role="doc-biblioref">2009</a>)</span></p>
+<p>Models for ecological data: <span class="citation">(Zuur, Ieno, and Smith <a href="#ref-Zuur2007" role="doc-biblioref">2007</a>)</span></p>
+<p>More on regression and extending the linear model (just an example): <span class="citation">(Faraway <a href="#ref-Faraway2006" role="doc-biblioref">2006</a>, @Zuur2009b)</span></p>
 <div id="what-is-a-regression" class="section level2">
 <h2><span class="header-section-number">2.1</span> What is a regression?</h2>
 <p>Where does the word come from? Gauss and regression towards the mean.</p>
@@ -217,189 +226,19 @@ and sometimes the notation ignores the formal conditioning on the values of the 
 with residuals</p>
 <p><span class="math display">\[e_i=y_i - (a+bx_i)= y_i-\hat y_i\]</span></p>
 <p>being Gaussian, i.e. <span class="math inline">\(e_i\)</span>~Gau(0,<span class="math inline">\(\sigma\)</span>), and where the link function is the identity (i.e. <span class="math inline">\(f(E(y))=1 \times E(y)=E(y)\)</span>).</p>
-</div>
-<div id="bookdown-template-leftovers" class="section level2">
-<h2><span class="header-section-number">2.3</span> Bookdown template leftovers</h2>
-<p>You can label chapter and section titles using <code>{#label}</code> after them, e.g., we can reference Chapter <a href="intro.html#intro">2</a>. If you do not manually label them, there will be automatic labels anyway, e.g., Chapter <a href="#methods"><strong>??</strong></a>.</p>
-<p>Figures and tables with captions will be placed in <code>figure</code> and <code>table</code> environments, respectively.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw">plot</span>(pressure, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</a></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:nice-fig"></span>
-<img src="ECOMODbook_files/figure-html/nice-fig-1.png" alt="Here is a nice figure!" width="80%" />
-<p class="caption">
-Figure 2.1: Here is a nice figure!
-</p>
-</div>
-<p>Reference a figure by its code chunk label with the <code>fig:</code> prefix, e.g., see Figure <a href="intro.html#fig:nice-fig">2.1</a>. Similarly, you can reference tables generated from <code>knitr::kable()</code>, e.g., see Table <a href="intro.html#tab:nice-tab">2.1</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">knitr<span class="op">::</span><span class="kw">kable</span>(</a>
-<a class="sourceLine" id="cb2-2" title="2">  <span class="kw">head</span>(iris, <span class="dv">20</span>), <span class="dt">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</a>
-<a class="sourceLine" id="cb2-3" title="3">  <span class="dt">booktabs =</span> <span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb2-4" title="4">)</a></code></pre></div>
-<table>
-<caption><span id="tab:nice-tab">Table 2.1: </span>Here is a nice table!</caption>
-<thead>
-<tr class="header">
-<th align="right">Sepal.Length</th>
-<th align="right">Sepal.Width</th>
-<th align="right">Petal.Length</th>
-<th align="right">Petal.Width</th>
-<th align="left">Species</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.7</td>
-<td align="right">3.2</td>
-<td align="right">1.3</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.6</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.0</td>
-<td align="right">3.6</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.7</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.6</td>
-<td align="right">3.4</td>
-<td align="right">1.4</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.0</td>
-<td align="right">3.4</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.4</td>
-<td align="right">2.9</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.7</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.8</td>
-<td align="right">3.4</td>
-<td align="right">1.6</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.8</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.3</td>
-<td align="right">3.0</td>
-<td align="right">1.1</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.8</td>
-<td align="right">4.0</td>
-<td align="right">1.2</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.7</td>
-<td align="right">4.4</td>
-<td align="right">1.5</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.3</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.7</td>
-<td align="right">3.8</td>
-<td align="right">1.7</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.8</td>
-<td align="right">1.5</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-</tbody>
-</table>
-<p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown" role="doc-biblioref">2020</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015" role="doc-biblioref">2015</a>)</span>.</p>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-xie2015">
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.</p>
+<div id="ref-Faraway2006">
+<p>Faraway, J. J. 2006. <em>Extending the Linear Model with R</em>. Chapman &amp; Hall / CRC. <a href="http://www.maths.bath.ac.uk/%7Ejjf23/ELM/">http://www.maths.bath.ac.uk/%7Ejjf23/ELM/</a>.</p>
 </div>
-<div id="ref-R-bookdown">
-<p>Xie, Yihui. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
+<div id="ref-Zuur2009a">
+<p>Zuur, Alain F., Elena N. Ieno, and Erik H. W.G. Meesters. 2009. <em>A Beginner’s Guide to R</em>. Edited by Robert Gentleman, Kurt Hornik, and Giovanni G. Parmigiani. Springer.</p>
+</div>
+<div id="ref-Zuur2007">
+<p>Zuur, Alain F., Elena N. Ieno, and Graham M. Smith. 2007. <em>Analyzing Ecological Data</em>. Springer.</p>
 </div>
 </div>
             </section>

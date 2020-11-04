@@ -1,0 +1,121 @@
+# Hands On Regression {#handson}
+
+Here we come up wit a story... an example about regression.
+
+A simple regression is just the situation where we want to model a response variable as a function of a single explanatory variable. As an examples, say, the time a fish takes to react to a predator introduced in an aquarium by getting into shelter, as a function of the water temperature. Let's simulate some data that would represent this scenario, but I am not showing you the way the data was simulated just yet.
+
+Nonetheless, let me tell you that the reaction times were created in object `react`, the temperatures in object `temp`, and these were then packed as a `data.frame` called `reaction`.
+
+```{r,echo=FALSE}
+set.seed(2)
+beta0<-0.8
+beta1<-0.3
+n<-50
+noise <- 0.2
+temp<-runif(n,10,20)
+react<-beta0+beta1*temp+rnorm(n,sd=noise)
+reaction<-data.frame(react=react,temp=temp)
+```
+
+The first few lines of the simulated data are shown in Table \@ref(tab:Ttab1).
+
+```{r Ttab1, tidy=FALSE}
+knitr::kable(
+  head(reaction, 5), caption = 'The simulated dataset',
+  booktabs = TRUE
+)
+```
+
+The data is shown in figure \@ref(fig:Freg).
+
+
+```{r Freg, fig.cap='An example regression data set that could be eplained by a linear regression', out.width='80%', fig.asp=.75, fig.align='center'}
+par(mar = c(4, 4, .1, .1))
+plot(react~temp,xlab="Temperature (degrees, Celcius)",ylab="Reaction time (seconds)")
+```
+
+It seems like there is a linear relationship between the predictor (temperature) and the response (the reaction time). We could therepore model it with a simple linear regression. We can do that using R´s function `lm`. We do so here and then look at the summary of the object produced. 
+
+The required argument for `lm` is the `formula` that defines the regression model. The symbol `~`is used to represent "as a function of". So here we will want something like "reaction time ~ water temperature".
+
+While this might seem like a detail, it is a good policy to always fit models using explicitly the `data` argument, instead of fitting the model to objects hanging around the workspace. Learn how to be tidy!
+
+Therefore, while the imideate result would be the same, we suggest that you do not do this
+
+```{r,eval=FALSE}
+mod0<-lm(react~temp)
+```
+
+nor this
+
+```{r,eval=FALSE}
+mod0<-lm(reaction$react~reaction$temp)
+```
+
+but always consider this
+
+```{r}
+mod0<-lm(react~temp,data=reaction)
+summary(mod0)
+```
+
+This will be easier to read for others, makes you tidy, and will save you headaches when using functions like `predict` over the resulting fitted model.
+
+We can the estimated regression line to the above plot. I color it red to remind us of the fact that this is an estimated line, not the true line that generated the data. While in general we do not know this with real data, here I know the model that was used to simulate the data. Just for comparison I can add it to the plot to compare with the estimated regression line.
+
+
+```{r}
+plot(react~temp,xlab="Temperature (degrees, Celcius)",ylab="Reaction time (seconds)")
+abline(mod0,lty=2,col="red")
+abline(beta0,beta1,lty=2,col="green")
+legend("topleft",legend=c("Real model","Estimated Regression Line"),col=c("green","red"),lty=2, inset=0.05)
+```
+
+The estimated line and the true line are very similar, as expected since we have a reasonable sample size, a small error, and a model that is the reality. With real data, this will be the exception, not the rule. All models are wrong, but some are useful. The linear regression model is perhaps one of the simplest, but also one of the most widely used, and hence, one of those that has been extremely useful. But of course, its simplicity is also its major disadvantage, as we shall see.
+
+## The assumptions are on the residuals, not the data
+
+Imagine that you have a single variable that you are interested in modelling. This is the concentration of an enzime in the blood of small rodents, from 4 diffferent species. This is represented in the image below \@ref(fig:figrodents).
+
+```{r,echo=FALSE}
+#This is just an ANOVA, we are just not going to call it as such now!
+#making sure everyone gets the same results
+set.seed(12345)
+#define sample size
+n=2000
+#define treatments
+tr=c("a","b","c","d")
+#how many treatments
+ntr=length(tr)
+#balanced design
+n.by.tr=n/ntr
+#generate data
+xs=runif(n,10,20)
+type=as.factor(rep(tr,each=n.by.tr))
+#if I wanted to recode the levels such that c was the baseline
+#type=factor(type,levels = c("c","a","b","d"))
+#get colors for plotting
+cores=rep(1:ntr,each=n.by.tr)
+ms=c(12,15,24,29)
+#ys, not a function of the xs!!!
+ys=ifelse(type=="a",ms[1],ifelse(type=="b",ms[2],ifelse(type=="c",ms[3],ms[4])))+rnorm(n,0,3)
+```
+
+```{r figrodents, fig.cap='Concentration of an enzime (mg/L) in the blood of small rodents, from 4 diffferent species', out.width='80%', fig.asp=.75, fig.align='center'}
+hist(ys,breaks=0:40,xlab="Concentration of enzime (mg/L)")
+```
+
+A poor (conventional and traditional) biologist would die if shown this dataset, but the truth is there would be no reason for it. If one accounts for the different species, this is what we see. Clear differences between two groups of species. 
+
+```{r}
+boxplot(ys~type,ylab="Concentration of enzime (mg/L)")
+```
+
+And further, we can see that the remaining residuals are a beautiful Gaussian. Not a surprise, since this was simulated data, from a Gaussian model :) !
+
+```{r}
+hist(residuals(lm(ys~type)),main="",xlab="Residuals")
+```
+
+The take home message from the story: what the data looks like might be irrelevant. The patterns that remain in the residuals, if any, those are the ones we might need to worry about. So do not transform data just becasue the data looks odd. It might just be Gaussian data in disguise!
+

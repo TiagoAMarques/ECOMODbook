@@ -1,6 +1,6 @@
 --- 
 title: "Notes for Ecological Modelling"
-author: "Tiago A. Marques, Susana França, Ana Sofia Reboleira"
+author: "Tiago A. Marques"
 date: "`r Sys.Date()`"
 bibliography:
 - book.bib
@@ -15,6 +15,8 @@ biblio-style: apalike
 
 # Introduction
 
-These notes were written in 2020, during the ecological modelling classes (Modelação Ecológica, ME in short). While it all started as just a way to teach the course, it latter became obvious that with a bit of extra effort put into it these might become material that would be useful to others beyond the ME students.
+These notes were written in 2020, during the ecological modelling classes (Modelação Ecológica, ME in short). While it all started as just a way to teach the course, it soon became obvious that with a bit of extra effort put into it these notes might become material that would be useful to others beyond the ME students. This is being written as a bookdown project. Maybe one day it will become a book, for now, these are essentially notes I am using for my course on "Modelação Ecológica" at FCUL.
 
-For the current version I am keeping chapters as individual lectures. Once the classes are over I might organize them into sensible chapters for a possible book on statistical models for ecological data.
+In particular, I have started thinking about whether this could be a book in two stages, a first part that would appeal to students in Ecologia Numérica, and a second part aimed at students from Modelação Ecológica. The former might be more focused on a traditional approach to statistics, focussed on procedures and statistical tests. TYhe second would be more about the way to think about data and how one might go about to do the best job possible regarding inferences by thinking carefully on how to model the data.
+
+For the current version I am keeping chapters as individual lectures. Once the Ecological Modelling classes are over I might organize them into sensible chapters for a possible book on statistical models for ecological data.

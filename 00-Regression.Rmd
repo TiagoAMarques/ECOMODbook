@@ -1,0 +1,49 @@
+# About regression
+
+Some references woth looking into.
+
+An intro to R: [@Zuur2009a]
+
+Models for ecological data: [@Zuur2007]
+
+More on regression and extending the linear model (just an example): [@Faraway2006,@Zuur2009b]
+
+## What is a regression?
+
+Where does the word come from? Gauss and regression towards the mean.
+
+A regression is a model that allows us to predict a response variable $y$ (a.k.a the dependent variable, because it depends on the other variables) as a function of the values of covariates (a.k.a. predictors, explanatory or independent variables).
+
+## The general linear model
+
+A general expression for a regression model (i.e. the expression for a generalized linear model is)
+
+$$ f[E(Y|X)] = \mu = \beta_0+\beta_1 x_1 + ... + \beta_k x_k $$
+where $f$ is a function - also known as the **link function** - that links the mean value of the response, conditional on the value of the predictors, to the **linear predictor** $\beta_0+\beta_1 x_1 + ... + \beta_k x_k$ ($\mu$, a linear function of $k$ covariates). In general books tend to represent this as
+
+$$ E(Y|X) =  f^{-1}(\beta_0+\beta_1 x_1 + ... + \beta_k x_k) $$
+i.e., where what is shown is the inverse of the link function, 
+and sometimes the notation ignores the formal conditioning on the values of the covariates
+
+$$ E(Y) =  f^{-1}(\beta_0+\beta_1 x_1 + ... + \beta_k x_k) $$
+
+
+Because this is a model, for any given observation we have 
+
+$$ f{(y_i|x_i)} =  \beta_0+\beta_1 x_{1i} + ... + \beta_k x_{ki} + e_i $$
+
+where the $e_i$ represents the residual (a.k.a. the error). 
+
+Most people are used to see the representation when the link function is the identity and hence
+
+$$ y_i =  \beta_0+\beta_1 x_{1i} + ... + \beta_k x_{ki} + e_i $$
+
+The simplest form of a generalized linear model is that where there is only one predictor, the link function is the identity and the error is Gaussian (or normal). Note that is the usual simple linear regression model 
+
+$$y_i=a+bx_i+e_i$$
+with residuals
+
+$$e_i=y_i - (a+bx_i)= y_i-\hat y_i$$
+
+being Gaussian, i.e. $e_i$~Gau(0,$\sigma$), and where the link function is the identity (i.e. $f(E(y))=1 \times E(y)=E(y)$).
+
