@@ -3496,9 +3496,9 @@ Can you think about an intuitive reason for that being the case? The answer lies
 
 In a given dataset we might want to explain a continous variable as a function of a couple of explanatory variables, specifically a continous variable and a factor. As we have seen before, this could be attempted via an ANCOVA, with or without an interaction term.Therefore, a relevant question might be to know if the interaction is needed or not, or in other words, if the different lines expressing the relationship between the countinous covariate and the response might be have different slopes per level of the factor covariate, or if on the other hand, a comon slope might be possible, with different per level of the factor covariate. A third even simpler model is the one where the factor covariate is not relevant at all, or, in other words, single line would be the most parcimonious way to model the data.
 
-We illustrate that with the data set \texttt{data4lines.csv} that we considered before in chapter \ref{aula7}, which was created using the website \url{https://drawdata.xyz/}. To make our story a bit more intersting we again come up with a narrative.
+We illustrate that with the data set \texttt{data4lines.csv} that we considered before in chapter \ref{aula7}, which was created using the website \url{https://drawdata.xyz/}.
 
-A biologist is interested in estimating what might have been the weight of a fish for which he found an operculum in the in the stomach of a dead otter (\emph{Lutra lutra}). The operculum was 300 mm in diameter. He knows the fish was a barbel (genera: \emph{Barbus}). We will call this biologist Carlos. His wife is called Conceição, and Conceição enjoys thinking about hard questions. Carlos found the dead otter in the margins of the Guadiana river in Portugal. It seems hard to believe that the otter might have eaten such a large fish. It might have been the largest fish ever eaten by a \emph{Lutra lutra}, which the biologist would love to report in the next Ichtiology congress. To answer his question he visited the museum and he was able to find a sample of fish from the genus \emph{Barbus}. Therefore he labouriosly weighed fish and measured opeculuns\ldots{} The resulting data are our data!
+To make our story a bit more intersting we again come up with a narrative. A biologist is interested in estimating what might have been the weight of a fish for which he found an operculum in the in the stomach of a dead otter (\emph{Lutra lutra}). The operculum was 300 mm in diameter. He knows the fish was a barbel (genera: \emph{Barbus}). We will call this biologist Carlos. His wife is called Conceição, and Conceição enjoys thinking about hard questions. She thinks \emph{stongly} about all the hard questions, and when she does her eyebrows raise in a way that Carlos fears. Carlos found the dead otter in the margins of the Guadiana river in Portugal. It seems hard to believe that the otter might have eaten such a large fish. It might have been the largest fish ever eaten by a \emph{Lutra lutra}, which the biologist would love to report in the next Ichtiology congress. To answer his question he visited the museum and he was able to find a sample of fish from the genus \emph{Barbus}. Therefore he labouriosly weighed fish and measured opeculuns\ldots{} The resulting data are our data!
 
 Carlos reads the data in
 
@@ -3539,7 +3539,7 @@ Carlos is winning, claiming that unfortunately, he suspects that the fish was no
 \caption{Pooled model of fish weight as a function of operculum diameter. Dashed lines represent predictions for a fish with a 300 mm operculum.}\label{fig:wod}
 \end{figure}
 
-Conceição looks at the plots, wonders once again why she married Carlos, and asks: ``What was the actual species of the operculun in your dead otter? And by the way, please, for the last time, can you put the dead otter in the garbage? It is the second time that I confuse it with a rabbit in the freezer\ldots! One day you might have a bad surprise for dinner!''. Carlos thinks about this as says, it was \emph{Barbus sclateri}. And Maria says: ``Well, is the relationship between operculum diameter and fish length the same for all the species?''. Carlos - perhaps not the sharpest tool in the box as we by now have come to realize - nonetheless manages to realize what Conceição is asking about. He knows the animals in the museum were identified to the species level, and he redoes the plot coloring the points by species.
+Conceição looks at the plots, wonders once again why she married Carlos, and asks: ``What was the actual species of the operculum in your dead otter? And by the way, please, for the last time, can you put the dead otter in the garbage? It is the second time that I confuse it with a rabbit in the freezer\ldots! One day you might have a bad surprise for dinner!''. Carlos thinks about this as says, it was \emph{Barbus sclateri}. And Maria says: ``Well, is the relationship between operculum diameter and fish length the same for all the species?''. Carlos - perhaps not the sharpest tool in the box as we by now have come to realize - nonetheless manages to realize what Conceição is asking about. He knows the animals in the museum were identified to the species level, and he redoes the plot coloring the points by species.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3731,10 +3731,12 @@ Carlos might have something to present at the congress after all! He goes to sle
 
 \includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-145-1.pdf}
 
-\hypertarget{interactions-between-continous-covariates}{%
-\section{Interactions between continous covariates}\label{interactions-between-continous-covariates}}
+FFS !
 
-The examples above were interactions with factors, but interactions can occur also across strictly continous variables. An example follows
+\hypertarget{aula13}{%
+\chapter{Class 12: 04 11 2020 Interactions between continous covariates}\label{aula13}}
+
+The examples above were interactions with factors, but interactions can occur also across strictly continous variables. An example follows. Imagine it corresponds to the length of fishes as a function of water temperature \texttt{temp} and \texttt{pH} (if those were real values of some water pH\ldots{} all the fish would be dissolved, but any way!). We make up some example data below.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3756,36 +3758,41 @@ The examples above were interactions with factors, but interactions can occur al
 \NormalTok{xs12=xs1}\OperatorTok{*}\NormalTok{xs2}
 
 \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{))}
-\KeywordTok{plot}\NormalTok{(xs1,ys)}
-\KeywordTok{plot}\NormalTok{(xs2,ys)}
-\KeywordTok{plot}\NormalTok{(xs12,ys)}
+\KeywordTok{plot}\NormalTok{(xs1,ys,}\DataTypeTok{ylab=}\StringTok{"Length (mm)"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"Temperature"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(xs2,ys,}\DataTypeTok{ylab=}\StringTok{"Length (mm)"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"pH"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(xs12,ys,}\DataTypeTok{ylab=}\StringTok{"Length (mm)"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"Temperature * pH"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-146-1.pdf}
 
-We can fit different models to such data
+We can fit different models to such data, namely those that consider just the \texttt{xs1} (temperature), just the \texttt{xs2} (pH), or even just a new variable called \texttt{xs1xs2} (temperature \(\times\) pH), and those with both variables and the interaction. Note \texttt{xs1xs2} variable is just the product of the other two, and in fact that fitting that product alone is equivalent to fitting the interaction alone!
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{#-----------------------------------}
 \CommentTok{#models with interaction}
 \CommentTok{#model with interaction}
-\NormalTok{m1=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
+\NormalTok{mx1x2I=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
 \CommentTok{#just the interaction term}
-\NormalTok{m1B=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
-\CommentTok{#same as m1}
-\NormalTok{m1C=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2)}
+\NormalTok{mI=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
+\CommentTok{#same as mx1x2I}
+\NormalTok{mx1x2I.b=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2)}
 \CommentTok{#same as just the interaction term}
-\NormalTok{m1D=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs12)}
+\NormalTok{mI.b=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs12)}
 \CommentTok{#-----------------------------------}
 \CommentTok{#models without the interaction term}
-\NormalTok{mxs1xs2=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2)}
-\NormalTok{mxs1=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1)}
-\NormalTok{mxs2=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs2)}
+\NormalTok{mx1x2=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2)}
+\NormalTok{mx1=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1)}
+\NormalTok{mx2=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs2)}
+\end{Highlighting}
+\end{Shaded}
 
+To begin with, check what we commented above is true. Models \texttt{mx1x2I} and \texttt{mx1x2I.b} are equivalent,
 
-\KeywordTok{summary}\NormalTok{(m1)}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mx1x2I)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3814,34 +3821,7 @@ We can fit different models to such data
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(m1B)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = ys ~ xs1:xs2)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -66.780 -19.984   1.668  19.739  57.329 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  82.7735     7.4909   11.05   <2e-16 ***
-## xs1:xs2       3.9363     0.1196   32.90   <2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 27.28 on 98 degrees of freedom
-## Multiple R-squared:  0.917,	Adjusted R-squared:  0.9161 
-## F-statistic:  1083 on 1 and 98 DF,  p-value: < 2.2e-16
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(m1C)}
+\KeywordTok{summary}\NormalTok{(mx1x2I.b)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3868,9 +3848,38 @@ We can fit different models to such data
 ## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
+and \texttt{mI} and \texttt{mI.b} are equivalent.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(m1D)}
+\KeywordTok{summary}\NormalTok{(mI)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.780 -19.984   1.668  19.739  57.329 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  82.7735     7.4909   11.05   <2e-16 ***
+## xs1:xs2       3.9363     0.1196   32.90   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 27.28 on 98 degrees of freedom
+## Multiple R-squared:  0.917,	Adjusted R-squared:  0.9161 
+## F-statistic:  1083 on 1 and 98 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mI.b)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3895,36 +3904,118 @@ We can fit different models to such data
 ## F-statistic:  1083 on 1 and 98 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
+Now, we plot the single variable models
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{#ploting the data and partial models}
+\CommentTok{#ploting the data and (single variable) models}
 \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{),}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FloatTok{0.2}\NormalTok{))}
 \KeywordTok{plot}\NormalTok{(xs1,ys)}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(mx1,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
 \KeywordTok{plot}\NormalTok{(xs2,ys)}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs2),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(mx2,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
 \KeywordTok{plot}\NormalTok{(xs12,ys)}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs12),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(mI),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-147-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-150-1.pdf}
+
+Note that if we ignore the interaction, we make the wrong conclusion, we conclude that \texttt{xs2} has the wrong effect compared to reality: it seems to have a positive influence, when we know that influence is negative!
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{#compare models using say AIC}
-
-\KeywordTok{AIC}\NormalTok{(m1,mxs1,mxs2,mxs1xs2)}
+\KeywordTok{summary}\NormalTok{(mx1x2)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##         df       AIC
-## m1       5  278.6349
-## mxs1     3 1076.8927
-## mxs2     3 1183.9971
-## mxs1xs2  4  836.8333
+## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -67.854  -6.369   0.761   7.561  52.010 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -156.08567    8.34374  -18.71   <2e-16 ***
+## xs1            5.11738    0.09208   55.57   <2e-16 ***
+## xs2          164.10708    5.20386   31.54   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 15.49 on 97 degrees of freedom
+## Multiple R-squared:  0.9735,	Adjusted R-squared:  0.973 
+## F-statistic:  1782 on 2 and 97 DF,  p-value: < 2.2e-16
 \end{verbatim}
+
+When we look at the model that really makes sense here, given the true model, we get the right decisions for all the terms in the model: xs1 has a positive effect and xs2 has a negative effect in the response, with a significant positive effect on the interation between the two.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mx1x2I)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2 + xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7590 -0.6134  0.1005  0.6850  2.5857 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 23.21760    1.22479  18.956  < 2e-16 ***
+## xs1          1.97682    0.02030  97.368  < 2e-16 ***
+## xs2         -5.06833    1.09787  -4.617 1.21e-05 ***
+## xs1:xs2      3.01992    0.01876 160.986  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9462 on 96 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+Failing to include significant interactions could lead one to wrongly conclude that a variable that in reality has a negative effect on the response happens to have a significant positive impact on the response!
+
+Note that, reassuringly, this would be the model preferred by AIC, by a long shot. All is good when all ends well, which if we have lots of data and low error, is not unexpected. But the real danger lies in real life data, where we do not know what reality is.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#compare models using say AIC}
+\KeywordTok{AIC}\NormalTok{(mx1,mx2,mI,mx1x2,mx1x2I)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        df       AIC
+## mx1     3 1076.8927
+## mx2     3 1183.9971
+## mI      3  949.0211
+## mx1x2   4  836.8333
+## mx1x2I  5  278.6349
+\end{verbatim}
+
+Therefore, exploring important interactions is important, and failing to include relevant ones might cause errors (while including spurious ones might also mask some real effects, see next slides!).
+
+This was a 2-way interaction.
+
+One can think about 3-way interactions or even higher order interactions, but no one can interpret those models anymore!
+
+\hypertarget{larger-order-interactions}{%
+\section{Larger order interactions}\label{larger-order-interactions}}
+
+Just for fun (yeah.. fun !) we look at a model where we have more variables available to fit. In fact, we have 4 covariates, meaning we could even fit a 4th order interaction. Don't try that at hope folks, only trained professionals should (and to so so with a 4th order interaction, probably trained profesionals that went a bit crazy at some point!).
+
+Our true model wll be of the form
+
+\(ys=20+2*xs1-4*xs2+3*xs1*xs2+xs3+xs4\)
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3943,9 +4034,23 @@ We can fit different models to such data
 \NormalTok{xs4=}\KeywordTok{rgamma}\NormalTok{(n,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{)}
 \CommentTok{#define the linear predictor}
 \NormalTok{ys=}\DecValTok{20}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{xs1}\DecValTok{-4}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs3}\OperatorTok{+}\NormalTok{xs4}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(n,}\DecValTok{2}\NormalTok{)}
-\NormalTok{modK=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{*}\NormalTok{xs3}\OperatorTok{*}\NormalTok{xs4)}
-\NormalTok{modL=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs3}\OperatorTok{+}\NormalTok{xs4}\OperatorTok{+}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
-\KeywordTok{summary}\NormalTok{(modK)}
+\end{Highlighting}
+\end{Shaded}
+
+After having created the data, we can fit a couple of models to it. One with all the interactions, one with just the correct (=true, since we know the data generating model) 2 way interaction between \texttt{xs1} and \texttt{xs2}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modW=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{*}\NormalTok{xs3}\OperatorTok{*}\NormalTok{xs4)}
+\NormalTok{modR=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs3}\OperatorTok{+}\NormalTok{xs4}\OperatorTok{+}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
+\end{Highlighting}
+\end{Shaded}
+
+If we look at the 4 way interaction model
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(modW)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3984,9 +4089,13 @@ We can fit different models to such data
 ## F-statistic: 6.03e+04 on 15 and 84 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
+we see several errors, namely type II errors associated with \texttt{xs2}, \texttt{xs3} and \texttt{xs4}! In other words, including interactions which are not real can mask the true influence of relevant variables!
+
+When we look at the right model, these go away, and all variables and the correct second order variable are considered significant (at the usual significance levels)
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(modL)}
+\KeywordTok{summary}\NormalTok{(modR)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4015,288 +4124,57 @@ We can fit different models to such data
 ## F-statistic: 1.806e+05 on 5 and 94 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-\hypertarget{aula13}{%
-\chapter{Class 12: 04 11 2020 Interactions between continous covariates}\label{aula13}}
-
-The examples above were interactions with factors, but interactions can occur also across strictly continous variables. An example follows
+Reassuringly, the right model is preferred in terms of AIC
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{#--------------------------------------------------------}
-\CommentTok{#Interactions}
-\CommentTok{#### With continous covariates}
-\CommentTok{#--------------------------------------------------------}
-\CommentTok{#sample size}
-\KeywordTok{set.seed}\NormalTok{(}\DecValTok{121}\NormalTok{)}
-\NormalTok{n=}\DecValTok{100}
-\CommentTok{#get a response variable}
-\NormalTok{xs1=}\KeywordTok{runif}\NormalTok{(n,}\DecValTok{30}\NormalTok{,}\DecValTok{90}\NormalTok{)}
-\CommentTok{#get a second variable}
-\NormalTok{xs2=}\KeywordTok{rgamma}\NormalTok{(n,}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{)}
-\CommentTok{#define the linear predictor}
-\NormalTok{ys=}\DecValTok{20}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{xs1}\DecValTok{-4}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(n,}\DecValTok{2}\NormalTok{)}
-
-\CommentTok{#to make it easier}
-\NormalTok{xs12=xs1}\OperatorTok{*}\NormalTok{xs2}
-
-\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{))}
-\KeywordTok{plot}\NormalTok{(xs1,ys)}
-\KeywordTok{plot}\NormalTok{(xs2,ys)}
-\KeywordTok{plot}\NormalTok{(xs12,ys)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-148-1.pdf}
-
-We can fit different models to such data
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{#-----------------------------------}
-\CommentTok{#models with interaction}
-\CommentTok{#model with interaction}
-\NormalTok{m1=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
-\CommentTok{#just the interaction term}
-\NormalTok{m1B=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
-\CommentTok{#same as m1}
-\NormalTok{m1C=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2)}
-\CommentTok{#same as just the interaction term}
-\NormalTok{m1D=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs12)}
-\CommentTok{#-----------------------------------}
-\CommentTok{#models without the interaction term}
-\NormalTok{mxs1xs2=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2)}
-\NormalTok{mxs1=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1)}
-\NormalTok{mxs2=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs2)}
-
-
-\KeywordTok{summary}\NormalTok{(m1)}
+\KeywordTok{AIC}\NormalTok{(modW,modR)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## 
-## Call:
-## lm(formula = ys ~ xs1 + xs2 + xs1:xs2)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.7590 -0.6134  0.1005  0.6850  2.5857 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 23.21760    1.22479  18.956  < 2e-16 ***
-## xs1          1.97682    0.02030  97.368  < 2e-16 ***
-## xs2         -5.06833    1.09787  -4.617 1.21e-05 ***
-## xs1:xs2      3.01992    0.01876 160.986  < 2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.9462 on 96 degrees of freedom
-## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
-## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: < 2.2e-16
+##      df      AIC
+## modW 17 310.6238
+## modR  7 302.0554
 \end{verbatim}
 
+What would happen if we had not recorded some of the variables? Or if we considered different second order or even 3 order interactions? I experiment below just as an example creating additional 10 wrong models. If we had all variables, we would always get the correct model apparently (even if I did not a full search over the possible model space - a task for you !) but if some of the variables were not recorded, some errors might occur. Your task is to find them, just for fun\ldots{} have fun!
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(m1B)}
+\NormalTok{modW1=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2}\OperatorTok{*}\NormalTok{xs3)}
+\NormalTok{modW2=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs3}\OperatorTok{*}\NormalTok{xs4)}
+\NormalTok{modW3=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{*}\NormalTok{xs3)}
+\NormalTok{modW4=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs3}\OperatorTok{*}\NormalTok{xs4)}
+\NormalTok{modW5=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs3)}
+\NormalTok{modW6=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs3}\OperatorTok{+}\NormalTok{xs4)}
+\NormalTok{modW7=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs3}\OperatorTok{+}\NormalTok{xs4)}
+\NormalTok{modW8=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2)}
+\NormalTok{modW9=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs3)}
+\NormalTok{modW10=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{AIC}\NormalTok{(modW,modW1,modW2,modW3,modW4,modW5,modW6,modW7,modW8,modW9,modW10,modR)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## 
-## Call:
-## lm(formula = ys ~ xs1:xs2)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -66.780 -19.984   1.668  19.739  57.329 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  82.7735     7.4909   11.05   <2e-16 ***
-## xs1:xs2       3.9363     0.1196   32.90   <2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 27.28 on 98 degrees of freedom
-## Multiple R-squared:  0.917,	Adjusted R-squared:  0.9161 
-## F-statistic:  1083 on 1 and 98 DF,  p-value: < 2.2e-16
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(m1C)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = ys ~ xs1 * xs2)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.7590 -0.6134  0.1005  0.6850  2.5857 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 23.21760    1.22479  18.956  < 2e-16 ***
-## xs1          1.97682    0.02030  97.368  < 2e-16 ***
-## xs2         -5.06833    1.09787  -4.617 1.21e-05 ***
-## xs1:xs2      3.01992    0.01876 160.986  < 2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.9462 on 96 degrees of freedom
-## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
-## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: < 2.2e-16
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(m1D)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = ys ~ xs12)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -66.780 -19.984   1.668  19.739  57.329 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  82.7735     7.4909   11.05   <2e-16 ***
-## xs12          3.9363     0.1196   32.90   <2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 27.28 on 98 degrees of freedom
-## Multiple R-squared:  0.917,	Adjusted R-squared:  0.9161 
-## F-statistic:  1083 on 1 and 98 DF,  p-value: < 2.2e-16
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{#ploting the data and partial models}
-\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{),}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FloatTok{0.2}\NormalTok{))}
-\KeywordTok{plot}\NormalTok{(xs1,ys)}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
-\KeywordTok{plot}\NormalTok{(xs2,ys)}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs2),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
-\KeywordTok{plot}\NormalTok{(xs12,ys)}
-\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs12),}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-149-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{#compare models using say AIC}
-
-\KeywordTok{AIC}\NormalTok{(m1,mxs1,mxs2,mxs1xs2)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##         df       AIC
-## m1       5  278.6349
-## mxs1     3 1076.8927
-## mxs2     3 1183.9971
-## mxs1xs2  4  836.8333
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{#--------------------------------------------}
-\CommentTok{# A 4 way interaction model}
-\CommentTok{#but in reality there is only 1 second order interaction}
-\CommentTok{#--------------------------------------------}
-\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
-\CommentTok{#get a response variable}
-\NormalTok{xs1=}\KeywordTok{runif}\NormalTok{(n,}\DecValTok{30}\NormalTok{,}\DecValTok{90}\NormalTok{)}
-\CommentTok{#get a second variable}
-\NormalTok{xs2=}\KeywordTok{rgamma}\NormalTok{(n,}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{)}
-\CommentTok{#get a response variable}
-\NormalTok{xs3=}\KeywordTok{runif}\NormalTok{(n,}\DecValTok{3}\NormalTok{,}\DecValTok{6}\NormalTok{)}
-\CommentTok{#get a second variable}
-\NormalTok{xs4=}\KeywordTok{rgamma}\NormalTok{(n,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{)}
-\CommentTok{#define the linear predictor}
-\NormalTok{ys=}\DecValTok{20}\OperatorTok{+}\DecValTok{2}\OperatorTok{*}\NormalTok{xs1}\DecValTok{-4}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\DecValTok{3}\OperatorTok{*}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs3}\OperatorTok{+}\NormalTok{xs4}\OperatorTok{+}\KeywordTok{rnorm}\NormalTok{(n,}\DecValTok{2}\NormalTok{)}
-\NormalTok{modK=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{*}\NormalTok{xs2}\OperatorTok{*}\NormalTok{xs3}\OperatorTok{*}\NormalTok{xs4)}
-\NormalTok{modL=}\KeywordTok{lm}\NormalTok{(ys}\OperatorTok{~}\NormalTok{xs1}\OperatorTok{+}\NormalTok{xs2}\OperatorTok{+}\NormalTok{xs3}\OperatorTok{+}\NormalTok{xs4}\OperatorTok{+}\NormalTok{xs1}\OperatorTok{:}\NormalTok{xs2)}
-\KeywordTok{summary}\NormalTok{(modK)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = ys ~ xs1 * xs2 * xs3 * xs4)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.38930 -0.54310  0.05557  0.65213  3.01609 
-## 
-## Coefficients:
-##                   Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)      1.687e+01  2.363e+01   0.714    0.477    
-## xs1              1.897e+00  3.753e-01   5.056 2.47e-06 ***
-## xs2              6.907e+00  2.383e+01   0.290    0.773    
-## xs3              2.413e+00  5.412e+00   0.446    0.657    
-## xs4              2.543e+01  2.372e+01   1.072    0.287    
-## xs1:xs2          3.024e+00  3.697e-01   8.180 2.64e-12 ***
-## xs1:xs3          1.438e-02  8.635e-02   0.167    0.868    
-## xs2:xs3         -2.400e+00  5.403e+00  -0.444    0.658    
-## xs1:xs4         -1.958e-01  3.457e-01  -0.567    0.573    
-## xs2:xs4         -3.026e+01  2.485e+01  -1.218    0.227    
-## xs3:xs4         -5.713e+00  5.582e+00  -1.024    0.309    
-## xs1:xs2:xs3     -6.552e-04  8.407e-02  -0.008    0.994    
-## xs1:xs2:xs4      2.623e-01  3.558e-01   0.737    0.463    
-## xs1:xs3:xs4      4.987e-02  8.132e-02   0.613    0.541    
-## xs2:xs3:xs4      6.737e+00  5.736e+00   1.175    0.243    
-## xs1:xs2:xs3:xs4 -6.164e-02  8.242e-02  -0.748    0.457    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 1.053 on 84 degrees of freedom
-## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
-## F-statistic: 6.03e+04 on 15 and 84 DF,  p-value: < 2.2e-16
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(modL)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = ys ~ xs1 + xs2 + xs3 + xs4 + xs1:xs2)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.6674 -0.5841  0.1184  0.6866  2.7579 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 21.15925    1.46383  14.455  < 2e-16 ***
-## xs1          1.99914    0.02291  87.247  < 2e-16 ***
-## xs2         -3.30066    1.29741  -2.544  0.01259 *  
-## xs3          1.19397    0.12449   9.591 1.36e-15 ***
-## xs4          0.76218    0.24032   3.171  0.00205 ** 
-## xs1:xs2      2.99210    0.02131 140.432  < 2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 1.054 on 94 degrees of freedom
-## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
-## F-statistic: 1.806e+05 on 5 and 94 DF,  p-value: < 2.2e-16
+##        df       AIC
+## modW   17  310.6238
+## modW1   6  835.1165
+## modW2   6 1180.6098
+## modW3   9  311.4269
+## modW4   9 1086.9135
+## modW5   5  833.2009
+## modW6   5 1089.0771
+## modW7   5 1180.0438
+## modW8   5  368.2706
+## modW9   5 1088.0494
+## modW10  5 1089.2458
+## modR    7  302.0554
 \end{verbatim}
 
 \hypertarget{conlusion-on-linear-regression}{%

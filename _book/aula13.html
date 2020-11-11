@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 Class 12: 04 11 2020 Interactions between continous covariates | Notes for Ecological Modelling</title>
+  <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 Class 12: 04 11 2020 Interactions between continous covariates | Notes for Ecological Modelling" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Class 12: 04 11 2020 Interactions between continous covariates | Notes for Ecological Modelling" />
+  
+  <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Tiago A. Marques" />
+
+
+<meta name="date" content="2020-11-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="aula11.html"/>
+<link rel="next" href="conlusion-on-linear-regression.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>2</b> About regression</a><ul>
+<li class="chapter" data-level="2.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>2.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="2.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>2.2</b> The general linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>3</b> Hands On Regression</a><ul>
+<li class="chapter" data-level="3.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>3.1</b> The assumptions are on the residuals, not the data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>4</b> Class 6 13 10 2020</a><ul>
+<li class="chapter" data-level="4.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>4.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="4.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>4.2</b> Simulating regression data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>4.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>5</b> Class 7 14 10 2020</a><ul>
+<li class="chapter" data-level="5.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>5.1</b> Task 1</a></li>
+<li class="chapter" data-level="5.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>5.2</b> Task 2</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>6</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
+<li class="chapter" data-level="6.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>6.1</b> The t-test</a></li>
+<li class="chapter" data-level="6.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>6.2</b> ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>7</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
+<li class="chapter" data-level="7.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>7.1</b> Common slope, different intercepts per treatment</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>8</b> Class 10: 27 10 2020</a><ul>
+<li class="chapter" data-level="8.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>8.1</b> Same story, another spin</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>9</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a><ul>
+<li class="chapter" data-level="9.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>9.1</b> About interactions</a></li>
+<li class="chapter" data-level="9.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>9.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="9.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>9.3</b> Task 2 Modeling a data set</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>10</b> Class 12: 04 11 2020 Interactions between continous covariates</a><ul>
+<li class="chapter" data-level="10.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>10.1</b> Larger order interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>11</b> Conlusion on linear regression</a><ul>
+<li class="chapter" data-level="11.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>11.1</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>12</b> Class 12: 04 11 2020 Maximum likelihood and all that</a></li>
+<li class="chapter" data-level="13" data-path="aula13a.html"><a href="aula13a.html"><i class="fa fa-check"></i><b>13</b> Class 13a: 4 11 2020 Maximum likelihood and all that</a></li>
+<li class="chapter" data-level="14" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>14</b> Class 14: 10 10 2020</a></li>
+<li class="chapter" data-level="15" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>15</b> Class 15: 11 11 2020</a></li>
+<li class="chapter" data-level="16" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>16</b> Class 16: 17 11 2020</a></li>
+<li class="chapter" data-level="17" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>17</b> Final Words</a></li>
+<li class="chapter" data-level="18" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>18</b> Aknowledgments</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes for Ecological Modelling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="aula13" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Class 12: 04 11 2020 Interactions between continous covariates</h1>
+<p>The examples above were interactions with factors, but interactions can occur also across strictly continous variables. An example follows. Imagine it corresponds to the length of fishes as a function of water temperature <code>temp</code> and <code>pH</code> (if those were real values of some water pH… all the fish would be dissolved, but any way!). We make up some example data below.</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" title="1"><span class="co">#--------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb264-2" title="2"><span class="co">#Interactions</span></a>
+<a class="sourceLine" id="cb264-3" title="3"><span class="co">#### With continous covariates</span></a>
+<a class="sourceLine" id="cb264-4" title="4"><span class="co">#--------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb264-5" title="5"><span class="co">#sample size</span></a>
+<a class="sourceLine" id="cb264-6" title="6"><span class="kw">set.seed</span>(<span class="dv">121</span>)</a>
+<a class="sourceLine" id="cb264-7" title="7">n=<span class="dv">100</span></a>
+<a class="sourceLine" id="cb264-8" title="8"><span class="co">#get a response variable</span></a>
+<a class="sourceLine" id="cb264-9" title="9">xs1=<span class="kw">runif</span>(n,<span class="dv">30</span>,<span class="dv">90</span>)</a>
+<a class="sourceLine" id="cb264-10" title="10"><span class="co">#get a second variable</span></a>
+<a class="sourceLine" id="cb264-11" title="11">xs2=<span class="kw">rgamma</span>(n,<span class="dv">10</span>,<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb264-12" title="12"><span class="co">#define the linear predictor</span></a>
+<a class="sourceLine" id="cb264-13" title="13">ys=<span class="dv">20</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>xs1<span class="dv">-4</span><span class="op">*</span>xs2<span class="op">+</span><span class="dv">3</span><span class="op">*</span>xs1<span class="op">*</span>xs2<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb264-14" title="14"></a>
+<a class="sourceLine" id="cb264-15" title="15"><span class="co">#to make it easier</span></a>
+<a class="sourceLine" id="cb264-16" title="16">xs12=xs1<span class="op">*</span>xs2</a>
+<a class="sourceLine" id="cb264-17" title="17"></a>
+<a class="sourceLine" id="cb264-18" title="18"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb264-19" title="19"><span class="kw">plot</span>(xs1,ys,<span class="dt">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Temperature&quot;</span>)</a>
+<a class="sourceLine" id="cb264-20" title="20"><span class="kw">plot</span>(xs2,ys,<span class="dt">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;pH&quot;</span>)</a>
+<a class="sourceLine" id="cb264-21" title="21"><span class="kw">plot</span>(xs12,ys,<span class="dt">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Temperature * pH&quot;</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p>
+<p>We can fit different models to such data, namely those that consider just the <code>xs1</code> (temperature), just the <code>xs2</code> (pH), or even just a new variable called <code>xs1xs2</code> (temperature <span class="math inline">\(\times\)</span> pH), and those with both variables and the interaction. Note <code>xs1xs2</code> variable is just the product of the other two, and in fact that fitting that product alone is equivalent to fitting the interaction alone!</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" title="1"><span class="co">#-----------------------------------</span></a>
+<a class="sourceLine" id="cb265-2" title="2"><span class="co">#models with interaction</span></a>
+<a class="sourceLine" id="cb265-3" title="3"><span class="co">#model with interaction</span></a>
+<a class="sourceLine" id="cb265-4" title="4">mx1x2I=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2<span class="op">+</span>xs1<span class="op">:</span>xs2)</a>
+<a class="sourceLine" id="cb265-5" title="5"><span class="co">#just the interaction term</span></a>
+<a class="sourceLine" id="cb265-6" title="6">mI=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">:</span>xs2)</a>
+<a class="sourceLine" id="cb265-7" title="7"><span class="co">#same as mx1x2I</span></a>
+<a class="sourceLine" id="cb265-8" title="8">mx1x2I.b=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs2)</a>
+<a class="sourceLine" id="cb265-9" title="9"><span class="co">#same as just the interaction term</span></a>
+<a class="sourceLine" id="cb265-10" title="10">mI.b=<span class="kw">lm</span>(ys<span class="op">~</span>xs12)</a>
+<a class="sourceLine" id="cb265-11" title="11"><span class="co">#-----------------------------------</span></a>
+<a class="sourceLine" id="cb265-12" title="12"><span class="co">#models without the interaction term</span></a>
+<a class="sourceLine" id="cb265-13" title="13">mx1x2=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2)</a>
+<a class="sourceLine" id="cb265-14" title="14">mx1=<span class="kw">lm</span>(ys<span class="op">~</span>xs1)</a>
+<a class="sourceLine" id="cb265-15" title="15">mx2=<span class="kw">lm</span>(ys<span class="op">~</span>xs2)</a></code></pre></div>
+<p>To begin with, check what we commented above is true. Models <code>mx1x2I</code> and <code>mx1x2I.b</code> are equivalent,</p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" title="1"><span class="kw">summary</span>(mx1x2I)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2 + xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7590 -0.6134  0.1005  0.6850  2.5857 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 23.21760    1.22479  18.956  &lt; 2e-16 ***
+## xs1          1.97682    0.02030  97.368  &lt; 2e-16 ***
+## xs2         -5.06833    1.09787  -4.617 1.21e-05 ***
+## xs1:xs2      3.01992    0.01876 160.986  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9462 on 96 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" title="1"><span class="kw">summary</span>(mx1x2I.b)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1 * xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7590 -0.6134  0.1005  0.6850  2.5857 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 23.21760    1.22479  18.956  &lt; 2e-16 ***
+## xs1          1.97682    0.02030  97.368  &lt; 2e-16 ***
+## xs2         -5.06833    1.09787  -4.617 1.21e-05 ***
+## xs1:xs2      3.01992    0.01876 160.986  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9462 on 96 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>and <code>mI</code> and <code>mI.b</code> are equivalent.</p>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" title="1"><span class="kw">summary</span>(mI)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.780 -19.984   1.668  19.739  57.329 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  82.7735     7.4909   11.05   &lt;2e-16 ***
+## xs1:xs2       3.9363     0.1196   32.90   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 27.28 on 98 degrees of freedom
+## Multiple R-squared:  0.917,	Adjusted R-squared:  0.9161 
+## F-statistic:  1083 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" title="1"><span class="kw">summary</span>(mI.b)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs12)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.780 -19.984   1.668  19.739  57.329 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  82.7735     7.4909   11.05   &lt;2e-16 ***
+## xs12          3.9363     0.1196   32.90   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 27.28 on 98 degrees of freedom
+## Multiple R-squared:  0.917,	Adjusted R-squared:  0.9161 
+## F-statistic:  1083 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Now, we plot the single variable models</p>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" title="1"><span class="co">#ploting the data and (single variable) models</span></a>
+<a class="sourceLine" id="cb274-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</a>
+<a class="sourceLine" id="cb274-3" title="3"><span class="kw">plot</span>(xs1,ys)</a>
+<a class="sourceLine" id="cb274-4" title="4"><span class="kw">abline</span>(mx1,<span class="dt">lty=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb274-5" title="5"><span class="kw">plot</span>(xs2,ys)</a>
+<a class="sourceLine" id="cb274-6" title="6"><span class="kw">abline</span>(mx2,<span class="dt">lty=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb274-7" title="7"><span class="kw">plot</span>(xs12,ys)</a>
+<a class="sourceLine" id="cb274-8" title="8"><span class="kw">abline</span>(<span class="kw">lm</span>(mI),<span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
+<p>Note that if we ignore the interaction, we make the wrong conclusion, we conclude that <code>xs2</code> has the wrong effect compared to reality: it seems to have a positive influence, when we know that influence is negative!</p>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" title="1"><span class="kw">summary</span>(mx1x2)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -67.854  -6.369   0.761   7.561  52.010 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -156.08567    8.34374  -18.71   &lt;2e-16 ***
+## xs1            5.11738    0.09208   55.57   &lt;2e-16 ***
+## xs2          164.10708    5.20386   31.54   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 15.49 on 97 degrees of freedom
+## Multiple R-squared:  0.9735,	Adjusted R-squared:  0.973 
+## F-statistic:  1782 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>When we look at the model that really makes sense here, given the true model, we get the right decisions for all the terms in the model: xs1 has a positive effect and xs2 has a negative effect in the response, with a significant positive effect on the interation between the two.</p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1"><span class="kw">summary</span>(mx1x2I)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2 + xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7590 -0.6134  0.1005  0.6850  2.5857 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 23.21760    1.22479  18.956  &lt; 2e-16 ***
+## xs1          1.97682    0.02030  97.368  &lt; 2e-16 ***
+## xs2         -5.06833    1.09787  -4.617 1.21e-05 ***
+## xs1:xs2      3.01992    0.01876 160.986  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9462 on 96 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Failing to include significant interactions could lead one to wrongly conclude that a variable that in reality has a negative effect on the response happens to have a significant positive impact on the response!</p>
+<p>Note that, reassuringly, this would be the model preferred by AIC, by a long shot. All is good when all ends well, which if we have lots of data and low error, is not unexpected. But the real danger lies in real life data, where we do not know what reality is.</p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" title="1"><span class="co">#compare models using say AIC</span></a>
+<a class="sourceLine" id="cb279-2" title="2"><span class="kw">AIC</span>(mx1,mx2,mI,mx1x2,mx1x2I)</a></code></pre></div>
+<pre><code>##        df       AIC
+## mx1     3 1076.8927
+## mx2     3 1183.9971
+## mI      3  949.0211
+## mx1x2   4  836.8333
+## mx1x2I  5  278.6349</code></pre>
+<p>Therefore, exploring important interactions is important, and failing to include relevant ones might cause errors (while including spurious ones might also mask some real effects, see next slides!).</p>
+<p>This was a 2-way interaction.</p>
+<p>One can think about 3-way interactions or even higher order interactions, but no one can interpret those models anymore!</p>
+<div id="larger-order-interactions" class="section level2">
+<h2><span class="header-section-number">10.1</span> Larger order interactions</h2>
+<p>Just for fun (yeah.. fun !) we look at a model where we have more variables available to fit. In fact, we have 4 covariates, meaning we could even fit a 4th order interaction. Don’t try that at hope folks, only trained professionals should (and to so so with a 4th order interaction, probably trained profesionals that went a bit crazy at some point!).</p>
+<p>Our true model wll be of the form</p>
+<p><span class="math inline">\(ys=20+2*xs1-4*xs2+3*xs1*xs2+xs3+xs4\)</span></p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" title="1"><span class="co">#--------------------------------------------</span></a>
+<a class="sourceLine" id="cb281-2" title="2"><span class="co"># A 4 way interaction model</span></a>
+<a class="sourceLine" id="cb281-3" title="3"><span class="co">#but in reality there is only 1 second order interaction</span></a>
+<a class="sourceLine" id="cb281-4" title="4"><span class="co">#--------------------------------------------</span></a>
+<a class="sourceLine" id="cb281-5" title="5"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb281-6" title="6"><span class="co">#get a response variable</span></a>
+<a class="sourceLine" id="cb281-7" title="7">xs1=<span class="kw">runif</span>(n,<span class="dv">30</span>,<span class="dv">90</span>)</a>
+<a class="sourceLine" id="cb281-8" title="8"><span class="co">#get a second variable</span></a>
+<a class="sourceLine" id="cb281-9" title="9">xs2=<span class="kw">rgamma</span>(n,<span class="dv">10</span>,<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb281-10" title="10"><span class="co">#get a response variable</span></a>
+<a class="sourceLine" id="cb281-11" title="11">xs3=<span class="kw">runif</span>(n,<span class="dv">3</span>,<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb281-12" title="12"><span class="co">#get a second variable</span></a>
+<a class="sourceLine" id="cb281-13" title="13">xs4=<span class="kw">rgamma</span>(n,<span class="dv">4</span>,<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb281-14" title="14"><span class="co">#define the linear predictor</span></a>
+<a class="sourceLine" id="cb281-15" title="15">ys=<span class="dv">20</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>xs1<span class="dv">-4</span><span class="op">*</span>xs2<span class="op">+</span><span class="dv">3</span><span class="op">*</span>xs1<span class="op">*</span>xs2<span class="op">+</span>xs3<span class="op">+</span>xs4<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dv">2</span>)</a></code></pre></div>
+<p>After having created the data, we can fit a couple of models to it. One with all the interactions, one with just the correct (=true, since we know the data generating model) 2 way interaction between <code>xs1</code> and <code>xs2</code>.</p>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" title="1">modW=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs2<span class="op">*</span>xs3<span class="op">*</span>xs4)</a>
+<a class="sourceLine" id="cb282-2" title="2">modR=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2<span class="op">+</span>xs3<span class="op">+</span>xs4<span class="op">+</span>xs1<span class="op">:</span>xs2)</a></code></pre></div>
+<p>If we look at the 4 way interaction model</p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" title="1"><span class="kw">summary</span>(modW)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1 * xs2 * xs3 * xs4)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.38930 -0.54310  0.05557  0.65213  3.01609 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      1.687e+01  2.363e+01   0.714    0.477    
+## xs1              1.897e+00  3.753e-01   5.056 2.47e-06 ***
+## xs2              6.907e+00  2.383e+01   0.290    0.773    
+## xs3              2.413e+00  5.412e+00   0.446    0.657    
+## xs4              2.543e+01  2.372e+01   1.072    0.287    
+## xs1:xs2          3.024e+00  3.697e-01   8.180 2.64e-12 ***
+## xs1:xs3          1.438e-02  8.635e-02   0.167    0.868    
+## xs2:xs3         -2.400e+00  5.403e+00  -0.444    0.658    
+## xs1:xs4         -1.958e-01  3.457e-01  -0.567    0.573    
+## xs2:xs4         -3.026e+01  2.485e+01  -1.218    0.227    
+## xs3:xs4         -5.713e+00  5.582e+00  -1.024    0.309    
+## xs1:xs2:xs3     -6.552e-04  8.407e-02  -0.008    0.994    
+## xs1:xs2:xs4      2.623e-01  3.558e-01   0.737    0.463    
+## xs1:xs3:xs4      4.987e-02  8.132e-02   0.613    0.541    
+## xs2:xs3:xs4      6.737e+00  5.736e+00   1.175    0.243    
+## xs1:xs2:xs3:xs4 -6.164e-02  8.242e-02  -0.748    0.457    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.053 on 84 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 6.03e+04 on 15 and 84 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>we see several errors, namely type II errors associated with <code>xs2</code>, <code>xs3</code> and <code>xs4</code>! In other words, including interactions which are not real can mask the true influence of relevant variables!</p>
+<p>When we look at the right model, these go away, and all variables and the correct second order variable are considered significant (at the usual significance levels)</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" title="1"><span class="kw">summary</span>(modR)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2 + xs3 + xs4 + xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.6674 -0.5841  0.1184  0.6866  2.7579 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 21.15925    1.46383  14.455  &lt; 2e-16 ***
+## xs1          1.99914    0.02291  87.247  &lt; 2e-16 ***
+## xs2         -3.30066    1.29741  -2.544  0.01259 *  
+## xs3          1.19397    0.12449   9.591 1.36e-15 ***
+## xs4          0.76218    0.24032   3.171  0.00205 ** 
+## xs1:xs2      2.99210    0.02131 140.432  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.054 on 94 degrees of freedom
+## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+## F-statistic: 1.806e+05 on 5 and 94 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Reassuringly, the right model is preferred in terms of AIC</p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" title="1"><span class="kw">AIC</span>(modW,modR)</a></code></pre></div>
+<pre><code>##      df      AIC
+## modW 17 310.6238
+## modR  7 302.0554</code></pre>
+<p>What would happen if we had not recorded some of the variables? Or if we considered different second order or even 3 order interactions? I experiment below just as an example creating additional 10 wrong models. If we had all variables, we would always get the correct model apparently (even if I did not a full search over the possible model space - a task for you !) but if some of the variables were not recorded, some errors might occur. Your task is to find them, just for fun… have fun!</p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1">modW1=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2<span class="op">*</span>xs3)</a>
+<a class="sourceLine" id="cb289-2" title="2">modW2=<span class="kw">lm</span>(ys<span class="op">~</span>xs2<span class="op">+</span>xs3<span class="op">*</span>xs4)</a>
+<a class="sourceLine" id="cb289-3" title="3">modW3=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs2<span class="op">*</span>xs3)</a>
+<a class="sourceLine" id="cb289-4" title="4">modW4=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs3<span class="op">*</span>xs4)</a>
+<a class="sourceLine" id="cb289-5" title="5">modW5=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2<span class="op">+</span>xs3)</a>
+<a class="sourceLine" id="cb289-6" title="6">modW6=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs3<span class="op">+</span>xs4)</a>
+<a class="sourceLine" id="cb289-7" title="7">modW7=<span class="kw">lm</span>(ys<span class="op">~</span>xs2<span class="op">+</span>xs3<span class="op">+</span>xs4)</a>
+<a class="sourceLine" id="cb289-8" title="8">modW8=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs2)</a>
+<a class="sourceLine" id="cb289-9" title="9">modW9=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs3)</a>
+<a class="sourceLine" id="cb289-10" title="10">modW10=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs4)</a></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1"><span class="kw">AIC</span>(modW,modW1,modW2,modW3,modW4,modW5,modW6,modW7,modW8,modW9,modW10,modR)</a></code></pre></div>
+<pre><code>##        df       AIC
+## modW   17  310.6238
+## modW1   6  835.1165
+## modW2   6 1180.6098
+## modW3   9  311.4269
+## modW4   9 1086.9135
+## modW5   5  833.2009
+## modW6   5 1089.0771
+## modW7   5 1180.0438
+## modW8   5  368.2706
+## modW9   5 1088.0494
+## modW10  5 1089.2458
+## modR    7  302.0554</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="aula11.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conlusion-on-linear-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ECOMODbook.pdf", "ECOMODbook.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
