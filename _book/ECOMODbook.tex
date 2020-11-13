@@ -113,7 +113,7 @@
 
 \title{Notes for Ecological Modelling}
 \author{Tiago A. Marques}
-\date{2020-11-04}
+\date{2020-11-13}
 
 \begin{document}
 \maketitle
@@ -130,6 +130,80 @@ These notes were written in 2020, during the ecological modelling classes (Model
 In particular, I have started thinking about whether this could be a book in two stages, a first part that would appeal to students in Ecologia Numérica, and a second part aimed at students from Modelação Ecológica. The former might be more focused on a traditional approach to statistics, focussed on procedures and statistical tests. TYhe second would be more about the way to think about data and how one might go about to do the best job possible regarding inferences by thinking carefully on how to model the data.
 
 For the current version I am keeping chapters as individual lectures. Once the Ecological Modelling classes are over I might organize them into sensible chapters for a possible book on statistical models for ecological data.
+
+\hypertarget{usingRintro}{%
+\chapter{Using R}\label{usingRintro}}
+
+To work through this book it is fundamental that you know your way around R. I recommend that if you do not know your way around R before hand you take some time to do so before reading the rest of the book, and this first chapter provides some resources to help.
+
+R might seem frightening at first, but even monsters can make something look more pleasant if you look from the right angle. It is all a matter of perspective :) So I will use the help of some monsters here to convince you that this is the right thing to do!
+
+The amazing images in this chapter are all by Allison Horst, Artwork by \citet{allison_horst}, and I recomend you visit Allison's github repository filled up with amazing stats and maths illustrations (\url{https://github.com/allisonhorst/stats-illustrations}), including so many amazing resources to make R look less frightening.
+
+\begin{figure}
+\centering
+\includegraphics{extfiles/monsteRs.jpg}
+\caption{Illustrating R Monsters: Artwork by '@'allison\_horst}
+\end{figure}
+
+And it is not just about stats. If you do not understand how to find the derivative of a function after looking at Artwork by \citet{allison_horst} and her amazing visualization series, just give it up, as I suspect you will never will!
+
+\begin{figure}
+\centering
+\includegraphics{extfiles/derivative_1.jpg}
+\caption{Illustrating a Derivative: Artwork by '@'allison\_horst}
+\end{figure}
+
+Nowadays learning R by example is easy to do, with so many free online resources available to do so.
+
+\begin{figure}
+\centering
+\includegraphics{extfiles/monster_support.jpg}
+\caption{Illustrating learning R online: Artwork by '@'allison\_horst}
+\end{figure}
+
+I recomend that you do it via the RStudio environment, since it provides an integrated environment to integrate wth all R things. And there are many! And if you do so, I can guarantee that in no time you will be having funR.
+
+\begin{figure}
+\centering
+\includegraphics{extfiles/r_first_then.png}
+\caption{Illustrating having funR: Artwork by '@'allison\_horst}
+\end{figure}
+
+The advantages of mastering R are priceless, but the learning curve can be daunting at first.
+
+\begin{figure}
+\centering
+\includegraphics{extfiles/usethis.png}
+\caption{Illustrating R's learning curve: Artwork by '@'allison\_horst}
+\end{figure}
+
+If you want a gentle tutorial into R I have set up such a resource here:
+
+\url{https://github.com/TiagoAMarques/AnIntro2RTutorial}
+
+Additionally, this book is written in bookdown, and bookdown is the 4.0 version of RMarkdown, a tool that allows you to build dynamic reports based on R code, providing integrated documets that contain all that is required for a given project, from reading the data in to final results and discussion, passing through all the analysis and results. If you want a gentle introduction to RMarkdown using a hands on tutorial based on a versatile template that will do many of the things you'll need to get started, look for no more, there is also one here:
+
+\url{https://github.com/TiagoAMarques/RMarkdownTemplate}
+
+Actually, since this book is a bookdown book, you can easily look at it too. It is also on github:
+
+\url{https://github.com/TiagoAMarques/ECOMODbook}
+
+Go out and explore, litle grasshoper.
+
+\hypertarget{mainintro}{%
+\chapter{Preamble}\label{mainintro}}
+
+This is a book about Ecological Modelling. Since we are talking about a field that links Models and Ecology, we need first to think about what ecology is, and what models are. And so that is where we begin.
+
+Ecology is the science that studies the relations between all living beings, namely how they influence each other and how they are influenced by the abiotic factors of the surrounding environment. To be able to describe those relationships there is a natural requirement to quantify the nature and strength of these relationships, and hence the need for quantitative methods becomes obvious.
+
+Models are representations of reality. This is a fundamental aspect that one should never forget, they approximate reality, but they are not real. All models are wrong, but some are useful, is perhaps one of the most famous quotes by G.P. Box, and it is a fundamental aspect that I constantly return to, and that I tend to impose upon my students. Because unfortunately, just like artists, statisticians have the bad habit of falling in love with their models. Unlike in the celebrity world, in science there are usual worst consequences than a broken heart or an empty wallet.
+
+Actually, as I think about this book I realize that the ``all models are wrong'' is in itself wrong. There are in fact many true models, and we will use them extensively in this book. Those are the models that we simulate inside a computer. And those are perhaps some of the best models, since they are both real and extremely useful. By simulating a reality we can control all the aspects of a small world, and hence we can evaluate methods performance, we can illustrate theoretical results and we can show that things do what they say on the tin, or not!
+
+I refer to Ecological Modeling as the art of being able to conceptualize the ecological world as a set of relations, and to be able to translate those relations into equations. Then, to be able to make these equations functions of parameters that hopefully have a meaning, and then, if lucky, to be able to obtain data that contain information about the relevant parameters of the model. To think about where in the data is information about a given aspect of a system is a crucial step. Perhaps even harder, is to perceive what are the filters that information went through, via a sampling process. And then to be able to introduce observation models to undo those filters and allow reliable inferences to be based on noisy data. Not all models do that, and most models in this book do not separate observation and process model. Those models are arguably the more useful, but you need to understand simpler models before going into those more sophisticated and hence much harder to implement models. By estimating the parameters of the models one is then able to make some informed statements about useful descriptions of the natural world, like relating the weight of a fish with the temperature of the water it lives in or the number of eggs in a nest to the nearest source of food or body of water. Beyond the scope of this book, if one is really really lucky, those models and the results they provide might then be used by others to make management decisions that will ultimately be useful to the ecosystem under study.
 
 \hypertarget{about-regression}{%
 \chapter{About regression}\label{about-regression}}
@@ -4192,13 +4266,994 @@ I recommend you explore the code and output above, and that in particular you ex
 Many additional interesting links on linear models exist online. This is just one of them: \url{https://data-flair.training/blogs/r-linear-regression-tutorial/}
 
 \hypertarget{aula12}{%
-\chapter{Class 12: 04 11 2020 Maximum likelihood and all that}\label{aula12}}
+\chapter{Class 13: 10 11 2020 Maximum likelihood and all that}\label{aula12}}
 
-\hypertarget{aula13a}{%
-\chapter{Class 13a: 4 11 2020 Maximum likelihood and all that}\label{aula13a}}
+We have been fitting regression models, using say function \texttt{lm}. While this might seem rather ordinary and uninteresting to a seasoned statistician, it is quite remarkable for the average person. So remarkable that I would suggest the analogy of a cell phone to most of us. We do not really think about it, since we do it all the time, but wait a second: can you imagine all the things that must happen inside that little device so that your cousin Maria João having her honey moon in Hawaii can share with you a 2-second delay live of the fantastic romantic dinner she is having, while you are actually 10000 meters above ground on a plane preparing to land in Siberia? For about 99.9 \% of you, you do not! And I do not plan on telling you here - I hope by now you have realized that is beyond the purpose of this book. On the contrary, telling you exactly what happens behind the scenes when a function like \texttt{lm} reports some maximum likelihood estimates of a given model parameters is the task that lays ahead. ``Brace brace!'', as they might say when facing strong turbulence on your plane that currently is landing in Siberia.
+
+What \texttt{lm} does under the hood is, based on a model, estimate the best value of the parameters, given the data. We illustrate it using the standard linear model, with a single covariate \(x\) to explain the response \(y\)
+
+\[y=\alpha+\beta x+e_i\]
+
+where \(e_i~Gau(0,\sigma^2)\). The \texttt{lm} function finds the best values of \(\alpha\), \(\beta\) and \(\sigma\), given the data. Those we call estimators, and denote them by \(\hat \alpha\), \(\hat \beta\) and \(\hat \sigma\). After collecting a sample, we fit the model and we get the estimates. Remember estimates are observed values, or realizations based on the sample, of estimators.
+
+The way \texttt{lm} finds the estimates is via maximum likelihood. Actually, this happens despite the fact that the line is widely know as the minimum squares line. Why is that? Because as we saw in chapter ?, that line is the line that minimizes the sum of the squares of the deviations between the observations and the predictions conditional on the best line. Formally, that is the line that minimizes the following quantity
+
+\[\sum_{i=1}^n (y_i-\hat y_i)^2=\sum_{i=1}^n (y_i-(\hat \alpha+ \hat \beta x_i))^2.\]
+
+But what is the likelihood and does it work? We will introduce the concept using an example. Imagine a biologist, lets call her Andreia. Andreia is interested in estimating the probability that a pair of jays will produce eggs before the first of June.
+
+She sets out to find a random sample of blue jay nests, and defines a random variable \(X\) representing the egg status of a nest on the 1\(^{st}\) of June. We assume that all eggs laid before 1 June will not have fledged yet). Andreia decides that \(X\) will take:
+
+\begin{itemize}
+\tightlist
+\item
+  the value 1 if eggs are present, which she will call a success, and she assumes that happens with probability \(\theta\),
+\item
+  the value 0, which she calls a failure, representing no eggs present, with probability 1-\(\theta\).
+\end{itemize}
+
+Assuming that the probability of different nests having eggs is independent, each of these is a Bernoulli trial, and there are \(N\) trials, of which we could say \(n\) will be successes, and \(n-n\) will be failures. The Bernoulli distribution is a special case of a Binomial random variable, with a single trial and probability of success \(\theta\). In fact, you you consider all the nests together that is indeed a Binomial with parameters \(N\) and \(p\). A small detour to justify this statement: there is a theoretical result that demonstrates that the sum of \(K\) independent Binomials \(X_k\), each with \(N_k\) trials, with constant probability of success \(p\), is a Binomial(\(N,p\)), where \(N=\sum_{k=1}^K N_k\). Therefore, the sum of \(k\) Bernoulli trials, i.e.~\(k\) Binomial(1,p) independent random variables, is a Binomial(\(K,p\)).
+
+So this is a model with a single parameter, \(\theta\). (since we know \(N\), the number of trials!)
+
+Andreia goes out and about in the field and finds 5 nests. The first has eggs, the second and third do not, the forth does, and the fifth does not. By this time Andreia is tired and decides to call it a day, with her sample \(x\) collected: \(x=c(1,0,0,1,0)\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#a 1 is a nest with eggs, a 0 is a nest without eggs}
+\NormalTok{nests=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Note that in this case the number of successes n is 2 and the number of failures \texttt{N-n} is 3.
+
+Then she asks a friend doing an MSc in biostatistics how she can estimate the value of \(\theta\). Unfortunately, her friend has just started her classes, and she too is a bit unsure about what to do too. But she does know how to calculate the probability of the observed sample.
+
+\[P(x|\theta)=\theta (1-\theta) (1-\theta) \theta (1-\theta)=\theta^2 (1-\theta)^3\]
+
+If only we knew what the value of \theta was we could evaluate this probability. Imagine that it was 0.2, then the probability of the sample would be \(0.2^2 0.8^3\)=0.02048. What if it was 0.8, then the probability of the data would be \(0.8^2 0.2^3\)=0.00512. This is a considerably lower probability.
+
+And here's when Andreia's friend has a great idea. What if we turn it around and look at this as a function of theta, conditional on the data
+
+\[P(\theta|x)=\theta (1-\theta) (1-\theta) \theta (1-\theta)=\theta^2 (1-\theta)^3\]
+
+Then we could evaluate the expression for a set of possible values for \(\theta\), and the largest probability will intuitively correspond to the most likely value of \(\theta\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(knitr)}
+\NormalTok{thetas<-}\KeywordTok{seq}\NormalTok{(}\FloatTok{0.05}\NormalTok{,}\FloatTok{0.95}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.1}\NormalTok{)}
+\NormalTok{pthetas<-thetas}\OperatorTok{^}\DecValTok{2}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{thetas)}\OperatorTok{^}\DecValTok{3}
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(thetas,pthetas),}\DataTypeTok{col.names =} \KeywordTok{c}\NormalTok{(}\StringTok{"theta"}\NormalTok{,}\StringTok{"P(theta)"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{r|r}
+\hline
+theta & P(theta)\\
+\hline
+0.05 & 0.0021434\\
+\hline
+0.15 & 0.0138178\\
+\hline
+0.25 & 0.0263672\\
+\hline
+0.35 & 0.0336416\\
+\hline
+0.45 & 0.0336909\\
+\hline
+0.55 & 0.0275653\\
+\hline
+0.65 & 0.0181147\\
+\hline
+0.75 & 0.0087891\\
+\hline
+0.85 & 0.0024384\\
+\hline
+0.95 & 0.0001128\\
+\hline
+\end{tabular}
+
+The largest values are observed for the trial values of \(\theta\) of 0.35 and 0.45. What if we calculate that probability for a fine grid of values possible for \(\theta\) and represent it in a plot. This is what follows, and we add to the plot a dashed vertical line representing the value of \(\theta\) for which that function is maximized.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{thetas <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.99}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.01}\NormalTok{)}
+\NormalTok{pthetas<-thetas}\OperatorTok{^}\DecValTok{2}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{thetas)}\OperatorTok{^}\DecValTok{3}
+\KeywordTok{plot}\NormalTok{(thetas,pthetas,}\DataTypeTok{ylab=}\StringTok{"P(}\CharTok{\textbackslash{}t}\StringTok{heta|x)"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"theta"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in title(...): font width unknown for character 0x9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\NormalTok{thetas[pthetas}\OperatorTok{==}\KeywordTok{max}\NormalTok{(pthetas)],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-163-1.pdf}
+
+You will probably not be too surprised to find out that \(\hat \theta\)=0.4 is indeed the maximum likelihood estimate (MLEe), and that for a proportion \(\hat \theta\)=successes/trials is the maximum likelihood estimate (MLE). Therefore, note that it will only be from the context that one can say if MLE stands for an estimate, which corresponds to a random realization of the estimator, or for the estimator itself. This should not have come as a surprise. Remember we had 2 successes in 5 trials, and that corresponds to 0.4.
+
+Andreia asks her friend what was the point. If the MLE was just the empirical proportion, 2/5=0.4, why going through all this trouble? There's at least 3 good reasons for that:
+
+\begin{itemize}
+\tightlist
+\item
+  This way we understand why an MLE is
+\item
+  If you look at the figure above, we not only have an estimate of the parameter \(\theta\), but we also have an idea about the precision around that estimate. That comes from the shape of the likelihood profile. We get back to this below.
+\item
+  by embedding it in the concept of a likelihood, we open the door to generalize this procedure to any other far more complicated situation for which closed form analytic estimators do not exist. As examples of additional sophistication, we could easily:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    consider several parameters at once; as an example, we could be considering instead of a Bernoulli a complex model that describes how a whale dives, with 17 parameters that we want to maximize at once. Rarely closed form estimators will be available then;
+  \item
+    make the parameters a function of observed covariates. In the case of our nests, the height of the nest could be a relevant covariate to model the probability of success of a nest, say. In such a case, we could have an estimate for \(\theta\) that would be dependent of the height \texttt{h}, e.g by defining that \(\theta_h=f(h)\). Naturally we would choose the link function f such that theta would be constrained to be between 0 and 1, the possible values for a probability. The logit link function comes to mind here. But that will be a story for another day.
+  \end{itemize}
+\end{itemize}
+
+To illustrate the point above regarding being able to estimate the precision around the parameter estimate from the likelihood function, lets consider that we had not 5 samples, but man more. In the figure below we contrast the small sample size to a set of increasing sample sizes: 50, 100 or 200.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{),}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.5}\NormalTok{))}
+\NormalTok{thetas <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.99}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.01}\NormalTok{)}
+\NormalTok{pthetas<-thetas}\OperatorTok{^}\DecValTok{2}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{thetas)}\OperatorTok{^}\DecValTok{3}
+\KeywordTok{plot}\NormalTok{(thetas,pthetas,}\DataTypeTok{ylab=}\StringTok{"P(}\CharTok{\textbackslash{}t}\StringTok{heta|x)"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"theta (n=5)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in title(...): font width unknown for character 0x9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\NormalTok{thetas[pthetas}\OperatorTok{==}\KeywordTok{max}\NormalTok{(pthetas)],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\NormalTok{thetas <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.99}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.01}\NormalTok{)}
+\NormalTok{pthetas<-thetas}\OperatorTok{^}\DecValTok{20}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{thetas)}\OperatorTok{^}\DecValTok{30}
+\KeywordTok{plot}\NormalTok{(thetas,pthetas,}\DataTypeTok{ylab=}\StringTok{"P(}\CharTok{\textbackslash{}t}\StringTok{heta|x)"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"theta  (n=50)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in title(...): font width unknown for character 0x9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\NormalTok{thetas[pthetas}\OperatorTok{==}\KeywordTok{max}\NormalTok{(pthetas)],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\NormalTok{thetas <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.99}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.01}\NormalTok{)}
+\NormalTok{pthetas<-thetas}\OperatorTok{^}\DecValTok{40}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{thetas)}\OperatorTok{^}\DecValTok{60}
+\KeywordTok{plot}\NormalTok{(thetas,pthetas,}\DataTypeTok{ylab=}\StringTok{"P(}\CharTok{\textbackslash{}t}\StringTok{heta|x)"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"theta  (n=100)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in title(...): font width unknown for character 0x9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\NormalTok{thetas[pthetas}\OperatorTok{==}\KeywordTok{max}\NormalTok{(pthetas)],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\NormalTok{thetas <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.99}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.01}\NormalTok{)}
+\NormalTok{pthetas<-thetas}\OperatorTok{^}\DecValTok{80}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{thetas)}\OperatorTok{^}\DecValTok{120}
+\KeywordTok{plot}\NormalTok{(thetas,pthetas,}\DataTypeTok{ylab=}\StringTok{"P(}\CharTok{\textbackslash{}t}\StringTok{heta|x)"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"theta  (n=200)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in title(...): font width unknown for character 0x9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\NormalTok{thetas[pthetas}\OperatorTok{==}\KeywordTok{max}\NormalTok{(pthetas)],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-164-1.pdf}
+
+As we increase the sample size, and hence we increase the amount of information available to estimate \(\theta\), the likelihood profile becomes more spiky. It can be demonstrated that the curvature of the likelihood profile allows us to quantify the precision on our estimate of the parameter. Naturally, the steeper the curve, the better, in the sense that the more certain we are. On the other hand, when the likelihood surface is very flat, we might hit problems in terms of the numerical maximization of the likelihood.
+
+\hypertarget{maximizing-a-likelihood-algebraically}{%
+\section{Maximizing a likelihood algebraically}\label{maximizing-a-likelihood-algebraically}}
+
+While above we were able to maximize the likelihood function via a ``grid'' search. We divided the possible range of values that the parameter could take, also know as the parameter space, into a large number of candidate values. Then we evaluated the likelihood at each one of these, and picked the value of the parameter for which the function was maximum: the maximum likelihood estimate.
+
+Grid search can become very inefficient very fast, and hence there are other ways to maximize a likelihood. One is to analytically find what is the maximum of that function. How can we do that. Straightforwardly for our example. You differentiate the function, find the point at which the first derivative is 0, and by definition that point is a maximum or a minimum. If you are unsure the second derivative would tell you which. Considering the above
+
+\[\frac{d(f(\theta))}{d \theta}=\frac{d(\theta^n (1-\theta)^{N-n})}{d \theta}\]
+
+Then by solving
+
+\[\frac{d(f(\theta))}{d \theta}=0\]
+
+we get that \(\hat \theta = n/N\), which is just the empirical proportion (i.e.~the observed proportion of successes in the sample).
+
+(note to self: add detail to these derivations above)
+
+However, like the grid search, this is not a problem free procedure. The above expression was simple enough that derivation was trivial. That might not be the rule, but the exception, so we need an alternative approach for when models are more complex than our Bernoulli example. That will be the norm in real ecological models.
+
+\hypertarget{numerically-maximizing-a-likelihood}{%
+\section{Numerically Maximizing a likelihood}\label{numerically-maximizing-a-likelihood}}
+
+Here we look at using a numerical maximization procedure, which means that we will derive a procedure, and algorithm, that will find the maximum of a function computationally. The analogy with the real world is simple. Imagine that you were somewhere in the most boring country in the world, Boredomnesia. It happens to be a square with a single mountain at the center, as depicted in the image below, and you wanted to start walking and reaching the highest point in the country. Boredomnesia happens to also be the foggiest country in the world, so you manage to see about 3 meters around you, at most!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# need mvtnorm package}
+\KeywordTok{library}\NormalTok{(}\StringTok{"mvtnorm"}\NormalTok{)}
+\NormalTok{range =}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{,}\FloatTok{0.1}\NormalTok{)}
+\NormalTok{mean =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\NormalTok{Sigma =}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FloatTok{.5}\NormalTok{, }\FloatTok{.5}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DecValTok{2}\NormalTok{)}
+\NormalTok{out =}\StringTok{ }\KeywordTok{matrix}\NormalTok{ (}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{101}\OperatorTok{*}\DecValTok{101}\NormalTok{),}\DecValTok{101}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(range))\{}
+	\ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(range))\{}
+\NormalTok{		out[i,j] =}\StringTok{ }\KeywordTok{dmvnorm}\NormalTok{(}\KeywordTok{c}\NormalTok{(range[i],range[j]),}\DataTypeTok{mean=}\NormalTok{mean,}\DataTypeTok{sigma=}\NormalTok{Sigma)}
+\NormalTok{	\}}
+\NormalTok{\}}
+ \KeywordTok{persp}\NormalTok{(out,}\DataTypeTok{theta =} \DecValTok{30}\NormalTok{,}\DataTypeTok{phi =} \DecValTok{20}\NormalTok{,}\DataTypeTok{col=}\StringTok{"lightblue"}\NormalTok{,}\DataTypeTok{xlab =} \StringTok{"Latitude"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Longitude"}\NormalTok{,}\DataTypeTok{zlab=}\StringTok{"Elevation"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{ECOMODbook_files/figure-latex/country-1} 
+
+}
+
+\caption{Ilustrating a likelihood. This would be Boredomnesia, the most boring country in the world. You want to to find a way to reach its highest point amidst the dense fog that characterizes it. How can you do it? Just keep moving up!}\label{fig:country}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#add an emoji that is a small man to it!}
+\end{Highlighting}
+\end{Shaded}
+
+But you actually have no idea about the orography of the country, and you can only see so much as the country is always a bit foggy. To make sure you manage, you could set up a set of rules for yourself:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  starting where you are (this seems like a lame first step, but you will see surprisingly that is actually one of the hardest for a computer!). Then, until you can't find a higher point, repeat the following steps:
+\item
+  evaluate the height where you are currently
+\item
+  evaluate the height at 8 directions around you (like North, South, East, West and the 4 intermediate directions, say)
+\item
+  move toward the steepest highest of those directions
+\item
+  if the difference in elevation (i.e.~the mountain slope) is
+
+  \begin{itemize}
+  \tightlist
+  \item
+    high: move 3 meters
+  \item
+    low: move 1 meter
+  \end{itemize}
+\end{enumerate}
+
+If you do these steps above, when you stop you are at most 1 meter from the top. Well done, you are the king of the world.
+
+Naturally, this assumes the terrain of the country you are in is relatively simple. More precisely, that there is only one mountain in the country, and there are no valleys (or in a likelihood world, no local maxima). Basically, you would not like to be Dane, or Dutch, as there are no mountains there to begin with, and definitely you would not want to be near the Grand Canyon (Figure X) or in Scotland (Figure X), where the Munro's would certainly defeat you. As we will see below, this has very important implications in the likelihood world!
+
+\begin{figure}
+\centering
+\includegraphics{extfiles/grand-canyon.jpg}
+\caption{The nightmare place for our example task of finding the highest place using the move-towards-higher-ground algorithm, given all the plateaus}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{extfiles/munros.jpg}
+\caption{The nightmare place for our example task of finding the highest place using the move-towards-higher-ground algorithm, given all the local maxima}
+\end{figure}
+
+Now\ldots{} what happens inside a computer? The above example makes more sense if we are maximizing a likelihood with respect to two parameters, so that the likelihood surface is a bi-dimensional surface. Imagine a Gaussian, for which we want to estimate the mean \(\mu\) and the standard deviation \(\sigma\). In the real world the analogy is latitude is equivalent to \(\mu\), longitude is equivalent to \(\sigma\), and the altitude is the likelihood. So now we look at how a computer does it!
+
+There are many algorithms one could use, and here we will use some standard R functions to do the job for us. We will consider a couple, \texttt{optimize}, when we are only considering a single parameter, and \texttt{optim}, for when more than one parameter is at stake. An alternative to \texttt{optim} might be \texttt{nlm} (from package \texttt{stats}). There are many other options in and outside R!
+
+The first thing we need to do is to write up the likelihood function. This will be often the hardest part. That would be like having a detailed map of the country. We know that takes a lot of work to do.
+
+This must be a function which the first argument is the parameter(s), typically the second is the data. Then other additional parameters might follow, or not.
+
+Let us build, step by step, a likelihood for the example of the Bernoulli case for the nests we were looking at in the previous section.
+
+Recall the probability of \(\theta\), given the data 1,0,1,0,0.
+
+\[P(\theta|x)=\theta (1-\theta) (1-\theta) \theta (1-\theta)=\theta^2 (1-\theta)^3\]
+
+We can write a bespoke function of theta to evaluate this probability
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{liktheta1=}\ControlFlowTok{function}\NormalTok{(theta)\{}
+\NormalTok{  lik<-theta}\OperatorTok{^}\DecValTok{2}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{theta)}\OperatorTok{^}\DecValTok{3}
+  \KeywordTok{return}\NormalTok{(lik)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now we use it, job done
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{liktheta1}\NormalTok{(}\FloatTok{0.35}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.03364156
+\end{verbatim}
+
+just as in the table above, we are good. But this is not really what we want, because the data, our sample was hardwired, we need a function that could cope with any sample. We need to be able to compute the relevant statistics from the sample. Andreia realizes that she can do that easily by summing successes and failures in the table
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(nests}\OperatorTok{==}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(nests}\OperatorTok{==}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+and hence she suggests this new formulation
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{liktheta2=}\ControlFlowTok{function}\NormalTok{(theta,samp)\{}
+\NormalTok{  lik<-theta}\OperatorTok{^}\KeywordTok{sum}\NormalTok{(samp}\OperatorTok{==}\DecValTok{1}\NormalTok{)}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{theta)}\OperatorTok{^}\KeywordTok{sum}\NormalTok{(samp}\OperatorTok{==}\DecValTok{0}\NormalTok{)}
+  \KeywordTok{return}\NormalTok{(lik)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+She tries it out
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{liktheta2}\NormalTok{(}\FloatTok{0.35}\NormalTok{,nests)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.03364156
+\end{verbatim}
+
+and she gets the same value as above. She's happy, as she can now calculate the likelihood for (1) any parameter value and (2) any sample. Excited, she shows how this would be the case for 11 nests, with just 1 success.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{liktheta2}\NormalTok{(}\FloatTok{0.35}\NormalTok{,}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.00471196
+\end{verbatim}
+
+Now, she's really excited and she has a dream where she samples 1000 eggs, and 300 successes. She wakes up and wants to know the likelihood under that scenario
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dreameggs<-}\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{300}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{700}\NormalTok{))}
+\KeywordTok{liktheta2}\NormalTok{(}\FloatTok{0.35}\NormalTok{,dreameggs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.818708e-268
+\end{verbatim}
+
+Ups, something went terribly wrong, the likelihood is now\ldots{} 0. This is unhelpful, I can't climb a mountain if there is no mountain! She scratches her head for a while and she realizes what is going on. She's multiplying 5000 probabilities, even if those were high, the computer will round them to 0.
+
+Andreia calls a friend, and he says that he will give her two clues that might help. And then says:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  If you apply the log to a function, the logged function will have the same function as the untransformed function, and
+\item
+  log(a*b)=log(a+b)
+\end{enumerate}
+
+Andreia hangs up the phone and takes a mental note: ``I need to find better, more useful friends''! But during the night she has an epiphany. If she logs the function, a product of probabilities, she will get a sum of log probabilities. Log probabilities are smaller than probabilities, but there's a small miracle in the process. The sum of small numbers does not tend (does not converge to 0!). And so she tries a new function, where she adds the log probabilities
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{logliktheta=}\ControlFlowTok{function}\NormalTok{(theta,data)\{}
+\NormalTok{  loglik=}\KeywordTok{sum}\NormalTok{(}\KeywordTok{log}\NormalTok{(theta}\OperatorTok{^}\KeywordTok{sum}\NormalTok{(data}\OperatorTok{==}\DecValTok{1}\NormalTok{))}\OperatorTok{+}\KeywordTok{sum}\NormalTok{(}\KeywordTok{log}\NormalTok{((}\DecValTok{1}\OperatorTok{-}\NormalTok{theta)}\OperatorTok{^}\KeywordTok{sum}\NormalTok{(data}\OperatorTok{==}\DecValTok{0}\NormalTok{))))}
+  \KeywordTok{return}\NormalTok{(loglik)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+She calculates the function that gave her grief above, and the egg dream meets the epiphany
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{logliktheta}\NormalTok{(}\FloatTok{0.35}\NormalTok{,dreameggs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -616.4947
+\end{verbatim}
+
+Then, she just needs to call the \texttt{optimize}, where \texttt{interval} defines the plausible parameter space, and we make sure that \texttt{maximum} is TRUE because by default the function \texttt{optimize} minimizes (That is why we sometimes use a function that is \texttt{-log(likelihood)}, that means the minimum is the point we want!) the function \texttt{f} with respect to its first parameter, given any other arguments provided to \texttt{f}. In this case those other parameters are just the \texttt{data}, the second argument for \texttt{liktheta}. Those you will recognize as our data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{MLEtheta<-}\KeywordTok{optimize}\NormalTok{(}\DataTypeTok{f=}\NormalTok{logliktheta,}\DataTypeTok{interval=}\KeywordTok{c}\NormalTok{(}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.99}\NormalTok{),}\DataTypeTok{data=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{),}\DataTypeTok{maximum=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{MLEtheta}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $maximum
+## [1] 0.399996
+## 
+## $objective
+## [1] -3.365058
+\end{verbatim}
+
+Now we can actually calculate the MLE for \(\theta\) in the case of Andreia's dream sample.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{MLEthetadream<-}\KeywordTok{optimize}\NormalTok{(}\DataTypeTok{f=}\NormalTok{logliktheta,}\DataTypeTok{interval=}\KeywordTok{c}\NormalTok{(}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.99}\NormalTok{),}\DataTypeTok{data=}\NormalTok{dreameggs,}\DataTypeTok{maximum=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{MLEthetadream}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $maximum
+## [1] 0.2999964
+## 
+## $objective
+## [1] -610.8643
+\end{verbatim}
+
+So the output of \texttt{optimize} has two components, \(maximum\) and \(objective\). What are these?
+The two components of this object are the MLE of the parameter, in this case 0.399996 and the value of the function at that point for \(\theta\), in this case -3.3650583. This will be the actual value of the likelihood at this point and might be useful later, but for now we ignore it. Note that 0.399996 is just a numeric approximation of the real value, that we know analytically to be 0.4. These are illustrated below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#valores possiveis para thetas}
+\NormalTok{thetas<-}\KeywordTok{seq}\NormalTok{(}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.99}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.01}\NormalTok{)}
+\CommentTok{#object to hold the values of the likelihood}
+\NormalTok{nthetas <-}\StringTok{ }\KeywordTok{length}\NormalTok{(thetas)}
+\NormalTok{loglikthetas<-}\KeywordTok{numeric}\NormalTok{(nthetas)}
+\CommentTok{#para cada theta}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{nthetas)\{}
+\NormalTok{  loglikthetas[i] <-}\StringTok{ }\KeywordTok{logliktheta}\NormalTok{(thetas[i],nests)}
+\NormalTok{\}}
+\KeywordTok{plot}\NormalTok{(}\DataTypeTok{x=}\NormalTok{thetas,}\DataTypeTok{y=}\NormalTok{loglikthetas,}\DataTypeTok{ylab=}\StringTok{"Log likelihood"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"theta"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\NormalTok{MLEtheta}\OperatorTok{$}\NormalTok{maximum,}\DataTypeTok{h=}\NormalTok{MLEtheta}\OperatorTok{$}\NormalTok{objective,}\DataTypeTok{col=}\StringTok{"green"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-176-1.pdf}
+
+As a task, what would it require to change the above code to calculate the value of theta if we had 78 trials and 43 sucesses? You got it, just need to change the data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{MLEtheta<-}\KeywordTok{optimize}\NormalTok{(}\DataTypeTok{f=}\NormalTok{logliktheta,}\DataTypeTok{interval=}\KeywordTok{c}\NormalTok{(}\FloatTok{0.01}\NormalTok{,}\FloatTok{0.99}\NormalTok{),}\DataTypeTok{data=}\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{43}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{78-43}\NormalTok{)),}\DataTypeTok{maximum=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{MLEtheta}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $maximum
+## [1] 0.5512824
+## 
+## $objective
+## [1] -53.6545
+\end{verbatim}
+
+So, now we know all about likelihoods, but Andreia wonders. Why all the trouble, if I could just have calculated the exact value of the MLE as the observed proportion? To that we need to continue with Andreia's explorations.
+
+\hypertarget{the-case-of-a-gaussian}{%
+\section{The case of a Gaussian}\label{the-case-of-a-gaussian}}
+
+Lets now look at situation where Andreia is interested in characterizing how far away from the nearest river, in a straight line, are the nests from water. She assumes that these might be hypothetically described by a Gaussian random variable. That will be the basis for constructing a likelihood. For her 5 nests, those distances in kilometers are
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dists<-}\KeywordTok{c}\NormalTok{(}\FloatTok{0.78}\NormalTok{,}\FloatTok{1.73}\NormalTok{,}\FloatTok{1.32}\NormalTok{,}\FloatTok{0.54}\NormalTok{,}\FloatTok{2.12}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Then she thinks about what might the likelihood look like for a Gaussian. She knows R can calculate the density of a Gaussian via \texttt{rnorm}, and so she suggests the following minus log likelihood function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{minuslogliknorm=}\ControlFlowTok{function}\NormalTok{(pars,data)\{}
+\NormalTok{  media=pars[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  desvio=pars[}\DecValTok{2}\NormalTok{]}
+\NormalTok{  minusloglik=}\OperatorTok{-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{log}\NormalTok{(}\KeywordTok{dnorm}\NormalTok{(data,}\DataTypeTok{mean=}\NormalTok{media,}\DataTypeTok{sd=}\NormalTok{desvio)))}
+  \KeywordTok{return}\NormalTok{(minusloglik)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+She testes the function on simulated data, 10000 fake distances with mean 2 and standard deviation 2.7. Either a small miracle happened, or she got it right at first try:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#simulated sample size}
+\NormalTok{n<-}\DecValTok{10000}
+\CommentTok{# simulated mean}
+\NormalTok{mG<-}\DecValTok{2}
+\CommentTok{# simulated standard deviation}
+\NormalTok{sdG<-}\FloatTok{0.7}
+\CommentTok{# simulated sample}
+\NormalTok{xs=}\KeywordTok{rnorm}\NormalTok{(n,}\DataTypeTok{mean=}\NormalTok{mG,}\DataTypeTok{sd=}\NormalTok{sdG)}
+\CommentTok{# MLE of the parameters}
+\NormalTok{MLEGau<-}\KeywordTok{optim}\NormalTok{(}\DataTypeTok{par=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{),}\DataTypeTok{fn=}\NormalTok{minuslogliknorm,}\DataTypeTok{data=}\NormalTok{xs)}
+\NormalTok{MLEGau}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $par
+## [1] 1.9994644 0.6987295
+## 
+## $value
+## [1] 10604.8
+## 
+## $counts
+## function gradient 
+##       65       NA 
+## 
+## $convergence
+## [1] 0
+## 
+## $message
+## NULL
+\end{verbatim}
+
+Note she now has more than 1 parameter, so \texttt{optimize} was not an option, and had to use function \texttt{optim}. This requires starting values via argument \texttt{par}, but the rest is similar to \texttt{optimize}, the \texttt{data} and the function to maximize is \texttt{fn}. The output is a bit messier, and while the resulting object components are all relevant to know about, we ignore them for now for simplicity. If we evaluate this likelihood using a brute force grid approach, this is what we get
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#to implement later}
+\end{Highlighting}
+\end{Shaded}
+
+Notice that this image reminds us of Boredomnesia! Now, we know how to do this for more than one parameter, but why would we. After all, if I wanted to estimate the MLE of a Gaussian, actually, the sample mean \texttt{mean(xs)}=1.999534 and the sample standard deviation \texttt{sd(xs)}=0.6987875 are what I want. So the above values obtained by \texttt{optim} for \(\mu\) and \(\sigma\), the MLEs, 1.9994644 and 1.9994644 respectively, are really just numerical approximations of the real analytically obtainable MLE's 1.999534 and 0.6987875, respectively (note: need, strictly, to refer to minor detail regarding denominator of the standard deviation, considering n, the MLE, or n-1, not MLE but unbiased; ME students can ignore detail for now!). These are themselves, in this case where we know reality, estimates of the true simulated values generating our data, 2 and 0.7, respectively. So all quite reasonable and close, really, what is not surprising given a sample size of \ensuremath{10^{4}}!
+
+Now, what about based on the distances Andreia had for the 5 nests
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dists}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.78 1.73 1.32 0.54 2.12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{MLEGaud<-}\KeywordTok{optim}\NormalTok{(}\DataTypeTok{par=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{),}\DataTypeTok{fn=}\NormalTok{minuslogliknorm,}\DataTypeTok{data=}\NormalTok{dists)}
+\NormalTok{MLEGaud}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $par
+## [1] 1.2979771 0.5840272
+## 
+## $value
+## [1] 4.406008
+## 
+## $counts
+## function gradient 
+##       53       NA 
+## 
+## $convergence
+## [1] 0
+## 
+## $message
+## NULL
+\end{verbatim}
+
+Note that, as it might be interesting for later, that nests with eggs were closer to the water. But remember also that with such a small sample size, believing in that as being some indication of reality, rather than just a fluke, is a matter of faith.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(dists,nests,}\DataTypeTok{ylab=}\StringTok{"nest with eggs"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"Distance to water (km)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-184-1.pdf}
+
+We get some estimates, despite the fact that it is yet unclear why we should do it this way and not just use \texttt{mean} and \texttt{sd}. To see why, we continue our story, and the plot thickens\ldots{}
+
+\hypertarget{the-case-of-a-linear-model}{%
+\section{The case of a linear model}\label{the-case-of-a-linear-model}}
+
+We started by talking about \texttt{lm}, so, what is happening behind \texttt{lm}.
+
+Let's us imagine that for each nest, Andreia also related the size of the nest with the distance to the water. The size of the nest, diameter, in cm, was as below, She is interested in describing, modeling, explaining how nest size changes as a function of distance to the water.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{size<-}\KeywordTok{c}\NormalTok{(}\DecValTok{17}\NormalTok{,}\FloatTok{19.3}\NormalTok{,}\FloatTok{21.2}\NormalTok{,}\FloatTok{13.2}\NormalTok{,}\DecValTok{25}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We can visualize the relationship between the distance to the water and the nest diameter
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(dists,size,}\DataTypeTok{xlab=}\StringTok{"Distance (km)"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Nest diameter, cm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-186-1.pdf}
+
+So now Andreia needs a likelihood. Since the above relation seems linear, she remembers that the linear model is given by
+
+\[y_i=a+b x_i+e_i\]
+
+where the \(e_i\) are a Gaussian with mean 0 and constant variance \(\sigma^2\). And then she has another epiphany and realizes that she can construct data for which a likelihood can be derived. Because if she rearranges the above, you have
+
+\[e_i=y_i-(a+b x_i)=y_i-\hat y_i\]
+where, remember, \(e_i\) are a Gaussian with mean 0 and constant variance \(\sigma^2\). And so we can build a likelihood that exploits that Gaussian density for the observed errors, as
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{liklm=}\ControlFlowTok{function}\NormalTok{(pars,data)\{}
+  \CommentTok{#data must be a data.frame with columns y and x}
+\NormalTok{  a=pars[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  b=pars[}\DecValTok{2}\NormalTok{]}
+\NormalTok{  sigma=pars[}\DecValTok{3}\NormalTok{]}
+\NormalTok{  ps=}\KeywordTok{dnorm}\NormalTok{(data}\OperatorTok{$}\NormalTok{y}\OperatorTok{-}\NormalTok{(a}\OperatorTok{+}\NormalTok{b}\OperatorTok{*}\NormalTok{data}\OperatorTok{$}\NormalTok{x),}\DataTypeTok{mean=}\DecValTok{0}\NormalTok{,}\DataTypeTok{sd=}\NormalTok{sigma)}
+  \CommentTok{#minus loglik}
+\NormalTok{  loglik=}\OperatorTok{-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{log}\NormalTok{(ps))}
+  \KeywordTok{return}\NormalTok{(loglik)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+and we use it over our sample
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lmMLE<-}\KeywordTok{optim}\NormalTok{(}\DataTypeTok{par=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{),}\DataTypeTok{fn=}\NormalTok{liklm,}\DataTypeTok{data=}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{y=}\NormalTok{size,}\DataTypeTok{x=}\NormalTok{dists))}
+\NormalTok{lmMLE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $par
+## [1] 11.120181  6.178854  1.631731
+## 
+## $value
+## [1] 9.542754
+## 
+## $counts
+## function gradient 
+##      192       NA 
+## 
+## $convergence
+## [1] 0
+## 
+## $message
+## NULL
+\end{verbatim}
+
+and so we get as estimates of \(a\), \(b\) and \(\sigma\) of 11.1201813, 6.1788541 and 1.6317308, respectively. So finally, Andreia uses her estimated values for \(a\) and \(b\) and puts them over the above plot of the data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(dists,size,}\DataTypeTok{xlab=}\StringTok{"Distance (km)"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Nest diameter, cm"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(lmMLE}\OperatorTok{$}\NormalTok{par[}\DecValTok{1}\NormalTok{],lmMLE}\OperatorTok{$}\NormalTok{par[}\DecValTok{2}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-189-1.pdf}
+
+Now, we know that \texttt{lm} does this kind of stuff very efficiently, so how do these compare across? We can look at the outcome of the \texttt{lm} call
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm0<-}\KeywordTok{lm}\NormalTok{(size}\OperatorTok{~}\NormalTok{dists)}
+\KeywordTok{summary}\NormalTok{(lm0)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = size ~ dists)
+## 
+## Residuals:
+##       1       2       3       4       5 
+##  1.0616 -2.5101  1.9240 -1.2550  0.7794 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)  
+## (Intercept)   11.117      2.296   4.843   0.0168 *
+## dists          6.181      1.613   3.832   0.0313 *
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.106 on 3 degrees of freedom
+## Multiple R-squared:  0.8304,	Adjusted R-squared:  0.7738 
+## F-statistic: 14.68 on 1 and 3 DF,  p-value: 0.03132
+\end{verbatim}
+
+and when we add these to the above plot, we see we were bang on: the two lines are indistinguishable by eye.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(dists,size,}\DataTypeTok{xlab=}\StringTok{"Distance (km)"}\NormalTok{,}\DataTypeTok{ylab=}\StringTok{"Nest diameter, cm"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(lmMLE}\OperatorTok{$}\NormalTok{par[}\DecValTok{1}\NormalTok{],lmMLE}\OperatorTok{$}\NormalTok{par[}\DecValTok{2}\NormalTok{],}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\StringTok{"blue"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(lm0,}\DataTypeTok{lty=}\DecValTok{3}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{,}\DataTypeTok{col=}\StringTok{"green"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-191-1.pdf}
+
+So, but still, why would we do it this way, since \texttt{lm} does it with less hassle, faster, and probably better? For a number of reasons, including:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  because it allows us a framework that is generalizable to any model for which we can define the likelihood, so it works for more than standard regression models
+\item
+  because it allows us to really understand what is happening in the background, as an example, we can relate the profile of the likelihood to the variance around the parameter estimates
+\end{enumerate}
+
+So to complete this chapter, lets see an example for which a dedicated function like \texttt{lm} is not available off the shelf, and we would really need to write down our own likelihood to get meaningful ecological inferences.
+
+\hypertarget{the-really-interesting-case}{%
+\section{The really interesting case}\label{the-really-interesting-case}}
+
+(Work in progress, a tale from Conceição, about relating the probability of success of an egg with the distance it is from the water)
+
+Imagine now that we were interested in relating the probability for a nest being successful with the distance of the nest to a body of water. A possible ecological explanation for there being a negative relationship between the distance and the success probability might be that near water bodies there are usual more insects, and hence more food which means improved body condition and hence incentives for attempting reproduction.
+
+We could therefore hypothesize that
+
+\[\theta_i=f(d_i)\]
+
+and that this function is such that for a given nest \(i\), the larger the distance \(d_i\) the smaller the probability of success \(\theta_i\).
+
+A possible way to conceptualize that relationship might be by choosing \(f\) in a way that forces \(\theta\) to be in the plausible range for a probability. One such way is to assume a logistic relationship between the probability and the distance
+
+\[\theta_i=\frac{1}{1+exp(-(\alpha+\beta d_i))}\]
+
+which we could easily code up in R as
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{thetafd<-}\ControlFlowTok{function}\NormalTok{(alpha,beta,d)\{}
+\NormalTok{  res<-}\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{(alpha}\OperatorTok{+}\NormalTok{beta}\OperatorTok{*}\NormalTok{d)))}
+  \KeywordTok{return}\NormalTok{(res)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+We can visualize what that function might look like for some arbitrary values for \(\alpha\) and \(\beta\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alpha<-}\FloatTok{1.6}
+\NormalTok{beta <-}\StringTok{ }\FloatTok{-1.8}
+\end{Highlighting}
+\end{Shaded}
+
+These values imply that the probability of a nest near a body of water having eggs is relatively high, in fact, if just by the water (\(d=0\)) then around 0.83, and around 1km it will be 0.45 but by about 5km from the water the probability is down at effectively 0.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alldists<-}\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.1}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(alldists,}\KeywordTok{thetafd}\NormalTok{(alpha,beta,alldists),}\DataTypeTok{ylab=}\StringTok{"P(nest with eggs)"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"Distance from water (km)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-194-1.pdf}
+
+Having done this, then it is relatively simple to modify the likelihood for theta that we used for \(\theta\), to replace the \(\theta\) by a function of the relevant covariate \(d\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{loglikthetad=}\ControlFlowTok{function}\NormalTok{(pars,data)\{}
+\NormalTok{  nests<-data[,}\DecValTok{1}\NormalTok{]}
+\NormalTok{  dists<-data[,}\DecValTok{2}\NormalTok{]}
+\NormalTok{  alpha<-pars[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  beta<-pars[}\DecValTok{2}\NormalTok{]}
+\NormalTok{  theta<-}\KeywordTok{thetafd}\NormalTok{(alpha,beta,dists)}
+\NormalTok{  minusloglik=}\OperatorTok{-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{log}\NormalTok{(theta}\OperatorTok{^}\KeywordTok{sum}\NormalTok{(nests}\OperatorTok{==}\DecValTok{1}\NormalTok{))}\OperatorTok{+}\KeywordTok{sum}\NormalTok{(}\KeywordTok{log}\NormalTok{((}\DecValTok{1}\OperatorTok{-}\NormalTok{theta)}\OperatorTok{^}\KeywordTok{sum}\NormalTok{(nests}\OperatorTok{==}\DecValTok{0}\NormalTok{))))}
+  \KeywordTok{return}\NormalTok{(minusloglik)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+and so we could maximize this likelihood based on the data, both the successes and the distances to the water observed above
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{thetadMLE<-}\KeywordTok{optim}\NormalTok{(}\DataTypeTok{par=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{),}\DataTypeTok{fn=}\NormalTok{loglikthetad,}\DataTypeTok{data=}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{nests=}\NormalTok{nests,}\DataTypeTok{dists=}\NormalTok{dists))}
+\NormalTok{thetadMLE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $par
+## [1] -2.0139580650 -0.0006849422
+## 
+## $value
+## [1] 30.7879
+## 
+## $counts
+## function gradient 
+##       81       NA 
+## 
+## $convergence
+## [1] 0
+## 
+## $message
+## NULL
+\end{verbatim}
+
+Now, this provides an interesting ecological insight. Unlike the \texttt{naive} estimator for the probability of a nest having eggs we obtained above, of 0.4, we now can relate that probability to the distance from the water. And what we see is that the probability of a random nest having nests might be well below that. We just happened to consider a small sample for which two out of five nests were near the water. While the \texttt{naive} estimate might change considerably depending on the relative amount of nests near the water versus nests away from the water, if the main determinant of nest success was the distance from the water, our final model would allow a better estimate of the true probability of success of a nest.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alldists<-}\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.1}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(alldists,}\KeywordTok{thetafd}\NormalTok{(thetadMLE}\OperatorTok{$}\NormalTok{par[}\DecValTok{1}\NormalTok{],thetadMLE}\OperatorTok{$}\NormalTok{par[}\DecValTok{2}\NormalTok{],alldists),}\DataTypeTok{ylab=}\StringTok{"Estimated P(nest with eggs)"}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"Distance from water (km)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-197-1.pdf}
+
+\hypertarget{likelihood-above-and-beyond}{%
+\section{Likelihood, above and beyond}\label{likelihood-above-and-beyond}}
+
+The examples presented in this chapter should illustrate a couple of fundamental points regarding likelihoods.
+
+The likelihood is a concept that allows one to obtain parameter estimates for model parameters that might allow ecological insights, provided that the model parameters are interpretable
+
+The likelihood allows to establish a full framework that can be extended an generalizable to become as complicated as a researcher might want. However, if you complicate the model enough, not surprisingly, the likelihood might become hard to write down and even harder to maximize, and then one needs to find alternatives.
+
+One such alternative might actually be to change the inferential framework. The likelihood is actually the basis of the Bayesian inferential paradigm, but there you combine the information from the likelihood with a prior to provide a posterior distribution from which inferences can be made. The prior will represent previous knowledge about unknown quantities, like the parameters in a model. That opens a world of possibilities, like the possibility of including information from previous studies to make more reliable inferences based on the data collected in the current study. is a story for another book, however.
+
+Most of the statistical methods that you have used are probably based on a likelihood. That is the case for most parametric statistical tests like t-tests and ANOVA's (despite the fact that ANOVA's are typically implemented not exploiting the likelihood but using decompositions of the sources of variation into sums of squares associated to different components of the underlying linear models. That was a story we touch upon briefly, from a different perspective (see chapter \ref@aula8).
 
 \hypertarget{aula14}{%
-\chapter{Class 14: 10 10 2020}\label{aula14}}
+\chapter{Class 14: 10 10 2020 GLMs}\label{aula14}}
+
+Here we talk about GLMs
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{121}\NormalTok{)}
+\CommentTok{#define sample size}
+\NormalTok{n<-}\DecValTok{100}
+\CommentTok{#get a predictor variable}
+\NormalTok{low<-}\DecValTok{30}
+\NormalTok{high<-}\DecValTok{90}
+\NormalTok{xs1<-}\KeywordTok{runif}\NormalTok{(n,low,high)}
+\CommentTok{#get a second potentially predictor}
+\NormalTok{xs2<-}\KeywordTok{rgamma}\NormalTok{(n,}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{)}
+\CommentTok{#define linear predictor}
+\NormalTok{lp1<-}\FloatTok{0.01+0.05}\OperatorTok{*}\NormalTok{xs1}
+\CommentTok{#get the mean value}
+\NormalTok{Eys1<-}\KeywordTok{exp}\NormalTok{(lp1)}
+\CommentTok{#get actual data}
+\NormalTok{ys1<-}\KeywordTok{rpois}\NormalTok{(n,Eys1)}
+\end{Highlighting}
+\end{Shaded}
+
+We can plot the data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(ys1}\OperatorTok{~}\NormalTok{xs1)}
+\KeywordTok{plot}\NormalTok{(ys1}\OperatorTok{~}\NormalTok{xs2)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-199-1.pdf}
+
+Now, we can fit some models to data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm1A<-}\KeywordTok{lm}\NormalTok{(ys1}\OperatorTok{~}\NormalTok{xs1)}
+\NormalTok{lm1B<-}\KeywordTok{glm}\NormalTok{(ys1}\OperatorTok{~}\NormalTok{xs1)}
+\NormalTok{glmPoi<-}\KeywordTok{glm}\NormalTok{(ys1}\OperatorTok{~}\NormalTok{xs1,}\DataTypeTok{family=}\KeywordTok{poisson}\NormalTok{(}\DataTypeTok{link=}\StringTok{"log"}\NormalTok{))}
+\NormalTok{glmGau<-}\KeywordTok{glm}\NormalTok{(ys1}\OperatorTok{~}\NormalTok{xs1,}\DataTypeTok{family=}\KeywordTok{gaussian}\NormalTok{(}\DataTypeTok{link=}\StringTok{"log"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+and we can show these overlayed on data - wtf is going on\ldots?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(ys1}\OperatorTok{~}\NormalTok{xs1)}
+\NormalTok{xs<-}\KeywordTok{seq}\NormalTok{(low}\DecValTok{-5}\NormalTok{,high}\OperatorTok{+}\DecValTok{5}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.5}\NormalTok{)}
+\NormalTok{novosdados<-}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{xs1=}\NormalTok{xs)}
+\NormalTok{predslm1A<-}\KeywordTok{predict}\NormalTok{(lm1A,}\DataTypeTok{newdata=}\NormalTok{novosdados)}
+\NormalTok{predslm1B<-}\KeywordTok{predict}\NormalTok{(lm1B,}\DataTypeTok{newdata=}\NormalTok{novosdados)}
+\NormalTok{predsglmPoi<-}\KeywordTok{predict}\NormalTok{(glmPoi,}\DataTypeTok{newdata=}\NormalTok{novosdados,}\DataTypeTok{type=}\StringTok{"response"}\NormalTok{)}
+\NormalTok{predsglmGau<-}\KeywordTok{predict}\NormalTok{(glmGau,}\DataTypeTok{newdata=}\NormalTok{novosdados,}\DataTypeTok{type=}\StringTok{"response"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(xs,predslm1A,}\DataTypeTok{col=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(xs,predslm1B,}\DataTypeTok{col=}\DecValTok{3}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{3}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(xs,predsglmPoi,}\DataTypeTok{col=}\DecValTok{4}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(xs,predsglmGau,}\DataTypeTok{col=}\DecValTok{5}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{2}\NormalTok{,}\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\StringTok{"topleft"}\NormalTok{,}\DataTypeTok{legend=}\KeywordTok{c}\NormalTok{(}\StringTok{"Linear model via lm"}\NormalTok{,}\StringTok{"linear model via glm"}\NormalTok{,}\StringTok{"Poisson GLM"}\NormalTok{,}\StringTok{"Gaussian GLM"}\NormalTok{),lwd}\OperatorTok{==}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{col=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{),}\DataTypeTok{lty=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{inset=}\FloatTok{0.05}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-201-1.pdf}
+
+Just for fun
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{AIC}\NormalTok{(lm1A,lm1B,glmGau,glmPoi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        df      AIC
+## lm1A    3 718.4863
+## lm1B    3 718.4863
+## glmGau  3 586.4525
+## glmPoi  2 564.2675
+\end{verbatim}
+
+Diagnostics
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.5}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(glmGau)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-203-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.5}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(glmPoi)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-204-1.pdf}
 
 \hypertarget{aula15}{%
 \chapter{Class 15: 11 11 2020}\label{aula15}}
@@ -4216,7 +5271,7 @@ We have finished a nice book.
 
 A number of colleagues have contributed with comments, upfront anf foremost Susana França and Ana Sofia Reboleira, my partners in Crime at FCUL, co-teachers for Modelação Ecológica and Ecologia Numérica at FCUL, the courses that inspired tis manuscript.
 
-To all my students in Ecologica Numérica and Modelação Ecológica 2020/2021 which questions every time make me realize that what an ecological statistician might think is straightfoward is far from it for a biologist. Without aknowledging that gap, that difference in the way brains are wired, the efforts to convey statistcs to biologists are flawed from the beggining.
+To all my students in Ecologica Numérica and Modelação Ecológica 2020/2021 which questions every time make me realize that what an ecological statistician might think is straightfoward is far from it for a biologist. Without aknowledging that gap, that difference in the way brains are wired, the efforts to convey statistics to biologists are flawed from the beggining.Some students have contributed with direct input on requesting clarifications and typos: those include Diogo Raposo.
 
 To Dinis Pestana, the person that first made me believe that it was possible to make the biology to statistics transition.
 
