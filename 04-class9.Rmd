@@ -19,7 +19,7 @@ To make it interesting, assume that we are simulating weights for 4 different sp
 
 This would be interesting and could be some real data if say  one wanted to compare the weights of the fishes of 4 different species, we had captured 50 animals from each species. But we know that the fish lengths across species might be different to begin with, and yet our key interest would be say the weight by species, and in that sense the length was essentially a confounding factor. 
 
-```{r}
+```{r a9.1}
 #all slopes the same, diferent intercepts - no interactions
 set.seed(1234)
 n<-200
@@ -37,7 +37,7 @@ ifelse(type=="a",5,ifelse(type=="b",8,ifelse(type=="c",10,12)))+rnorm(n,0,4)
 
 We plot the data, all together, per group, and at the end adding the generating line to the plot. It's not easy to make sense of it!
 
-```{r}
+```{r a9.2}
 par(mfrow=c(2,3),mar=c(4,4,0.5,0.5))
 #all the data - uma salganhada!
 plot(xs,ys,col=cores,cex=0.8)
@@ -62,7 +62,7 @@ abline(3+12,4,lwd=3,col=4)
 
 While not the best to look at the data, note that to visually confirm the value of the intercepts we can zoom out on the plot.
 
-```{r}
+```{r a9.3}
 plot(xs,ys,col=cores,xlim=c(0,20),ylim=c(0,150))
 abline(3+5,4,lwd=3,col=1)
 abline(3+8,4,lwd=3,col=2)
@@ -73,8 +73,7 @@ abline(h=c(3+5,3+8,3+10,3+12),v=0,col=c(1,2,3,4,1),lty=2)
 
 Now we run the corresponding linear model
 
-```{r}
-
+```{r a9.4}
 #fit the model
 lm.ancova1 <- summary(lm(ys~xs+type))
 lm.ancova1
@@ -82,7 +81,7 @@ lm.ancova1
 
 We can check the model intercept coefficients
 
-```{r}
+```{r a9.5}
 #estimated values of each intercept
 lm.ancova1$coefficients[1]
 lm.ancova1$coefficients[1]+lm.ancova1$coefficients[3]
@@ -92,7 +91,7 @@ lm.ancova1$coefficients[1]+lm.ancova1$coefficients[5]
 
 and the common slope
 
-```{r}
+```{r a9.6}
 lm.ancova1$coefficients[2]
 ```
 
@@ -100,7 +99,7 @@ Check how these values are similar (they are estimates) to those we simulated ab
 
 We can plot the estimated regression lines
 
-```{r}
+```{r a9.7}
 par(mfrow=c(1,1),mar=c(4,4,2.5,0.5))
 plot(xs,ys,col=cores,main="Estimated regression lines")
 abline(lm.ancova1$coefficients[1],lm.ancova1$coefficients[2],col=1,lwd=2)
@@ -113,8 +112,7 @@ legend("topleft",legend = tr,lwd=2,col=1:4,inset=0.05)
 
 But because we are in a simulation setting, we can contrast the estimated values agaist the reality (the real model).
 
-```{r}
-
+```{r a9.8}
 #In a simulated scenario, we can see we are close to the real values
 plot(xs,ys,col=cores)
 
@@ -139,21 +137,21 @@ As we can see, they are quite close. The error is small compared with the effrec
 
 But how exactly do we get the predicted intercepts? To understand where they come from we need to see what R does (or, for that matter, what any other software would need to do!) in the background to fit a model with a factor covariate. Remember what the data is
 
-```{r}
+```{r a9.9}
 #the data
 head(data.frame(ys=ys,xs=xs,type=type),10)
 ```
 
 before fitting a factor covariate, we need to replace it by dummy variables (k-1 dummy variables, where k is the number of levels of the factor). Below we look at a set of data lines that allow us to see observations from the diferent `type`s considered
 
-```{r}
+```{r a9.10}
 #explaining it
 data.frame(ys=ys,xs=xs,type=type,typeb=ifelse(type=="b",1,0),typec=ifelse(type=="c",1,0),typed=ifelse(type=="d",1,0))[c(1,49,50,51,99,100,101,149,150,151,200),]
 ```
 
 So R first builds what is known as the design matrix. Notation wise Y= parameters $\times$ design matrix, or Y = $\beta$X (see e.g. https://en.wikipedia.org/wiki/Design_matrix)
 
-```{r}
+```{r a9.11}
 #the design matrix
 head(data.frame(xs=xs,typeb=ifelse(type=="b",1,0),typec=ifelse(type=="c",1,0),typed=ifelse(type=="d",1,0)))
 ```

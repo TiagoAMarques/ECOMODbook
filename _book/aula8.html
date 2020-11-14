@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Class 8 20 10 2020 - t-test and ANOVA are just linear models | Notes for Ecological Modelling</title>
+  <title>Chapter 9 Class 8 20 10 2020 - t-test and ANOVA are just linear models | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Class 8 20 10 2020 - t-test and ANOVA are just linear models | Notes for Ecological Modelling" />
+  <meta property="og:title" content="Chapter 9 Class 8 20 10 2020 - t-test and ANOVA are just linear models | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Class 8 20 10 2020 - t-test and ANOVA are just linear models | Notes for Ecological Modelling" />
+  <meta name="twitter:title" content="Chapter 9 Class 8 20 10 2020 - t-test and ANOVA are just linear models | Notes for Ecological Modelling" />
   
   <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2020-11-13" />
+<meta name="date" content="2020-11-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,59 +132,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>2</b> Using R</a></li>
-<li class="chapter" data-level="3" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>3</b> Preamble</a></li>
-<li class="chapter" data-level="4" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>4</b> About regression</a><ul>
-<li class="chapter" data-level="4.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>4.1</b> What is a regression?</a></li>
-<li class="chapter" data-level="4.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>4.2</b> The general linear model</a></li>
+<li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
+<li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
+<li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
+<li class="chapter" data-level="5" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>5</b> About regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>5.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="5.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>5.2</b> The general linear model</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>5</b> Hands On Regression</a><ul>
-<li class="chapter" data-level="5.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>5.1</b> The assumptions are on the residuals, not the data</a></li>
+<li class="chapter" data-level="6" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>6</b> Hands On Regression</a><ul>
+<li class="chapter" data-level="6.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>6.1</b> The assumptions are on the residuals, not the data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>6</b> Class 6 13 10 2020</a><ul>
-<li class="chapter" data-level="6.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>6.1</b> Implementing a regression</a></li>
-<li class="chapter" data-level="6.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>6.2</b> Simulating regression data</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>6.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+<li class="chapter" data-level="7" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>7</b> Class 6 13 10 2020</a><ul>
+<li class="chapter" data-level="7.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>7.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="7.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>7.2</b> Simulating regression data</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>7.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>7</b> Class 7 14 10 2020</a><ul>
-<li class="chapter" data-level="7.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>7.1</b> Task 1</a></li>
-<li class="chapter" data-level="7.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>7.2</b> Task 2</a></li>
+<li class="chapter" data-level="8" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>8</b> Class 7 14 10 2020</a><ul>
+<li class="chapter" data-level="8.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>8.1</b> Task 1</a></li>
+<li class="chapter" data-level="8.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>8.2</b> Task 2</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>8</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
-<li class="chapter" data-level="8.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>8.1</b> The t-test</a></li>
-<li class="chapter" data-level="8.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>8.2</b> ANOVA</a></li>
+<li class="chapter" data-level="9" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>9</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
+<li class="chapter" data-level="9.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>9.1</b> The t-test</a></li>
+<li class="chapter" data-level="9.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>9.2</b> ANOVA</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>9</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
-<li class="chapter" data-level="9.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>9.1</b> Common slope, different intercepts per treatment</a></li>
+<li class="chapter" data-level="10" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>10</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
+<li class="chapter" data-level="10.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>10.1</b> Common slope, different intercepts per treatment</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>10</b> Class 10: 27 10 2020</a><ul>
-<li class="chapter" data-level="10.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>10.1</b> Same story, another spin</a></li>
+<li class="chapter" data-level="11" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>11</b> Class 10: 27 10 2020</a><ul>
+<li class="chapter" data-level="11.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>11.1</b> Same story, another spin</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>11</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a><ul>
-<li class="chapter" data-level="11.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>11.1</b> About interactions</a></li>
-<li class="chapter" data-level="11.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>11.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
-<li class="chapter" data-level="11.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>11.3</b> Task 2 Modeling a data set</a></li>
+<li class="chapter" data-level="12" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>12</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a><ul>
+<li class="chapter" data-level="12.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>12.1</b> About interactions</a></li>
+<li class="chapter" data-level="12.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>12.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="12.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>12.3</b> Task 2 Modeling a data set</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>12</b> Class 12: 04 11 2020 Interactions between continous covariates</a><ul>
-<li class="chapter" data-level="12.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>12.1</b> Larger order interactions</a></li>
+<li class="chapter" data-level="13" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>13</b> Class 12: 04 11 2020 Interactions between continous covariates</a><ul>
+<li class="chapter" data-level="13.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>13.1</b> Larger order interactions</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>13</b> Conlusion on linear regression</a><ul>
-<li class="chapter" data-level="13.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>13.1</b> Conclusion</a></li>
+<li class="chapter" data-level="14" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>14</b> Conlusion on linear regression</a><ul>
+<li class="chapter" data-level="14.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>14.1</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>14</b> Class 13: 10 11 2020 Maximum likelihood and all that</a><ul>
-<li class="chapter" data-level="14.1" data-path="aula12.html"><a href="aula12.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>14.1</b> Maximizing a likelihood algebraically</a></li>
-<li class="chapter" data-level="14.2" data-path="aula12.html"><a href="aula12.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>14.2</b> Numerically Maximizing a likelihood</a></li>
-<li class="chapter" data-level="14.3" data-path="aula12.html"><a href="aula12.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>14.3</b> The case of a Gaussian</a></li>
-<li class="chapter" data-level="14.4" data-path="aula12.html"><a href="aula12.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>14.4</b> The case of a linear model</a></li>
-<li class="chapter" data-level="14.5" data-path="aula12.html"><a href="aula12.html#the-really-interesting-case"><i class="fa fa-check"></i><b>14.5</b> The really interesting case</a></li>
-<li class="chapter" data-level="14.6" data-path="aula12.html"><a href="aula12.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>14.6</b> Likelihood, above and beyond</a></li>
+<li class="chapter" data-level="15" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>15</b> Class 13: 10 11 2020 Maximum likelihood and all that</a><ul>
+<li class="chapter" data-level="15.1" data-path="aula12.html"><a href="aula12.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>15.1</b> Maximizing a likelihood algebraically</a></li>
+<li class="chapter" data-level="15.2" data-path="aula12.html"><a href="aula12.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>15.2</b> Numerically Maximizing a likelihood</a></li>
+<li class="chapter" data-level="15.3" data-path="aula12.html"><a href="aula12.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>15.3</b> The case of a Gaussian</a></li>
+<li class="chapter" data-level="15.4" data-path="aula12.html"><a href="aula12.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>15.4</b> The case of a linear model</a></li>
+<li class="chapter" data-level="15.5" data-path="aula12.html"><a href="aula12.html#the-really-interesting-case"><i class="fa fa-check"></i><b>15.5</b> The really interesting case</a></li>
+<li class="chapter" data-level="15.6" data-path="aula12.html"><a href="aula12.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>15.6</b> Likelihood, above and beyond</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>15</b> Class 14: 10 10 2020 GLMs</a></li>
-<li class="chapter" data-level="16" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>16</b> Class 15: 11 11 2020</a></li>
-<li class="chapter" data-level="17" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>17</b> Class 16: 17 11 2020</a></li>
-<li class="chapter" data-level="18" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>18</b> Final Words</a></li>
-<li class="chapter" data-level="19" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>19</b> Aknowledgments</a></li>
+<li class="chapter" data-level="16" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>16</b> Class 14: 10 10 2020 GLMs</a><ul>
+<li class="chapter" data-level="16.1" data-path="aula14.html"><a href="aula14.html#what-are-glms"><i class="fa fa-check"></i><b>16.1</b> What are GLMs</a></li>
+<li class="chapter" data-level="16.2" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>16.2</b> An example analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>17</b> Class 15: 11 11 2020</a></li>
+<li class="chapter" data-level="18" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>18</b> Class 16: 17 11 2020</a></li>
+<li class="chapter" data-level="19" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>19</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -207,10 +210,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="aula8" class="section level1">
-<h1><span class="header-section-number">Chapter 8</span> Class 8 20 10 2020 - t-test and ANOVA are just linear models</h1>
+<h1><span class="header-section-number">Chapter 9</span> Class 8 20 10 2020 - t-test and ANOVA are just linear models</h1>
 <p>The objective of this chapter is to explore different regression models and to see how they relate to statistical procedures one might not associate with a regression, when in fact, they are just special cases of a regression.</p>
 <div id="the-t-test" class="section level2">
-<h2><span class="header-section-number">8.1</span> The t-test</h2>
+<h2><span class="header-section-number">9.1</span> The t-test</h2>
 <p>While we did not do the t-test in class, this is useful because it allows you to see how a simple t-test is just a linear model too, and acts as a building block for the next examples. The t-test allows us to test the null hypothesis that two samples have the same mean.</p>
 <p>Create some data</p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1"><span class="co">#Making up a t-test</span></a>
@@ -240,7 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1">ys=<span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;a&quot;</span>,ms[<span class="dv">1</span>],ms[<span class="dv">2</span>])<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="fl">1.5</span>)</a></code></pre></div>
 <p>Look at the data</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1"><span class="kw">plot</span>(ys<span class="op">~</span>type)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a8.7-1.png" width="672" /></p>
 <p>Now, we can run the usual t-test</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1"><span class="kw">t.test</span>(ys<span class="op">~</span>type)</a></code></pre></div>
 <pre><code>## 
@@ -291,7 +294,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb121-4" title="4">ys=<span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;a&quot;</span>,ms[<span class="dv">1</span>],ms[<span class="dv">2</span>])<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">5</span>)</a></code></pre></div>
 <p>Look at the data, we can see much more variation</p>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1"><span class="kw">plot</span>(ys<span class="op">~</span>type)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a8.12-1.png" width="672" /></p>
 <p>Now, we can run the usual t-test</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" title="1"><span class="kw">t.test</span>(ys<span class="op">~</span>type)</a></code></pre></div>
 <pre><code>## 
@@ -334,7 +337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb127-4" title="4">ys=<span class="kw">ifelse</span>(type<span class="op">==</span><span class="st">&quot;a&quot;</span>,ms[<span class="dv">1</span>],ms[<span class="dv">2</span>])<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="fl">1.5</span>)</a></code></pre></div>
 <p>Look at the data, we can see again lower variation, but the difference across treatments is very small (so, hard to detect!)</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" title="1"><span class="kw">plot</span>(ys<span class="op">~</span>type)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a8.16-1.png" width="672" /></p>
 <p>Now, we can run the usual t-test</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" title="1"><span class="kw">t.test</span>(ys<span class="op">~</span>type)</a></code></pre></div>
 <pre><code>## 
@@ -371,7 +374,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## F-statistic: 0.639 on 1 and 98 DF,  p-value: 0.426</code></pre>
 </div>
 <div id="anova" class="section level2">
-<h2><span class="header-section-number">8.2</span> ANOVA</h2>
+<h2><span class="header-section-number">9.2</span> ANOVA</h2>
 <p>We move on with perhaps the most famous example of a statistical test/procedure, the ANOVA. An ANOVA is nothing but a linear model, where we have a continuous response variable, which we want to explain as a function of a factor (with several levels, or treatments).</p>
 <p>We simulate a data set, beginning by making sure everyone gets the same results by using <code>set.seed</code></p>
 <div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" title="1"><span class="co">#Making up an ANOVA</span></a>
@@ -416,7 +419,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can actually look at the simulated data</p>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
 <a class="sourceLine" id="cb148-2" title="2"><span class="kw">plot</span>(ys<span class="op">~</span>type,<span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a8.26-1.png" width="672" /></p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" title="1"><span class="co">#abline(h=ms,col=1:4)</span></a></code></pre></div>
 <p>finally, we can implement the linear model and look at its summary</p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" title="1">lm.anova=<span class="kw">lm</span>(ys<span class="op">~</span>type)</a>
@@ -495,7 +498,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb162-21" title="21"><span class="co">#plot the real mean for type a</span></a>
 <a class="sourceLine" id="cb162-22" title="22"><span class="kw">abline</span>(<span class="dt">h=</span>ms[<span class="dv">4</span>],<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lty=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb162-23" title="23"><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="kw">c</span>(<span class="st">&quot;Estimated&quot;</span>,<span class="st">&quot;Mean of data&quot;</span>,<span class="st">&quot;True&quot;</span>),<span class="dt">lwd=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>),<span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>),<span class="dt">inset=</span><span class="fl">0.03</span>)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a8.32-1.png" width="672" /></p>
 <p>It’s not easy to see because these overlap (large sample size, high precision) but the estimated means are really close to the real means. It’s a bit easier to see if we separate in 4 plots and zoom in on the mean of each treatment, but still the blue lines are all on top of each other, since the mean value was estimated real close to truth (truth=2, estimated = 1.9967984).</p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="co">#see this in 4 plots, less blur</span></a>
 <a class="sourceLine" id="cb163-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
@@ -526,7 +529,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb163-27" title="27"><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">mean</span>(ys[type<span class="op">==</span><span class="st">&quot;d&quot;</span>]),<span class="dt">lwd=</span><span class="dv">1</span>,<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lty=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb163-28" title="28"><span class="co">#plot the real mean for type a</span></a>
 <a class="sourceLine" id="cb163-29" title="29"><span class="kw">abline</span>(<span class="dt">h=</span>ms[<span class="dv">4</span>],<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lty=</span><span class="dv">3</span>)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a8.33-1.png" width="672" /></p>
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1"><span class="co">#legend(&quot;bottomright&quot;,c(&quot;Estimated&quot;,&quot;Mean of data&quot;,&quot;True&quot;),lwd=c(4,1,2),lty=c(1,3,2),inset=0.05)</span></a></code></pre></div>
 <p>Now we can check how we can obtain the estimated means from the actual parameters of the regression model (yes, that is what the regression does, it calculates the expected mean of the response, conditional on the treatment).</p>
 <p>This is the estimated mean per treatment, using function <code>tapply</code> (very useful function to get any statistics over a variable, inside groups defined by a second variable, here the treatment)</p>

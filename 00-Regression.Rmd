@@ -6,13 +6,13 @@ An intro to R: [@Zuur2009a]
 
 Models for ecological data: [@Zuur2007]
 
-More on regression and extending the linear model (just an example): [@Faraway2006,@Zuur2009b]
+More on regression and extending the linear model (just an example): [@Faraway2006][@Zuur2009b]
 
 ## What is a regression?
 
 Where does the word come from? Gauss and regression towards the mean.
 
-A regression is a model that allows us to predict a response variable $y$ (a.k.a the dependent variable, because it depends on the other variables) as a function of the values of covariates (a.k.a. predictors, explanatory or independent variables).
+A regression is a model that allows us to predict a response variable $y$ (a.k.a the dependent variable, because it depends on the other variables) as a function of the values ofindependent variables (a.k.a. covariates, predictors or explanatory).
 
 ## The general linear model
 

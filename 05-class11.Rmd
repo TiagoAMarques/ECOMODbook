@@ -5,7 +5,7 @@
 
 Interactions are useful when the influence of a covariate on the response variable depends on the level of a second covariate. As an example, consider two different diets that we are trying to assess the efficacy on terms of weight gain. We record weight gains for both sexes.
 
-```{r}
+```{r a11.1}
 
 #--------------------------------------------------------
 #Interactions
@@ -27,7 +27,7 @@ interaction.plot(x.factor=dieta, trace.factor=sexo, response=ys)
 
 We can see what these interaction plots might look like for different realities. 
 
-```{r}
+```{r a11.2}
 #interaction plots
 set.seed(121)
 # different interactions and abcense of interaction
@@ -58,7 +58,7 @@ What would change if they were different? We extend the previous case to the sce
 
 We simulate treatments and data, just in the same way as before, but this gives us the option to change things later in this chapter only, and do it separately if we want.
 
-```{r}
+```{r a11.3}
 #----------------------------------------------------------------
 #all slopes different
 set.seed(1234)
@@ -70,7 +70,7 @@ cores <- rep(1:4,each=50)
 
 Now we simulate the response
 
-```{r,eval=FALSE}
+```{r a11.4,eval=FALSE}
 ys=3+
 ifelse(type=="a",5,ifelse(type=="b",8,ifelse(type=="c",10,12)))+
 4*xs+ifelse(type=="a",0.2,ifelse(type=="b",0.5,ifelse(type=="c",1,2)))*xs+
@@ -79,7 +79,7 @@ rnorm(200,0,4)
 
 If the above code is opaque, we present a different implementation below. Note the code that follows is just the same as the code above, but it might be simpler to understand that the setting implies that we have both  different intercepts and slopes per treatment.
 
-```{r}
+```{r a11.5}
 #same as
 intercept=3+ifelse(type=="a",5,ifelse(type=="b",8,ifelse(type=="c",10,12)))
 slope=xs*(4+ifelse(type=="a",0.2,ifelse(type=="b",0.5,ifelse(type=="c",1,2))))
@@ -88,7 +88,7 @@ ys=slope+intercept+rnorm(200,0,4)
 
 We can look at the resulting data, as well as the real model that generated the data (as usual, data is the sistematic component induced by the assumed model to which we add some random error) 
 
-```{r}
+```{r a11.6}
 par(mfrow=c(1,2),mar=c(4,4,0.5,0.5))
 plot(xs,ys,col=cores)
 abline(3+5,4+0.2,lwd=3,col=1)
@@ -111,20 +111,20 @@ abline(h=c(3+5,3+8,3+10,3+12),v=0,col=c(1,2,3,4,1),lty=2)
 
 Now, we implement the ANCOVA linear model, but with an *interaction* term between the `type` and `xs`. An interaction between two variables, say `A` and `B`, is defined in R syntax as `A*B`, and so for the corresponding linear model we specify
 
-```{r}
+```{r a11.7}
 lm.ancova2=lm(ys~xs+type+xs*type)
 sum.lm.ancova2=summary(lm.ancova2)
 ```
 
 We can look at the output of the model
 
-```{r}
+```{r a11.8}
 sum.lm.ancova2
 ```
 
 This is an output similar to the corresponding ANOVA table (implemented via `aov`, the R function that produces ANOVA tables from expressions akin to linear models). The difference is that in such a case the outputs come in terms of the variables, not their levels. This would be
 
-```{r}
+```{r a11.9}
 summary(aov(ys~xs+type+xs*type))
 ```
 
@@ -135,28 +135,28 @@ Note that the overall F statistic from the regression model has an F-statistic o
 
 Naturally, we can now evaluate the values of the estimated coefficients, and in particular we can use them to estimate the corresponding regression lines per group. For type `a` we have this
 
-```{r}
+```{r a11.10}
 #type a
 lm.ancova2$coefficients[1];lm.ancova2$coefficients[2]
 ```
 
 in other words, `ys`=`r lm.ancova2$coefficients[1]`+`r lm.ancova2$coefficients[2]` $\times$ `xs`  , for type `b` we have this
 
-```{r}
+```{r a11.11}
 #type b
 lm.ancova2$coefficients[1]+lm.ancova2$coefficients[3];lm.ancova2$coefficients[2]+lm.ancova2$coefficients[6]
 ```
 
 in other words, `ys`=`r lm.ancova2$coefficients[1]+lm.ancova2$coefficients[3]`+`r lm.ancova2$coefficients[2]+lm.ancova2$coefficients[6]` $\times$ `xs`,  for type `c` we have this
 
-```{r}
+```{r a11.12}
 #type c
 lm.ancova2$coefficients[1]+lm.ancova2$coefficients[4];lm.ancova2$coefficients[2]+lm.ancova2$coefficients[7]
 ```
 
 in other words, `ys`=`r lm.ancova2$coefficients[1]+lm.ancova2$coefficients[4]`+`r lm.ancova2$coefficients[2]+lm.ancova2$coefficients[7]` $\times$ `xs`, and for type `d` we have this
 
-```{r}
+```{r a11.13}
 #type d
 lm.ancova2$coefficients[1]+lm.ancova2$coefficients[5];lm.ancova2$coefficients[2]+lm.ancova2$coefficients[8]
 ```
@@ -166,7 +166,7 @@ in other words, `ys`=`r lm.ancova2$coefficients[1]+lm.ancova2$coefficients[5]`+`
 
 we can now add these to the earlier plots, to see how well we have estimated the different lines per treatment
 
-```{r}
+```{r a11.14}
 #real lines
 par(mfrow=c(1,1),mar=c(4,4,0.5,0.5))
 plot(xs,ys,col=cores)
@@ -192,7 +192,7 @@ legend("bottomright",legend =paste("Estimated",tr),lwd=3,lty=2,col=1:4,inset=0.0
 
 Remember, if this was a real analysis, you would not know the truth, so at best, you would be able to see the predicted lines, but not the real lines, just as in the plot below
 
-```{r}
+```{r a11.15}
 # In real life, we only see this
 plot(xs,ys,col=cores)
 #plot the lines
@@ -205,7 +205,7 @@ legend("bottomright",legend =paste("Estimated",tr),lwd=1,lty=2,col=1:4,inset=0.0
 
 It is interesting to note that the slopes were in general closer to the true values than the intercepts. 
 
-```{r}
+```{r a11.16}
 library(knitr)
 #true intercepts
 TI<-unique(3+ifelse(type=="a",5,ifelse(type=="b",8,ifelse(type=="c",10,12))))
@@ -228,7 +228,7 @@ In a given dataset we might want to explain a continous variable as a function o
 
 We illustrate that with the data set `data4lines.csv` that we considered before in chapter \@ref(aula7), which was created using the website https://drawdata.xyz/. 
 
-```{r,echo=FALSE}
+```{r a11.17,echo=FALSE}
 sizeo<-300
 ```
 
@@ -237,7 +237,7 @@ To make our story a bit more intersting we again come up with a narrative. A bio
 
 Carlos reads the data in
 
-```{r}
+```{r a11.18}
 folder<-"extfiles/"
 #folder<-"../Aula7 14 10 2020/"
 d4l <- read.csv(file=paste0(folder,"data4lines.csv"))
@@ -246,7 +246,7 @@ n <- nrow(d4l)
 
 He plots the data ad he sees a pattern that seems to be somewaht linear. He knows about linear regression and he fits a line to the data, and then shows the resulting plot with data, model and predictions to Conceição. 
 
-```{r}
+```{r a11.19}
 lm0 <- lm(y~x,data=d4l)
 ```
 
@@ -262,7 +262,7 @@ abline(v=sizeo,h=lm0$coefficients[1]+lm0$coefficients[2]*sizeo,lty=2)
 
 Conceição looks at the plots, wonders once again why she married Carlos, and asks: "What was the actual species of the operculum in your dead otter? And by the way, please, for the last time, can you put the dead otter in the garbage? It is the second time that I confuse it with a rabbit in the freezer...! One day you might have a bad surprise for dinner!". Carlos thinks about this as says, it was *Barbus sclateri*. And Maria says: "Well, is the relationship between operculum diameter and fish length the same for all the species?". Carlos - perhaps not the sharpest tool in the box as we by now have come to realize - nonetheless manages to realize what Conceição is asking about. He knows the animals in the museum were identified to the species level, and he redoes the plot coloring the points by species.
 
-```{r}
+```{r a11.20}
 plot(y~x,col=as.numeric(as.factor(z)),data=d4l,pch=1)
 ```
 
@@ -270,7 +270,7 @@ And the question that now arises in Carlos mind is, what might the best model to
 
 Carlos decides he can fit a linear model with both `x` and `z` as independent variables, without an interaction. Note this is the conventional ANCOVA model, just as we did before.
 
-```{r}
+```{r a11.21}
 #fit model per group
 lmANC<-lm(y~x+z,data=d4l)
 summary(lmANC)
@@ -278,7 +278,7 @@ summary(lmANC)
 
 Maria reminds him again that life is more complicated than what he'd like to imagine: "Why don't you try a model with an interaction term between opperculum diameter and species?". And so he does.
 
-```{r}
+```{r a11.22}
 #fit model per group, with interaction
 lmlinesI<-lm(y~x+z+x:z,data=d4l)
 summary(lmlinesI)
@@ -288,7 +288,7 @@ It seems like, based on AIC, the model with the interaction is the most parsimon
 
 
 
-```{r}
+```{r a11.23}
 AIC(lm0,lmANC,lmlinesI)
 ```
 
@@ -296,7 +296,7 @@ Which if you ignore the story for a moment, makes total sence, since that indeed
 
 Now lets go back to the data. Remember a plot we had on this dataset before?We noted the plot was messy, including the pooled regression (the thick black line), the regressions fitted to independent data sets, one for each species (museums before!) (the solid lines), and the regressions resulting from the model with species as a factor covariate (dotted-dashed lines).
 
-```{r}
+```{r a11.24}
 #plot all the data
 plot(y~x,col=as.numeric(as.factor(z)),data=d4l,pch=1)
 #completely independet regression lines
@@ -316,7 +316,7 @@ abline(lmANC$coefficients[1]+lmANC$coefficients[5],lmANC$coefficients[2],col=4)
 
 Now we can remove the independent lines (to clean it up a bit!) and just leave the no interaction model estimated values, then add the estimated lines from the interaction model below. Remember, AIC says its the ones from the interactioon model that are the best representation of the data.
 
-```{r}
+```{r a11.25}
 #plot all the data
 plot(y~x,col=as.numeric(as.factor(z)),data=d4l,pch=1)
 # #completely independent regression lines
@@ -338,7 +338,7 @@ abline(lmlinesI$coefficients[1]+lmlinesI$coefficients[5],lmlinesI$coefficients[2
 
 Likewise, we could compare the lines from independent lines to those of the interaction model.
 
-```{r}
+```{r a11.26}
 #plot all the data
 plot(y~x,col=as.numeric(as.factor(z)),data=d4l,pch=1)
 #completely independent regression lines
@@ -359,7 +359,7 @@ OK, I have completely forgoten about Carlos and Conceição... or maybe it's too
 
 Carlos might have something to present at the congress after all! He goes to sleep, happy. As he is starting to dream with his "best talk" award he still manages to hear Conceição saying something in the distance like "... have you... considered... variability ... prediction... maybe not realy larger than 220 gr...". The last thought that goes through his mind before the dream turns into a nightmare where he is on that congress naked is... "Why did I married that woman"?
 
-```{r}
+```{r a11.27}
 #plot all the data
 plot(y~x,col=as.numeric(as.factor(z)),data=d4l,pch=1)
 #completely independent regression lines
@@ -370,4 +370,4 @@ abline(lmlinesI$coefficients[1]+lmlinesI$coefficients[5],lmlinesI$coefficients[2
 abline(v=300,h=lmlinesI$coefficients[1]+lmlinesI$coefficients[4]+(lmlinesI$coefficients[2]+lmlinesI$coefficients[7])*sizeo,col="green")
 ```
 
-FFS !
+

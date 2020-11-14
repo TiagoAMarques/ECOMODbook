@@ -4,7 +4,7 @@
 
 Here we talk about link functions
 
-```{r}
+```{r links}
 
 lp<-function(a,b,x){
   res<-a+b*x
@@ -19,7 +19,7 @@ ilogi<-function(lp){
 
 Illustrate how a link function can be used to ensure that a prediction only returns admissible values
 
-```{r}
+```{r links2}
 a<-0.04
 b<-0.08
 par(mfrow=c(2,2))
@@ -48,7 +48,7 @@ abline(h=0:1,lty=1)
 
 Here we talk about GLMs
 
-```{r}
+```{r glm1}
 set.seed(121)
 #define sample size
 n<-100
@@ -68,7 +68,7 @@ ys1<-rpois(n,Eys1)
 
 We can plot the data
 
-```{r}
+```{r glm2}
 par(mfrow=c(1,2))
 plot(ys1~xs1)
 plot(ys1~xs2)
@@ -76,7 +76,7 @@ plot(ys1~xs2)
 
 Now, we can fit some models to data
 
-```{r}
+```{r glm3}
 lm1A<-lm(ys1~xs1)
 lm1B<-glm(ys1~xs1)
 glmPoi<-glm(ys1~xs1,family=poisson(link="log"))
@@ -85,7 +85,7 @@ glmGau<-glm(ys1~xs1,family=gaussian(link="log"))
 
 and we can show these overlayed on data - wtf is going on...?
 
-```{r}
+```{r glm4}
 plot(ys1~xs1)
 xs<-seq(low-5,high+5,by=0.5)
 novosdados<-data.frame(xs1=xs)
@@ -102,18 +102,18 @@ legend("topleft",legend=c("Linear model via lm","linear model via glm","Poisson 
 
 Just for fun
 
-```{r}
+```{r glm5}
 AIC(lm1A,lm1B,glmGau,glmPoi)
 ```
 
 Diagnostics
 
-```{r}
+```{r glm6}
 par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))
 plot(glmGau)
 ```
 
-```{r}
+```{r glm7}
 par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))
 plot(glmPoi)
 ```

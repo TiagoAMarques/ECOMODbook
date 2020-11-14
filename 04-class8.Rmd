@@ -9,7 +9,7 @@ While we did not do the t-test in class,  this is useful because it allows you t
 
 Create some data
 
-```{r}
+```{r a8.1}
 #Making up a t-test
 #making sure everyone gets the same results
 set.seed(980)
@@ -17,7 +17,7 @@ set.seed(980)
 
 Then we define the sample size and the number of treatments
 
-```{r}
+```{r a8.2}
 #define sample size
 n=100
 #define treatments
@@ -30,53 +30,53 @@ n.by.tr=n/ntr
 
 Now, we can simulate some data. First, the treatments
 
-```{r}
+```{r a8.3}
 type=as.factor(rep(tr,each=n.by.tr))
 cores=rep(1:ntr,each=n.by.tr)
 ```
 
 Then we define the means by treatment - note that they are different, so the null hypothesis in the t-test, that the mean of a is equal to the mean of b, is known to be false in this case.
 
-```{r}
+```{r a8.4}
 #define 4 means
 ms=c(3,4)
 ```
 
 Then, the key part, the response variable, with a different mean by treatment. Note the use of the `ifelse` function, which evaluates its first argument and then assigns the value of its second argument if the first is true or the value of the second if its first argument is false. An example
 
-```{r}
+```{r a8.5}
 ifelse(3>4,55,77)
 ifelse(3<4,55,77)
 ```
 
 So now, generate the response data
 
-```{r}
+```{r a8.6}
 ys=ifelse(type=="a",ms[1],ms[2])+rnorm(n,0,1.5)
 ```
 
 Look at the data
 
-```{r}
+```{r a8.7}
 plot(ys~type)
 ```
 
 Now, we can run the usual t-test
 
-```{r}
+```{r a8.8}
 t.test(ys~type)
 ```
 
 and now we can do it the linear regression way
 
-```{r}
+```{r a8.9}
 lm0=lm(ys~type)
 summary(lm0)
 ```
 
 and as you can see, we get the same result for the test statistic. It is the same thing! And we can naturally get the estimated means per group. The mean for a is just the intercept of the model. To get the mean of the group b we add the mean of group b to the intercept, as
 
-```{r}
+```{r a8.10}
 #mean of ys under treatment a
 summary(lm0)$coefficients[1]
 #mean of ys under treatment b
@@ -88,7 +88,7 @@ This is required because in a linear model, all the other parameters associated 
 Note we were able to detect the null was false, but this was because we had a decent sample size compared to the variance of the measurements and the magnitude of the true effect (the difference of the means). If we keep the sample size constant but we increase the noise or decrease the magnitude of the difference, we might not get the same result, and make a type II error!
 
 
-```{r}
+```{r a8.11}
 #define 2 means
 ms=c(3,4)
 #increase the variance of the process
@@ -98,19 +98,19 @@ ys=ifelse(type=="a",ms[1],ms[2])+rnorm(n,0,5)
 
 Look at the data, we can see much more variation
 
-```{r}
+```{r a8.12}
 plot(ys~type)
 ```
 
 Now, we can run the usual t-test
 
-```{r}
+```{r a8.13}
 t.test(ys~type)
 ```
 
 and now we can do it the linear regression way
 
-```{r}
+```{r a8.14}
 lm0=lm(ys~type)
 summary(lm0)
 ```
@@ -120,7 +120,7 @@ and as you can see, we get the same result for the test statistic, but now with 
 The same would have happened if we decreased the true difference, while keeping the original magnitude of the error
 
 
-```{r}
+```{r a8.15}
 #define 2 means
 ms=c(3,3.1)
 #increase the variance of the process
@@ -130,19 +130,19 @@ ys=ifelse(type=="a",ms[1],ms[2])+rnorm(n,0,1.5)
 
 Look at the data, we can see again lower variation, but the difference across treatments is very small (so, hard to detect!)
 
-```{r}
+```{r a8.16}
 plot(ys~type)
 ```
 
 Now, we can run the usual t-test
 
-```{r}
+```{r a8.17}
 t.test(ys~type)
 ```
 
 and now we can do it the linear regression way
 
-```{r}
+```{r a8.18}
 lm0=lm(ys~type)
 summary(lm0)
 ```
@@ -154,7 +154,7 @@ We move on with perhaps the most famous example of a statistical test/procedure,
 
 We simulate a data set, beginning by making sure everyone gets the same results by using `set.seed`
 
-```{r}
+```{r a8.19}
 #Making up an ANOVA
 #An ANOVA
 #making sure everyone gets the same results
@@ -163,7 +163,7 @@ set.seed(12345)
 
 Then we define the sample size and the number of treatments
 
-```{r}
+```{r a8.20}
 #define sample size
 n=2000
 #define treatments
@@ -176,7 +176,7 @@ n.by.tr=n/ntr
 
 now, we can simulate some data. First, the treatments, but we also generate a independent variable that is not really used for now (`xs`).
 
-```{r}
+```{r a8.21}
 #generate data
 xs=runif(n,10,20)
 type=as.factor(rep(tr,each=n.by.tr))
@@ -188,21 +188,21 @@ cores=rep(1:ntr,each=n.by.tr)
 
 Then we define the means by treatment - note that they are different, so the null hypothesis in an ANOVA, that all the means are the same, is false.
 
-```{r}
+```{r a8.22}
 #define 4 means
 ms=c(3,5,6,2)
 ```
 
 Then, the key part, the response variable, with a different mean by treatment. Note the use of the `ifelse` function, which evaluates its first argument and then assigns the value of its second argument if the first is true or the value of the second if its first argument is false. An example
 
-```{r}
+```{r a8.23}
 ifelse(3>4,55,77)
 ifelse(3<4,55,77)
 ```
 
 Note these can be used nested, leading to possible multiple outcomes, and I use that below to define 4 different means depending on the treatment of the observation
 
-```{r}
+```{r a8.24}
 ifelse(3<4,55,ifelse(3>2,55,68))
 ifelse(3>4,55,ifelse(3>2,666,68))
 ifelse(3>4,55,ifelse(3<2,666,68))
@@ -210,14 +210,14 @@ ifelse(3>4,55,ifelse(3<2,666,68))
 
 So now, generate the data
 
-```{r}
+```{r a8.25}
 #ys, not a function of the xs!!!
 ys=ifelse(type=="a",ms[1],ifelse(type=="b",ms[2],ifelse(type=="c",ms[3],ms[4])))+rnorm(n,0,3)
 ```
 
 We can actually look at the simulated data
 
-```{r}
+```{r a8.26}
 par(mfrow=c(1,1),mar=c(4,4,0.5,0.5))
 plot(ys~type,col=1:4)
 #abline(h=ms,col=1:4)
@@ -225,14 +225,14 @@ plot(ys~type,col=1:4)
 
 finally, we can implement the linear model and look at its summary
 
-```{r}
+```{r a8.27}
 lm.anova=lm(ys~type)
 summary(lm.anova)
 ```
 
 note that, again, we can manipulate any sub-components of the created objects
 
-```{r}
+```{r a8.28}
 
 #see the parameters
 lm.anova$coefficients
@@ -242,13 +242,13 @@ lm.anova$coefficients[3]
 
 Not surprisingly, because the means were different and we had a large sample size, everything is highly significant. Note that the ANOVA test is actually presented in the regression output, and that is the corresponding F-test
 
-```{r}
+```{r a8.29}
 summary(lm.anova)$fstatistic
 ```
 
 and we can use the F distribution to calculate the corresponding P-value (note that is already in the output above)
 
-```{r}
+```{r a8.30}
 ftest=summary(lm.anova)$fstatistic[1]
 df1=summary(lm.anova)$fstatistic[2]
 df2=summary(lm.anova)$fstatistic[3]
@@ -259,7 +259,7 @@ OK, this is actually the exact value, while above the value was reported as just
 
 Finally, to show (by example) this is just what the ANOVA does, we have the NAOVA itself
 
-```{r}
+```{r a8.31}
 summary(aov(lm.anova))
 ```
 
@@ -269,7 +269,7 @@ Conclusion: an ANOVA is just a special case of a linear model, one where we have
 
 Just to finish up this example, we could now plot the true means per treatment, the estimated means per treatment
 
-```{r}
+```{r a8.32}
 par(mfrow=c(1,1),mar=c(4,4,0.5,0.5))
 plot(as.numeric(type),ys,col=as.numeric(type),xlab="Treatment",xaxt="n")
 axis(1,at=1:4,letters[1:4])
@@ -298,7 +298,7 @@ legend("topright",c("Estimated","Mean of data","True"),lwd=c(4,1,2),lty=c(1,3,2)
 
 It's not easy to see because these overlap (large sample size, high precision) but the estimated means are really close to the real means. It's a bit easier to see if we separate in 4 plots and zoom in on the mean of each treatment, but still the blue lines are all on top of each other, since the mean value was estimated real close to truth (truth=2, estimated = `r mean(ys[type=="d"])`).
 
-```{r}
+```{r a8.33}
 #see this in 4 plots, less blur
 par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))
 plot(as.numeric(type),ys,col=as.numeric(type),xlab="Treatment",xaxt="n",ylim=mean(ys[type=="a"])+c(-0.5,0.5))
@@ -335,14 +335,14 @@ Now we can check how we can obtain the estimated means from the actual parameter
 
 This is the estimated mean per treatment, using function `tapply` (very useful function to get any statistics over a variable, inside groups defined by a second variable, here the treatment)
 
-```{r}
+```{r a8.34}
 tapply(X=ys,INDEX=type,FUN=mean)
 ```
 
 and checking these are obtained from the regression coefficients. 
 An important note. When you fit models with factors (like here), the intercept term will correspond to the mean of the reference level of the factor(s). Hence, to get the other means, you always have to sum the parameter of the corresponding level to the intercept. So we do it below
 
-```{r}
+```{r a8.35}
 #check ANOVA is just computing the mean in each group
 lm.anova$coefficients[1]
 lm.anova$coefficients[1]+lm.anova$coefficients[2]

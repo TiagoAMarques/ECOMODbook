@@ -6,7 +6,7 @@ A simple regression is just the situation where we want to model a response vari
 
 Nonetheless, let me tell you that the reaction times were created in object `react`, the temperatures in object `temp`, and these were then packed as a `data.frame` called `reaction`.
 
-```{r,echo=FALSE}
+```{r reg1,echo=FALSE}
 set.seed(2)
 beta0<-0.8
 beta1<-0.3
@@ -42,19 +42,19 @@ While this might seem like a detail, it is a good policy to always fit models us
 
 Therefore, while the imideate result would be the same, we suggest that you do not do this
 
-```{r,eval=FALSE}
+```{r reg6,eval=FALSE}
 mod0<-lm(react~temp)
 ```
 
 nor this
 
-```{r,eval=FALSE}
+```{r reg7,eval=FALSE}
 mod0<-lm(reaction$react~reaction$temp)
 ```
 
 but always consider this
 
-```{r}
+```{r reg8}
 mod0<-lm(react~temp,data=reaction)
 summary(mod0)
 ```
@@ -64,7 +64,7 @@ This will be easier to read for others, makes you tidy, and will save you headac
 We can the estimated regression line to the above plot. I color it red to remind us of the fact that this is an estimated line, not the true line that generated the data. While in general we do not know this with real data, here I know the model that was used to simulate the data. Just for comparison I can add it to the plot to compare with the estimated regression line.
 
 
-```{r}
+```{r reg9}
 plot(react~temp,xlab="Temperature (degrees, Celcius)",ylab="Reaction time (seconds)")
 abline(mod0,lty=2,col="red")
 abline(beta0,beta1,lty=2,col="green")
@@ -77,7 +77,7 @@ The estimated line and the true line are very similar, as expected since we have
 
 Imagine that you have a single variable that you are interested in modelling. This is the concentration of an enzime in the blood of small rodents, from 4 diffferent species. This is represented in the image below \@ref(fig:figrodents).
 
-```{r,echo=FALSE}
+```{r reg10,echo=FALSE}
 #This is just an ANOVA, we are just not going to call it as such now!
 #making sure everyone gets the same results
 set.seed(12345)
@@ -107,13 +107,13 @@ hist(ys,breaks=0:40,xlab="Concentration of enzime (mg/L)")
 
 A poor (conventional and traditional) biologist would die if shown this dataset, but the truth is there would be no reason for it. If one accounts for the different species, this is what we see. Clear differences between two groups of species. 
 
-```{r}
+```{r reg11}
 boxplot(ys~type,ylab="Concentration of enzime (mg/L)")
 ```
 
 And further, we can see that the remaining residuals are a beautiful Gaussian. Not a surprise, since this was simulated data, from a Gaussian model :) !
 
-```{r}
+```{r reg12}
 hist(residuals(lm(ys~type)),main="",xlab="Residuals")
 ```
 

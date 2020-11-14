@@ -113,7 +113,7 @@
 
 \title{Notes for Ecological Modelling}
 \author{Tiago A. Marques}
-\date{2020-11-13}
+\date{2020-11-14}
 
 \begin{document}
 \maketitle
@@ -131,6 +131,40 @@ In particular, I have started thinking about whether this could be a book in two
 
 For the current version I am keeping chapters as individual lectures. Once the Ecological Modelling classes are over I might organize them into sensible chapters for a possible book on statistical models for ecological data.
 
+\hypertarget{mainintro}{%
+\chapter{Preamble}\label{mainintro}}
+
+This is a book about Ecological Modelling. Since we are talking about a field that links Models and Ecology, we need first to think about what ecology is, and what models are. And so that is where we begin.
+
+Ecology is the science that studies the relations between all living beings, namely how they influence each other and how they are influenced by the abiotic factors of the surrounding environment. To be able to describe those relationships there is a natural requirement to quantify the nature and strength of these relationships, and hence the need for quantitative methods becomes obvious.
+
+Models are representations of reality. This is a fundamental aspect that one should never forget, they approximate reality, but they are not real. All models are wrong, but some are useful, is perhaps one of the most famous quotes by G.P. Box, and it is a fundamental aspect that I constantly return to, and that I tend to impose upon my students. Because unfortunately, just like artists, statisticians have the bad habit of falling in love with their models. Unlike in the celebrity world, in science there are usual worst consequences than a broken heart or an empty wallet.
+
+Actually, as I think about this book I realize that the ``all models are wrong'' is in itself wrong. There are in fact many true models, and we will use them extensively in this book. Those are the models that we simulate inside a computer. And those are perhaps some of the best models, since they are both real and extremely useful. By simulating a reality we can control all the aspects of a small world, and hence we can evaluate methods performance, we can illustrate theoretical results and we can show that things do what they say on the tin, or not!
+
+I refer to Ecological Modeling as the art of being able to conceptualize the ecological world as a set of relations, and to be able to translate those relations into equations. Then, to be able to make these equations functions of parameters that hopefully have a meaning, and then, if lucky, to be able to obtain data that contain information about the relevant parameters of the model. To think about where in the data is information about a given aspect of a system is a crucial step. Perhaps even harder, is to perceive what are the filters that information went through, via a sampling process. And then to be able to introduce observation models to undo those filters and allow reliable inferences to be based on noisy data. Not all models do that, and most models in this book do not separate observation and process model. Those models are arguably the more useful, but you need to understand simpler models before going into those more sophisticated and hence much harder to implement models. By estimating the parameters of the models one is then able to make some informed statements about useful descriptions of the natural world, like relating the weight of a fish with the temperature of the water it lives in or the number of eggs in a nest to the nearest source of food or body of water. Beyond the scope of this book, if one is really really lucky, those models and the results they provide might then be used by others to make management decisions that will ultimately be useful to the ecosystem under study.
+
+\hypertarget{aknowledgments}{%
+\chapter{Aknowledgments}\label{aknowledgments}}
+
+A number of colleagues have contributed with comments, upfront anf foremost Susana França and Ana Sofia Reboleira, my partners in Crime at FCUL, co-teachers for Modelação Ecológica and Ecologia Numérica at FCUL, the courses that inspired tis manuscript.
+
+To all my students in Ecologica Numérica and Modelação Ecológica 2020/2021 which questions every time make me realize that what an ecological statistician might think is straightfoward is far from it for a biologist. Without aknowledging that gap, that difference in the way brains are wired, the efforts to convey statistics to biologists are flawed from the beggining.Some students have contributed with direct input on requesting clarifications and typos: those include Diogo Raposo.
+
+To Dinis Pestana, the person that first made me believe that it was possible to make the biology to statistics transition.
+
+To Russel-Alpizar Jara for incintivating me to go to St Andrews, which I see as one of the epicenters of ecologicasl statistics in the 20th century. I was so fortunate to end there and be able to be part of the fantastic family of CREEMinals.
+
+I have been fortunate to have exposed to the minds of a set of amazing scientists and statisticians.
+
+To Steve Buckland, my PhD Supervisor at CREEM that opened to me the world of distance sampling. Steve was the best supervisor I could have asked for. Not only for the support provided, but also for all the opportunites he exposed me to during that period. Teaching in CREEM's Distance Sampling workshops during my PhD years was possibly the source of many of the great things that happenned after. Point in case all the polar bear work that has been the most amazing work-life experience.
+
+To David Borchers, the most amazing statistical brain I have ever had the pleasure to meet and work with. A generous brain that I have often picked up on, always generous with his brilliant contributions. If I could pick a brain for work, I'd pick David's!
+
+To Eric Rexstad, with whom I was fortunate to share an office during his sabattical at CREEM many years ago. As I was starting a PhD his constant challenges, tips and thoughts made me realize what kind of scientist I would like to become one day. Not there yet, but still trying!
+
+To Len Thomas, an office mate at first, a colleague after, as he claims wasting my time with bad ideas during my Phd (not true!), my boss since I had a PhD and a good friend. If Carlsberg made bosses, Len would be their poster child ;)
+
 \hypertarget{usingRintro}{%
 \chapter{Using R}\label{usingRintro}}
 
@@ -138,7 +172,7 @@ To work through this book it is fundamental that you know your way around R. I r
 
 R might seem frightening at first, but even monsters can make something look more pleasant if you look from the right angle. It is all a matter of perspective :) So I will use the help of some monsters here to convince you that this is the right thing to do!
 
-The amazing images in this chapter are all by Allison Horst, Artwork by \citet{allison_horst}, and I recomend you visit Allison's github repository filled up with amazing stats and maths illustrations (\url{https://github.com/allisonhorst/stats-illustrations}), including so many amazing resources to make R look less frightening.
+The amazing images in this chapter are all by Allison Horst, Artwork by '@'allison\_horst, and I recomend you visit Allison's github repository filled up with amazing stats and maths illustrations (\url{https://github.com/allisonhorst/stats-illustrations}), including so many amazing resources to make R look less frightening. To be honest, this chapter is actually also an homage to Allison's work.
 
 \begin{figure}
 \centering
@@ -190,20 +224,13 @@ Actually, since this book is a bookdown book, you can easily look at it too. It 
 
 \url{https://github.com/TiagoAMarques/ECOMODbook}
 
-Go out and explore, litle grasshoper.
+Go out and explore, litle grasshoper. You will conquer many great things if you do. You will become a code giant one day. But never forget, you need to be thankful to an entire community, and you are standing on the shoulders of giants!
 
-\hypertarget{mainintro}{%
-\chapter{Preamble}\label{mainintro}}
-
-This is a book about Ecological Modelling. Since we are talking about a field that links Models and Ecology, we need first to think about what ecology is, and what models are. And so that is where we begin.
-
-Ecology is the science that studies the relations between all living beings, namely how they influence each other and how they are influenced by the abiotic factors of the surrounding environment. To be able to describe those relationships there is a natural requirement to quantify the nature and strength of these relationships, and hence the need for quantitative methods becomes obvious.
-
-Models are representations of reality. This is a fundamental aspect that one should never forget, they approximate reality, but they are not real. All models are wrong, but some are useful, is perhaps one of the most famous quotes by G.P. Box, and it is a fundamental aspect that I constantly return to, and that I tend to impose upon my students. Because unfortunately, just like artists, statisticians have the bad habit of falling in love with their models. Unlike in the celebrity world, in science there are usual worst consequences than a broken heart or an empty wallet.
-
-Actually, as I think about this book I realize that the ``all models are wrong'' is in itself wrong. There are in fact many true models, and we will use them extensively in this book. Those are the models that we simulate inside a computer. And those are perhaps some of the best models, since they are both real and extremely useful. By simulating a reality we can control all the aspects of a small world, and hence we can evaluate methods performance, we can illustrate theoretical results and we can show that things do what they say on the tin, or not!
-
-I refer to Ecological Modeling as the art of being able to conceptualize the ecological world as a set of relations, and to be able to translate those relations into equations. Then, to be able to make these equations functions of parameters that hopefully have a meaning, and then, if lucky, to be able to obtain data that contain information about the relevant parameters of the model. To think about where in the data is information about a given aspect of a system is a crucial step. Perhaps even harder, is to perceive what are the filters that information went through, via a sampling process. And then to be able to introduce observation models to undo those filters and allow reliable inferences to be based on noisy data. Not all models do that, and most models in this book do not separate observation and process model. Those models are arguably the more useful, but you need to understand simpler models before going into those more sophisticated and hence much harder to implement models. By estimating the parameters of the models one is then able to make some informed statements about useful descriptions of the natural world, like relating the weight of a fish with the temperature of the water it lives in or the number of eggs in a nest to the nearest source of food or body of water. Beyond the scope of this book, if one is really really lucky, those models and the results they provide might then be used by others to make management decisions that will ultimately be useful to the ecosystem under study.
+\begin{figure}
+\centering
+\includegraphics{extfiles/code_hero.jpg}
+\caption{Illustrating standing on the shoulders of giants: Artwork by '@'allison\_horst}
+\end{figure}
 
 \hypertarget{about-regression}{%
 \chapter{About regression}\label{about-regression}}
@@ -214,14 +241,14 @@ An intro to R: \citep{Zuur2009a}
 
 Models for ecological data: \citep{Zuur2007}
 
-More on regression and extending the linear model (just an example): \citep[\citet{Zuur2009b}]{Faraway2006}
+More on regression and extending the linear model (just an example): \citep{Faraway2006}\citep{Zuur2009b}
 
 \hypertarget{what-is-a-regression}{%
 \section{What is a regression?}\label{what-is-a-regression}}
 
 Where does the word come from? Gauss and regression towards the mean.
 
-A regression is a model that allows us to predict a response variable \(y\) (a.k.a the dependent variable, because it depends on the other variables) as a function of the values of covariates (a.k.a. predictors, explanatory or independent variables).
+A regression is a model that allows us to predict a response variable \(y\) (a.k.a the dependent variable, because it depends on the other variables) as a function of the values ofindependent variables (a.k.a. covariates, predictors or explanatory).
 
 \hypertarget{the-general-linear-model}{%
 \section{The general linear model}\label{the-general-linear-model}}
@@ -376,7 +403,7 @@ We can the estimated regression line to the above plot. I color it red to remind
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-5-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/reg9-1.pdf}
 
 The estimated line and the true line are very similar, as expected since we have a reasonable sample size, a small error, and a model that is the reality. With real data, this will be the exception, not the rule. All models are wrong, but some are useful. The linear regression model is perhaps one of the simplest, but also one of the most widely used, and hence, one of those that has been extremely useful. But of course, its simplicity is also its major disadvantage, as we shall see.
 
@@ -408,7 +435,7 @@ A poor (conventional and traditional) biologist would die if shown this dataset,
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/reg11-1.pdf}
 
 And further, we can see that the remaining residuals are a beautiful Gaussian. Not a surprise, since this was simulated data, from a Gaussian model :) !
 
@@ -418,7 +445,7 @@ And further, we can see that the remaining residuals are a beautiful Gaussian. N
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-8-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/reg12-1.pdf}
 
 The take home message from the story: what the data looks like might be irrelevant. The patterns that remain in the residuals, if any, those are the ones we might need to worry about. So do not transform data just becasue the data looks odd. It might just be Gaussian data in disguise!
 
@@ -451,7 +478,7 @@ Plot the data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-10-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.2-1.pdf}
 
 A linear model seems adequate. Lets fit a regression line to the data
 
@@ -606,7 +633,7 @@ The \texttt{summary} of the model above is very useful, but nothing like adding 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-16-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.9-1.pdf}
 
 Note the last line works because the parameter estimates are hold in a component of the \texttt{summary} of the fitted model called \texttt{coefficients}
 
@@ -636,7 +663,7 @@ Additionally, we can also add the residuals in the plot (we use the very handy f
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-18-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.11-1.pdf}
 
 The regression line is the line that minimizes the sum of the red distances in the plot above. That is also why it is called a minimum squares estimate in the special case of a Gaussian model (in PT, é a reta dos mínimos quadrados).
 
@@ -651,7 +678,7 @@ The residuals should, if the model is reasonable - and here that should be the c
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-19-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.12-1.pdf}
 
 or alternatively we can use the bespoke function \texttt{residuals}
 
@@ -662,7 +689,7 @@ or alternatively we can use the bespoke function \texttt{residuals}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-20-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.13-1.pdf}
 
 It is often said that the \(R^2\) represents the amount of variation in the response that the regression explains. Why is that?
 
@@ -682,7 +709,7 @@ in an image, the sum of the square of these quantities
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-21-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.14-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -740,7 +767,7 @@ Note naturally we could also represent in an image what is explained by the regr
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-25-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.18-1.pdf}
 
 and that naturally is obtained as
 
@@ -811,7 +838,7 @@ Then you were told to create the lengths:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-28-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.21-1.pdf}
 
 and then to create weights of lizards
 
@@ -831,7 +858,7 @@ If we plot the data, all points are in a single line. Why, because there is no r
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-30-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.23-1.pdf}
 
 This means that if you try to run a model, it gives you a warning that the model might be unreliable
 
@@ -876,7 +903,7 @@ So\ldots{} , we add some variance, and plot the data:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-32-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.25-1.pdf}
 
 Using the code above, experiment with changing the standard deviation of the error, and see what happens to the estimated \(R^2\), to the parameter estimates, to the estimated error, and to how close the estimated regression mode is to the true model (note this is the amazing advantage of a simulation, which we do not have in real data, we know what reality is, and a true model exists!). This will give you a good feeling for what a regression model is and what is does, and what it can't do. An example of what it can't give you is reliable estimates when the error is large compared to the systematic part of the model.
 
@@ -925,7 +952,7 @@ Using the code above, experiment with changing the standard deviation of the err
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-33-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.26-1.pdf}
 
 \hypertarget{what-is-the-effect-of-increasing-the-error-a-simulation-experiment}{%
 \subsection{What is the effect of increasing the error: a simulation experiment}\label{what-is-the-effect-of-increasing-the-error-a-simulation-experiment}}
@@ -968,7 +995,7 @@ Now, let's consider there's more and less variance. We also add to each plot the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-34-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.27-1.pdf}
 
 Not surprisingly, as the variance increases, we get data that more and more looks like it is not coming from a real linear process.
 
@@ -1014,7 +1041,7 @@ Also, don't get confused, the different green lines might look different, but th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-35-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.28-1.pdf}
 
 but since then you loose all the ability to look at the actual data in some of the plots, that is not really that useful!
 
@@ -1188,7 +1215,7 @@ As an example, we can plot the \(R^2\) as a function of the variance
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-37-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.30-1.pdf}
 
 That is quite interesting actually\ldots{} There seems to be a nonlinear relationship, but we only have a sample size of six (different standard deviatios, i.e., variances, as variance is standard deviation squared), so hard to tell\ldots{}
 
@@ -1213,7 +1240,7 @@ Let's show off in R\ldots{}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-38-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.31-1.pdf}
 
 How cool is that!! Actually, this means we can model the \(R^2\) as a function of the original variance! But we would not be able to model it using a linear model\ldots{}
 
@@ -1230,7 +1257,7 @@ You are not supposed to know about this yet, but I'll continue to show off. Let'
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-39-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.32-1.pdf}
 
 Aha\ldots{} remember what we talked in class today? It seems like we have overfitted. Then, I constrain the GAM.
 
@@ -1245,7 +1272,7 @@ Aha\ldots{} remember what we talked in class today? It seems like we have overfi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-40-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.33-1.pdf}
 
 That was too much\ldots{}
 
@@ -1260,7 +1287,7 @@ That was too much\ldots{}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-41-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a6.34-1.pdf}
 
 That is already overfitting\ldots{} conclusion, the GAM is not the right tool here :)
 
@@ -1369,7 +1396,7 @@ We find our first type I error, \texttt{xs4} is found statistically significant,
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-45-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a7.4-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1422,7 +1449,7 @@ However, even after several runs, we never make a type II error. That must mean 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-46-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a7.5-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1473,7 +1500,7 @@ That was an overkill, now there is so much noise must seeds we use do not allow 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-47-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a7.6-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1526,7 +1553,7 @@ back to all correct. Now, let's change seed again
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-48-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a7.7-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1596,7 +1623,7 @@ We begin by reading the data in and plot it
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-50-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a7.9-1.pdf}
 
 Now, to turn this a bit more interesting, we come up with a narrative.
 
@@ -1612,7 +1639,7 @@ These correspond to observations from weights and lenghts of a sample of animals
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-51-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a7.10-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1653,7 +1680,7 @@ Now, the plot thickens. These animals actually came from 4 different museums, an
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-52-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a7.11-1.pdf}
 
 We see a patter in the data, the data from the different museums tend to cluster. He decides to investigate. Note folks providing names to museum in this country are a bit borring, and the museums are called ``a'', ``b'', ``c'' and ``d''.
 
@@ -1728,7 +1755,7 @@ So now we can add all these estimated regression lines to the plot
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-54-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a7.13-1.pdf}
 
 note that, not surprisingly, all these lines have the same slope. Or in other words, the model we considered assumes that the slope of the model is the same across museums (which, remember, we know if not true!). We can easily check that the intercepts (i.e.~where the lines cross when length=x=0) of all lines are indeed easy to get from the model's output
 
@@ -1753,7 +1780,7 @@ note that, not surprisingly, all these lines have the same slope. Or in other wo
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-55-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a7.14-1.pdf}
 
 Now, the smart biologist then says that he could also fit a separate line to each museum's data. And so he does, and that looks like this:
 
@@ -1770,7 +1797,7 @@ Now, the smart biologist then says that he could also fit a separate line to eac
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-56-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a7.15-1.pdf}
 
 Naturally, now the lines do not have the same slope, and we can compare all these in a single plot. This plot is really messy, as it includes the pooled regression (the thick black line), the regressions fitted to independent data sets, one for each museum (the solid lines), and the regressions resulting from the model with museum as a factor covariate (dotted-dashed lines).
 
@@ -1792,7 +1819,7 @@ Naturally, now the lines do not have the same slope, and we can compare all thes
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-57-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a7.16-1.pdf}
 
 But what is the best model to describe the data? That is a mistery that will remain to unfold. For that we will need and additional complication in a regression model: interactions.
 
@@ -1893,7 +1920,7 @@ Look at the data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-64-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a8.7-1.pdf}
 
 Now, we can run the usual t-test
 
@@ -1993,7 +2020,7 @@ Look at the data, we can see much more variation
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-69-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a8.12-1.pdf}
 
 Now, we can run the usual t-test
 
@@ -2068,7 +2095,7 @@ Look at the data, we can see again lower variation, but the difference across tr
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-73-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a8.16-1.pdf}
 
 Now, we can run the usual t-test
 
@@ -2248,7 +2275,7 @@ We can actually look at the simulated data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-83-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a8.26-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2395,7 +2422,7 @@ Just to finish up this example, we could now plot the true means per treatment, 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-89-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a8.32-1.pdf}
 
 It's not easy to see because these overlap (large sample size, high precision) but the estimated means are really close to the real means. It's a bit easier to see if we separate in 4 plots and zoom in on the mean of each treatment, but still the blue lines are all on top of each other, since the mean value was estimated real close to truth (truth=2, estimated = 1.9967984).
 
@@ -2433,7 +2460,7 @@ It's not easy to see because these overlap (large sample size, high precision) b
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-90-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a8.33-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2571,7 +2598,7 @@ We plot the data, all together, per group, and at the end adding the generating 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-94-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a9.2-1.pdf}
 
 While not the best to look at the data, note that to visually confirm the value of the intercepts we can zoom out on the plot.
 
@@ -2586,7 +2613,7 @@ While not the best to look at the data, note that to visually confirm the value 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-95-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a9.3-1.pdf}
 
 Now we run the corresponding linear model
 
@@ -2694,7 +2721,7 @@ We can plot the estimated regression lines
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-99-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a9.7-1.pdf}
 
 But because we are in a simulation setting, we can contrast the estimated values agaist the reality (the real model).
 
@@ -2721,7 +2748,7 @@ But because we are in a simulation setting, we can contrast the estimated values
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-100-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a9.8-1.pdf}
 
 As we can see, they are quite close. The error is small compared with the effrect sizes, and the sample size is large enough we can estimate the parameters reasonably well.
 
@@ -2829,7 +2856,7 @@ Great ploted the weights, in grams (g), of the captured lizards. These look like
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-105-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a10.2-1.pdf}
 
 The distribution is unimodal and about simetrical. When lizards are separated by island, they look like this
 
@@ -2839,7 +2866,7 @@ The distribution is unimodal and about simetrical. When lizards are separated by
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-106-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a10.3-1.pdf}
 
 There seem to be clear differences in the weights per species, as a standard linear model (e.g.~an ANOVA, see \ref{aula8}) will show:
 
@@ -2884,7 +2911,7 @@ Further, he just had a great thought. He calls these GGTs: Great great thoughts.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-108-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a10.5-1.pdf}
 
 Unfortunately, he goes to the pub and tells John about his findings. John has been doing some modelling courses at the Univeristy and is very interested about sampling.
 John asks Great a great set of questions: ``How did you selected the lizards you captured? What about the lengths of the lizards? Were the animals from each island of about the same length? In other words, did you control the weights for length? Because longer animals will generaly heavier, you know?''
@@ -2897,7 +2924,7 @@ Great had not thought about that yet, indeed. He's feeling dizzy, might be the b
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-109-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a10.6-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2973,7 +3000,7 @@ He sees his paper further and further farther away. This is what we saw: the sam
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-111-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a10.8-1.pdf}
 
 Now, that is dismaying, but interesting. So Great returns to the pub and he asks John: ``Would the oposite be possible? Say things looked just the same, yet they were different after accounting for a confounding factor?''.
 
@@ -3008,7 +3035,7 @@ The lizards relationship between weight and length is different per island. Say,
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-112-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a10.9-1.pdf}
 
 Now imagine, for the sake of argument, that in all islands we captured lizards with lengths spanning about 2 cm, but in island A we caught animals with about 18 cm, in B with about 16 cm, in c with about 15 cm and in D with about 14 cm, on average. We can simulate that non-random sampling process with respect to lenghth.
 
@@ -3043,7 +3070,7 @@ Now, if this is our sample, what happens when we look at the weights alone? Firs
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-114-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a10.11-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3062,7 +3089,7 @@ That was really not a random sample. And non-random samples always ask for troub
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-115-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a10.12-1.pdf}
 
 If we test formally for it with an ANOVA, it seems like there is absolutely no effect of weight:
 
@@ -3141,7 +3168,7 @@ Note this corresponds to comparing weights while not accounting for differences 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-118-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a10.15-1.pdf}
 
 Actually, what the ANCOVA model does is equivalent to looking at the data by rotating the left plot above and see it in the ``axis'' we care about. That corresponds to the axis such that the slope of the regression lines are aligned with the x-axis of the Cartesian referential.
 
@@ -3186,7 +3213,7 @@ Interactions are useful when the influence of a covariate on the response variab
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-119-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a11.1-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3226,7 +3253,7 @@ Interactions are useful when the influence of a covariate on the response variab
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-119-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a11.1-2.pdf}
 
 We can see what these interaction plots might look like for different realities.
 
@@ -3255,7 +3282,7 @@ We can see what these interaction plots might look like for different realities.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-120-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a11.2-1.pdf}
 
 \hypertarget{task-1-implementing-the-ancova-with-different-slopes}{%
 \section{Task 1 Implementing the ANCOVA with different slopes}\label{task-1-implementing-the-ancova-with-different-slopes}}
@@ -3313,7 +3340,7 @@ We can look at the resulting data, as well as the real model that generated the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-124-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a11.6-1.pdf}
 
 As before, it is actually not that easy to confirm the slopes and intercepts are different, as the intercept is not shown in the above plot. We can zoom out the plot to show us the intercepts (Figure \ref{fig:FCR}), which are by definition, where the lines cross the vertical dashed line, i.e., when x=0 in the Cartesian referential.
 
@@ -3510,7 +3537,7 @@ we can now add these to the earlier plots, to see how well we have estimated the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-132-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a11.14-1.pdf}
 
 Remember, if this was a real analysis, you would not know the truth, so at best, you would be able to see the predicted lines, but not the real lines, just as in the plot below
 
@@ -3527,7 +3554,7 @@ Remember, if this was a real analysis, you would not know the truth, so at best,
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-133-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a11.15-1.pdf}
 
 It is interesting to note that the slopes were in general closer to the true values than the intercepts.
 
@@ -3621,7 +3648,7 @@ Conceição looks at the plots, wonders once again why she married Carlos, and a
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-138-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a11.20-1.pdf}
 
 And the question that now arises in Carlos mind is, what might the best model to represent this data set, where he has measurements of two numeric variables, \texttt{weight\textasciitilde{}diameter} across 4 groups of observations, defined by \texttt{species}.
 
@@ -3735,7 +3762,7 @@ Now lets go back to the data. Remember a plot we had on this dataset before?We n
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-142-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a11.24-1.pdf}
 
 Now we can remove the independent lines (to clean it up a bit!) and just leave the no interaction model estimated values, then add the estimated lines from the interaction model below. Remember, AIC says its the ones from the interactioon model that are the best representation of the data.
 
@@ -3761,7 +3788,7 @@ Now we can remove the independent lines (to clean it up a bit!) and just leave t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-143-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a11.25-1.pdf}
 
 Likewise, we could compare the lines from independent lines to those of the interaction model.
 
@@ -3782,7 +3809,7 @@ Likewise, we could compare the lines from independent lines to those of the inte
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-144-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a11.26-1.pdf}
 
 It is interesting to see that they are not very different, which is perhaps surprising but\ldots{} actually\ldots{} not surprising. Both use exaclty 8 parameters to describe the data\ldots{} it's the same thing!!! Linear models are cool :)
 
@@ -3803,9 +3830,7 @@ Carlos might have something to present at the congress after all! He goes to sle
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-145-1.pdf}
-
-FFS !
+\includegraphics{ECOMODbook_files/figure-latex/a11.27-1.pdf}
 
 \hypertarget{aula13}{%
 \chapter{Class 12: 04 11 2020 Interactions between continous covariates}\label{aula13}}
@@ -3838,7 +3863,7 @@ The examples above were interactions with factors, but interactions can occur al
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-146-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a12.1-1.pdf}
 
 We can fit different models to such data, namely those that consider just the \texttt{xs1} (temperature), just the \texttt{xs2} (pH), or even just a new variable called \texttt{xs1xs2} (temperature \(\times\) pH), and those with both variables and the interaction. Note \texttt{xs1xs2} variable is just the product of the other two, and in fact that fitting that product alone is equivalent to fitting the interaction alone!
 
@@ -3993,7 +4018,7 @@ Now, we plot the single variable models
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-150-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a12.5-1.pdf}
 
 Note that if we ignore the interaction, we make the wrong conclusion, we conclude that \texttt{xs2} has the wrong effect compared to reality: it seems to have a positive influence, when we know that influence is negative!
 
@@ -4212,7 +4237,7 @@ Reassuringly, the right model is preferred in terms of AIC
 ## modR  7 302.0554
 \end{verbatim}
 
-What would happen if we had not recorded some of the variables? Or if we considered different second order or even 3 order interactions? I experiment below just as an example creating additional 10 wrong models. If we had all variables, we would always get the correct model apparently (even if I did not a full search over the possible model space - a task for you !) but if some of the variables were not recorded, some errors might occur. Your task is to find them, just for fun\ldots{} have fun!
+What would happen if we had not recorded some of the variables? Or if we considered different second order or even 3 order interactions? I experiment below just as an example creating additional 10 wrong models.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4231,25 +4256,42 @@ What would happen if we had not recorded some of the variables? Or if we conside
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{AIC}\NormalTok{(modW,modW1,modW2,modW3,modW4,modW5,modW6,modW7,modW8,modW9,modW10,modR)}
+\KeywordTok{library}\NormalTok{(knitr)}
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{AIC}\NormalTok{(modW,modW1,modW2,modW3,modW4,modW5,modW6,modW7,modW8,modW9,modW10,modR))}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-##        df       AIC
-## modW   17  310.6238
-## modW1   6  835.1165
-## modW2   6 1180.6098
-## modW3   9  311.4269
-## modW4   9 1086.9135
-## modW5   5  833.2009
-## modW6   5 1089.0771
-## modW7   5 1180.0438
-## modW8   5  368.2706
-## modW9   5 1088.0494
-## modW10  5 1089.2458
-## modR    7  302.0554
-\end{verbatim}
+\begin{tabular}{l|r|r}
+\hline
+  & df & AIC\\
+\hline
+modW & 17 & 310.6238\\
+\hline
+modW1 & 6 & 835.1165\\
+\hline
+modW2 & 6 & 1180.6098\\
+\hline
+modW3 & 9 & 311.4269\\
+\hline
+modW4 & 9 & 1086.9135\\
+\hline
+modW5 & 5 & 833.2009\\
+\hline
+modW6 & 5 & 1089.0771\\
+\hline
+modW7 & 5 & 1180.0438\\
+\hline
+modW8 & 5 & 368.2706\\
+\hline
+modW9 & 5 & 1088.0494\\
+\hline
+modW10 & 5 & 1089.2458\\
+\hline
+modR & 7 & 302.0554\\
+\hline
+\end{tabular}
+
+If we had all variables, we would always get the correct model apparently (even if I did not a full search over the possible model space - a task for you !) but if some of the variables were not recorded, some errors might occur. Your task is to find them, just for fun\ldots{} have fun!
 
 \hypertarget{conlusion-on-linear-regression}{%
 \chapter{Conlusion on linear regression}\label{conlusion-on-linear-regression}}
@@ -4374,7 +4416,7 @@ The largest values are observed for the trial values of \(\theta\) of 0.35 and 0
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-163-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/ch13.3-1.pdf}
 
 You will probably not be too surprised to find out that \(\hat \theta\)=0.4 is indeed the maximum likelihood estimate (MLEe), and that for a proportion \(\hat \theta\)=successes/trials is the maximum likelihood estimate (MLE). Therefore, note that it will only be from the context that one can say if MLE stands for an estimate, which corresponds to a random realization of the estimator, or for the estimator itself. This should not have come as a surprise. Remember we had 2 successes in 5 trials, and that corresponds to 0.4.
 
@@ -4458,7 +4500,7 @@ To illustrate the point above regarding being able to estimate the precision aro
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-164-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/ch13.4-1.pdf}
 
 As we increase the sample size, and hence we increase the amount of information available to estimate \(\theta\), the likelihood profile becomes more spiky. It can be demonstrated that the curvature of the likelihood profile allows us to quantify the precision on our estimate of the parameter. Naturally, the steeper the curve, the better, in the sense that the more certain we are. On the other hand, when the likelihood surface is very flat, we might hit problems in terms of the numerical maximization of the likelihood.
 
@@ -4755,7 +4797,7 @@ The two components of this object are the MLE of the parameter, in this case 0.3
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-176-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/ch13.16-1.pdf}
 
 As a task, what would it require to change the above code to calculate the value of theta if we had 78 trials and 43 sucesses? You got it, just need to change the data
 
@@ -4891,7 +4933,7 @@ Note that, as it might be interesting for later, that nests with eggs were close
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-184-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/ch13.24-1.pdf}
 
 We get some estimates, despite the fact that it is yet unclear why we should do it this way and not just use \texttt{mean} and \texttt{sd}. To see why, we continue our story, and the plot thickens\ldots{}
 
@@ -4916,7 +4958,7 @@ We can visualize the relationship between the distance to the water and the nest
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-186-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/ch13.26-1.pdf}
 
 So now Andreia needs a likelihood. Since the above relation seems linear, she remembers that the linear model is given by
 
@@ -4978,7 +5020,7 @@ and so we get as estimates of \(a\), \(b\) and \(\sigma\) of 11.1201813, 6.17885
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-189-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/ch13.29-1.pdf}
 
 Now, we know that \texttt{lm} does this kind of stuff very efficiently, so how do these compare across? We can look at the outcome of the \texttt{lm} call
 
@@ -5020,7 +5062,7 @@ and when we add these to the above plot, we see we were bang on: the two lines a
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-191-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/ch13.30.5-1.pdf}
 
 So, but still, why would we do it this way, since \texttt{lm} does it with less hassle, faster, and probably better? For a number of reasons, including:
 
@@ -5037,8 +5079,6 @@ So to complete this chapter, lets see an example for which a dedicated function 
 
 \hypertarget{the-really-interesting-case}{%
 \section{The really interesting case}\label{the-really-interesting-case}}
-
-(Work in progress, a tale from Conceição, about relating the probability of success of an egg with the distance it is from the water)
 
 Imagine now that we were interested in relating the probability for a nest being successful with the distance of the nest to a body of water. A possible ecological explanation for there being a negative relationship between the distance and the success probability might be that near water bodies there are usual more insects, and hence more food which means improved body condition and hence incentives for attempting reproduction.
 
@@ -5081,7 +5121,7 @@ These values imply that the probability of a nest near a body of water having eg
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-194-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/ch13.33-1.pdf}
 
 Having done this, then it is relatively simple to modify the likelihood for theta that we used for \(\theta\), to replace the \(\theta\) by a function of the relevant covariate \(d\)
 
@@ -5135,7 +5175,7 @@ Now, this provides an interesting ecological insight. Unlike the \texttt{naive} 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-197-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/ch13.36-1.pdf}
 
 \hypertarget{likelihood-above-and-beyond}{%
 \section{Likelihood, above and beyond}\label{likelihood-above-and-beyond}}
@@ -5152,6 +5192,59 @@ Most of the statistical methods that you have used are probably based on a likel
 
 \hypertarget{aula14}{%
 \chapter{Class 14: 10 10 2020 GLMs}\label{aula14}}
+
+\hypertarget{what-are-glms}{%
+\section{What are GLMs}\label{what-are-glms}}
+
+Here we talk about link functions
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lp<-}\ControlFlowTok{function}\NormalTok{(a,b,x)\{}
+\NormalTok{  res<-a}\OperatorTok{+}\NormalTok{b}\OperatorTok{*}\NormalTok{x}
+  \KeywordTok{return}\NormalTok{(res)}
+\NormalTok{\}}
+
+\NormalTok{ilogi<-}\ControlFlowTok{function}\NormalTok{(lp)\{}
+\NormalTok{  res<-}\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\KeywordTok{exp}\NormalTok{(lp))}
+  \KeywordTok{return}\NormalTok{(res)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Illustrate how a link function can be used to ensure that a prediction only returns admissible values
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a<-}\FloatTok{0.04}
+\NormalTok{b<-}\FloatTok{0.08}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+
+\NormalTok{xs<-}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{30}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.01}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(xs,}\KeywordTok{ilogi}\NormalTok{(}\KeywordTok{lp}\NormalTok{(a,b,xs)),}\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h=}\DecValTok{0}\OperatorTok{:}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{1}\NormalTok{)}
+
+
+\NormalTok{xs<-}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{30}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.01}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(xs,}\KeywordTok{ilogi}\NormalTok{(}\KeywordTok{lp}\NormalTok{(}\FloatTok{0.9}\NormalTok{,}\DecValTok{12}\NormalTok{,xs)),}\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h=}\DecValTok{0}\OperatorTok{:}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{1}\NormalTok{)}
+
+
+\NormalTok{xs<-}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.01}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(xs,}\KeywordTok{ilogi}\NormalTok{(}\KeywordTok{lp}\NormalTok{(}\FloatTok{0.9}\NormalTok{,}\DecValTok{12}\NormalTok{,xs)),}\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h=}\DecValTok{0}\OperatorTok{:}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{1}\NormalTok{)}
+
+
+\NormalTok{xs<-}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.01}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(xs,}\KeywordTok{ilogi}\NormalTok{(}\KeywordTok{lp}\NormalTok{(}\FloatTok{0.9}\NormalTok{,}\DecValTok{12}\NormalTok{,xs)),}\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h=}\DecValTok{0}\OperatorTok{:}\DecValTok{1}\NormalTok{,}\DataTypeTok{lty=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/links2-1.pdf}
+
+\hypertarget{an-example-analysis}{%
+\section{An example analysis}\label{an-example-analysis}}
 
 Here we talk about GLMs
 
@@ -5185,7 +5278,7 @@ We can plot the data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-199-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/glm2-1.pdf}
 
 Now, we can fit some models to data
 
@@ -5217,7 +5310,7 @@ and we can show these overlayed on data - wtf is going on\ldots?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-201-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/glm4-1.pdf}
 
 Just for fun
 
@@ -5244,7 +5337,7 @@ Diagnostics
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-203-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/glm6-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5253,7 +5346,7 @@ Diagnostics
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-204-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/glm7-1.pdf}
 
 \hypertarget{aula15}{%
 \chapter{Class 15: 11 11 2020}\label{aula15}}
@@ -5264,28 +5357,7 @@ Diagnostics
 \hypertarget{final-words}{%
 \chapter{Final Words}\label{final-words}}
 
-We have finished a nice book.
-
-\hypertarget{aknowledgments}{%
-\chapter{Aknowledgments}\label{aknowledgments}}
-
-A number of colleagues have contributed with comments, upfront anf foremost Susana França and Ana Sofia Reboleira, my partners in Crime at FCUL, co-teachers for Modelação Ecológica and Ecologia Numérica at FCUL, the courses that inspired tis manuscript.
-
-To all my students in Ecologica Numérica and Modelação Ecológica 2020/2021 which questions every time make me realize that what an ecological statistician might think is straightfoward is far from it for a biologist. Without aknowledging that gap, that difference in the way brains are wired, the efforts to convey statistics to biologists are flawed from the beggining.Some students have contributed with direct input on requesting clarifications and typos: those include Diogo Raposo.
-
-To Dinis Pestana, the person that first made me believe that it was possible to make the biology to statistics transition.
-
-To Russel-Alpizar Jara for incintivating me to go to St Andrews, which I see as one of the epicenters of ecologicasl statistics in the 20th century. I was so fortunate to end there and be able to be part of the fantastic family of CREEMinals.
-
-I have been fortunate to have exposed to the minds of a set of amazing scientists and statisticians.
-
-To Steve Buckland, my PhD Supervisor at CREEM that opened to me the world of distance sampling. Steve was the best supervisor I could have asked for. Not only for the support provided, but also for all the opportunites he exposed me to during that period. Teaching in CREEM's Distance Sampling workshops during my PhD years was possibly the source of many of the great things that happenned after. Point in case all the polar bear work that has been the most amazing work-life experience.
-
-To David Borchers, the most amazing statistical brain I have ever had the pleasure to meet and work with. A generous brain that I have often picked up on, always generous with his brilliant contributions. If I could pick a brain for work, I'd pick David's!
-
-To Eric Rexstad, with whom I was fortunate to share an office during his sabattical at CREEM many years ago. As I was starting a PhD his constant challenges, tips and thoughts made me realize what kind of scientist I would like to become one day. Not there yet, but still trying!
-
-To Len Thomas, an office mate at first, a colleague after, as he claims wasting my time with bad ideas during my Phd (not true!), my boss since I had a PhD and a good friend. If Carlsberg made bosses, Len would be their poster child ;)
+This is a work in progress. If you have read it I hope you enjoyed it. Please send me any feedback you might have on it. Suggestions, questions, comments, edits, requests, etc will be taken seriously. I would be really very happy to use them and to aknowledge your contribution to make this more useful for students and readers.
 
   \bibliography{book.bib,packages.bib}
 

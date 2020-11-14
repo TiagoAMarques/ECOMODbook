@@ -2,9 +2,7 @@
 
 The examples above were interactions with factors, but interactions can occur also across strictly continous variables. An example follows. Imagine it corresponds to the length of fishes as a function of water temperature `temp` and `pH` (if those were real values of some water pH... all the fish would be dissolved, but any way!). We make up some example data below.
 
-```{r}
-
-
+```{r a12.1}
 #--------------------------------------------------------
 #Interactions
 #### With continous covariates
@@ -30,7 +28,7 @@ plot(xs12,ys,ylab="Length (mm)",xlab="Temperature * pH")
 
 We can fit different models to such data, namely those that consider just the `xs1` (temperature), just the `xs2` (pH), or even just a new variable called `xs1xs2` (temperature $\times$ pH), and those with both variables and the interaction. Note `xs1xs2` variable is just the product of the other two, and in fact that fitting that product alone is equivalent to fitting the interaction alone!
 
-```{r}
+```{r a12.2}
 #-----------------------------------
 #models with interaction
 #model with interaction
@@ -52,7 +50,7 @@ mx2=lm(ys~xs2)
 To begin with, check what we commented above is true. Models `mx1x2I` and `mx1x2I.b` are equivalent, 
 
 
-```{r}
+```{r a12.3}
 summary(mx1x2I)
 summary(mx1x2I.b)
 ```
@@ -60,7 +58,7 @@ summary(mx1x2I.b)
 and `mI` and `mI.b` are equivalent.
 
 
-```{r}
+```{r a12.4}
 summary(mI)
 summary(mI.b)
 ```
@@ -68,7 +66,7 @@ summary(mI.b)
 
 Now, we plot the single variable models
 
-```{r}
+```{r a12.5}
 #ploting the data and (single variable) models
 par(mfrow=c(1,3),mar=c(4,4,0.2,0.2))
 plot(xs1,ys)
@@ -81,13 +79,13 @@ abline(lm(mI),lty=2)
 
 Note that if we ignore the interaction, we make the wrong conclusion, we conclude that `xs2` has the wrong effect compared to reality: it seems to have a positive influence, when we know that influence is negative!
 
-```{r}
+```{r a12.6}
 summary(mx1x2)
 ```
 
 When we look at the model that really makes sense here, given the true model, we get the right decisions for all the terms in the model: xs1 has a positive effect and xs2 has a negative effect in the response, with a significant positive effect on the interation between the two.
 
-```{r}
+```{r a12.7}
 summary(mx1x2I)
 ```
 
@@ -95,7 +93,7 @@ Failing to include significant interactions could lead one to wrongly conclude t
 
 Note that, reassuringly, this would be the model preferred by AIC, by a long shot. All is good when all ends well, which if we have lots of data and low error,  is not unexpected. But the real danger lies in real life data, where we do not know what reality is.
 
-```{r}
+```{r a12.8}
 #compare models using say AIC
 AIC(mx1,mx2,mI,mx1x2,mx1x2I)
 ```
@@ -113,7 +111,7 @@ Our true model wll be of the form
 
 $ys=20+2*xs1-4*xs2+3*xs1*xs2+xs3+xs4$
 
-```{r}
+```{r a12.9}
 
 #--------------------------------------------
 # A 4 way interaction model
@@ -134,14 +132,14 @@ ys=20+2*xs1-4*xs2+3*xs1*xs2+xs3+xs4+rnorm(n,2)
 
 After having created the data, we can fit a couple of models to it. One with all the interactions, one with just the correct (=true, since we know the data generating model) 2 way interaction between `xs1` and `xs2`.
 
-```{r}
+```{r a12.10}
 modW=lm(ys~xs1*xs2*xs3*xs4)
 modR=lm(ys~xs1+xs2+xs3+xs4+xs1:xs2)
 ```
 
 If we look at the 4 way interaction model
 
-```{r}
+```{r a12.11}
 summary(modW)
 ```
 
@@ -149,19 +147,19 @@ we see several errors, namely type II errors associated with `xs2`, `xs3` and `x
 
 When we look at the right model, these go away, and all variables and the correct second order variable are considered significant (at the usual significance levels)
 
-```{r}
+```{r a12.12}
 summary(modR)
 ```
 
 Reassuringly, the right model is preferred in terms of AIC
 
-```{r}
+```{r a12.13}
 AIC(modW,modR)
 ```
 
-What would happen if we had not recorded some of the variables? Or if we considered different second order or even 3 order interactions? I experiment below just as an example creating additional 10 wrong models. If we had all variables, we would always get the correct model apparently (even if I did not a full search over the possible model space - a task for you !) but if some of the variables were not recorded, some errors might occur. Your task is to find them, just for fun... have fun!
+What would happen if we had not recorded some of the variables? Or if we considered different second order or even 3 order interactions? I experiment below just as an example creating additional 10 wrong models.
 
-```{r}
+```{r a12.14}
 modW1=lm(ys~xs1+xs2*xs3)
 modW2=lm(ys~xs2+xs3*xs4)
 modW3=lm(ys~xs1*xs2*xs3)
@@ -176,7 +174,9 @@ modW10=lm(ys~xs1*xs4)
 ```
 
 
-```{r}
-AIC(modW,modW1,modW2,modW3,modW4,modW5,modW6,modW7,modW8,modW9,modW10,modR)
+```{r a12.15}
+library(knitr)
+kable(AIC(modW,modW1,modW2,modW3,modW4,modW5,modW6,modW7,modW8,modW9,modW10,modR))
 ```
 
+If we had all variables, we would always get the correct model apparently (even if I did not a full search over the possible model space - a task for you !) but if some of the variables were not recorded, some errors might occur. Your task is to find them, just for fun... have fun!

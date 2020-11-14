@@ -20,7 +20,7 @@ Imagine Great wanted to compare the weights of lizard specimens he collected in 
 
 (note, since this is a story, this time I am not showing you how the data was created (=simulated), for narrative reasons!)
 
-```{r,echo=FALSE}
+```{r a10.1,echo=FALSE}
 #all slopes the same, diferent intercepts - no interactions
 set.seed(1234)
 n<-200
@@ -38,19 +38,19 @@ ys <- a+b*xs+rnorm(n,0,error)
 
 Great ploted the weights, in grams (g), of the captured lizards. These look like this:
 
-```{r}
+```{r a10.2}
 hist(ys,main="Lizards pooled across 4 islands",xlab="Weight (g)")
 ```
 
 The distribution is unimodal and about simetrical. When lizards are separated by island, they look like this
 
-```{r}
+```{r a10.3}
 boxplot(ys~type,ylab="Weight (g)",xlab="Island")
 ```
 
 There seem to be clear differences in the weights per species, as a standard linear model (e.g. an ANOVA, see \@ref(aula8)) will show:
 
-```{r}
+```{r a10.4}
 summary(lm(ys~type))
 ```
 
@@ -58,7 +58,7 @@ Great is happy, he had seen differents amounts of insects in each island and so 
 
 Further, he just had a great thought. He calls these GGTs: Great great thoughts. He is thinking about proposing that these correspond to different species in each island, and he is already dreaming about the names of his new species: he is considering naming them "slimus", "normalis", "fatis", "fattissimus", for animals in islands A, B, C and D, respectively. The plot would then read just like this, which looks... you guessed it... great.
 
-```{r}
+```{r a10.5}
 spnames <- c("slimus", "normalis", "fatis", "fattissimus")
 boxplot(ys~type,ylab="Weight (g)",xlab="Island",
 names=spnames)
@@ -69,7 +69,7 @@ John asks Great a great set of questions: "How did you selected the lizards you 
 
 Great had not thought about that yet, indeed. He's feeling dizzy, might be the  beers he had, might be the questions he was just asked! He rushes home and looks at the data. And in fact, the different lizards from the  different islands have very different lengths to begin with, as we can see in the plot below.
 
-```{r}
+```{r a10.6}
 boxplot(xs~type,ylab="Length",xlab="Species")
 summary(lm(xs~type))
 ```
@@ -80,13 +80,13 @@ He goes into his books and finds that ANCOVA is just a linear model, where you m
 
 He implements the models and, much to his despair, realizes that, once he you accounts for the length, the weights are not different per island. The damn lizards are exactly the same weight in the different islands once you account for their length... :(
 
-```{r}
+```{r a10.7}
 summary(lm(ys~xs+type))
 ```
 
 He sees his paper further and further farther away. This is what we saw: the same line explains all the data, irrespectively of group. In other words, there is not a different relationship per species between weight and length! His great ecologycal theory goes to the bin!
 
-```{r}
+```{r a10.8}
 plot(ys~xs,col=cores)
 abline(a,b,lwd=3,lty=2)
 ```
@@ -101,7 +101,7 @@ Imagine the following example:
 
 The lizards relationship between weight and length is different per island. Say, akin to what we saw before. Just by magin, we have access to all the lizards in the island.
 
-```{r}
+```{r a10.9}
 #all slopes the same, diferent intercepts - no interactions
 set.seed(12345)
 n<-2000
@@ -124,7 +124,7 @@ abline(12+22,4,lwd=3,col=4)
 
 Now imagine, for the sake of argument, that in all islands we captured lizards with lengths spanning about 2 cm, but in island A we caught animals with about 18 cm, in B with about 16 cm, in c with about 15 cm and in D with about 14 cm, on average. We can simulate that non-random sampling process with respect to lenghth.
 
-```{r}
+```{r a10.10}
 sampled.a<-which(xs>17 & xs<19 & type=="A")
 sampled.b<-which(xs>15 & xs<17 & type=="B")
 sampled.c<-which(xs>14 & xs<16 & type=="C")
@@ -140,7 +140,7 @@ table(type2)
 
 Now, if this is our sample, what happens when we look at the weights alone? First, let's look at the previous plot with the sampled data highlighted in colors and the non sampled data greyed out.
 
-```{r}
+```{r a10.11}
 plot(xs,ys,pch=".",col="grey")
 points(xs2,ys2,col=cores2,cex=0.5)
 #abline(12+5,4,lwd=3,col=1)
@@ -151,26 +151,26 @@ points(xs2,ys2,col=cores2,cex=0.5)
 
 That was really not a random sample. And non-random samples always ask for trouble. Lets see what happens here. If we look at weights per island, there seems to be no effect:
 
-```{r}
+```{r a10.12}
 boxplot(ys2~type2)
 ```
 
 If we test formally for it with an ANOVA, it seems like there is absolutely no effect of weight:
 
-```{r}
+```{r a10.13}
 summary(lm(ys2~type2))
 ```
 
 
 This is where we need to be smart. If we conducts the correct analysis, one that includes and adjusts for the effect of length, the differences in length to weight relationship are clear. The intercepts of the different lines are all different from each other.
 
-```{r}
+```{r a10.14}
 summary(lm(ys2~type2+xs2))
 ```
 
 Note this corresponds to comparing weights while not accounting for differences (in lengths), and comparing weights while accounting for those differences. In other words, we are interested in different intercepts in the left plot below, not in the boxplots of the right plot, that ignore the effect of length.
 
-```{r}
+```{r a10.15}
 par(mfrow=c(1,2))
 plot(xs2,ys2,col=cores2)
 abline(12+5,4,lwd=3,col=1)

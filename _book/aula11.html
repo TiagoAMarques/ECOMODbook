@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 11 Class 11: 03 11 2020 ANCOVA with different slopes: interactions | Notes for Ecological Modelling</title>
+  <title>Chapter 12 Class 11: 03 11 2020 ANCOVA with different slopes: interactions | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 11 Class 11: 03 11 2020 ANCOVA with different slopes: interactions | Notes for Ecological Modelling" />
+  <meta property="og:title" content="Chapter 12 Class 11: 03 11 2020 ANCOVA with different slopes: interactions | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 11 Class 11: 03 11 2020 ANCOVA with different slopes: interactions | Notes for Ecological Modelling" />
+  <meta name="twitter:title" content="Chapter 12 Class 11: 03 11 2020 ANCOVA with different slopes: interactions | Notes for Ecological Modelling" />
   
   <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2020-11-13" />
+<meta name="date" content="2020-11-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,59 +132,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>2</b> Using R</a></li>
-<li class="chapter" data-level="3" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>3</b> Preamble</a></li>
-<li class="chapter" data-level="4" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>4</b> About regression</a><ul>
-<li class="chapter" data-level="4.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>4.1</b> What is a regression?</a></li>
-<li class="chapter" data-level="4.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>4.2</b> The general linear model</a></li>
+<li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
+<li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
+<li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
+<li class="chapter" data-level="5" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>5</b> About regression</a><ul>
+<li class="chapter" data-level="5.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>5.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="5.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>5.2</b> The general linear model</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>5</b> Hands On Regression</a><ul>
-<li class="chapter" data-level="5.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>5.1</b> The assumptions are on the residuals, not the data</a></li>
+<li class="chapter" data-level="6" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>6</b> Hands On Regression</a><ul>
+<li class="chapter" data-level="6.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>6.1</b> The assumptions are on the residuals, not the data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>6</b> Class 6 13 10 2020</a><ul>
-<li class="chapter" data-level="6.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>6.1</b> Implementing a regression</a></li>
-<li class="chapter" data-level="6.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>6.2</b> Simulating regression data</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>6.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+<li class="chapter" data-level="7" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>7</b> Class 6 13 10 2020</a><ul>
+<li class="chapter" data-level="7.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>7.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="7.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>7.2</b> Simulating regression data</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>7.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>7</b> Class 7 14 10 2020</a><ul>
-<li class="chapter" data-level="7.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>7.1</b> Task 1</a></li>
-<li class="chapter" data-level="7.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>7.2</b> Task 2</a></li>
+<li class="chapter" data-level="8" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>8</b> Class 7 14 10 2020</a><ul>
+<li class="chapter" data-level="8.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>8.1</b> Task 1</a></li>
+<li class="chapter" data-level="8.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>8.2</b> Task 2</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>8</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
-<li class="chapter" data-level="8.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>8.1</b> The t-test</a></li>
-<li class="chapter" data-level="8.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>8.2</b> ANOVA</a></li>
+<li class="chapter" data-level="9" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>9</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
+<li class="chapter" data-level="9.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>9.1</b> The t-test</a></li>
+<li class="chapter" data-level="9.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>9.2</b> ANOVA</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>9</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
-<li class="chapter" data-level="9.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>9.1</b> Common slope, different intercepts per treatment</a></li>
+<li class="chapter" data-level="10" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>10</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
+<li class="chapter" data-level="10.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>10.1</b> Common slope, different intercepts per treatment</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>10</b> Class 10: 27 10 2020</a><ul>
-<li class="chapter" data-level="10.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>10.1</b> Same story, another spin</a></li>
+<li class="chapter" data-level="11" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>11</b> Class 10: 27 10 2020</a><ul>
+<li class="chapter" data-level="11.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>11.1</b> Same story, another spin</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>11</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a><ul>
-<li class="chapter" data-level="11.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>11.1</b> About interactions</a></li>
-<li class="chapter" data-level="11.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>11.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
-<li class="chapter" data-level="11.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>11.3</b> Task 2 Modeling a data set</a></li>
+<li class="chapter" data-level="12" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>12</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a><ul>
+<li class="chapter" data-level="12.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>12.1</b> About interactions</a></li>
+<li class="chapter" data-level="12.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>12.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="12.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>12.3</b> Task 2 Modeling a data set</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>12</b> Class 12: 04 11 2020 Interactions between continous covariates</a><ul>
-<li class="chapter" data-level="12.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>12.1</b> Larger order interactions</a></li>
+<li class="chapter" data-level="13" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>13</b> Class 12: 04 11 2020 Interactions between continous covariates</a><ul>
+<li class="chapter" data-level="13.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>13.1</b> Larger order interactions</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>13</b> Conlusion on linear regression</a><ul>
-<li class="chapter" data-level="13.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>13.1</b> Conclusion</a></li>
+<li class="chapter" data-level="14" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>14</b> Conlusion on linear regression</a><ul>
+<li class="chapter" data-level="14.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>14.1</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>14</b> Class 13: 10 11 2020 Maximum likelihood and all that</a><ul>
-<li class="chapter" data-level="14.1" data-path="aula12.html"><a href="aula12.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>14.1</b> Maximizing a likelihood algebraically</a></li>
-<li class="chapter" data-level="14.2" data-path="aula12.html"><a href="aula12.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>14.2</b> Numerically Maximizing a likelihood</a></li>
-<li class="chapter" data-level="14.3" data-path="aula12.html"><a href="aula12.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>14.3</b> The case of a Gaussian</a></li>
-<li class="chapter" data-level="14.4" data-path="aula12.html"><a href="aula12.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>14.4</b> The case of a linear model</a></li>
-<li class="chapter" data-level="14.5" data-path="aula12.html"><a href="aula12.html#the-really-interesting-case"><i class="fa fa-check"></i><b>14.5</b> The really interesting case</a></li>
-<li class="chapter" data-level="14.6" data-path="aula12.html"><a href="aula12.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>14.6</b> Likelihood, above and beyond</a></li>
+<li class="chapter" data-level="15" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>15</b> Class 13: 10 11 2020 Maximum likelihood and all that</a><ul>
+<li class="chapter" data-level="15.1" data-path="aula12.html"><a href="aula12.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>15.1</b> Maximizing a likelihood algebraically</a></li>
+<li class="chapter" data-level="15.2" data-path="aula12.html"><a href="aula12.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>15.2</b> Numerically Maximizing a likelihood</a></li>
+<li class="chapter" data-level="15.3" data-path="aula12.html"><a href="aula12.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>15.3</b> The case of a Gaussian</a></li>
+<li class="chapter" data-level="15.4" data-path="aula12.html"><a href="aula12.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>15.4</b> The case of a linear model</a></li>
+<li class="chapter" data-level="15.5" data-path="aula12.html"><a href="aula12.html#the-really-interesting-case"><i class="fa fa-check"></i><b>15.5</b> The really interesting case</a></li>
+<li class="chapter" data-level="15.6" data-path="aula12.html"><a href="aula12.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>15.6</b> Likelihood, above and beyond</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>15</b> Class 14: 10 10 2020 GLMs</a></li>
-<li class="chapter" data-level="16" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>16</b> Class 15: 11 11 2020</a></li>
-<li class="chapter" data-level="17" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>17</b> Class 16: 17 11 2020</a></li>
-<li class="chapter" data-level="18" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>18</b> Final Words</a></li>
-<li class="chapter" data-level="19" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>19</b> Aknowledgments</a></li>
+<li class="chapter" data-level="16" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>16</b> Class 14: 10 10 2020 GLMs</a><ul>
+<li class="chapter" data-level="16.1" data-path="aula14.html"><a href="aula14.html#what-are-glms"><i class="fa fa-check"></i><b>16.1</b> What are GLMs</a></li>
+<li class="chapter" data-level="16.2" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>16.2</b> An example analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>17</b> Class 15: 11 11 2020</a></li>
+<li class="chapter" data-level="18" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>18</b> Class 16: 17 11 2020</a></li>
+<li class="chapter" data-level="19" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>19</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -207,9 +210,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="aula11" class="section level1">
-<h1><span class="header-section-number">Chapter 11</span> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</h1>
+<h1><span class="header-section-number">Chapter 12</span> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</h1>
 <div id="about-interactions" class="section level2">
-<h2><span class="header-section-number">11.1</span> About interactions</h2>
+<h2><span class="header-section-number">12.1</span> About interactions</h2>
 <p>Interactions are useful when the influence of a covariate on the response variable depends on the level of a second covariate. As an example, consider two different diets that we are trying to assess the efficacy on terms of weight gain. We record weight gains for both sexes.</p>
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1"><span class="co">#--------------------------------------------------------</span></a>
 <a class="sourceLine" id="cb220-2" title="2"><span class="co">#Interactions</span></a>
@@ -221,7 +224,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb220-8" title="8">dieta=<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;Controlo&quot;</span>,<span class="st">&quot;Nova&quot;</span>),<span class="dt">times=</span>n)</a>
 <a class="sourceLine" id="cb220-9" title="9">ys=<span class="dv">10</span><span class="op">+</span><span class="dv">3</span><span class="op">*</span>(sexo<span class="op">==</span><span class="st">&quot;M&quot;</span>)<span class="op">+</span><span class="dv">2</span><span class="op">*</span>(dieta<span class="op">==</span><span class="st">&quot;Nova&quot;</span>)<span class="op">-</span><span class="dv">4</span><span class="op">*</span>(sexo<span class="op">==</span><span class="st">&quot;M&quot;</span>)<span class="op">*</span>(dieta<span class="op">==</span><span class="st">&quot;Nova&quot;</span>)<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">2</span><span class="op">*</span>n,<span class="dt">mean=</span><span class="dv">0</span>,<span class="dt">sd=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb220-10" title="10"><span class="kw">plot</span>(ys<span class="op">~</span><span class="kw">as.factor</span>(<span class="kw">paste0</span>(sexo,dieta)))</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a11.1-1.png" width="672" /></p>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" title="1">lmSDi=<span class="kw">lm</span>(ys<span class="op">~</span>sexo<span class="op">*</span>dieta)</a>
 <a class="sourceLine" id="cb221-2" title="2"><span class="kw">summary</span>(lmSDi)</a></code></pre></div>
 <pre><code>## 
@@ -247,7 +250,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</a>
 <a class="sourceLine" id="cb223-2" title="2"><span class="kw">interaction.plot</span>(<span class="dt">x.factor=</span>sexo, <span class="dt">trace.factor=</span>dieta, <span class="dt">response=</span>ys)</a>
 <a class="sourceLine" id="cb223-3" title="3"><span class="kw">interaction.plot</span>(<span class="dt">x.factor=</span>dieta, <span class="dt">trace.factor=</span>sexo, <span class="dt">response=</span>ys)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-119-2.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a11.1-2.png" width="672" /></p>
 <p>We can see what these interaction plots might look like for different realities.</p>
 <div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" title="1"><span class="co">#interaction plots</span></a>
 <a class="sourceLine" id="cb224-2" title="2"><span class="kw">set.seed</span>(<span class="dv">121</span>)</a>
@@ -269,11 +272,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb224-18" title="18">ys=<span class="dv">10</span><span class="op">+</span><span class="dv">3</span><span class="op">*</span>(sexo<span class="op">==</span><span class="st">&quot;M&quot;</span>)<span class="op">+</span><span class="dv">2</span><span class="op">*</span>(dieta<span class="op">==</span><span class="st">&quot;Nova&quot;</span>)<span class="op">-</span><span class="dv">2</span><span class="op">*</span>(sexo<span class="op">==</span><span class="st">&quot;M&quot;</span>)<span class="op">*</span>(dieta<span class="op">==</span><span class="st">&quot;Nova&quot;</span>)<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">2</span><span class="op">*</span>n,<span class="dt">mean=</span><span class="dv">0</span>,<span class="dt">sd=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb224-19" title="19"><span class="kw">interaction.plot</span>(<span class="dt">x.factor=</span>sexo, <span class="dt">trace.factor=</span>dieta, <span class="dt">response=</span>ys)</a>
 <a class="sourceLine" id="cb224-20" title="20"><span class="kw">interaction.plot</span>(<span class="dt">x.factor=</span>dieta, <span class="dt">trace.factor=</span>sexo, <span class="dt">response=</span>ys)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a11.2-1.png" width="672" /></p>
 </div>
 <div id="task-1-implementing-the-ancova-with-different-slopes" class="section level2">
-<h2><span class="header-section-number">11.2</span> Task 1 Implementing the ANCOVA with different slopes</h2>
-<p>The previous model, explored in Chapters <a href="aula9.html#aula9">9</a> and <a href="aula10.html#aula10">10</a>, assumed that the slopes were the same across the different groups. But that might not be the case in many scenarios.</p>
+<h2><span class="header-section-number">12.2</span> Task 1 Implementing the ANCOVA with different slopes</h2>
+<p>The previous model, explored in Chapters <a href="aula9.html#aula9">10</a> and <a href="aula10.html#aula10">11</a>, assumed that the slopes were the same across the different groups. But that might not be the case in many scenarios.</p>
 <p>What would change if they were different? We extend the previous case to the scenario where the slope of the relationship is also different per treatment.</p>
 <p>We simulate treatments and data, just in the same way as before, but this gives us the option to change things later in this chapter only, and do it separately if we want.</p>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" title="1"><span class="co">#----------------------------------------------------------------</span></a>
@@ -300,8 +303,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb228-4" title="4"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">8</span>,<span class="dv">4</span><span class="fl">+0.5</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb228-5" title="5"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">10</span>,<span class="dv">4</span><span class="op">+</span><span class="dv">1</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb228-6" title="6"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">12</span>,<span class="dv">4</span><span class="op">+</span><span class="dv">2</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">4</span>)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
-<p>As before, it is actually not that easy to confirm the slopes and intercepts are different, as the intercept is not shown in the above plot. We can zoom out the plot to show us the intercepts (Figure <a href="aula11.html#fig:FCR">11.1</a>), which are by definition, where the lines cross the vertical dashed line, i.e., when x=0 in the Cartesian referential.</p>
+<p><img src="ECOMODbook_files/figure-html/a11.6-1.png" width="672" /></p>
+<p>As before, it is actually not that easy to confirm the slopes and intercepts are different, as the intercept is not shown in the above plot. We can zoom out the plot to show us the intercepts (Figure <a href="aula11.html#fig:FCR">12.1</a>), which are by definition, where the lines cross the vertical dashed line, i.e., when x=0 in the Cartesian referential.</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" title="1"><span class="kw">plot</span>(xs,ys,<span class="dt">col=</span>cores,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">20</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">150</span>))</a>
 <a class="sourceLine" id="cb229-2" title="2"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">5</span>,<span class="dv">4</span><span class="fl">+0.2</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb229-3" title="3"><span class="kw">abline</span>(<span class="dv">3</span><span class="op">+</span><span class="dv">8</span>,<span class="dv">4</span><span class="fl">+0.5</span>,<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">col=</span><span class="dv">2</span>)</a>
@@ -311,7 +314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="figure" style="text-align: center"><span id="fig:FCR"></span>
 <img src="ECOMODbook_files/figure-html/FCR-1.png" alt="Zooming out on the data so that the (fifferent) intercepts are visible" width="80%" />
 <p class="caption">
-Figure 11.1: Zooming out on the data so that the (fifferent) intercepts are visible
+Figure 12.1: Zooming out on the data so that the (fifferent) intercepts are visible
 </p>
 </div>
 <p>Now, we implement the ANCOVA linear model, but with an <em>interaction</em> term between the <code>type</code> and <code>xs</code>. An interaction between two variables, say <code>A</code> and <code>B</code>, is defined in R syntax as <code>A*B</code>, and so for the corresponding linear model we specify</p>
@@ -407,7 +410,7 @@ Figure 11.1: Zooming out on the data so that the (fifferent) intercepts are visi
 <a class="sourceLine" id="cb247-19" title="19">lm.ancova2<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">+</span>lm.ancova2<span class="op">$</span>coefficients[<span class="dv">8</span>],<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb247-20" title="20"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="dt">legend =</span> tr,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="dt">inset=</span><span class="fl">0.05</span>)</a>
 <a class="sourceLine" id="cb247-21" title="21"><span class="kw">legend</span>(<span class="st">&quot;bottomright&quot;</span>,<span class="dt">legend =</span><span class="kw">paste</span>(<span class="st">&quot;Estimated&quot;</span>,tr),<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="dt">inset=</span><span class="fl">0.05</span>)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-132-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a11.14-1.png" width="672" /></p>
 <p>Remember, if this was a real analysis, you would not know the truth, so at best, you would be able to see the predicted lines, but not the real lines, just as in the plot below</p>
 <div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" title="1"><span class="co"># In real life, we only see this</span></a>
 <a class="sourceLine" id="cb248-2" title="2"><span class="kw">plot</span>(xs,ys,<span class="dt">col=</span>cores)</a>
@@ -417,7 +420,7 @@ Figure 11.1: Zooming out on the data so that the (fifferent) intercepts are visi
 <a class="sourceLine" id="cb248-6" title="6"><span class="kw">abline</span>(lm.ancova2<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lm.ancova2<span class="op">$</span>coefficients[<span class="dv">4</span>],lm.ancova2<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">+</span>lm.ancova2<span class="op">$</span>coefficients[<span class="dv">7</span>],<span class="dt">lwd=</span><span class="dv">1</span>,<span class="dt">col=</span><span class="dv">3</span>,<span class="dt">lty=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb248-7" title="7"><span class="kw">abline</span>(lm.ancova2<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lm.ancova2<span class="op">$</span>coefficients[<span class="dv">5</span>],lm.ancova2<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">+</span>lm.ancova2<span class="op">$</span>coefficients[<span class="dv">8</span>],<span class="dt">lwd=</span><span class="dv">1</span>,<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lty=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb248-8" title="8"><span class="kw">legend</span>(<span class="st">&quot;bottomright&quot;</span>,<span class="dt">legend =</span><span class="kw">paste</span>(<span class="st">&quot;Estimated&quot;</span>,tr),<span class="dt">lwd=</span><span class="dv">1</span>,<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,<span class="dt">inset=</span><span class="fl">0.05</span>)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a11.15-1.png" width="672" /></p>
 <p>It is interesting to note that the slopes were in general closer to the true values than the intercepts.</p>
 <div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" title="1"><span class="kw">library</span>(knitr)</a>
 <a class="sourceLine" id="cb249-2" title="2"><span class="co">#true intercepts</span></a>
@@ -484,12 +487,12 @@ Figure 11.1: Zooming out on the data so that the (fifferent) intercepts are visi
 </tr>
 </tbody>
 </table>
-<p>Can you think about an intuitive reason for that being the case? The answer lies in figure <a href="aula11.html#fig:FCR">11.1</a>. There is no data near the intercept, so there is actually more information abot the slope than about the intercept. Things could have been different if the data for the continous response was also available around the value 0.</p>
+<p>Can you think about an intuitive reason for that being the case? The answer lies in figure <a href="aula11.html#fig:FCR">12.1</a>. There is no data near the intercept, so there is actually more information abot the slope than about the intercept. Things could have been different if the data for the continous response was also available around the value 0.</p>
 </div>
 <div id="task-2-modeling-a-data-set" class="section level2">
-<h2><span class="header-section-number">11.3</span> Task 2 Modeling a data set</h2>
+<h2><span class="header-section-number">12.3</span> Task 2 Modeling a data set</h2>
 <p>In a given dataset we might want to explain a continous variable as a function of a couple of explanatory variables, specifically a continous variable and a factor. As we have seen before, this could be attempted via an ANCOVA, with or without an interaction term.Therefore, a relevant question might be to know if the interaction is needed or not, or in other words, if the different lines expressing the relationship between the countinous covariate and the response might be have different slopes per level of the factor covariate, or if on the other hand, a comon slope might be possible, with different per level of the factor covariate. A third even simpler model is the one where the factor covariate is not relevant at all, or, in other words, single line would be the most parcimonious way to model the data.</p>
-<p>We illustrate that with the data set <code>data4lines.csv</code> that we considered before in chapter <a href="aula7.html#aula7">7</a>, which was created using the website <a href="https://drawdata.xyz/" class="uri">https://drawdata.xyz/</a>.</p>
+<p>We illustrate that with the data set <code>data4lines.csv</code> that we considered before in chapter <a href="aula7.html#aula7">8</a>, which was created using the website <a href="https://drawdata.xyz/" class="uri">https://drawdata.xyz/</a>.</p>
 <p>To make our story a bit more intersting we again come up with a narrative. A biologist is interested in estimating what might have been the weight of a fish for which he found an operculum in the in the stomach of a dead otter (<em>Lutra lutra</em>). The operculum was 300 mm in diameter. He knows the fish was a barbel (genera: <em>Barbus</em>). We will call this biologist Carlos. His wife is called Conceição, and Conceição enjoys thinking about hard questions. She thinks <em>stongly</em> about all the hard questions, and when she does her eyebrows raise in a way that Carlos fears. Carlos found the dead otter in the margins of the Guadiana river in Portugal. It seems hard to believe that the otter might have eaten such a large fish. It might have been the largest fish ever eaten by a <em>Lutra lutra</em>, which the biologist would love to report in the next Ichtiology congress. To answer his question he visited the museum and he was able to find a sample of fish from the genus <em>Barbus</em>. Therefore he labouriosly weighed fish and measured opeculuns… The resulting data are our data!</p>
 <p>Carlos reads the data in</p>
 <div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" title="1">folder&lt;-<span class="st">&quot;extfiles/&quot;</span></a>
@@ -498,7 +501,7 @@ Figure 11.1: Zooming out on the data so that the (fifferent) intercepts are visi
 <a class="sourceLine" id="cb250-4" title="4">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(d4l)</a></code></pre></div>
 <p>He plots the data ad he sees a pattern that seems to be somewaht linear. He knows about linear regression and he fits a line to the data, and then shows the resulting plot with data, model and predictions to Conceição.</p>
 <div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" title="1">lm0 &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x,<span class="dt">data=</span>d4l)</a></code></pre></div>
-<p>Carlos is winning, claiming that unfortunately, he suspects that the fish was not the largest ever reported. A Spanish ictiologist reported an otter having eaten a fish with 220 grams. And with his model, he predicts the opperculum belonged to a fish with a weight of about 213.7 gr (<a href="aula11.html#fig:wod">11.2</a>).</p>
+<p>Carlos is winning, claiming that unfortunately, he suspects that the fish was not the largest ever reported. A Spanish ictiologist reported an otter having eaten a fish with 220 grams. And with his model, he predicts the opperculum belonged to a fish with a weight of about 213.7 gr (<a href="aula11.html#fig:wod">12.2</a>).</p>
 <div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" title="1"><span class="co">#plot all the data</span></a>
 <a class="sourceLine" id="cb252-2" title="2"><span class="kw">plot</span>(y<span class="op">~</span>x,<span class="dt">xlab=</span> <span class="st">&quot;Operculum diameters (mm)&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Fish length (gr)&quot;</span>,<span class="dt">data=</span>d4l)</a>
 <a class="sourceLine" id="cb252-3" title="3"><span class="kw">abline</span>(lm0,<span class="dt">lty=</span><span class="dv">1</span>,<span class="dt">lwd=</span><span class="dv">3</span>)</a>
@@ -506,12 +509,12 @@ Figure 11.1: Zooming out on the data so that the (fifferent) intercepts are visi
 <div class="figure" style="text-align: center"><span id="fig:wod"></span>
 <img src="ECOMODbook_files/figure-html/wod-1.png" alt="Pooled model of fish weight as a function of operculum diameter. Dashed lines represent predictions for a fish with a 300 mm operculum." width="80%" />
 <p class="caption">
-Figure 11.2: Pooled model of fish weight as a function of operculum diameter. Dashed lines represent predictions for a fish with a 300 mm operculum.
+Figure 12.2: Pooled model of fish weight as a function of operculum diameter. Dashed lines represent predictions for a fish with a 300 mm operculum.
 </p>
 </div>
 <p>Conceição looks at the plots, wonders once again why she married Carlos, and asks: “What was the actual species of the operculum in your dead otter? And by the way, please, for the last time, can you put the dead otter in the garbage? It is the second time that I confuse it with a rabbit in the freezer…! One day you might have a bad surprise for dinner!”. Carlos thinks about this as says, it was <em>Barbus sclateri</em>. And Maria says: “Well, is the relationship between operculum diameter and fish length the same for all the species?”. Carlos - perhaps not the sharpest tool in the box as we by now have come to realize - nonetheless manages to realize what Conceição is asking about. He knows the animals in the museum were identified to the species level, and he redoes the plot coloring the points by species.</p>
 <div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" title="1"><span class="kw">plot</span>(y<span class="op">~</span>x,<span class="dt">col=</span><span class="kw">as.numeric</span>(<span class="kw">as.factor</span>(z)),<span class="dt">data=</span>d4l,<span class="dt">pch=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-138-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a11.20-1.png" width="672" /></p>
 <p>And the question that now arises in Carlos mind is, what might the best model to represent this data set, where he has measurements of two numeric variables, <code>weight~diameter</code> across 4 groups of observations, defined by <code>species</code>.</p>
 <p>Carlos decides he can fit a linear model with both <code>x</code> and <code>z</code> as independent variables, without an interaction. Note this is the conventional ANCOVA model, just as we did before.</p>
 <div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb254-1" title="1"><span class="co">#fit model per group</span></a>
@@ -589,7 +592,7 @@ Figure 11.2: Pooled model of fish weight as a function of operculum diameter. Da
 <a class="sourceLine" id="cb260-13" title="13"><span class="kw">abline</span>(lmANC<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lmANC<span class="op">$</span>coefficients[<span class="dv">3</span>],lmANC<span class="op">$</span>coefficients[<span class="dv">2</span>],<span class="dt">col=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb260-14" title="14"><span class="kw">abline</span>(lmANC<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lmANC<span class="op">$</span>coefficients[<span class="dv">4</span>],lmANC<span class="op">$</span>coefficients[<span class="dv">2</span>],<span class="dt">col=</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb260-15" title="15"><span class="kw">abline</span>(lmANC<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lmANC<span class="op">$</span>coefficients[<span class="dv">5</span>],lmANC<span class="op">$</span>coefficients[<span class="dv">2</span>],<span class="dt">col=</span><span class="dv">4</span>)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-142-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a11.24-1.png" width="672" /></p>
 <p>Now we can remove the independent lines (to clean it up a bit!) and just leave the no interaction model estimated values, then add the estimated lines from the interaction model below. Remember, AIC says its the ones from the interactioon model that are the best representation of the data.</p>
 <div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" title="1"><span class="co">#plot all the data</span></a>
 <a class="sourceLine" id="cb261-2" title="2"><span class="kw">plot</span>(y<span class="op">~</span>x,<span class="dt">col=</span><span class="kw">as.numeric</span>(<span class="kw">as.factor</span>(z)),<span class="dt">data=</span>d4l,<span class="dt">pch=</span><span class="dv">1</span>)</a>
@@ -608,7 +611,7 @@ Figure 11.2: Pooled model of fish weight as a function of operculum diameter. Da
 <a class="sourceLine" id="cb261-15" title="15"><span class="kw">abline</span>(lmlinesI<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">3</span>],lmlinesI<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">6</span>],<span class="dt">col=</span><span class="dv">2</span>,<span class="dt">lty=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb261-16" title="16"><span class="kw">abline</span>(lmlinesI<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">4</span>],lmlinesI<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">7</span>],<span class="dt">col=</span><span class="dv">3</span>,<span class="dt">lty=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb261-17" title="17"><span class="kw">abline</span>(lmlinesI<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">5</span>],lmlinesI<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">8</span>],<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lty=</span><span class="dv">5</span>)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a11.25-1.png" width="672" /></p>
 <p>Likewise, we could compare the lines from independent lines to those of the interaction model.</p>
 <div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb262-1" title="1"><span class="co">#plot all the data</span></a>
 <a class="sourceLine" id="cb262-2" title="2"><span class="kw">plot</span>(y<span class="op">~</span>x,<span class="dt">col=</span><span class="kw">as.numeric</span>(<span class="kw">as.factor</span>(z)),<span class="dt">data=</span>d4l,<span class="dt">pch=</span><span class="dv">1</span>)</a>
@@ -622,7 +625,7 @@ Figure 11.2: Pooled model of fish weight as a function of operculum diameter. Da
 <a class="sourceLine" id="cb262-10" title="10"><span class="kw">abline</span>(lmlinesI<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">3</span>],lmlinesI<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">6</span>],<span class="dt">col=</span><span class="dv">2</span>,<span class="dt">lty=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb262-11" title="11"><span class="kw">abline</span>(lmlinesI<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">4</span>],lmlinesI<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">7</span>],<span class="dt">col=</span><span class="dv">3</span>,<span class="dt">lty=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb262-12" title="12"><span class="kw">abline</span>(lmlinesI<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">5</span>],lmlinesI<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">8</span>],<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lty=</span><span class="dv">5</span>)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/a11.26-1.png" width="672" /></p>
 <p>It is interesting to see that they are not very different, which is perhaps surprising but… actually… not surprising. Both use exaclty 8 parameters to describe the data… it’s the same thing!!! Linear models are cool :)</p>
 <p>OK, I have completely forgoten about Carlos and Conceição… or maybe it’s too late and I am just sleepy. But if the right model for <em>Barbus sclatery</em>, which happens to correspond to the “green” species, is the one based on the interaction term, then… the fish weight might be 283.6, as shown below.</p>
 <p>Carlos might have something to present at the congress after all! He goes to sleep, happy. As he is starting to dream with his “best talk” award he still manages to hear Conceição saying something in the distance like “… have you… considered… variability … prediction… maybe not realy larger than 220 gr…”. The last thought that goes through his mind before the dream turns into a nightmare where he is on that congress naked is… “Why did I married that woman”?</p>
@@ -634,8 +637,7 @@ Figure 11.2: Pooled model of fish weight as a function of operculum diameter. Da
 <a class="sourceLine" id="cb263-6" title="6"><span class="kw">abline</span>(lmlinesI<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">4</span>],lmlinesI<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">7</span>],<span class="dt">col=</span><span class="dv">3</span>,<span class="dt">lty=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb263-7" title="7"><span class="kw">abline</span>(lmlinesI<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">5</span>],lmlinesI<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">8</span>],<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lty=</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb263-8" title="8"><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">300</span>,<span class="dt">h=</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">1</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">4</span>]<span class="op">+</span>(lmlinesI<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">+</span>lmlinesI<span class="op">$</span>coefficients[<span class="dv">7</span>])<span class="op">*</span>sizeo,<span class="dt">col=</span><span class="st">&quot;green&quot;</span>)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
-<p>FFS !</p>
+<p><img src="ECOMODbook_files/figure-html/a11.27-1.png" width="672" /></p>
 
 </div>
 </div>

@@ -1,0 +1,22 @@
+# Aknowledgments
+
+A number of colleagues have contributed with comments, upfront anf foremost Susana França and Ana Sofia Reboleira, my partners in Crime at FCUL, co-teachers for Modelação Ecológica and Ecologia Numérica at FCUL, the courses that inspired tis manuscript.
+
+To all my students in Ecologica Numérica and Modelação Ecológica 2020/2021 which questions every time make me realize that what an ecological statistician might think is straightfoward is far from it for a biologist. Without aknowledging that gap, that difference in the way brains are wired, the efforts to convey statistics to biologists are flawed from the beggining.Some students have contributed with direct input on requesting clarifications and typos: those include Diogo Raposo.
+
+To Dinis Pestana, the person that first made me believe that it was possible to make the biology to statistics transition.
+
+To Russel-Alpizar Jara for incintivating me to go to St Andrews, which I see as one of the epicenters of ecologicasl statistics in the 20th century. I was so fortunate to end there and be able to be part of the fantastic family of CREEMinals. 
+
+I have been fortunate to have exposed to the minds of a set of amazing scientists and statisticians.
+
+To Steve Buckland, my PhD Supervisor at CREEM that opened to me the world of distance sampling. Steve was the best supervisor I could have asked for. Not only for the support provided, but also for all the opportunites he exposed me to during that period. Teaching in CREEM's Distance Sampling workshops during my PhD years was possibly the source of many of the great things that happenned after. Point in case all the polar bear work that has been the most amazing work-life experience.
+
+To David Borchers, the most amazing statistical brain I have ever had the pleasure to meet and work with. A generous brain that I have often picked up on, always generous with his brilliant contributions. If I could pick a brain for work, I'd pick David's!
+
+To Eric Rexstad, with whom I was fortunate to share an office during his sabattical at CREEM many years ago. As I was starting a PhD his constant challenges, tips and thoughts made me realize what kind of scientist I would like to become one day. Not there yet, but still trying!
+
+To Len Thomas, an office mate at first, a colleague after, as he claims wasting my time with bad ideas during my Phd (not true!), my boss since I had a PhD and a good friend. If Carlsberg made bosses, Len would be their poster child ;) 
+
+
+

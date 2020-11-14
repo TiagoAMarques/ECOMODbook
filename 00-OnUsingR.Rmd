@@ -4,7 +4,7 @@ To work through this book it is fundamental that you know your way around R. I r
 
 R might seem frightening at first, but even monsters can make something look more pleasant if you look from the right angle. It is all a matter of perspective :) So I will use the help of some monsters here to convince you that this is the right thing to do!
 
-The amazing images in this chapter are all by Allison Horst, Artwork by @allison_horst, and I recomend you visit Allison's github repository filled up with amazing stats and maths illustrations (https://github.com/allisonhorst/stats-illustrations), including so many amazing resources to make R look less frightening. 
+The amazing images in this chapter are all by Allison Horst, Artwork by '@'allison_horst, and I recomend you visit Allison's github repository filled up with amazing stats and maths illustrations (https://github.com/allisonhorst/stats-illustrations), including so many amazing resources to make R look less frightening. To be honest, this chapter is actually also an homage to Allison's work.
 
 ![Illustrating R Monsters: Artwork by '@'allison_horst](extfiles/monsteRs.jpg)
 
@@ -36,4 +36,6 @@ Actually, since this book is a bookdown book, you can easily look at it too. It 
 
 https://github.com/TiagoAMarques/ECOMODbook
 
-Go out and explore, litle grasshoper.
+Go out and explore, litle grasshoper. You will conquer many great things if you do. You will become a code giant one day. But never forget, you need to be thankful to an entire community, and you are standing on the shoulders of giants!
+
+![Illustrating standing on the shoulders of giants: Artwork by '@'allison_horst](extfiles/code_hero.jpg)

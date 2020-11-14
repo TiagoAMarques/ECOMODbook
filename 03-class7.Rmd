@@ -9,7 +9,7 @@ The first task the students were faced was to use some code to explore, by simul
 
 The guidelines provided were: "Using the code below, and while changing the `seed` (`******` to begin with, so the code does not run as is!), explore how changing the parameters and the error leads to different amounts of type I and type II errors."
 
-```{r,eval=FALSE}
+```{r a7.1,eval=FALSE}
 # xs1 and xs2 wrong - type II error, xs3 and xs4 ok
 seed<-******
 set.seed(seed)
@@ -37,7 +37,7 @@ The first thing to notice is that the model we simulate from only includes `xs1`
 So we try different values for the seed and check what happens, Try `seed<-1`
 
 
-```{r,eval=FALSE}
+```{r a7.2,eval=FALSE}
 seed<-1
 set.seed(seed)
 #define parameters
@@ -58,7 +58,7 @@ summary(lm(ys~xs1+xs2+xs3+xs4))
 All good, no errors. That is, `xs1` and `xs2` are considered statistically significant at th 5% level and `xs3` and `xs4` are not found relevant to explain the response. Now, we keep changing `seed`
 
 
-```{r,eval=FALSE}
+```{r a7.3,eval=FALSE}
 seed<-4
 set.seed(seed)
 #define parameters
@@ -78,7 +78,7 @@ summary(lm(ys~xs1+xs2+xs3+xs4))
 
 We find our first type I error, `xs4` is found statistically significant, but we know it has no effect on the response. The same happens with `seed` being e.g. 9, 10. When we try `seed <- 11` we get another type I error, this time on `xs4` 
 
-```{r}
+```{r a7.4}
 seed<-11
 set.seed(seed)
 #define parameters
@@ -98,7 +98,7 @@ summary(lm(ys~xs1+xs2+xs3+xs4))
 
 However, even after several runs, we never make a type II error. That must mean this setting has a large power, i.e. the ability to detect a true effect when one exists. Well, there are many ways to decrease power, like having a smaller sample size, increase the error or lower the true effect. Let's try to increase the error, instead of the 4 used above, let's pump it up10 fold to 40
 
-```{r}
+```{r a7.5}
 seed<-100
 set.seed(seed)
 #define parameters
@@ -118,7 +118,7 @@ summary(lm(ys~xs1+xs2+xs3+xs4))
 
 That was an overkill, now there is so much noise must seeds we use do not allow us to find an effect, let's cut that in half to 20
 
-```{r}
+```{r a7.6}
 seed<-100
 set.seed(seed)
 #define parameters
@@ -138,7 +138,7 @@ summary(lm(ys~xs1+xs2+xs3+xs4))
 
 back to all correct. Now, let's change seed again
 
-```{r}
+```{r a7.7}
 seed<-103
 set.seed(seed)
 #define parameters
@@ -162,7 +162,7 @@ $$y=\beta_0+\beta_1 xs_1+\beta_2 xs2$$
 
 That is the luxury of simulation, allowing you to test scenarios where "reality" is known, hence evaluating methods performance. 
 
-```{r}
+```{r a7.8}
 folder<-"extfiles/"
 #folder<-"../Aula7 14 10 2020/"
 d4l <- read.csv(file=paste0(folder,"data4lines.csv"))
@@ -180,7 +180,7 @@ The data was simulated via this website: https://drawdata.xyz/ and was named `da
 
 We begin by reading the data in and plot it
 
-```{r}
+```{r a7.9}
 #read the data
 #folder<-"../Aula7 14 10 2020/"
 folder<-"extfiles/"
@@ -193,7 +193,7 @@ Now, to turn this a bit more interesting, we come up with a narrative.
 
 These correspond to observations from weights and lenghts of a sample of animals, fish from the species *Fishus inventadicus*. We could fit a regression line to this data and see if we can predict weight from length
 
-```{r}
+```{r a7.10}
 #plot all the data
 plot(y~x,data=data4lines)
 #fit model to pooled data
@@ -206,7 +206,7 @@ and it looks like we can indeed predict the weight of the species from its lengt
 
 Now, the plot thickens. These animals actually came from 4 different museums, and are assumed to be the same species. However, a scientis decides to look at wether there are differences in the data from the 4 museums. So he colours the data by museum
 
-```{r}
+```{r a7.11}
 #plot all the data
 plot(y~x,col=as.numeric(as.factor(z)),data=data4lines,pch=1)
 legend("topleft",inset=0.05,legend=letters[1:4],col=1:4,pch=1)
@@ -223,7 +223,7 @@ $$y=\beta_0+\beta_1 \times length +\beta_2 \times museum$$
 
 And so he does and plots it
 
-```{r}
+```{r a7.12}
 #fit model per group
 lmlines<-lm(y~x+z,data=data4lines)
 summary(lmlines)
@@ -248,7 +248,7 @@ and so, from the above output, that equates to `y=lmlines$coefficients[1]+lmline
 
 So now we can add all these estimated regression lines to the plot
 
-```{r}
+```{r a7.13}
 #plot all
 plot(y~x,col=z,data=data4lines)
 legend("topleft",inset=0.05,legend=c(LETTERS[1:4],"all"),col=c(1:4,1),lty=c(rep(1,4),2),lwd=c(rep(1,4),3))
@@ -262,7 +262,7 @@ abline(lmlines$coefficients[1]+lmlines$coefficients[5],lmlines$coefficients[2],c
 
 note that, not surprisingly, all these lines have the same slope. Or in other words, the model we considered assumes that the slope of the model is the same across museums (which, remember, we know if not true!). We can easily check that the intercepts (i.e. where the lines cross when length=x=0) of all lines are indeed easy to get from the model's output
 
-```{r}
+```{r a7.14}
 
 #plot all
 plot(y~x,xlim=c(-10,700),ylim=c(0,450),col=z,data=data4lines)
@@ -284,7 +284,7 @@ abline(h=45.51813+22.82412,lty=2,col=4)
 
 Now, the smart biologist then says that he could also fit a separate line to each museum's data. And so he does, and that looks like this:
 
-```{r}
+```{r a7.15}
 #plot all the data
 plot(y~x,col=as.numeric(as.factor(z)),data=data4lines,pch=1)
 #completely independet regression lines
@@ -297,7 +297,7 @@ legend("topleft",inset=0.05,legend=letters[1:4],col=1:4,pch=1)
 
 Naturally, now the lines do not have the same slope, and we can compare all these in a single plot. This plot is really messy, as it includes the pooled regression (the thick black line), the regressions fitted to independent data sets, one for each museum (the solid lines), and the regressions resulting from the model with museum as a factor covariate (dotted-dashed lines).
 
-```{r}
+```{r a7.16}
 #plot all the data
 plot(y~x,col=as.numeric(as.factor(z)),data=data4lines,pch=1)
 #completely independet regression lines

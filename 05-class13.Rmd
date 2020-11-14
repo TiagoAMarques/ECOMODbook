@@ -25,7 +25,7 @@ So this is a model with a single parameter, $\theta$. (since we know $N$, the nu
 
 Andreia goes out and about in the field and finds 5 nests. The first has eggs, the second and third do not, the forth does, and the fifth does not. By this time Andreia is tired and decides to call it a day, with her sample $x$ collected:  $x=c(1,0,0,1,0)$.
 
-```{r}
+```{r ch13.1}
 #a 1 is a nest with eggs, a 0 is a nest without eggs
 nests=c(1,0,0,1,0)
 ```
@@ -44,7 +44,7 @@ $$P(\theta|x)=\theta (1-\theta) (1-\theta) \theta (1-\theta)=\theta^2 (1-\theta)
 
 Then we could evaluate the expression for a set of possible values for $\theta$, and the largest probability will intuitively correspond to the most likely value of $\theta$.
 
-```{r}
+```{r ch13.2}
 library(knitr)
 thetas<-seq(0.05,0.95,by=0.1)
 pthetas<-thetas^2*(1-thetas)^3
@@ -53,7 +53,7 @@ kable(cbind(thetas,pthetas),col.names = c("theta","P(theta)"))
 
 The largest values are observed for the trial values of $\theta$ of 0.35 and 0.45. What if we calculate that probability for a fine grid of values possible for $\theta$ and represent it in a plot. This is what follows, and we add to the plot a dashed vertical line representing the value of $\theta$ for which that function is maximized.
 
-```{r}
+```{r ch13.3}
 thetas <- seq(0.01,0.99,by=0.01)
 pthetas<-thetas^2*(1-thetas)^3
 plot(thetas,pthetas,ylab="P(\theta|x)",xlab="theta")
@@ -72,7 +72,7 @@ Andreia asks her friend what was the point. If the MLE was just the empirical pr
 
 To illustrate the point above regarding being able to estimate the precision around the parameter estimate from the likelihood function, lets consider that we had not 5 samples, but man more. In the figure below we contrast the small sample size to a set of increasing sample sizes: 50, 100 or 200.
 
-```{r,fig.height=8}
+```{r ch13.4,fig.height=8}
 par(mfrow=c(4,1),mar=c(4,4,0.5,0.5))
 thetas <- seq(0.01,0.99,by=0.01)
 pthetas<-thetas^2*(1-thetas)^3
@@ -167,7 +167,7 @@ $$P(\theta|x)=\theta (1-\theta) (1-\theta) \theta (1-\theta)=\theta^2 (1-\theta)
 
 We can write a bespoke function of theta to evaluate this probability
 
-```{r}
+```{r ch13.5}
 liktheta1=function(theta){
   lik<-theta^2*(1-theta)^3
   return(lik)
@@ -176,20 +176,20 @@ liktheta1=function(theta){
 
 Now we use it, job done
 
-```{r}
+```{r ch13.6}
 liktheta1(0.35)
 ```
 
 just as in the table above, we are good. But this is not really what we want, because the data, our sample was hardwired, we need a function that could cope with any sample. We need to be able to compute the relevant statistics from the sample. Andreia realizes that she can do that easily by summing successes and failures in the table
 
-```{r}
+```{r ch13.7}
 sum(nests==1)
 sum(nests==0)
 ```
 
 and hence she suggests this new formulation 
 
-```{r}
+```{r ch13.8}
 liktheta2=function(theta,samp){
   lik<-theta^sum(samp==1)*(1-theta)^sum(samp==0)
   return(lik)
@@ -198,19 +198,19 @@ liktheta2=function(theta,samp){
 
 She tries it out
 
-```{r}
+```{r ch13.9}
 liktheta2(0.35,nests)
 ```
 
 and she gets the same value as above. She's happy, as she can now calculate the likelihood for (1) any parameter value and (2) any sample. Excited, she shows how this would be the case for 11 nests, with just 1 success.
 
-```{r}
+```{r ch13.10}
 liktheta2(0.35,c(1,rep(0,10)))
 ```
 
 Now, she's really excited and she has a dream where she samples 1000 eggs, and 300 successes. She wakes up and wants to know the likelihood under that scenario
 
-```{r}
+```{r ch13.11}
 dreameggs<-c(rep(1,300),rep(0,700))
 liktheta2(0.35,dreameggs)
 ```
@@ -225,7 +225,7 @@ Andreia calls a friend, and he says that he will give her two clues that might h
 
 Andreia hangs up the phone and takes a mental note: "I need to find better, more useful friends"! But during the night she has an epiphany. If she logs the function, a product of probabilities, she will get a sum of log probabilities. Log probabilities are smaller than probabilities, but there's a small miracle in the process. The sum of small numbers does not tend (does not converge to 0!). And so she tries a new function, where she adds the log probabilities
 
-```{r}
+```{r ch13.12}
 logliktheta=function(theta,data){
   loglik=sum(log(theta^sum(data==1))+sum(log((1-theta)^sum(data==0))))
   return(loglik)
@@ -234,20 +234,20 @@ logliktheta=function(theta,data){
 
 She calculates the function that gave her grief above, and the egg dream meets the epiphany
 
-```{r}
+```{r ch13.13}
 logliktheta(0.35,dreameggs)
 ```
 
 Then, she just needs to call the `optimize`, where `interval` defines the plausible parameter space, and we make sure that `maximum` is TRUE because by default the function `optimize` minimizes (That is why we sometimes use a function that is `-log(likelihood)`, that means the minimum is the point we want!) the function `f` with respect to its first parameter, given any other arguments provided to `f`. In this case those other parameters are just the `data`, the second argument for `liktheta`. Those you will recognize as our data.
 
-```{r}
+```{r ch13.14}
 MLEtheta<-optimize(f=logliktheta,interval=c(0.01,0.99),data=c(0,1,0,1,0),maximum=TRUE)
 MLEtheta
 ```
 
 Now we can actually calculate the MLE for $\theta$ in the case of Andreia's dream sample.
 
-```{r}
+```{r ch13.15}
 MLEthetadream<-optimize(f=logliktheta,interval=c(0.01,0.99),data=dreameggs,maximum=TRUE)
 MLEthetadream
 ```
@@ -255,7 +255,7 @@ MLEthetadream
 So the output of `optimize` has two components, $maximum$ and $objective$. What are these? 
 The two components of this object are the MLE of the parameter, in this case `r MLEtheta$maximum` and the value of the function at that point for $\theta$, in this case `r MLEtheta$objective`. This will be the actual value of the likelihood at this point and might be useful later, but for now we ignore it. Note that `r MLEtheta$maximum` is just a numeric approximation of the real value, that we know analytically to be `r 2/5`. These are illustrated below:
 
-```{r}
+```{r ch13.16}
 #valores possiveis para thetas
 thetas<-seq(0.01,0.99,by=0.01)
 #object to hold the values of the likelihood
@@ -271,7 +271,7 @@ abline(v=MLEtheta$maximum,h=MLEtheta$objective,col="green")
 
 As a task, what would it require to change the above code to calculate the value of theta if we had 78 trials and 43 sucesses? You got it, just need to change the data
 
-```{r}
+```{r ch13.17}
 MLEtheta<-optimize(f=logliktheta,interval=c(0.01,0.99),data=c(rep(1,43),rep(0,78-43)),maximum=TRUE)
 MLEtheta
 ```
@@ -282,13 +282,13 @@ So, now we know all about likelihoods, but Andreia wonders. Why all the trouble,
 
 Lets now look at situation where Andreia is interested in characterizing how far away from the nearest river, in a straight line, are the nests from water. She assumes that these might be hypothetically described by a Gaussian random variable. That will be the basis for constructing a likelihood. For her 5 nests, those distances in kilometers are
 
-```{r}
+```{r ch13.18}
 dists<-c(0.78,1.73,1.32,0.54,2.12)
 ```
 
 Then she thinks about what might the likelihood look like for a Gaussian. She knows R can calculate the density of a Gaussian via `rnorm`, and so she suggests the following minus log likelihood function:
 
-```{r}
+```{r ch13.19}
 minuslogliknorm=function(pars,data){
   media=pars[1]
   desvio=pars[2]
@@ -299,7 +299,7 @@ minuslogliknorm=function(pars,data){
 
 She testes the function on simulated data, 10000 fake distances with mean 2 and standard deviation 2.7. Either a small miracle happened, or she got it right at first try: 
 
-```{r}
+```{r ch13.20}
 #simulated sample size
 n<-10000
 # simulated mean
@@ -315,7 +315,7 @@ MLEGau
 
 Note she now has more than 1 parameter, so `optimize` was not an option, and had to use function `optim`. This requires starting values via argument `par`, but the rest is similar to `optimize`, the `data` and the function to maximize is `fn`. The output is a bit messier, and while the resulting object components are all relevant to know about, we ignore them for now for simplicity. If we evaluate this likelihood using a brute force grid approach, this is what we get
 
-```{r}
+```{r ch13.21}
 #to implement later
 ```
 
@@ -325,18 +325,18 @@ Notice that this image reminds us of Boredomnesia! Now, we know how to do this f
 
 Now, what about based on the distances Andreia had for the 5 nests
 
-```{r}
+```{r ch13.22}
 dists
 ```
 
-```{r}
+```{r ch13.23}
 MLEGaud<-optim(par=c(1,1),fn=minuslogliknorm,data=dists)
 MLEGaud
 ```
 
 Note that, as it might be interesting for later, that nests with eggs were closer to the water. But remember also that with such a small sample size, believing in that as being some indication of reality, rather than just a fluke, is a matter of faith.
 
-```{r}
+```{r ch13.24}
 plot(dists,nests,ylab="nest with eggs",xlab="Distance to water (km)")
 ```
 
@@ -349,13 +349,13 @@ We started by talking about `lm`, so, what is happening behind `lm`.
 
 Let's us imagine that for each nest, Andreia also related the size of the nest with the distance to the water. The size of the nest, diameter, in cm, was as below, She is interested in describing, modeling, explaining how nest size changes as a function of distance to the water.
 
-```{r}
+```{r ch13.25}
 size<-c(17,19.3,21.2,13.2,25)
 ```
 
 We can visualize the relationship between the distance to the water and the nest diameter
 
-```{r}
+```{r ch13.26}
 plot(dists,size,xlab="Distance (km)",ylab="Nest diameter, cm")
 ```
 
@@ -368,7 +368,7 @@ where the $e_i$ are a Gaussian with mean 0 and constant variance $\sigma^2$. And
 $$e_i=y_i-(a+b x_i)=y_i-\hat y_i$$
 where, remember, $e_i$ are a Gaussian with mean 0 and constant variance $\sigma^2$. And so we can build a likelihood that exploits that Gaussian density for the observed errors, as
 
-```{r}
+```{r ch13.27}
 liklm=function(pars,data){
   #data must be a data.frame with columns y and x
   a=pars[1]
@@ -383,7 +383,7 @@ liklm=function(pars,data){
 
 and we use it over our sample
 
-```{r}
+```{r ch13.28}
 lmMLE<-optim(par=c(2,1,1),fn=liklm,data=data.frame(y=size,x=dists))
 lmMLE
 ```
@@ -391,21 +391,21 @@ lmMLE
 
 and so we get as estimates of $a$, $b$ and $\sigma$ of `r lmMLE$par[1]`, `r lmMLE$par[2]` and `r lmMLE$par[3]`, respectively. So finally, Andreia uses her estimated values for $a$ and $b$ and puts them over the above plot of the data
 
-```{r}
+```{r ch13.29}
 plot(dists,size,xlab="Distance (km)",ylab="Nest diameter, cm")
 abline(lmMLE$par[1],lmMLE$par[2],lty=2,lwd=2,col="blue")
 ```
 
 Now, we know that `lm` does this kind of stuff very efficiently, so how do these compare across? We can look at the outcome of the `lm` call 
 
-```{r}
+```{r ch13.30}
 lm0<-lm(size~dists)
 summary(lm0)
 ```
 
 and when we add these to the above plot, we see we were bang on: the two lines are indistinguishable by eye.
 
-```{r}
+```{r ch13.30.5}
 plot(dists,size,xlab="Distance (km)",ylab="Nest diameter, cm")
 abline(lmMLE$par[1],lmMLE$par[2],lty=2,lwd=2,col="blue")
 abline(lm0,lty=3,lwd=2,col="green")
@@ -419,8 +419,6 @@ So, but still, why would we do it this way, since `lm` does it with less hassle,
 So to complete this chapter, lets see an example for which a dedicated function like `lm` is not available off the shelf, and we would really need to write down our own likelihood to get meaningful ecological inferences.
 
 ## The really interesting case
-
-(Work in progress, a tale from Conceição, about relating the probability of success of an egg with the distance it is from the water)
 
 Imagine now that we were interested in relating the probability for a nest being successful with the distance of the nest to a body of water. A possible ecological explanation for there being a negative relationship between the distance and the success probability might be that near water bodies there are usual more insects, and hence more food which means improved body condition and hence incentives for attempting  reproduction.
 
@@ -436,7 +434,7 @@ $$\theta_i=\frac{1}{1+exp(-(\alpha+\beta d_i))}$$
 
 which we could easily code up in R as
 
-```{r}
+```{r ch13.31}
 thetafd<-function(alpha,beta,d){
   res<-1/(1+exp(-(alpha+beta*d)))
   return(res)
@@ -446,21 +444,21 @@ thetafd<-function(alpha,beta,d){
 
 We can visualize what that function might look like for some arbitrary values for $\alpha$ and $\beta$.
 
-```{r}
+```{r ch13.32}
 alpha<-1.6
 beta <- -1.8
 ```
 
 These values imply that the probability of a nest near a body of water having eggs is relatively high, in fact, if just by the water ($d=0$) then around `r round(thetafd(alpha,beta,0),2)`, and around 1km it will be `r round(thetafd(alpha,beta,1),2)` but by about 5km from the water the probability is down at effectively `r round(thetafd(alpha,beta,5),2)`.  
 
-```{r}
+```{r ch13.33}
 alldists<-seq(0,5,by=0.1)
 plot(alldists,thetafd(alpha,beta,alldists),ylab="P(nest with eggs)",xlab="Distance from water (km)")
 ```
 
 Having done this, then it is relatively simple to modify the likelihood for theta that we used for $\theta$, to replace the $\theta$ by a function of the relevant covariate $d$
 
-```{r}
+```{r ch13.34}
 loglikthetad=function(pars,data){
   nests<-data[,1]
   dists<-data[,2]
@@ -474,14 +472,14 @@ loglikthetad=function(pars,data){
 
 and so we could maximize this likelihood based on the data, both the successes and the distances to the water observed above
 
-```{r}
+```{r ch13.35}
 thetadMLE<-optim(par=c(1,1),fn=loglikthetad,data=data.frame(nests=nests,dists=dists))
 thetadMLE
 ```
 
 Now, this provides an interesting ecological insight. Unlike the `naive` estimator for the probability of a nest having eggs we obtained above, of 0.4, we now can relate that probability to the distance from the water. And what we see is that the probability of a random nest having nests might be well below that. We just happened to consider a small sample for which two out of five nests were near the water. While the `naive` estimate might change considerably depending on the relative amount of nests near the water versus nests away from the water, if the main determinant of nest success was the distance from the water, our final model would allow a better estimate of the true probability of success of a nest.
 
-```{r}
+```{r ch13.36}
 alldists<-seq(0,5,by=0.1)
 plot(alldists,thetafd(thetadMLE$par[1],thetadMLE$par[2],alldists),ylab="Estimated P(nest with eggs)",xlab="Distance from water (km)")
 ```
