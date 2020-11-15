@@ -4,11 +4,11 @@ To work through this book it is fundamental that you know your way around R. I r
 
 R might seem frightening at first, but even monsters can make something look more pleasant if you look from the right angle. It is all a matter of perspective :) So I will use the help of some monsters here to convince you that this is the right thing to do!
 
-The amazing images in this chapter are all by Allison Horst, Artwork by '@'allison_horst, and I recomend you visit Allison's github repository filled up with amazing stats and maths illustrations (https://github.com/allisonhorst/stats-illustrations), including so many amazing resources to make R look less frightening. To be honest, this chapter is actually also an homage to Allison's work.
+The amazing images in this chapter are all by Allison Horst, Artwork by '@'allison_horst, and I recommend you visit Allison's github repository filled up with amazing stats and maths illustrations (https://github.com/allisonhorst/stats-illustrations), including so many amazing resources to make R look less frightening. To be honest, this chapter is actually also an homage to Allison's work.
 
 ![Illustrating R Monsters: Artwork by '@'allison_horst](extfiles/monsteRs.jpg)
 
-And it is not just about stats. If you do not understand how to find the derivative of a function after looking at Artwork by @allison_horst and her amazing visualization series, just give it up, as I suspect you will never will!
+And it is not just about stats. If you do not understand how to find the derivative of a function after looking at Artwork by Allison Horst and her amazing visualization series on the topic, take it as a sign: just give it up, as I suspect you will never will!
 
 ![Illustrating a Derivative: Artwork by '@'allison_horst](extfiles/derivative_1.jpg)
 
@@ -16,7 +16,7 @@ Nowadays learning R by example is easy to do, with so many free online resources
 
 ![Illustrating learning R online: Artwork by '@'allison_horst](extfiles/monster_support.jpg)
 
-I recomend that you do it via the RStudio environment, since it provides an integrated environment to integrate wth all R things. And there are many! And if you do so, I can guarantee that in no time you will be having funR.
+I recomend that you do it via the RStudio environment, since it provides an integrated environment to integrate with all R things. And there are many! And if you do so, I can guarantee that in no time you will be having funR.
 
 ![Illustrating having funR: Artwork by '@'allison_horst](extfiles\r_first_then.png)
 
@@ -28,7 +28,7 @@ If you want a gentle tutorial into R I have set up such a resource here:
 
 https://github.com/TiagoAMarques/AnIntro2RTutorial
 
-Additionally, this book is written in bookdown, and bookdown is the 4.0 version of RMarkdown, a tool that allows you to build dynamic reports based on R code, providing integrated documets that contain all that is required for a given project, from reading the data in to final results and discussion, passing through all the analysis and results. If you want a gentle introduction to RMarkdown using a hands on tutorial based on a versatile template that will do many of the things you'll need to get started, look for no more, there is also one here:
+Additionally, this book is written in bookdown, and bookdown is the 4.0 version of RMarkdown, a tool that allows you to build dynamic reports based on R code, providing integrated documents that contain all that is required for a given project, from reading the data in to final results and discussion, passing through all the analysis and results. If you want a gentle introduction to RMarkdown using a hands on tutorial based on a versatile template that will do many of the things you'll need to get started, look for no more, there is also one here:
 
 https://github.com/TiagoAMarques/RMarkdownTemplate
 
@@ -36,6 +36,6 @@ Actually, since this book is a bookdown book, you can easily look at it too. It 
 
 https://github.com/TiagoAMarques/ECOMODbook
 
-Go out and explore, litle grasshoper. You will conquer many great things if you do. You will become a code giant one day. But never forget, you need to be thankful to an entire community, and you are standing on the shoulders of giants!
+Go out and explore, little grasshopper. You will conquer many great things if you do. You will become a code giant one day. But never forget, you need to be thankful to an entire community, and you are standing on the shoulders of giants!
 
 ![Illustrating standing on the shoulders of giants: Artwork by '@'allison_horst](extfiles/code_hero.jpg)

@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2020-11-14" />
+<meta name="date" content="2020-11-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -183,7 +183,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="16" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>16</b> Class 14: 10 10 2020 GLMs</a><ul>
 <li class="chapter" data-level="16.1" data-path="aula14.html"><a href="aula14.html#what-are-glms"><i class="fa fa-check"></i><b>16.1</b> What are GLMs</a></li>
-<li class="chapter" data-level="16.2" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>16.2</b> An example analysis</a></li>
+<li class="chapter" data-level="16.2" data-path="aula14.html"><a href="aula14.html#the-link-function"><i class="fa fa-check"></i><b>16.2</b> The link function</a></li>
+<li class="chapter" data-level="16.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>16.3</b> Most useful GLM Families</a></li>
+<li class="chapter" data-level="16.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>16.4</b> An example analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>17</b> Class 15: 11 11 2020</a></li>
 <li class="chapter" data-level="18" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>18</b> Class 16: 17 11 2020</a></li>
@@ -213,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 4</span> Using R</h1>
 <p>To work through this book it is fundamental that you know your way around R. I recommend that if you do not know your way around R before hand you take some time to do so before reading the rest of the book, and this first chapter provides some resources to help.</p>
 <p>R might seem frightening at first, but even monsters can make something look more pleasant if you look from the right angle. It is all a matter of perspective :) So I will use the help of some monsters here to convince you that this is the right thing to do!</p>
-<p>The amazing images in this chapter are all by Allison Horst, Artwork by ’@’allison_horst, and I recomend you visit Allison’s github repository filled up with amazing stats and maths illustrations (<a href="https://github.com/allisonhorst/stats-illustrations" class="uri">https://github.com/allisonhorst/stats-illustrations</a>), including so many amazing resources to make R look less frightening. To be honest, this chapter is actually also an homage to Allison’s work.</p>
+<p>The amazing images in this chapter are all by Allison Horst, Artwork by ’@’allison_horst, and I recommend you visit Allison’s github repository filled up with amazing stats and maths illustrations (<a href="https://github.com/allisonhorst/stats-illustrations" class="uri">https://github.com/allisonhorst/stats-illustrations</a>), including so many amazing resources to make R look less frightening. To be honest, this chapter is actually also an homage to Allison’s work.</p>
 <div class="figure">
 <img src="extfiles/monsteRs.jpg" alt="Illustrating R Monsters: Artwork by ’@’allison_horst" />
 <p class="caption">Illustrating R Monsters: Artwork by ’@’allison_horst</p>
@@ -228,7 +230,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="extfiles/monster_support.jpg" alt="Illustrating learning R online: Artwork by ’@’allison_horst" />
 <p class="caption">Illustrating learning R online: Artwork by ’@’allison_horst</p>
 </div>
-<p>I recomend that you do it via the RStudio environment, since it provides an integrated environment to integrate wth all R things. And there are many! And if you do so, I can guarantee that in no time you will be having funR.</p>
+<p>I recomend that you do it via the RStudio environment, since it provides an integrated environment to integrate with all R things. And there are many! And if you do so, I can guarantee that in no time you will be having funR.</p>
 <div class="figure">
 <img src="extfiles/r_first_then.png" alt="Illustrating having funR: Artwork by ’@’allison_horst" />
 <p class="caption">Illustrating having funR: Artwork by ’@’allison_horst</p>
@@ -240,11 +242,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>If you want a gentle tutorial into R I have set up such a resource here:</p>
 <p><a href="https://github.com/TiagoAMarques/AnIntro2RTutorial" class="uri">https://github.com/TiagoAMarques/AnIntro2RTutorial</a></p>
-<p>Additionally, this book is written in bookdown, and bookdown is the 4.0 version of RMarkdown, a tool that allows you to build dynamic reports based on R code, providing integrated documets that contain all that is required for a given project, from reading the data in to final results and discussion, passing through all the analysis and results. If you want a gentle introduction to RMarkdown using a hands on tutorial based on a versatile template that will do many of the things you’ll need to get started, look for no more, there is also one here:</p>
+<p>Additionally, this book is written in bookdown, and bookdown is the 4.0 version of RMarkdown, a tool that allows you to build dynamic reports based on R code, providing integrated documents that contain all that is required for a given project, from reading the data in to final results and discussion, passing through all the analysis and results. If you want a gentle introduction to RMarkdown using a hands on tutorial based on a versatile template that will do many of the things you’ll need to get started, look for no more, there is also one here:</p>
 <p><a href="https://github.com/TiagoAMarques/RMarkdownTemplate" class="uri">https://github.com/TiagoAMarques/RMarkdownTemplate</a></p>
 <p>Actually, since this book is a bookdown book, you can easily look at it too. It is also on github:</p>
 <p><a href="https://github.com/TiagoAMarques/ECOMODbook" class="uri">https://github.com/TiagoAMarques/ECOMODbook</a></p>
-<p>Go out and explore, litle grasshoper. You will conquer many great things if you do. You will become a code giant one day. But never forget, you need to be thankful to an entire community, and you are standing on the shoulders of giants!</p>
+<p>Go out and explore, little grasshopper. You will conquer many great things if you do. You will become a code giant one day. But never forget, you need to be thankful to an entire community, and you are standing on the shoulders of giants!</p>
 <div class="figure">
 <img src="extfiles/code_hero.jpg" alt="Illustrating standing on the shoulders of giants: Artwork by ’@’allison_horst" />
 <p class="caption">Illustrating standing on the shoulders of giants: Artwork by ’@’allison_horst</p>

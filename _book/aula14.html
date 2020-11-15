@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2020-11-14" />
+<meta name="date" content="2020-11-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -183,7 +183,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="16" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>16</b> Class 14: 10 10 2020 GLMs</a><ul>
 <li class="chapter" data-level="16.1" data-path="aula14.html"><a href="aula14.html#what-are-glms"><i class="fa fa-check"></i><b>16.1</b> What are GLMs</a></li>
-<li class="chapter" data-level="16.2" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>16.2</b> An example analysis</a></li>
+<li class="chapter" data-level="16.2" data-path="aula14.html"><a href="aula14.html#the-link-function"><i class="fa fa-check"></i><b>16.2</b> The link function</a></li>
+<li class="chapter" data-level="16.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>16.3</b> Most useful GLM Families</a></li>
+<li class="chapter" data-level="16.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>16.4</b> An example analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>17</b> Class 15: 11 11 2020</a></li>
 <li class="chapter" data-level="18" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>18</b> Class 16: 17 11 2020</a></li>
@@ -213,98 +215,182 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 16</span> Class 14: 10 10 2020 GLMs</h1>
 <div id="what-are-glms" class="section level2">
 <h2><span class="header-section-number">16.1</span> What are GLMs</h2>
+<p>Until now we have been dealing with linear regression models, with a common set of characteristics. The variance of the residuals is constant and their distribution is Gaussian. While that is a very useful model and has been widely used for over a century to model all sorts of phenomena, these hardwired characteristics make such a model inflexible. Therefore, we need to include some more flexible models in our toolbox.</p>
+<p>Generalized linear models come to help, as they will generalize the Gaussian linear model in three fundamental ways:</p>
+<ol style="list-style-type: decimal">
+<li><p>They will relax the assumption that the residuals of the model are Gaussian, by allowing the user to specify different families for the response variable. These families will be from the Exponential family of random variables. While this is perhaps confusing wording, it is important to note that this should not to be confused with the Exponential distribution, which happens to be a special case of a Gamma random variable. The Gamma happens to be, like the Poisson or even the Gaussian, one of the distributions from the exponential Distribution.</p></li>
+<li><p>They become more flexible than the standard Gaussian linear model by allowing the relation between the response and the linear predictor to be mediated via a link function. This link function adds another very useful feature: the predictions from the response variable can be constrained to take only admissible values. case in point, a probability can be constrained to be between 0 and 1, and a weight can be constrained to be strictly positive, by choosing an appropriate link function.</p></li>
+</ol>
+<p>The use of a link function induces a complication that often confuses practitioners. We can now have predictions on the scale of the link function, but also predictions on the scale of the response. While the predictions on the scale of the link function are the default in R, these mean often very little in practice, and humans will have trouble understanding them. There might be a good reason why predictions from a GML based on the omnibus R function <code>predict.glm</code> are by default on the scale of the link function, but to be fair I find this to be the exception need, not the rule, when doing applied work.</p>
+<p>In the LM case we had, for <span class="math inline">\(K\)</span> independent variables, the following formulation for the model</p>
+<p><span class="math display">\[E(y)=\beta_0+\beta_1x_1+\beta_2x_2+...+\beta_Kx_K\]</span></p>
+<p>and when considering observations</p>
+<p><span class="math display">\[y_i=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+...+\beta_Kx_{iK}+e_i\]</span></p>
+<p>where the <span class="math inline">\(e_i\)</span> would be Gaussian with mean 0 and a constant variance <span class="math inline">\(\sigma^2\)</span>. In the generalized linear model we can choose a family for the response variable, and we have the relation between the mean value of the response mediated by a link function, represented by <span class="math inline">\(f\)</span>, therefore</p>
+<p><span class="math display">\[f(E(y))=\beta_0+\beta_1x_1+\beta_2x_2+...+\beta_Kx_K\]</span></p>
+<p>and therefore</p>
+<p><span class="math display">\[E(y)=f^{-1}(\beta_0+\beta_1x_1+\beta_2x_2+...+\beta_Kx_K)\]</span></p>
+<p>Note that the above implies that the linear model is just a GLM with a Gaussian response and an identity link function.</p>
+<p>It is interesting to note an often under-appreciated distinction between the Gaussian linear model and the other GLMs. While the Gaussian model implies that the residuals are Gaussian, no one knows what is the distribution of a Poisson, Gamma or Binomial GLM. This fact is often hard to grasp also because diagnostic plots produced for GLMs transform the residuals in an attempt to make them look normal. In some cases, like in the binomial case, that attempt is typically doomed from the start!</p>
+<p>While the choice of the right link function is fundamental for a GLM’s performance, that is often an easy decision since the key aspect is to insure only admissible estimates from the model. Arguably the most common link functions are the identity, the log and the logit.</p>
+</div>
+<div id="the-link-function" class="section level2">
+<h2><span class="header-section-number">16.2</span> The link function</h2>
 <p>Here we talk about link functions</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" title="1">lp&lt;-<span class="cf">function</span>(a,b,x){</a>
-<a class="sourceLine" id="cb347-2" title="2">  res&lt;-a<span class="op">+</span>b<span class="op">*</span>x</a>
-<a class="sourceLine" id="cb347-3" title="3">  <span class="kw">return</span>(res)</a>
-<a class="sourceLine" id="cb347-4" title="4">}</a>
-<a class="sourceLine" id="cb347-5" title="5"></a>
-<a class="sourceLine" id="cb347-6" title="6">ilogi&lt;-<span class="cf">function</span>(lp){</a>
-<a class="sourceLine" id="cb347-7" title="7">  res&lt;-<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(lp))</a>
-<a class="sourceLine" id="cb347-8" title="8">  <span class="kw">return</span>(res)</a>
-<a class="sourceLine" id="cb347-9" title="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">lp&lt;-<span class="cf">function</span>(a,b,x){</a>
+<a class="sourceLine" id="cb1-2" title="2">  res&lt;-a<span class="op">+</span>b<span class="op">*</span>x</a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="kw">return</span>(res)</a>
+<a class="sourceLine" id="cb1-4" title="4">}</a>
+<a class="sourceLine" id="cb1-5" title="5"></a>
+<a class="sourceLine" id="cb1-6" title="6">ilogi&lt;-<span class="cf">function</span>(lp){</a>
+<a class="sourceLine" id="cb1-7" title="7">  res&lt;-<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(lp))</a>
+<a class="sourceLine" id="cb1-8" title="8">  <span class="kw">return</span>(res)</a>
+<a class="sourceLine" id="cb1-9" title="9">}</a></code></pre></div>
 <p>Illustrate how a link function can be used to ensure that a prediction only returns admissible values</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" title="1">a&lt;-<span class="fl">0.04</span></a>
-<a class="sourceLine" id="cb348-2" title="2">b&lt;-<span class="fl">0.08</span></a>
-<a class="sourceLine" id="cb348-3" title="3"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb348-4" title="4"></a>
-<a class="sourceLine" id="cb348-5" title="5">xs&lt;-<span class="kw">seq</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">20</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb348-6" title="6"><span class="kw">plot</span>(xs,<span class="kw">ilogi</span>(<span class="kw">lp</span>(a,b,xs)),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb348-7" title="7"><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span><span class="op">:</span><span class="dv">1</span>,<span class="dt">lty=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb348-8" title="8"></a>
-<a class="sourceLine" id="cb348-9" title="9"></a>
-<a class="sourceLine" id="cb348-10" title="10">xs&lt;-<span class="kw">seq</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">20</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb348-11" title="11"><span class="kw">plot</span>(xs,<span class="kw">ilogi</span>(<span class="kw">lp</span>(<span class="fl">0.9</span>,<span class="dv">12</span>,xs)),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb348-12" title="12"><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span><span class="op">:</span><span class="dv">1</span>,<span class="dt">lty=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb348-13" title="13"></a>
-<a class="sourceLine" id="cb348-14" title="14"></a>
-<a class="sourceLine" id="cb348-15" title="15">xs&lt;-<span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">2</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb348-16" title="16"><span class="kw">plot</span>(xs,<span class="kw">ilogi</span>(<span class="kw">lp</span>(<span class="fl">0.9</span>,<span class="dv">12</span>,xs)),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb348-17" title="17"><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span><span class="op">:</span><span class="dv">1</span>,<span class="dt">lty=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb348-18" title="18"></a>
-<a class="sourceLine" id="cb348-19" title="19"></a>
-<a class="sourceLine" id="cb348-20" title="20">xs&lt;-<span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb348-21" title="21"><span class="kw">plot</span>(xs,<span class="kw">ilogi</span>(<span class="kw">lp</span>(<span class="fl">0.9</span>,<span class="dv">12</span>,xs)),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb348-22" title="22"><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span><span class="op">:</span><span class="dv">1</span>,<span class="dt">lty=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">a&lt;-<span class="fl">0.04</span></a>
+<a class="sourceLine" id="cb2-2" title="2">b&lt;-<span class="fl">0.08</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb2-4" title="4"></a>
+<a class="sourceLine" id="cb2-5" title="5">xs&lt;-<span class="kw">seq</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">20</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="kw">plot</span>(xs,<span class="kw">ilogi</span>(<span class="kw">lp</span>(a,b,xs)),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span><span class="op">:</span><span class="dv">1</span>,<span class="dt">lty=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb2-8" title="8"></a>
+<a class="sourceLine" id="cb2-9" title="9"></a>
+<a class="sourceLine" id="cb2-10" title="10">xs&lt;-<span class="kw">seq</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">20</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="kw">plot</span>(xs,<span class="kw">ilogi</span>(<span class="kw">lp</span>(<span class="fl">0.9</span>,<span class="dv">12</span>,xs)),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span><span class="op">:</span><span class="dv">1</span>,<span class="dt">lty=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb2-13" title="13"></a>
+<a class="sourceLine" id="cb2-14" title="14"></a>
+<a class="sourceLine" id="cb2-15" title="15">xs&lt;-<span class="kw">seq</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">2</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb2-16" title="16"><span class="kw">plot</span>(xs,<span class="kw">ilogi</span>(<span class="kw">lp</span>(<span class="fl">0.9</span>,<span class="dv">12</span>,xs)),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb2-17" title="17"><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span><span class="op">:</span><span class="dv">1</span>,<span class="dt">lty=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb2-18" title="18"></a>
+<a class="sourceLine" id="cb2-19" title="19"></a>
+<a class="sourceLine" id="cb2-20" title="20">xs&lt;-<span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb2-21" title="21"><span class="kw">plot</span>(xs,<span class="kw">ilogi</span>(<span class="kw">lp</span>(<span class="fl">0.9</span>,<span class="dv">12</span>,xs)),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb2-22" title="22"><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span><span class="op">:</span><span class="dv">1</span>,<span class="dt">lty=</span><span class="dv">1</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/links2-1.png" width="672" /></p>
 </div>
+<div id="most-useful-glm-families" class="section level2">
+<h2><span class="header-section-number">16.3</span> Most useful GLM Families</h2>
+<p>These are arguably</p>
+<ul>
+<li>Gaussian - the standard for continuous data;</li>
+<li>Gamma - an alternative to the Gaussian for strictly positive data, like lengths, weights or animal densities;</li>
+<li>Beta - still an outsider, but clearly under-appreciated, as it can be invaluable to model responses that are probabilities <span class="citation">(Douma and Weedon <a href="#ref-Douma2019" role="doc-biblioref">2019</a>)</span>. Not to confuse when one wants to model the probability of successes of yes or no events; see below, for that the Binomial is the omnibus candidate.</li>
+<li>Poisson - the default count model, but quite inflexible as it implies that the variance is equal to the mean, which is the exception rather than the norm for ecological count data;</li>
+<li>Binomial - the default model for yes/no or presence/absence data, also useful to model under-dispersed (var&lt;mean) counts, which are rare in biology/ecology</li>
+<li>Negative Binomial - the default candidate for over-dispersed (var&gt;mean) counts; an alternatives for over-dispersed counts is the quasi-Poisson <span class="citation">(Ver Hoef and Boveng <a href="#ref-Hoef2007" role="doc-biblioref">2007</a>)</span></li>
+</ul>
+<p>In recent years flexible families like the Tweddie distribution, that include several of the above, have been gaining ground in the Ecological literature.</p>
+</div>
 <div id="an-example-analysis" class="section level2">
-<h2><span class="header-section-number">16.2</span> An example analysis</h2>
-<p>Here we talk about GLMs</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" title="1"><span class="kw">set.seed</span>(<span class="dv">121</span>)</a>
-<a class="sourceLine" id="cb349-2" title="2"><span class="co">#define sample size</span></a>
-<a class="sourceLine" id="cb349-3" title="3">n&lt;-<span class="dv">100</span></a>
-<a class="sourceLine" id="cb349-4" title="4"><span class="co">#get a predictor variable</span></a>
-<a class="sourceLine" id="cb349-5" title="5">low&lt;-<span class="dv">30</span></a>
-<a class="sourceLine" id="cb349-6" title="6">high&lt;-<span class="dv">90</span></a>
-<a class="sourceLine" id="cb349-7" title="7">xs1&lt;-<span class="kw">runif</span>(n,low,high)</a>
-<a class="sourceLine" id="cb349-8" title="8"><span class="co">#get a second potentially predictor</span></a>
-<a class="sourceLine" id="cb349-9" title="9">xs2&lt;-<span class="kw">rgamma</span>(n,<span class="dv">10</span>,<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb349-10" title="10"><span class="co">#define linear predictor</span></a>
-<a class="sourceLine" id="cb349-11" title="11">lp1&lt;-<span class="fl">0.01+0.05</span><span class="op">*</span>xs1</a>
-<a class="sourceLine" id="cb349-12" title="12"><span class="co">#get the mean value</span></a>
-<a class="sourceLine" id="cb349-13" title="13">Eys1&lt;-<span class="kw">exp</span>(lp1)</a>
-<a class="sourceLine" id="cb349-14" title="14"><span class="co">#get actual data</span></a>
-<a class="sourceLine" id="cb349-15" title="15">ys1&lt;-<span class="kw">rpois</span>(n,Eys1)</a></code></pre></div>
-<p>We can plot the data</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb350-2" title="2"><span class="kw">plot</span>(ys1<span class="op">~</span>xs1)</a>
-<a class="sourceLine" id="cb350-3" title="3"><span class="kw">plot</span>(ys1<span class="op">~</span>xs2)</a></code></pre></div>
+<h2><span class="header-section-number">16.4</span> An example analysis</h2>
+<p>We begin by simulating data from a real GLM model. We simulate data from a Poisson regression. Note the difference between what is required now and the way we would simulate data before, in the Gaussian case. While before we would simply add the errors to the expected value given the linear predictor - since we knew the distribution of the errors to be Gaussian, by assumption, this is no longer possible because once the family becomes not Gaussian we do not know what is the distribution of the residuals. Therefore, to simulate data from a non-Gaussian GLM implies a two stage process:</p>
+<ol style="list-style-type: decimal">
+<li>First we generate the linear predictor, and then</li>
+<li>we apply to the linear predictor the inverse link funcion, and finally
+mean value of the response, and then</li>
+<li>we simulate data from the appropriate distribution (e.g. below Poisson), conditional on the corresponding mean.</li>
+</ol>
+<p>We simulate some data, and pretend these would correspond to the weight of a lizard, in grams, as a function of the length of the lizards, in mm. Please, don’t double check my numbers, they probably do not add up for any reasonable species of lizard, but that is a detail in this story.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">set.seed</span>(<span class="dv">121</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">#define sample size</span></a>
+<a class="sourceLine" id="cb3-3" title="3">n&lt;-<span class="dv">100</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#get a predictor variable</span></a>
+<a class="sourceLine" id="cb3-5" title="5">low&lt;-<span class="dv">30</span></a>
+<a class="sourceLine" id="cb3-6" title="6">high&lt;-<span class="dv">90</span></a>
+<a class="sourceLine" id="cb3-7" title="7">xs1&lt;-<span class="kw">runif</span>(n,low,high)</a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#get a second potentially predictor</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#not used</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">#xs2&lt;-rgamma(n,10,10)</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co">#define linear predictor</span></a>
+<a class="sourceLine" id="cb3-12" title="12">lp1&lt;-<span class="fl">0.01+0.05</span><span class="op">*</span>xs1</a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">#get the mean value</span></a>
+<a class="sourceLine" id="cb3-14" title="14">Eys1&lt;-<span class="kw">exp</span>(lp1)</a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="co">#get actual data</span></a>
+<a class="sourceLine" id="cb3-16" title="16">ys1&lt;-<span class="kw">rpois</span>(n,Eys1)</a></code></pre></div>
+<p>and then we plot the data</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">plot</span>(ys1<span class="op">~</span>xs1,<span class="dt">xlab=</span><span class="st">&quot;Lizard length (mm)&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Lizard weight (g)&quot;</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/glm2-1.png" width="672" /></p>
-<p>Now, we can fit some models to data</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" title="1">lm1A&lt;-<span class="kw">lm</span>(ys1<span class="op">~</span>xs1)</a>
-<a class="sourceLine" id="cb351-2" title="2">lm1B&lt;-<span class="kw">glm</span>(ys1<span class="op">~</span>xs1)</a>
-<a class="sourceLine" id="cb351-3" title="3">glmPoi&lt;-<span class="kw">glm</span>(ys1<span class="op">~</span>xs1,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
-<a class="sourceLine" id="cb351-4" title="4">glmGau&lt;-<span class="kw">glm</span>(ys1<span class="op">~</span>xs1,<span class="dt">family=</span><span class="kw">gaussian</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a></code></pre></div>
-<p>and we can show these overlayed on data - wtf is going on…?</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" title="1"><span class="kw">plot</span>(ys1<span class="op">~</span>xs1)</a>
-<a class="sourceLine" id="cb352-2" title="2">xs&lt;-<span class="kw">seq</span>(low<span class="dv">-5</span>,high<span class="op">+</span><span class="dv">5</span>,<span class="dt">by=</span><span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb352-3" title="3">novosdados&lt;-<span class="kw">data.frame</span>(<span class="dt">xs1=</span>xs)</a>
-<a class="sourceLine" id="cb352-4" title="4">predslm1A&lt;-<span class="kw">predict</span>(lm1A,<span class="dt">newdata=</span>novosdados)</a>
-<a class="sourceLine" id="cb352-5" title="5">predslm1B&lt;-<span class="kw">predict</span>(lm1B,<span class="dt">newdata=</span>novosdados)</a>
-<a class="sourceLine" id="cb352-6" title="6">predsglmPoi&lt;-<span class="kw">predict</span>(glmPoi,<span class="dt">newdata=</span>novosdados,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>)</a>
-<a class="sourceLine" id="cb352-7" title="7">predsglmGau&lt;-<span class="kw">predict</span>(glmGau,<span class="dt">newdata=</span>novosdados,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>)</a>
-<a class="sourceLine" id="cb352-8" title="8"><span class="kw">lines</span>(xs,predslm1A,<span class="dt">col=</span><span class="dv">2</span>,<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">lwd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb352-9" title="9"><span class="kw">lines</span>(xs,predslm1B,<span class="dt">col=</span><span class="dv">3</span>,<span class="dt">lty=</span><span class="dv">3</span>,<span class="dt">lwd=</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb352-10" title="10"><span class="kw">lines</span>(xs,predsglmPoi,<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb352-11" title="11"><span class="kw">lines</span>(xs,predsglmGau,<span class="dt">col=</span><span class="dv">5</span>,<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb352-12" title="12"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Linear model via lm&quot;</span>,<span class="st">&quot;linear model via glm&quot;</span>,<span class="st">&quot;Poisson GLM&quot;</span>,<span class="st">&quot;Gaussian GLM&quot;</span>),lwd<span class="op">==</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">col=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),<span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>),<span class="dt">inset=</span><span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co">#plot(ys1~xs2)</span></a></code></pre></div>
+<p>Note that, while the model is linear on the scale of the link function, the relationship is not linear on the scale of the response. This illustrates some additional flexibility compared to the Gaussian linear model. The fact that the model is linear on the link scale is easily perceived from the code, and illustrated below:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">plot</span>(lp1<span class="op">~</span>xs1,<span class="dt">xlab=</span><span class="st">&quot;Lizard length (mm)&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Mean lizard weight in the scale of the link function&quot;</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>Now, we can fit some models to data using the function <code>glm</code>. Note just as for the <code>lm</code> function we need to define the formula that represents the model, and we need to use the argumet <code>data</code> to let <code>lm</code> know where to find the variables. The novelty lies in the <code>family</code> argument, that sets the assumed distribution for the response.</p>
+<p>Here we fit 3 models, the real model, a Poisson response with a log link, and 2 wrong models, the standard linear model (both with <code>lm</code> and <code>glm</code> with Gaussian response, to illustrate once again these are one and the same), and the Gaussian model with a log link function. The latter assumes Gaussian errors, but forcing predictions to be strictly positive.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">lm1A&lt;-<span class="kw">lm</span>(ys1<span class="op">~</span>xs1)</a>
+<a class="sourceLine" id="cb7-2" title="2">lm1B&lt;-<span class="kw">glm</span>(ys1<span class="op">~</span>xs1)</a>
+<a class="sourceLine" id="cb7-3" title="3">glmPoi&lt;-<span class="kw">glm</span>(ys1<span class="op">~</span>xs1,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
+<a class="sourceLine" id="cb7-4" title="4">glmGau&lt;-<span class="kw">glm</span>(ys1<span class="op">~</span>xs1,<span class="dt">family=</span><span class="kw">gaussian</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a></code></pre></div>
+<p>We can look at the outcome of these overlaid on the data. The fundamental aspect when predicting from a <code>glm</code> model is that we need to be careful with the <code>type</code> argument. By default the predictions are on the scale of the link function, hardly helpful for you as a practicioner. Hence, you need to set <code>type="response"</code>. I can’t say I’d be a millionaire if I had a penny every time a student could not understand the predictions of a <code>glm</code> model because they are looking at predictions on the link scale, but I would nonethelss probably be able to buy a decent meal!</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">plot</span>(ys1<span class="op">~</span>xs1)</a>
+<a class="sourceLine" id="cb8-2" title="2">xs&lt;-<span class="kw">seq</span>(low<span class="dv">-5</span>,high<span class="op">+</span><span class="dv">5</span>,<span class="dt">by=</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb8-3" title="3">novosdados&lt;-<span class="kw">data.frame</span>(<span class="dt">xs1=</span>xs)</a>
+<a class="sourceLine" id="cb8-4" title="4">predslm1A&lt;-<span class="kw">predict</span>(lm1A,<span class="dt">newdata=</span>novosdados)</a>
+<a class="sourceLine" id="cb8-5" title="5">predslm1B&lt;-<span class="kw">predict</span>(lm1B,<span class="dt">newdata=</span>novosdados)</a>
+<a class="sourceLine" id="cb8-6" title="6">predsglmPoi&lt;-<span class="kw">predict</span>(glmPoi,<span class="dt">newdata=</span>novosdados,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>)</a>
+<a class="sourceLine" id="cb8-7" title="7">predsglmGau&lt;-<span class="kw">predict</span>(glmGau,<span class="dt">newdata=</span>novosdados,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>)</a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="kw">lines</span>(xs,predslm1A,<span class="dt">col=</span><span class="dv">2</span>,<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">lwd=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="kw">lines</span>(xs,predslm1B,<span class="dt">col=</span><span class="dv">3</span>,<span class="dt">lty=</span><span class="dv">3</span>,<span class="dt">lwd=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="kw">lines</span>(xs,predsglmPoi,<span class="dt">col=</span><span class="dv">4</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb8-11" title="11"><span class="kw">lines</span>(xs,predsglmGau,<span class="dt">col=</span><span class="dv">5</span>,<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;Linear model via lm&quot;</span>,<span class="st">&quot;linear model via glm&quot;</span>,<span class="st">&quot;Poisson GLM&quot;</span>,<span class="st">&quot;Gaussian GLM&quot;</span>),lwd<span class="op">==</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">col=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>),<span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>),<span class="dt">inset=</span><span class="fl">0.05</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/glm4-1.png" width="672" /></p>
-<p>Just for fun</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" title="1"><span class="kw">AIC</span>(lm1A,lm1B,glmGau,glmPoi)</a></code></pre></div>
-<pre><code>##        df      AIC
-## lm1A    3 718.4863
-## lm1B    3 718.4863
-## glmGau  3 586.4525
-## glmPoi  2 564.2675</code></pre>
-<p>Diagnostics</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
-<a class="sourceLine" id="cb355-2" title="2"><span class="kw">plot</span>(glmGau)</a></code></pre></div>
+<p>As expected, the linear model does the wrong thing. it was the wrong model, and it even produces inadmissible values. As an exemple, a lizzard with 30mm length would be estimated to have -5.98 grams, and I guess you have never seen a lizard of negative weight! Both the Poisson and the Gaussian with the log link provide the same predictions. So are they equivalent? Not really, bacause the different response assumptions imply that the variances around predictions will be different too.</p>
+<p>So how could we have spotted the Gaussian was the wrong model? Well, typically we evaluate the goodness of fit of a model by a variety of ways, but visual diagnostics based on the model residuals can be especially revealing. Clearly, the Gaussian model is incorrect as the variance is increasing with the mean. This should not come to you as a surprise, since the true model was Poisson and in the Poisson the variance is equal to the mean.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw">plot</span>(glmGau)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/glm6-1.png" width="672" /></p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
-<a class="sourceLine" id="cb356-2" title="2"><span class="kw">plot</span>(glmPoi)</a></code></pre></div>
+<p>On the other hadn, the diagnostics for the Poisson model do not show any reasons to worry.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw">plot</span>(glmPoi)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/glm7-1.png" width="672" /></p>
+<p>Additionally, if we would evaluate the AIC for these contending models, the Poisson model would be by far the most parsimonious.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">library</span>(knitr)</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">kable</span>(<span class="kw">AIC</span>(lm1A,lm1B,glmGau,glmPoi))</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">df</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">lm1A</td>
+<td align="right">3</td>
+<td align="right">744.8996</td>
+</tr>
+<tr class="even">
+<td align="left">lm1B</td>
+<td align="right">3</td>
+<td align="right">744.8996</td>
+</tr>
+<tr class="odd">
+<td align="left">glmGau</td>
+<td align="right">3</td>
+<td align="right">617.3647</td>
+</tr>
+<tr class="even">
+<td align="left">glmPoi</td>
+<td align="right">2</td>
+<td align="right">590.3504</td>
+</tr>
+</tbody>
+</table>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Douma2019">
+<p>Douma, Jacob C., and James T. Weedon. 2019. “Analysing Continuous Proportions in Ecology and Evolution: A Practical Introduction to Beta and Dirichlet Regression.” Edited by David Warton. <em>Methods in Ecology and Evolution</em> 10 (9): 1412–30. <a href="https://doi.org/10.1111/2041-210x.13234">https://doi.org/10.1111/2041-210x.13234</a>.</p>
+</div>
+<div id="ref-Hoef2007">
+<p>Ver Hoef, Jay M., and Peter L. Boveng. 2007. “Quasi-Poisson Vs. Negative Binomial Regression: How Should We Model Overdispersed Count Data?” <em>Ecology</em> 88: 2766–72.</p>
 </div>
 </div>
             </section>

@@ -113,7 +113,7 @@
 
 \title{Notes for Ecological Modelling}
 \author{Tiago A. Marques}
-\date{2020-11-14}
+\date{2020-11-15}
 
 \begin{document}
 \maketitle
@@ -127,7 +127,7 @@
 
 These notes were written in 2020, during the ecological modelling classes (Modelação Ecológica, ME in short). While it all started as just a way to teach the course, it soon became obvious that with a bit of extra effort put into it these notes might become material that would be useful to others beyond the ME students. This is being written as a bookdown project. Maybe one day it will become a book, for now, these are essentially notes I am using for my course on ``Modelação Ecológica'' at FCUL.
 
-In particular, I have started thinking about whether this could be a book in two stages, a first part that would appeal to students in Ecologia Numérica, and a second part aimed at students from Modelação Ecológica. The former might be more focused on a traditional approach to statistics, focussed on procedures and statistical tests. TYhe second would be more about the way to think about data and how one might go about to do the best job possible regarding inferences by thinking carefully on how to model the data.
+In particular, I have started thinking about whether this could be a book in two stages, a first part that would appeal to students in Ecologia Numérica, and a second part aimed at students from Modelação Ecológica. The former might be more focused on a traditional approach to statistics, focused on procedures and statistical tests. The second would be more about the way to think about data and how one might go about to do the best job possible regarding inferences by thinking carefully on how to model the data.
 
 For the current version I am keeping chapters as individual lectures. Once the Ecological Modelling classes are over I might organize them into sensible chapters for a possible book on statistical models for ecological data.
 
@@ -147,21 +147,19 @@ I refer to Ecological Modeling as the art of being able to conceptualize the eco
 \hypertarget{aknowledgments}{%
 \chapter{Aknowledgments}\label{aknowledgments}}
 
-A number of colleagues have contributed with comments, upfront anf foremost Susana França and Ana Sofia Reboleira, my partners in Crime at FCUL, co-teachers for Modelação Ecológica and Ecologia Numérica at FCUL, the courses that inspired tis manuscript.
+A number of colleagues have contributed with comments, upfront and foremost Susana França and Ana Sofia Reboleira, my partners in crime at FCUL, co-teachers for Modelação Ecológica and Ecologia Numérica, the courses that inspired this manuscript.
 
-To all my students in Ecologica Numérica and Modelação Ecológica 2020/2021 which questions every time make me realize that what an ecological statistician might think is straightfoward is far from it for a biologist. Without aknowledging that gap, that difference in the way brains are wired, the efforts to convey statistics to biologists are flawed from the beggining.Some students have contributed with direct input on requesting clarifications and typos: those include Diogo Raposo.
+To all my students in Ecológica Numérica and Modelação Ecológica 2020/2021 which questions every time make me realize that what an ecological statistician might think is straightforward is far from it for a biologist. Without acknowledging that gap, that difference in the way brains are wired, the efforts to convey statistics to biologists are flawed from the beginning.Some students have contributed with direct input on requesting clarifications and typos: those include Diogo Raposo.
 
 To Dinis Pestana, the person that first made me believe that it was possible to make the biology to statistics transition.
 
-To Russel-Alpizar Jara for incintivating me to go to St Andrews, which I see as one of the epicenters of ecologicasl statistics in the 20th century. I was so fortunate to end there and be able to be part of the fantastic family of CREEMinals.
+To Russel-Alpizar Jara for the incentive to go to St Andrews, one of the epicenters of ecological statistics in the 20th century, which I might have not attempted to aim. That taught me that you should aim high, if you miss no one cares, if you get it, well, you got it. I was so fortunate to end there and to be able to be part of the fantastic family of CREEMinals. CREEM might be the best place in the world to work - I could not have wished for a better work environment. At CREEM I have been fortunate to have exposed to the minds of a set of amazing scientists and statisticians. Some deserve a special mention below.
 
-I have been fortunate to have exposed to the minds of a set of amazing scientists and statisticians.
-
-To Steve Buckland, my PhD Supervisor at CREEM that opened to me the world of distance sampling. Steve was the best supervisor I could have asked for. Not only for the support provided, but also for all the opportunites he exposed me to during that period. Teaching in CREEM's Distance Sampling workshops during my PhD years was possibly the source of many of the great things that happenned after. Point in case all the polar bear work that has been the most amazing work-life experience.
+To Steve Buckland, my PhD Supervisor at CREEM that opened to me the world of distance sampling. Steve was the best supervisor I could have asked for. Not only for the support provided, but also for all the opportunities he exposed me to during that period. Teaching in CREEM's Distance Sampling workshops during my PhD years was possibly the source of many of the great things that happened after. Point in case all the polar bear work that has been the most amazing work-life experience.
 
 To David Borchers, the most amazing statistical brain I have ever had the pleasure to meet and work with. A generous brain that I have often picked up on, always generous with his brilliant contributions. If I could pick a brain for work, I'd pick David's!
 
-To Eric Rexstad, with whom I was fortunate to share an office during his sabattical at CREEM many years ago. As I was starting a PhD his constant challenges, tips and thoughts made me realize what kind of scientist I would like to become one day. Not there yet, but still trying!
+To Eric Rexstad, with whom I was fortunate to share an office during his sabbatical at CREEM many years ago. As I was starting a PhD his constant challenges, tips and thoughts made me realize what kind of scientist I would like to become one day. Not there yet, but still trying!
 
 To Len Thomas, an office mate at first, a colleague after, as he claims wasting my time with bad ideas during my Phd (not true!), my boss since I had a PhD and a good friend. If Carlsberg made bosses, Len would be their poster child ;)
 
@@ -172,7 +170,7 @@ To work through this book it is fundamental that you know your way around R. I r
 
 R might seem frightening at first, but even monsters can make something look more pleasant if you look from the right angle. It is all a matter of perspective :) So I will use the help of some monsters here to convince you that this is the right thing to do!
 
-The amazing images in this chapter are all by Allison Horst, Artwork by '@'allison\_horst, and I recomend you visit Allison's github repository filled up with amazing stats and maths illustrations (\url{https://github.com/allisonhorst/stats-illustrations}), including so many amazing resources to make R look less frightening. To be honest, this chapter is actually also an homage to Allison's work.
+The amazing images in this chapter are all by Allison Horst, Artwork by '@'allison\_horst, and I recommend you visit Allison's github repository filled up with amazing stats and maths illustrations (\url{https://github.com/allisonhorst/stats-illustrations}), including so many amazing resources to make R look less frightening. To be honest, this chapter is actually also an homage to Allison's work.
 
 \begin{figure}
 \centering
@@ -196,7 +194,7 @@ Nowadays learning R by example is easy to do, with so many free online resources
 \caption{Illustrating learning R online: Artwork by '@'allison\_horst}
 \end{figure}
 
-I recomend that you do it via the RStudio environment, since it provides an integrated environment to integrate wth all R things. And there are many! And if you do so, I can guarantee that in no time you will be having funR.
+I recomend that you do it via the RStudio environment, since it provides an integrated environment to integrate with all R things. And there are many! And if you do so, I can guarantee that in no time you will be having funR.
 
 \begin{figure}
 \centering
@@ -216,7 +214,7 @@ If you want a gentle tutorial into R I have set up such a resource here:
 
 \url{https://github.com/TiagoAMarques/AnIntro2RTutorial}
 
-Additionally, this book is written in bookdown, and bookdown is the 4.0 version of RMarkdown, a tool that allows you to build dynamic reports based on R code, providing integrated documets that contain all that is required for a given project, from reading the data in to final results and discussion, passing through all the analysis and results. If you want a gentle introduction to RMarkdown using a hands on tutorial based on a versatile template that will do many of the things you'll need to get started, look for no more, there is also one here:
+Additionally, this book is written in bookdown, and bookdown is the 4.0 version of RMarkdown, a tool that allows you to build dynamic reports based on R code, providing integrated documents that contain all that is required for a given project, from reading the data in to final results and discussion, passing through all the analysis and results. If you want a gentle introduction to RMarkdown using a hands on tutorial based on a versatile template that will do many of the things you'll need to get started, look for no more, there is also one here:
 
 \url{https://github.com/TiagoAMarques/RMarkdownTemplate}
 
@@ -224,7 +222,7 @@ Actually, since this book is a bookdown book, you can easily look at it too. It 
 
 \url{https://github.com/TiagoAMarques/ECOMODbook}
 
-Go out and explore, litle grasshoper. You will conquer many great things if you do. You will become a code giant one day. But never forget, you need to be thankful to an entire community, and you are standing on the shoulders of giants!
+Go out and explore, little grasshopper. You will conquer many great things if you do. You will become a code giant one day. But never forget, you need to be thankful to an entire community, and you are standing on the shoulders of giants!
 
 \begin{figure}
 \centering
@@ -4842,7 +4840,7 @@ Then she thinks about what might the likelihood look like for a Gaussian. She kn
 \end{Highlighting}
 \end{Shaded}
 
-She testes the function on simulated data, 10000 fake distances with mean 2 and standard deviation 2.7. Either a small miracle happened, or she got it right at first try:
+She tests the function on simulated data, 10000 fake distances with mean 2 and standard deviation 2.7. Either a small miracle happened, or she got it right at first try:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5196,6 +5194,45 @@ Most of the statistical methods that you have used are probably based on a likel
 \hypertarget{what-are-glms}{%
 \section{What are GLMs}\label{what-are-glms}}
 
+Until now we have been dealing with linear regression models, with a common set of charateristics. The variance of the residuals is constant and their distribution is Gaussian. While that is a very useful model and has been widely used for over a century to model all sorts of phenomena, these hardwired characteristcs make such a model inflexible. Therefore, we need to include some more flexible models in our toolbox.
+
+Generalized linear models come to help, as they will generalize the Gaussian linear model in three fundamental ways:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  They will relax the assumption that the residuals of the model are Gaussian, by allowing the user to specify different families for the response variable. These families will be from the Exponetial family of random variables. While this is perhaps confusing wording, it is important to note that this should not to be confused with the Exponential distribution, which happens to be a special case of a Gamma random variable. The Gamma happnes to be, like the Poisson or even the Gaussian, one of the distributions from the exponential Distribution.
+\item
+  They become more flexible than the standard Gaussian linear model by allowing the relation between the response and th elinear predictor to be mediated via a link function. This link function adds another very useful feature: the predictions from the response variable can be constrained to take only admissible values. case in point, a probability can be constrained to be between 0 and 1, and a weight can be constrained to be strictly positive, by choosing an appropriate link function.
+\end{enumerate}
+
+The use of a link function induces a complication that often confuses practicioners. We can now have predictions on the scale of the link function, but also predictions on the scale of the response. While the predictions on the scale of the link function are th edefault in R, these mean often very little in practice, and humans will have trouble understanding them. There might be a good reason why predictions from a GML based on the omnibus R function \texttt{predict.glm} are by default on the scale of the link funtion, but to be fair I find this to be the exception need, not the rule, when doing applied work.
+
+In the LM case we had, for \(K\) independent variables, the following formulation for the model
+
+\[E(y)=\beta_0+\beta_1x_1+\beta_2x_2+...+\beta_Kx_K\]
+
+and when considering observations
+
+\[y_i=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+...+\beta_Kx_{iK}+e_i\]
+
+where the \(e_i\) would be Gaussian with mean 0 and a constant variance \(\sigma^2\). In the generalized linear model we can choose a family for the response variable, and we have the relation between the mean value of the response mediated by a link function, represented by \(f\), therefore
+
+\[f(E(y))=\beta_0+\beta_1x_1+\beta_2x_2+...+\beta_Kx_K\]
+
+and therefore
+
+\[E(y)=f^{-1}(\beta_0+\beta_1x_1+\beta_2x_2+...+\beta_Kx_K)\]
+
+Note that the above implies that the linear model is just a GLM with a Gaussian response and an identity link function.
+
+It is interetsing to note an often underappreciated distinction between the Gaussian linear model and the oter GLMs. While the Gaussian model implies that the residuals are Gaussian, no one knows what is the distribution of a Poisson, Gamma or Binomial GLM. This fact is often hard to grasp also because diagnostic plots produced for GLMs transform the residuals in an attempt to make them look normal. In some cases, like in the binomial case, that attempt is typically doomed from the start!
+
+While the choice of the right link function is fundamental for a GLM's performance, that is often an easy decision since the key aspect is to insure only admissible estimates from the model. Arguably the most common link functions are the identity, the log and the logit.
+
+\hypertarget{the-link-function}{%
+\section{The link function}\label{the-link-function}}
+
 Here we talk about link functions
 
 \begin{Shaded}
@@ -5242,6 +5279,29 @@ Illustrate how a link function can be used to ensure that a prediction only retu
 \end{Shaded}
 
 \includegraphics{ECOMODbook_files/figure-latex/links2-1.pdf}
+
+\hypertarget{most-useful-glm-families}{%
+\section{Most useful GLM Families}\label{most-useful-glm-families}}
+
+These are arguably
+
+\begin{itemize}
+\tightlist
+\item
+  Gaussian - the standard for continous data;
+\item
+  Gamma - an alternative to the Gaussian for strictly positive data, like lengths, weights or animal densities;
+\item
+  Beta - stil an outsider, but clearly underappreciated, as it can be invaluable to model responses that are probabilities \citep{Douma2019}. Not to confuse when one wants to model the probability of sucesses of yes or no events; see below, for that the Binomial is the omnibus candidate.
+\item
+  Poisson - the default count model, but quite inflexible as it implies that the variance is equal to the mean, which is the exception rather than the norm for ecological count data;
+\item
+  Binomial - the default model for yes/no or presence/abcense data, also useful to model underdispersed (var\textless mean) counts, which are rare in biology/ecology
+\item
+  Negative Binomial - the default candidate for overdispersed (var\textgreater mean) counts; an alternatives for overdispersed counts is the quasi-Poisson \citep{Hoef2007}
+\end{itemize}
+
+In recent years flexible families like the Tweddie distribution, that include several of the above, have been gaining ground in the Ecological literature.
 
 \hypertarget{an-example-analysis}{%
 \section{An example analysis}\label{an-example-analysis}}

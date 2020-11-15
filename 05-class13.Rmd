@@ -297,7 +297,7 @@ minuslogliknorm=function(pars,data){
 }
 ```
 
-She testes the function on simulated data, 10000 fake distances with mean 2 and standard deviation 2.7. Either a small miracle happened, or she got it right at first try: 
+She tests the function on simulated data, 10000 fake distances with mean 2 and standard deviation 2.7. Either a small miracle happened, or she got it right at first try: 
 
 ```{r ch13.20}
 #simulated sample size
