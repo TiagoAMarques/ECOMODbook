@@ -1,1 +1,120 @@
-# Class 16: 17 11 2020 {#aula16}
+# Class 16: 18 11 2020 {#aula16}
+
+## A logistic regression example
+
+```{r}
+
+#
+set.seed(123)
+n=200
+#a covariate
+xs=runif(n,-20,20)
+#get the mean value
+ilogit=function(x){
+  il=exp(x)/(1+exp(x))
+return(il)
+}
+
+Ey=ilogit(2+0.4*xs)
+#generate data
+ys=rbinom(n,size = rep(1,n),prob = Ey)
+#plot data
+plot(xs,ys)
+
+
+#run a glm
+glmLR1=glm(ys~xs,family=binomial(link="logit"))
+summary(glmLR1)
+
+xs4pred=seq(min(xs),max(xs),length=100)
+predglmLR1=predict(glmLR1,newdata = data.frame(xs=xs4pred),
+type="response")
+
+par(mfrow=c(1,1),mar=c(4,4,0.2,0.2))
+plot(xs,ys)
+lines(xs4pred,predglmLR1,col=3,lty=2)
+
+summary(glmLR1)
+
+
+#check model fit
+par(mfrow=c(2,2),mar=c(4,4,2,0.2))
+plot(glmLR1)
+
+```
+
+## About multicollinearity
+
+(this is probably best way before, in the linear model stuff... any way, I presented it here as this topic started from a student question)
+
+```{r}
+#Código da aula 11
+
+#--------------------------------------------------------
+# When good models go wrong as 
+# multicollinearity kicks in
+#--------------------------------------------------------
+library(MASS)
+set.seed(1234)
+n=100
+means <- c(2,4,6,8,10,12)
+ncovs=(36-6)/2
+covs<- rnorm(ncovs,mean=10,sd=2)
+varcovars=matrix(NA,6,6)
+varcovars[lower.tri(varcovars)]=covs
+varcovars=t(varcovars)
+varcovars[lower.tri(varcovars)]=covs
+diag(varcovars)=means
+varcovars=t(varcovars) %*% varcovars
+indvars <- mvrnorm(n = n, mu=means, Sigma=varcovars)
+
+# we can see that we have high correlations 
+#across the board in explanatory variables
+indvars=as.data.frame(indvars)
+names(indvars)=paste0("X",1:6)
+head(indvars)
+round(cor(indvars),2)
+
+ys <-510+4*indvars$X1+rnorm(n,mean=0,sd=200)
+par(mfrow=c(1,1),mar=c(4,4,0.5,0.5))
+plot(ys~indvars$X1)
+lmX1 <- lm(ys~indvars$X1)
+abline(lmX1)
+summary(lmX1)
+
+plot(ys~indvars$X2)
+lmX2 <- lm(ys~indvars$X2)
+abline(lmX2)
+summary(lmX2)
+
+#one error type I + 1 error type 2
+lmX1X2 <- lm(ys~indvars$X1+indvars$X2)
+summary(lmX1X2)
+
+
+lmX3 <- lm(ys~indvars$X3)
+summary(lmX3)
+lmX1X3 <- lm(ys~indvars$X1+indvars$X3)
+summary(lmX1X3)
+
+lmX4 <- lm(ys~indvars$X4)
+summary(lmX4)
+lmX1X4 <- lm(ys~indvars$X1+indvars$X4)
+summary(lmX1X4)
+
+lmX5 <- lm(ys~indvars$X5)
+summary(lmX5)
+lmX1X5 <- lm(ys~indvars$X1+indvars$X5)
+summary(lmX1X5)
+
+
+lmX6 <- lm(ys~indvars$X6)
+summary(lmX6)
+lmX1X6 <- lm(ys~indvars$X1+indvars$X6)
+summary(lmX1X6)
+
+AIC(lmX1,lmX2,lmX3,lmX4,lmX5,lmX6,lmX1X2,lmX1X3,lmX1X4,lmX1X5,lmX1X6)
+
+```
+
+The fundamental idea is that most of these models are equally good for prediction. But they might give you the complete wrong picture for explanation. Never confuse the two. Optimal modelling strategies and choices might require know what is more important.

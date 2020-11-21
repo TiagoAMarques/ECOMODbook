@@ -5,8 +5,8 @@ account: tiagoandremarques
 server: bookdown.org
 hostUrl: https://bookdown.org/__api__
 appId: 5932
-bundleId: 30630
+bundleId: 30639
 url: https://bookdown.org/tiagoandremarques/ecomodbook/
-when: 1605451870.8178
+when: 1605460961.42946
 asMultiple: FALSE
 asStatic: FALSE

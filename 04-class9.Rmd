@@ -110,7 +110,7 @@ abline(lm.ancova1$coefficients[1]+lm.ancova1$coefficients[5],lm.ancova1$coeffici
 legend("topleft",legend = tr,lwd=2,col=1:4,inset=0.05)
 ```
 
-But because we are in a simulation setting, we can contrast the estimated values agaist the reality (the real model).
+But because we are in a simulation setting, we can contrast the estimated values against the reality (the real model).
 
 ```{r a9.8}
 #In a simulated scenario, we can see we are close to the real values
@@ -133,16 +133,26 @@ abline(lm.ancova1$coefficients[1]+lm.ancova1$coefficients[4],lm.ancova1$coeffici
 abline(lm.ancova1$coefficients[1]+lm.ancova1$coefficients[5],lm.ancova1$coefficients[2],lwd=1,col=4,lty=2)
 ```
 
-As we can see, they are quite close. The error is small compared with the effrect sizes, and the sample size is large enough we can estimate the parameters reasonably well.
+As we can see, they are quite close. The error is small compared with the effect sizes, and the sample size is large enough we can estimate the parameters reasonably well.
 
-But how exactly do we get the predicted intercepts? To understand where they come from we need to see what R does (or, for that matter, what any other software would need to do!) in the background to fit a model with a factor covariate. Remember what the data is
+But how exactly do we get the predicted intercepts? 
+
+(note to TAM: this should come much before and not "lost" as a detail in the middle of this ANCOVA section)
+
+To understand where they come from we need to see what R does (or, for that matter, what any other software would need to do!) in the background to fit a model with a factor covariate. Remember what the data is
 
 ```{r a9.9}
 #the data
 head(data.frame(ys=ys,xs=xs,type=type),10)
 ```
 
-before fitting a factor covariate, we need to replace it by dummy variables (k-1 dummy variables, where k is the number of levels of the factor). Below we look at a set of data lines that allow us to see observations from the diferent `type`s considered
+and in particular that the factor covariate `type` has 4 levels
+
+```{r}
+barplot(table(as.factor(type)))
+```
+
+Before fitting a factor covariate, we need to replace it by dummy variables ($k-1$ dummy variables, where $k$ is the number of levels of the factor). Below we look at a set of data lines that allow us to see observations from the different `type`s considered
 
 ```{r a9.10}
 #explaining it
@@ -156,7 +166,10 @@ So R first builds what is known as the design matrix. Notation wise Y= parameter
 head(data.frame(xs=xs,typeb=ifelse(type=="b",1,0),typec=ifelse(type=="c",1,0),typed=ifelse(type=="d",1,0)))
 ```
 
-and that is what it uses for the fitting. Therefore, if we want to know the intercept of say `type` c, we need to sum the common intercept with the parameter associates with the dummy variable `typeb`.
+and that is what is used for the fitting. Therefore, if we want to know the intercept of say `type` c, we need to sum the common intercept with the parameter associates with the dummy variable `typec`. The overall model formula becomes 
+
+$$Y= \alpha + \gamma_b × typeb + \gamma_c × typec + \gamma_d × typed +  \beta × xs
+$$
 
 This would be an ANCOVA, and here we would conclude that the mean of the response was different for the different levels of $z$ , once accounting for the fact that the $xs$ varied. this is evident since all the coefficients estimates and associated precisions in the summary of the model above would lead to rejecting the null hypothesis that their value was 0, as can be seen by the corresponding very small p-values. Not a surprise, since we simulated them as different and the errors were small.
 

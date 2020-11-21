@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 13 Class 12: 04 11 2020 Interactions between continous covariates | Notes for Ecological Modelling</title>
+  <title>Chapter 14 Class 12: 04 11 2020 Interactions between continous covariates | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 13 Class 12: 04 11 2020 Interactions between continous covariates | Notes for Ecological Modelling" />
+  <meta property="og:title" content="Chapter 14 Class 12: 04 11 2020 Interactions between continous covariates | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 13 Class 12: 04 11 2020 Interactions between continous covariates | Notes for Ecological Modelling" />
+  <meta name="twitter:title" content="Chapter 14 Class 12: 04 11 2020 Interactions between continous covariates | Notes for Ecological Modelling" />
   
   <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2020-11-15" />
+<meta name="date" content="2020-11-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,61 +135,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
 <li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
 <li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
-<li class="chapter" data-level="5" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>5</b> About regression</a><ul>
-<li class="chapter" data-level="5.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>5.1</b> What is a regression?</a></li>
-<li class="chapter" data-level="5.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>5.2</b> The general linear model</a></li>
+<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a></li>
+<li class="chapter" data-level="6" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>6</b> About regression</a><ul>
+<li class="chapter" data-level="6.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>6.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="6.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>6.2</b> The general linear model</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>6</b> Hands On Regression</a><ul>
-<li class="chapter" data-level="6.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>6.1</b> The assumptions are on the residuals, not the data</a></li>
+<li class="chapter" data-level="7" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>7</b> Hands On Regression</a><ul>
+<li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>7</b> Class 6 13 10 2020</a><ul>
-<li class="chapter" data-level="7.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>7.1</b> Implementing a regression</a></li>
-<li class="chapter" data-level="7.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>7.2</b> Simulating regression data</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>7.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+<li class="chapter" data-level="8" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>8</b> Class 6 13 10 2020</a><ul>
+<li class="chapter" data-level="8.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>8.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="8.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>8.2</b> Simulating regression data</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>8</b> Class 7 14 10 2020</a><ul>
-<li class="chapter" data-level="8.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>8.1</b> Task 1</a></li>
-<li class="chapter" data-level="8.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>8.2</b> Task 2</a></li>
+<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Class 7 14 10 2020</a><ul>
+<li class="chapter" data-level="9.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>9.1</b> Task 1</a></li>
+<li class="chapter" data-level="9.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>9.2</b> Task 2</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>9</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
-<li class="chapter" data-level="9.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>9.1</b> The t-test</a></li>
-<li class="chapter" data-level="9.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>9.2</b> ANOVA</a></li>
+<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
+<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.1</b> The t-test</a></li>
+<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.2</b> ANOVA</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>10</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
-<li class="chapter" data-level="10.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>10.1</b> Common slope, different intercepts per treatment</a></li>
+<li class="chapter" data-level="11" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>11</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
+<li class="chapter" data-level="11.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>11.1</b> Common slope, different intercepts per treatment</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>11</b> Class 10: 27 10 2020</a><ul>
-<li class="chapter" data-level="11.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>11.1</b> Same story, another spin</a></li>
+<li class="chapter" data-level="12" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>12</b> Class 10: 27 10 2020</a><ul>
+<li class="chapter" data-level="12.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>12.1</b> Same story, another spin</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>12</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a><ul>
-<li class="chapter" data-level="12.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>12.1</b> About interactions</a></li>
-<li class="chapter" data-level="12.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>12.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
-<li class="chapter" data-level="12.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>12.3</b> Task 2 Modeling a data set</a></li>
+<li class="chapter" data-level="13" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>13</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a><ul>
+<li class="chapter" data-level="13.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>13.1</b> About interactions</a></li>
+<li class="chapter" data-level="13.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>13.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="13.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>13.3</b> Task 2 Modeling a data set</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>13</b> Class 12: 04 11 2020 Interactions between continous covariates</a><ul>
-<li class="chapter" data-level="13.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>13.1</b> Larger order interactions</a></li>
+<li class="chapter" data-level="14" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>14</b> Class 12: 04 11 2020 Interactions between continous covariates</a><ul>
+<li class="chapter" data-level="14.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>14.1</b> Larger order interactions</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>14</b> Conlusion on linear regression</a><ul>
-<li class="chapter" data-level="14.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>14.1</b> Conclusion</a></li>
+<li class="chapter" data-level="15" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conlusion on linear regression</a><ul>
+<li class="chapter" data-level="15.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>15</b> Class 13: 10 11 2020 Maximum likelihood and all that</a><ul>
-<li class="chapter" data-level="15.1" data-path="aula12.html"><a href="aula12.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>15.1</b> Maximizing a likelihood algebraically</a></li>
-<li class="chapter" data-level="15.2" data-path="aula12.html"><a href="aula12.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>15.2</b> Numerically Maximizing a likelihood</a></li>
-<li class="chapter" data-level="15.3" data-path="aula12.html"><a href="aula12.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>15.3</b> The case of a Gaussian</a></li>
-<li class="chapter" data-level="15.4" data-path="aula12.html"><a href="aula12.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>15.4</b> The case of a linear model</a></li>
-<li class="chapter" data-level="15.5" data-path="aula12.html"><a href="aula12.html#the-really-interesting-case"><i class="fa fa-check"></i><b>15.5</b> The really interesting case</a></li>
-<li class="chapter" data-level="15.6" data-path="aula12.html"><a href="aula12.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>15.6</b> Likelihood, above and beyond</a></li>
+<li class="chapter" data-level="16" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>16</b> Class 13: 10 11 2020 Maximum likelihood and all that</a><ul>
+<li class="chapter" data-level="16.1" data-path="aula12.html"><a href="aula12.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>16.1</b> Maximizing a likelihood algebraically</a></li>
+<li class="chapter" data-level="16.2" data-path="aula12.html"><a href="aula12.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>16.2</b> Numerically Maximizing a likelihood</a></li>
+<li class="chapter" data-level="16.3" data-path="aula12.html"><a href="aula12.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>16.3</b> The case of a Gaussian</a></li>
+<li class="chapter" data-level="16.4" data-path="aula12.html"><a href="aula12.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>16.4</b> The case of a linear model</a></li>
+<li class="chapter" data-level="16.5" data-path="aula12.html"><a href="aula12.html#the-really-interesting-case"><i class="fa fa-check"></i><b>16.5</b> The really interesting case</a></li>
+<li class="chapter" data-level="16.6" data-path="aula12.html"><a href="aula12.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>16.6</b> Likelihood, above and beyond</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>16</b> Class 14: 10 10 2020 GLMs</a><ul>
-<li class="chapter" data-level="16.1" data-path="aula14.html"><a href="aula14.html#what-are-glms"><i class="fa fa-check"></i><b>16.1</b> What are GLMs</a></li>
-<li class="chapter" data-level="16.2" data-path="aula14.html"><a href="aula14.html#the-link-function"><i class="fa fa-check"></i><b>16.2</b> The link function</a></li>
-<li class="chapter" data-level="16.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>16.3</b> Most useful GLM Families</a></li>
-<li class="chapter" data-level="16.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>16.4</b> An example analysis</a></li>
+<li class="chapter" data-level="17" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>17</b> Class 14: 11 11 2020 GLMs</a><ul>
+<li class="chapter" data-level="17.1" data-path="aula14.html"><a href="aula14.html#what-are-glms"><i class="fa fa-check"></i><b>17.1</b> What are GLMs</a></li>
+<li class="chapter" data-level="17.2" data-path="aula14.html"><a href="aula14.html#the-link-function"><i class="fa fa-check"></i><b>17.2</b> The link function</a></li>
+<li class="chapter" data-level="17.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>17.3</b> Most useful GLM Families</a></li>
+<li class="chapter" data-level="17.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>17.4</b> An example analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>17</b> Class 15: 11 11 2020</a></li>
-<li class="chapter" data-level="18" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>18</b> Class 16: 17 11 2020</a></li>
-<li class="chapter" data-level="19" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>19</b> Final Words</a></li>
+<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a></li>
+<li class="chapter" data-level="19" data-path="example-1-deviance.html"><a href="example-1-deviance.html"><i class="fa fa-check"></i><b>19</b> Example 1 - deviance</a></li>
+<li class="chapter" data-level="20" data-path="example-2-lagartyos-glm.html"><a href="example-2-lagartyos-glm.html"><i class="fa fa-check"></i><b>20</b> Example 2 - lagartyos GLM</a><ul>
+<li class="chapter" data-level="20.1" data-path="example-2-lagartyos-glm.html"><a href="example-2-lagartyos-glm.html#example-2"><i class="fa fa-check"></i><b>20.1</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>21</b> Class 16: 18 11 2020</a><ul>
+<li class="chapter" data-level="21.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>21.1</b> A logistic regression example</a></li>
+<li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.2</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Class 17: 24 11 2020</a><ul>
+<li class="chapter" data-level="22.1" data-path="aula17.html"><a href="aula17.html#presence-of-bats"><i class="fa fa-check"></i><b>22.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="22.2" data-path="aula17.html"><a href="aula17.html#sponges"><i class="fa fa-check"></i><b>22.2</b> Sponges</a></li>
+<li class="chapter" data-level="22.3" data-path="aula17.html"><a href="aula17.html#extra-glm-stuff"><i class="fa fa-check"></i><b>22.3</b> Extra GLM stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a></li>
+<li class="chapter" data-level="24" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>24</b> Class 19: 02 12 2020</a></li>
+<li class="chapter" data-level="25" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>25</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -212,48 +227,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="aula13" class="section level1">
-<h1><span class="header-section-number">Chapter 13</span> Class 12: 04 11 2020 Interactions between continous covariates</h1>
+<h1><span class="header-section-number">Chapter 14</span> Class 12: 04 11 2020 Interactions between continous covariates</h1>
 <p>The examples above were interactions with factors, but interactions can occur also across strictly continous variables. An example follows. Imagine it corresponds to the length of fishes as a function of water temperature <code>temp</code> and <code>pH</code> (if those were real values of some water pH… all the fish would be dissolved, but any way!). We make up some example data below.</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" title="1"><span class="co">#--------------------------------------------------------</span></a>
-<a class="sourceLine" id="cb264-2" title="2"><span class="co">#Interactions</span></a>
-<a class="sourceLine" id="cb264-3" title="3"><span class="co">#### With continous covariates</span></a>
-<a class="sourceLine" id="cb264-4" title="4"><span class="co">#--------------------------------------------------------</span></a>
-<a class="sourceLine" id="cb264-5" title="5"><span class="co">#sample size</span></a>
-<a class="sourceLine" id="cb264-6" title="6"><span class="kw">set.seed</span>(<span class="dv">121</span>)</a>
-<a class="sourceLine" id="cb264-7" title="7">n=<span class="dv">100</span></a>
-<a class="sourceLine" id="cb264-8" title="8"><span class="co">#get a response variable</span></a>
-<a class="sourceLine" id="cb264-9" title="9">xs1=<span class="kw">runif</span>(n,<span class="dv">30</span>,<span class="dv">90</span>)</a>
-<a class="sourceLine" id="cb264-10" title="10"><span class="co">#get a second variable</span></a>
-<a class="sourceLine" id="cb264-11" title="11">xs2=<span class="kw">rgamma</span>(n,<span class="dv">10</span>,<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb264-12" title="12"><span class="co">#define the linear predictor</span></a>
-<a class="sourceLine" id="cb264-13" title="13">ys=<span class="dv">20</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>xs1<span class="dv">-4</span><span class="op">*</span>xs2<span class="op">+</span><span class="dv">3</span><span class="op">*</span>xs1<span class="op">*</span>xs2<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb264-14" title="14"></a>
-<a class="sourceLine" id="cb264-15" title="15"><span class="co">#to make it easier</span></a>
-<a class="sourceLine" id="cb264-16" title="16">xs12=xs1<span class="op">*</span>xs2</a>
-<a class="sourceLine" id="cb264-17" title="17"></a>
-<a class="sourceLine" id="cb264-18" title="18"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb264-19" title="19"><span class="kw">plot</span>(xs1,ys,<span class="dt">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Temperature&quot;</span>)</a>
-<a class="sourceLine" id="cb264-20" title="20"><span class="kw">plot</span>(xs2,ys,<span class="dt">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;pH&quot;</span>)</a>
-<a class="sourceLine" id="cb264-21" title="21"><span class="kw">plot</span>(xs12,ys,<span class="dt">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Temperature * pH&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" title="1"><span class="co">#--------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb265-2" title="2"><span class="co">#Interactions</span></a>
+<a class="sourceLine" id="cb265-3" title="3"><span class="co">#### With continous covariates</span></a>
+<a class="sourceLine" id="cb265-4" title="4"><span class="co">#--------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb265-5" title="5"><span class="co">#sample size</span></a>
+<a class="sourceLine" id="cb265-6" title="6"><span class="kw">set.seed</span>(<span class="dv">121</span>)</a>
+<a class="sourceLine" id="cb265-7" title="7">n=<span class="dv">100</span></a>
+<a class="sourceLine" id="cb265-8" title="8"><span class="co">#get a response variable</span></a>
+<a class="sourceLine" id="cb265-9" title="9">xs1=<span class="kw">runif</span>(n,<span class="dv">30</span>,<span class="dv">90</span>)</a>
+<a class="sourceLine" id="cb265-10" title="10"><span class="co">#get a second variable</span></a>
+<a class="sourceLine" id="cb265-11" title="11">xs2=<span class="kw">rgamma</span>(n,<span class="dv">10</span>,<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb265-12" title="12"><span class="co">#define the linear predictor</span></a>
+<a class="sourceLine" id="cb265-13" title="13">ys=<span class="dv">20</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>xs1<span class="dv">-4</span><span class="op">*</span>xs2<span class="op">+</span><span class="dv">3</span><span class="op">*</span>xs1<span class="op">*</span>xs2<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb265-14" title="14"></a>
+<a class="sourceLine" id="cb265-15" title="15"><span class="co">#to make it easier</span></a>
+<a class="sourceLine" id="cb265-16" title="16">xs12=xs1<span class="op">*</span>xs2</a>
+<a class="sourceLine" id="cb265-17" title="17"></a>
+<a class="sourceLine" id="cb265-18" title="18"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb265-19" title="19"><span class="kw">plot</span>(xs1,ys,<span class="dt">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Temperature&quot;</span>)</a>
+<a class="sourceLine" id="cb265-20" title="20"><span class="kw">plot</span>(xs2,ys,<span class="dt">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;pH&quot;</span>)</a>
+<a class="sourceLine" id="cb265-21" title="21"><span class="kw">plot</span>(xs12,ys,<span class="dt">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Temperature * pH&quot;</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a12.1-1.png" width="672" /></p>
 <p>We can fit different models to such data, namely those that consider just the <code>xs1</code> (temperature), just the <code>xs2</code> (pH), or even just a new variable called <code>xs1xs2</code> (temperature <span class="math inline">\(\times\)</span> pH), and those with both variables and the interaction. Note <code>xs1xs2</code> variable is just the product of the other two, and in fact that fitting that product alone is equivalent to fitting the interaction alone!</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb265-1" title="1"><span class="co">#-----------------------------------</span></a>
-<a class="sourceLine" id="cb265-2" title="2"><span class="co">#models with interaction</span></a>
-<a class="sourceLine" id="cb265-3" title="3"><span class="co">#model with interaction</span></a>
-<a class="sourceLine" id="cb265-4" title="4">mx1x2I=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2<span class="op">+</span>xs1<span class="op">:</span>xs2)</a>
-<a class="sourceLine" id="cb265-5" title="5"><span class="co">#just the interaction term</span></a>
-<a class="sourceLine" id="cb265-6" title="6">mI=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">:</span>xs2)</a>
-<a class="sourceLine" id="cb265-7" title="7"><span class="co">#same as mx1x2I</span></a>
-<a class="sourceLine" id="cb265-8" title="8">mx1x2I.b=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs2)</a>
-<a class="sourceLine" id="cb265-9" title="9"><span class="co">#same as just the interaction term</span></a>
-<a class="sourceLine" id="cb265-10" title="10">mI.b=<span class="kw">lm</span>(ys<span class="op">~</span>xs12)</a>
-<a class="sourceLine" id="cb265-11" title="11"><span class="co">#-----------------------------------</span></a>
-<a class="sourceLine" id="cb265-12" title="12"><span class="co">#models without the interaction term</span></a>
-<a class="sourceLine" id="cb265-13" title="13">mx1x2=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2)</a>
-<a class="sourceLine" id="cb265-14" title="14">mx1=<span class="kw">lm</span>(ys<span class="op">~</span>xs1)</a>
-<a class="sourceLine" id="cb265-15" title="15">mx2=<span class="kw">lm</span>(ys<span class="op">~</span>xs2)</a></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" title="1"><span class="co">#-----------------------------------</span></a>
+<a class="sourceLine" id="cb266-2" title="2"><span class="co">#models with interaction</span></a>
+<a class="sourceLine" id="cb266-3" title="3"><span class="co">#model with interaction</span></a>
+<a class="sourceLine" id="cb266-4" title="4">mx1x2I=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2<span class="op">+</span>xs1<span class="op">:</span>xs2)</a>
+<a class="sourceLine" id="cb266-5" title="5"><span class="co">#just the interaction term</span></a>
+<a class="sourceLine" id="cb266-6" title="6">mI=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">:</span>xs2)</a>
+<a class="sourceLine" id="cb266-7" title="7"><span class="co">#same as mx1x2I</span></a>
+<a class="sourceLine" id="cb266-8" title="8">mx1x2I.b=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs2)</a>
+<a class="sourceLine" id="cb266-9" title="9"><span class="co">#same as just the interaction term</span></a>
+<a class="sourceLine" id="cb266-10" title="10">mI.b=<span class="kw">lm</span>(ys<span class="op">~</span>xs12)</a>
+<a class="sourceLine" id="cb266-11" title="11"><span class="co">#-----------------------------------</span></a>
+<a class="sourceLine" id="cb266-12" title="12"><span class="co">#models without the interaction term</span></a>
+<a class="sourceLine" id="cb266-13" title="13">mx1x2=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2)</a>
+<a class="sourceLine" id="cb266-14" title="14">mx1=<span class="kw">lm</span>(ys<span class="op">~</span>xs1)</a>
+<a class="sourceLine" id="cb266-15" title="15">mx2=<span class="kw">lm</span>(ys<span class="op">~</span>xs2)</a></code></pre></div>
 <p>To begin with, check what we commented above is true. Models <code>mx1x2I</code> and <code>mx1x2I.b</code> are equivalent,</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" title="1"><span class="kw">summary</span>(mx1x2I)</a></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb267-1" title="1"><span class="kw">summary</span>(mx1x2I)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1 + xs2 + xs1:xs2)
@@ -274,7 +289,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 0.9462 on 96 degrees of freedom
 ## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
 ## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" title="1"><span class="kw">summary</span>(mx1x2I.b)</a></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" title="1"><span class="kw">summary</span>(mx1x2I.b)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1 * xs2)
@@ -296,7 +311,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
 ## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>and <code>mI</code> and <code>mI.b</code> are equivalent.</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" title="1"><span class="kw">summary</span>(mI)</a></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" title="1"><span class="kw">summary</span>(mI)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1:xs2)
@@ -315,7 +330,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 27.28 on 98 degrees of freedom
 ## Multiple R-squared:  0.917,	Adjusted R-squared:  0.9161 
 ## F-statistic:  1083 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" title="1"><span class="kw">summary</span>(mI.b)</a></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" title="1"><span class="kw">summary</span>(mI.b)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs12)
@@ -335,17 +350,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Multiple R-squared:  0.917,	Adjusted R-squared:  0.9161 
 ## F-statistic:  1083 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Now, we plot the single variable models</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" title="1"><span class="co">#ploting the data and (single variable) models</span></a>
-<a class="sourceLine" id="cb274-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</a>
-<a class="sourceLine" id="cb274-3" title="3"><span class="kw">plot</span>(xs1,ys)</a>
-<a class="sourceLine" id="cb274-4" title="4"><span class="kw">abline</span>(mx1,<span class="dt">lty=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb274-5" title="5"><span class="kw">plot</span>(xs2,ys)</a>
-<a class="sourceLine" id="cb274-6" title="6"><span class="kw">abline</span>(mx2,<span class="dt">lty=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb274-7" title="7"><span class="kw">plot</span>(xs12,ys)</a>
-<a class="sourceLine" id="cb274-8" title="8"><span class="kw">abline</span>(<span class="kw">lm</span>(mI),<span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" title="1"><span class="co">#ploting the data and (single variable) models</span></a>
+<a class="sourceLine" id="cb275-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</a>
+<a class="sourceLine" id="cb275-3" title="3"><span class="kw">plot</span>(xs1,ys)</a>
+<a class="sourceLine" id="cb275-4" title="4"><span class="kw">abline</span>(mx1,<span class="dt">lty=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb275-5" title="5"><span class="kw">plot</span>(xs2,ys)</a>
+<a class="sourceLine" id="cb275-6" title="6"><span class="kw">abline</span>(mx2,<span class="dt">lty=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb275-7" title="7"><span class="kw">plot</span>(xs12,ys)</a>
+<a class="sourceLine" id="cb275-8" title="8"><span class="kw">abline</span>(<span class="kw">lm</span>(mI),<span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a12.5-1.png" width="672" /></p>
 <p>Note that if we ignore the interaction, we make the wrong conclusion, we conclude that <code>xs2</code> has the wrong effect compared to reality: it seems to have a positive influence, when we know that influence is negative!</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" title="1"><span class="kw">summary</span>(mx1x2)</a></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" title="1"><span class="kw">summary</span>(mx1x2)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1 + xs2)
@@ -366,7 +381,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Multiple R-squared:  0.9735,	Adjusted R-squared:  0.973 
 ## F-statistic:  1782 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>When we look at the model that really makes sense here, given the true model, we get the right decisions for all the terms in the model: xs1 has a positive effect and xs2 has a negative effect in the response, with a significant positive effect on the interation between the two.</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1"><span class="kw">summary</span>(mx1x2I)</a></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" title="1"><span class="kw">summary</span>(mx1x2I)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1 + xs2 + xs1:xs2)
@@ -389,8 +404,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Failing to include significant interactions could lead one to wrongly conclude that a variable that in reality has a negative effect on the response happens to have a significant positive impact on the response!</p>
 <p>Note that, reassuringly, this would be the model preferred by AIC, by a long shot. All is good when all ends well, which if we have lots of data and low error, is not unexpected. But the real danger lies in real life data, where we do not know what reality is.</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" title="1"><span class="co">#compare models using say AIC</span></a>
-<a class="sourceLine" id="cb279-2" title="2"><span class="kw">AIC</span>(mx1,mx2,mI,mx1x2,mx1x2I)</a></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" title="1"><span class="co">#compare models using say AIC</span></a>
+<a class="sourceLine" id="cb280-2" title="2"><span class="kw">AIC</span>(mx1,mx2,mI,mx1x2,mx1x2I)</a></code></pre></div>
 <pre><code>##        df       AIC
 ## mx1     3 1076.8927
 ## mx2     3 1183.9971
@@ -401,30 +416,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This was a 2-way interaction.</p>
 <p>One can think about 3-way interactions or even higher order interactions, but no one can interpret those models anymore!</p>
 <div id="larger-order-interactions" class="section level2">
-<h2><span class="header-section-number">13.1</span> Larger order interactions</h2>
+<h2><span class="header-section-number">14.1</span> Larger order interactions</h2>
 <p>Just for fun (yeah.. fun !) we look at a model where we have more variables available to fit. In fact, we have 4 covariates, meaning we could even fit a 4th order interaction. Don’t try that at hope folks, only trained professionals should (and to so so with a 4th order interaction, probably trained profesionals that went a bit crazy at some point!).</p>
 <p>Our true model wll be of the form</p>
 <p><span class="math inline">\(ys=20+2*xs1-4*xs2+3*xs1*xs2+xs3+xs4\)</span></p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" title="1"><span class="co">#--------------------------------------------</span></a>
-<a class="sourceLine" id="cb281-2" title="2"><span class="co"># A 4 way interaction model</span></a>
-<a class="sourceLine" id="cb281-3" title="3"><span class="co">#but in reality there is only 1 second order interaction</span></a>
-<a class="sourceLine" id="cb281-4" title="4"><span class="co">#--------------------------------------------</span></a>
-<a class="sourceLine" id="cb281-5" title="5"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb281-6" title="6"><span class="co">#get a response variable</span></a>
-<a class="sourceLine" id="cb281-7" title="7">xs1=<span class="kw">runif</span>(n,<span class="dv">30</span>,<span class="dv">90</span>)</a>
-<a class="sourceLine" id="cb281-8" title="8"><span class="co">#get a second variable</span></a>
-<a class="sourceLine" id="cb281-9" title="9">xs2=<span class="kw">rgamma</span>(n,<span class="dv">10</span>,<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb281-10" title="10"><span class="co">#get a response variable</span></a>
-<a class="sourceLine" id="cb281-11" title="11">xs3=<span class="kw">runif</span>(n,<span class="dv">3</span>,<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb281-12" title="12"><span class="co">#get a second variable</span></a>
-<a class="sourceLine" id="cb281-13" title="13">xs4=<span class="kw">rgamma</span>(n,<span class="dv">4</span>,<span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb281-14" title="14"><span class="co">#define the linear predictor</span></a>
-<a class="sourceLine" id="cb281-15" title="15">ys=<span class="dv">20</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>xs1<span class="dv">-4</span><span class="op">*</span>xs2<span class="op">+</span><span class="dv">3</span><span class="op">*</span>xs1<span class="op">*</span>xs2<span class="op">+</span>xs3<span class="op">+</span>xs4<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" title="1"><span class="co">#--------------------------------------------</span></a>
+<a class="sourceLine" id="cb282-2" title="2"><span class="co"># A 4 way interaction model</span></a>
+<a class="sourceLine" id="cb282-3" title="3"><span class="co">#but in reality there is only 1 second order interaction</span></a>
+<a class="sourceLine" id="cb282-4" title="4"><span class="co">#--------------------------------------------</span></a>
+<a class="sourceLine" id="cb282-5" title="5"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb282-6" title="6"><span class="co">#get a response variable</span></a>
+<a class="sourceLine" id="cb282-7" title="7">xs1=<span class="kw">runif</span>(n,<span class="dv">30</span>,<span class="dv">90</span>)</a>
+<a class="sourceLine" id="cb282-8" title="8"><span class="co">#get a second variable</span></a>
+<a class="sourceLine" id="cb282-9" title="9">xs2=<span class="kw">rgamma</span>(n,<span class="dv">10</span>,<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb282-10" title="10"><span class="co">#get a response variable</span></a>
+<a class="sourceLine" id="cb282-11" title="11">xs3=<span class="kw">runif</span>(n,<span class="dv">3</span>,<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb282-12" title="12"><span class="co">#get a second variable</span></a>
+<a class="sourceLine" id="cb282-13" title="13">xs4=<span class="kw">rgamma</span>(n,<span class="dv">4</span>,<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb282-14" title="14"><span class="co">#define the linear predictor</span></a>
+<a class="sourceLine" id="cb282-15" title="15">ys=<span class="dv">20</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span>xs1<span class="dv">-4</span><span class="op">*</span>xs2<span class="op">+</span><span class="dv">3</span><span class="op">*</span>xs1<span class="op">*</span>xs2<span class="op">+</span>xs3<span class="op">+</span>xs4<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dv">2</span>)</a></code></pre></div>
 <p>After having created the data, we can fit a couple of models to it. One with all the interactions, one with just the correct (=true, since we know the data generating model) 2 way interaction between <code>xs1</code> and <code>xs2</code>.</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" title="1">modW=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs2<span class="op">*</span>xs3<span class="op">*</span>xs4)</a>
-<a class="sourceLine" id="cb282-2" title="2">modR=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2<span class="op">+</span>xs3<span class="op">+</span>xs4<span class="op">+</span>xs1<span class="op">:</span>xs2)</a></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" title="1">modW=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs2<span class="op">*</span>xs3<span class="op">*</span>xs4)</a>
+<a class="sourceLine" id="cb283-2" title="2">modR=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2<span class="op">+</span>xs3<span class="op">+</span>xs4<span class="op">+</span>xs1<span class="op">:</span>xs2)</a></code></pre></div>
 <p>If we look at the 4 way interaction model</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" title="1"><span class="kw">summary</span>(modW)</a></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" title="1"><span class="kw">summary</span>(modW)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1 * xs2 * xs3 * xs4)
@@ -459,7 +474,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## F-statistic: 6.03e+04 on 15 and 84 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>we see several errors, namely type II errors associated with <code>xs2</code>, <code>xs3</code> and <code>xs4</code>! In other words, including interactions which are not real can mask the true influence of relevant variables!</p>
 <p>When we look at the right model, these go away, and all variables and the correct second order variable are considered significant (at the usual significance levels)</p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" title="1"><span class="kw">summary</span>(modR)</a></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" title="1"><span class="kw">summary</span>(modR)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1 + xs2 + xs3 + xs4 + xs1:xs2)
@@ -483,23 +498,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
 ## F-statistic: 1.806e+05 on 5 and 94 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Reassuringly, the right model is preferred in terms of AIC</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" title="1"><span class="kw">AIC</span>(modW,modR)</a></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" title="1"><span class="kw">AIC</span>(modW,modR)</a></code></pre></div>
 <pre><code>##      df      AIC
 ## modW 17 310.6238
 ## modR  7 302.0554</code></pre>
 <p>What would happen if we had not recorded some of the variables? Or if we considered different second order or even 3 order interactions? I experiment below just as an example creating additional 10 wrong models.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1">modW1=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2<span class="op">*</span>xs3)</a>
-<a class="sourceLine" id="cb289-2" title="2">modW2=<span class="kw">lm</span>(ys<span class="op">~</span>xs2<span class="op">+</span>xs3<span class="op">*</span>xs4)</a>
-<a class="sourceLine" id="cb289-3" title="3">modW3=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs2<span class="op">*</span>xs3)</a>
-<a class="sourceLine" id="cb289-4" title="4">modW4=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs3<span class="op">*</span>xs4)</a>
-<a class="sourceLine" id="cb289-5" title="5">modW5=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2<span class="op">+</span>xs3)</a>
-<a class="sourceLine" id="cb289-6" title="6">modW6=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs3<span class="op">+</span>xs4)</a>
-<a class="sourceLine" id="cb289-7" title="7">modW7=<span class="kw">lm</span>(ys<span class="op">~</span>xs2<span class="op">+</span>xs3<span class="op">+</span>xs4)</a>
-<a class="sourceLine" id="cb289-8" title="8">modW8=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs2)</a>
-<a class="sourceLine" id="cb289-9" title="9">modW9=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs3)</a>
-<a class="sourceLine" id="cb289-10" title="10">modW10=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs4)</a></code></pre></div>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1"><span class="kw">library</span>(knitr)</a>
-<a class="sourceLine" id="cb290-2" title="2"><span class="kw">kable</span>(<span class="kw">AIC</span>(modW,modW1,modW2,modW3,modW4,modW5,modW6,modW7,modW8,modW9,modW10,modR))</a></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1">modW1=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2<span class="op">*</span>xs3)</a>
+<a class="sourceLine" id="cb290-2" title="2">modW2=<span class="kw">lm</span>(ys<span class="op">~</span>xs2<span class="op">+</span>xs3<span class="op">*</span>xs4)</a>
+<a class="sourceLine" id="cb290-3" title="3">modW3=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs2<span class="op">*</span>xs3)</a>
+<a class="sourceLine" id="cb290-4" title="4">modW4=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs3<span class="op">*</span>xs4)</a>
+<a class="sourceLine" id="cb290-5" title="5">modW5=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs2<span class="op">+</span>xs3)</a>
+<a class="sourceLine" id="cb290-6" title="6">modW6=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">+</span>xs3<span class="op">+</span>xs4)</a>
+<a class="sourceLine" id="cb290-7" title="7">modW7=<span class="kw">lm</span>(ys<span class="op">~</span>xs2<span class="op">+</span>xs3<span class="op">+</span>xs4)</a>
+<a class="sourceLine" id="cb290-8" title="8">modW8=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs2)</a>
+<a class="sourceLine" id="cb290-9" title="9">modW9=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs3)</a>
+<a class="sourceLine" id="cb290-10" title="10">modW10=<span class="kw">lm</span>(ys<span class="op">~</span>xs1<span class="op">*</span>xs4)</a></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" title="1"><span class="kw">library</span>(knitr)</a>
+<a class="sourceLine" id="cb291-2" title="2"><span class="kw">kable</span>(<span class="kw">AIC</span>(modW,modW1,modW2,modW3,modW4,modW5,modW6,modW7,modW8,modW9,modW10,modR))</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">

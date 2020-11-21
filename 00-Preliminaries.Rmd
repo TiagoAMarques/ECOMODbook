@@ -1,0 +1,29 @@
+# Preliminaries {#prelim}
+
+These are fundamental references that I think any candidate to be an ecological statistician, even before being an ecological modeller, should know about. These are useful either for someone that develops methods to be used by practicioners, as well as for practitioners wanting to use the methods. Many of these are actually useful for both sets of people.
+
+* @Hurlbert1984 introduces the concept of pseudoreplication in the context of ecological field experiments. This is an ecology classic and a fundamental paper because I suspect many of th emisconceptions around the use of statistics in ecology stem from the fact that researchers try to apply methods that were developed in a context of designed experiments but in fact most ecological studies are observational in nature. Therefore, to soem degree, there is always a degree of pseudo-replication in field observations. Understanding when we can ignore these and treat observations as independent, versus when must account for that correlation in the analysis, is a fundamental ability. Unfortunately, I would say this is much easier said than done, and the ability to do so does not come in books. It is fundamentally obtained through experience. 
+
+* @AND2001 discuss the need to avoid index values, or in other words, that we must account for detectability when interpreting coundsof detected animals, and the fundamental avoiding convenience sampling when sampling wildlife. What you learn from sampling animals from a road in not something about the animals, but about what the animals do near roads. Understanding when the two might be, and even more important, when they might not be, the same thing, is fundamental.
+
+* @Kass2016 present 10 principles for effective statistical analysis, and while they are all important, I think that the plea for being careful about the data (after all, garbage in. garbage out) and also for aiming to have reproducible analysis are key, often overlooked, messages for all researchers, and that includes those hoping to strive in ecological modelling.
+
+* @King2014 reviews what is modern statitical ecology. 
+
+* @Gimenez2014, along similar lines of @King2014, put forward the idea that ecological statistics is finally a ripe research field and describe the key topics and methods involved at the interface between ecology and statistics.
+
+* Martinez-Abrain2007 reminds us of how many questions about whether differences exist between two populations are non-sensical. Of course there are, and the only uqestion then becoames if we manage to gather a large enough sample size to establish them statistically. Of course, that in itself migh not mean much.
+
+* @Martinez-Abrain2008 goes on and therefore discusses a fundamental aspect that we must never forget, statistical significance does not imply biological relevance.
+
+* @Nakagawa2007 provide an excelent review of the concepts around effect size, confidence interval and statistical significance. These represent cornerstones of statistics that must be mastered by the ecological statistician.
+
+* @OHara2010 and why you should avoid using the log of count data (which is not the same as not using log transformations, these might be useful under many contexts)
+
+* @Zuur2009 is a good read about startegies to avoid the most common statistical problems (this paper was a guest paper for the first issue of the Methods in ecology and Evolution journal)
+
+* @Zuur2016 a follow up paper about what to present as outputs in a regression analysis
+
+* @Fourcade2017 is a cautionary tale about how using variables that are unrelated to a given spatila phenomena can induce us to think that they are causing the phenomena; in fact association might be induced by spatial autocorrelation patterns present in predictors that a (too much) efficient method might pick up.
+
+* @Steel2013 presents 18 pitfalls, and ways to avoid them, when using statistics in ecology, in other words, when doing ecological statistics.

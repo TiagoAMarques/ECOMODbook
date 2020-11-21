@@ -1,1 +1,97 @@
-# Class 15: 11 11 2020 {#aula15}
+# Class 15: 17 11 2020 {#aula15}
+
+Model selection and assessment - this chapter/class 
+is currently lame at best, no good writting etc.
+
+# Example 1 - deviance
+
+A15 ME 17 11 2019.pptx
+slides 22-25
+
+# Example 2 - lagartyos GLM
+
+A15 ME 17 11 2019.pptx
+slides 26-33 
+
+## Example 2
+
+Use the aerogeradores example to see how AIC and significance tests on the parameters can tell you different things
+
+Read in the data
+
+```{r}
+peol <- read.csv("extfiles/parqueseolicos.csv", sep=";")
+```
+
+Look at the data
+
+```{r}
+pairs(peol)
+```
+
+Implement multiple regression
+
+```{r}
+regmul=lm(mortalidade~.,data=peol)
+summary(regmul)
+```
+
+Implement poisson GLM with all variables
+
+```{r}
+glmALL=glm(mortalidade~.,data=peol,family=poisson(link="log"))
+summary(glmALL)
+```
+
+Run a few other models
+
+```{r}
+glmda<-glm(mortalidade~densidade.aero,data=peol,family=poisson(link="log"))
+glma<-glm(mortalidade~altitude,data=peol,family=poisson(link="log"))
+glmpa<-glm(mortalidade~proximidade.aero,data=peol,family=poisson(link="log"))
+glmapa<-glm(mortalidade~altitude+proximidade.aero,data=peol,family=poisson(link="log"))
+glmdaapa=glm(mortalidade~densidade.aero+altitude+proximidade.aero,data=peol,family=poisson(link="log"))
+```
+
+
+Check that best model by AIC inclues non significant variables
+
+```{r}
+AIC(glmda,glma,glmpa,glmapa,glmdaapa,glmALL)
+```
+
+Check best AIC model
+
+```{r}
+summary(glmdaapa)
+```
+
+Use `stepAIC`
+
+```{r}
+library(MASS)
+fullmodel=glm(mortalidade~.,data=peol,family=poisson(link="log"))
+best.model=stepAIC(fullmodel,direction="backward")
+
+summary(best.model)
+```
+
+Use function `bestglm`, confirm you get the best above and also the same as from stepAIC
+
+```{r}
+library(bestglm)
+bestGLM=bestglm(Xy=peol[,c(2:5,1)],family=poisson(),IC="AIC",RequireFullEnumeration=TRUE)
+bestGLM$BestModel
+```
+
+Interesting, with the Gaussian response (and I used the Gaussian response on the slides in class!) one would get a different answer... explore?
+
+```{r}
+library(bestglm)
+bestGLM=bestglm(Xy=peol[,c(2:5,1)],family=gaussian(),IC="AIC",RequireFullEnumeration=TRUE)
+bestGLM$BestModel
+```
+
+Any way, do not forget, these were just an example dataset to explore functions stepAIC and bestglm. If ecological inferences were the obnjective, the answer to our doubts would be: find a reasonable dataset, not one with `r ncol(peol)-1` independent variables and `r nrow(peol)` data points.
+
+Look at AICc?

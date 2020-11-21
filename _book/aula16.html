@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 18 Class 16: 17 11 2020 | Notes for Ecological Modelling</title>
+  <title>Chapter 21 Class 16: 18 11 2020 | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 18 Class 16: 17 11 2020 | Notes for Ecological Modelling" />
+  <meta property="og:title" content="Chapter 21 Class 16: 18 11 2020 | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 18 Class 16: 17 11 2020 | Notes for Ecological Modelling" />
+  <meta name="twitter:title" content="Chapter 21 Class 16: 18 11 2020 | Notes for Ecological Modelling" />
   
   <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2020-11-15" />
+<meta name="date" content="2020-11-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="aula15.html"/>
-<link rel="next" href="final-words.html"/>
+<link rel="prev" href="example-2-lagartyos-glm.html"/>
+<link rel="next" href="aula17.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -135,61 +135,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
 <li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
 <li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
-<li class="chapter" data-level="5" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>5</b> About regression</a><ul>
-<li class="chapter" data-level="5.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>5.1</b> What is a regression?</a></li>
-<li class="chapter" data-level="5.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>5.2</b> The general linear model</a></li>
+<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a></li>
+<li class="chapter" data-level="6" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>6</b> About regression</a><ul>
+<li class="chapter" data-level="6.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>6.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="6.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>6.2</b> The general linear model</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>6</b> Hands On Regression</a><ul>
-<li class="chapter" data-level="6.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>6.1</b> The assumptions are on the residuals, not the data</a></li>
+<li class="chapter" data-level="7" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>7</b> Hands On Regression</a><ul>
+<li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>7</b> Class 6 13 10 2020</a><ul>
-<li class="chapter" data-level="7.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>7.1</b> Implementing a regression</a></li>
-<li class="chapter" data-level="7.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>7.2</b> Simulating regression data</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>7.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+<li class="chapter" data-level="8" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>8</b> Class 6 13 10 2020</a><ul>
+<li class="chapter" data-level="8.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>8.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="8.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>8.2</b> Simulating regression data</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>8</b> Class 7 14 10 2020</a><ul>
-<li class="chapter" data-level="8.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>8.1</b> Task 1</a></li>
-<li class="chapter" data-level="8.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>8.2</b> Task 2</a></li>
+<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Class 7 14 10 2020</a><ul>
+<li class="chapter" data-level="9.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>9.1</b> Task 1</a></li>
+<li class="chapter" data-level="9.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>9.2</b> Task 2</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>9</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
-<li class="chapter" data-level="9.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>9.1</b> The t-test</a></li>
-<li class="chapter" data-level="9.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>9.2</b> ANOVA</a></li>
+<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
+<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.1</b> The t-test</a></li>
+<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.2</b> ANOVA</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>10</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
-<li class="chapter" data-level="10.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>10.1</b> Common slope, different intercepts per treatment</a></li>
+<li class="chapter" data-level="11" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>11</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
+<li class="chapter" data-level="11.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>11.1</b> Common slope, different intercepts per treatment</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>11</b> Class 10: 27 10 2020</a><ul>
-<li class="chapter" data-level="11.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>11.1</b> Same story, another spin</a></li>
+<li class="chapter" data-level="12" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>12</b> Class 10: 27 10 2020</a><ul>
+<li class="chapter" data-level="12.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>12.1</b> Same story, another spin</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>12</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a><ul>
-<li class="chapter" data-level="12.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>12.1</b> About interactions</a></li>
-<li class="chapter" data-level="12.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>12.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
-<li class="chapter" data-level="12.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>12.3</b> Task 2 Modeling a data set</a></li>
+<li class="chapter" data-level="13" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>13</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a><ul>
+<li class="chapter" data-level="13.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>13.1</b> About interactions</a></li>
+<li class="chapter" data-level="13.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>13.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="13.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>13.3</b> Task 2 Modeling a data set</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>13</b> Class 12: 04 11 2020 Interactions between continous covariates</a><ul>
-<li class="chapter" data-level="13.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>13.1</b> Larger order interactions</a></li>
+<li class="chapter" data-level="14" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>14</b> Class 12: 04 11 2020 Interactions between continous covariates</a><ul>
+<li class="chapter" data-level="14.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>14.1</b> Larger order interactions</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>14</b> Conlusion on linear regression</a><ul>
-<li class="chapter" data-level="14.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>14.1</b> Conclusion</a></li>
+<li class="chapter" data-level="15" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conlusion on linear regression</a><ul>
+<li class="chapter" data-level="15.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>15</b> Class 13: 10 11 2020 Maximum likelihood and all that</a><ul>
-<li class="chapter" data-level="15.1" data-path="aula12.html"><a href="aula12.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>15.1</b> Maximizing a likelihood algebraically</a></li>
-<li class="chapter" data-level="15.2" data-path="aula12.html"><a href="aula12.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>15.2</b> Numerically Maximizing a likelihood</a></li>
-<li class="chapter" data-level="15.3" data-path="aula12.html"><a href="aula12.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>15.3</b> The case of a Gaussian</a></li>
-<li class="chapter" data-level="15.4" data-path="aula12.html"><a href="aula12.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>15.4</b> The case of a linear model</a></li>
-<li class="chapter" data-level="15.5" data-path="aula12.html"><a href="aula12.html#the-really-interesting-case"><i class="fa fa-check"></i><b>15.5</b> The really interesting case</a></li>
-<li class="chapter" data-level="15.6" data-path="aula12.html"><a href="aula12.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>15.6</b> Likelihood, above and beyond</a></li>
+<li class="chapter" data-level="16" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>16</b> Class 13: 10 11 2020 Maximum likelihood and all that</a><ul>
+<li class="chapter" data-level="16.1" data-path="aula12.html"><a href="aula12.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>16.1</b> Maximizing a likelihood algebraically</a></li>
+<li class="chapter" data-level="16.2" data-path="aula12.html"><a href="aula12.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>16.2</b> Numerically Maximizing a likelihood</a></li>
+<li class="chapter" data-level="16.3" data-path="aula12.html"><a href="aula12.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>16.3</b> The case of a Gaussian</a></li>
+<li class="chapter" data-level="16.4" data-path="aula12.html"><a href="aula12.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>16.4</b> The case of a linear model</a></li>
+<li class="chapter" data-level="16.5" data-path="aula12.html"><a href="aula12.html#the-really-interesting-case"><i class="fa fa-check"></i><b>16.5</b> The really interesting case</a></li>
+<li class="chapter" data-level="16.6" data-path="aula12.html"><a href="aula12.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>16.6</b> Likelihood, above and beyond</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>16</b> Class 14: 10 10 2020 GLMs</a><ul>
-<li class="chapter" data-level="16.1" data-path="aula14.html"><a href="aula14.html#what-are-glms"><i class="fa fa-check"></i><b>16.1</b> What are GLMs</a></li>
-<li class="chapter" data-level="16.2" data-path="aula14.html"><a href="aula14.html#the-link-function"><i class="fa fa-check"></i><b>16.2</b> The link function</a></li>
-<li class="chapter" data-level="16.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>16.3</b> Most useful GLM Families</a></li>
-<li class="chapter" data-level="16.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>16.4</b> An example analysis</a></li>
+<li class="chapter" data-level="17" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>17</b> Class 14: 11 11 2020 GLMs</a><ul>
+<li class="chapter" data-level="17.1" data-path="aula14.html"><a href="aula14.html#what-are-glms"><i class="fa fa-check"></i><b>17.1</b> What are GLMs</a></li>
+<li class="chapter" data-level="17.2" data-path="aula14.html"><a href="aula14.html#the-link-function"><i class="fa fa-check"></i><b>17.2</b> The link function</a></li>
+<li class="chapter" data-level="17.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>17.3</b> Most useful GLM Families</a></li>
+<li class="chapter" data-level="17.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>17.4</b> An example analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>17</b> Class 15: 11 11 2020</a></li>
-<li class="chapter" data-level="18" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>18</b> Class 16: 17 11 2020</a></li>
-<li class="chapter" data-level="19" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>19</b> Final Words</a></li>
+<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a></li>
+<li class="chapter" data-level="19" data-path="example-1-deviance.html"><a href="example-1-deviance.html"><i class="fa fa-check"></i><b>19</b> Example 1 - deviance</a></li>
+<li class="chapter" data-level="20" data-path="example-2-lagartyos-glm.html"><a href="example-2-lagartyos-glm.html"><i class="fa fa-check"></i><b>20</b> Example 2 - lagartyos GLM</a><ul>
+<li class="chapter" data-level="20.1" data-path="example-2-lagartyos-glm.html"><a href="example-2-lagartyos-glm.html#example-2"><i class="fa fa-check"></i><b>20.1</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>21</b> Class 16: 18 11 2020</a><ul>
+<li class="chapter" data-level="21.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>21.1</b> A logistic regression example</a></li>
+<li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.2</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Class 17: 24 11 2020</a><ul>
+<li class="chapter" data-level="22.1" data-path="aula17.html"><a href="aula17.html#presence-of-bats"><i class="fa fa-check"></i><b>22.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="22.2" data-path="aula17.html"><a href="aula17.html#sponges"><i class="fa fa-check"></i><b>22.2</b> Sponges</a></li>
+<li class="chapter" data-level="22.3" data-path="aula17.html"><a href="aula17.html#extra-glm-stuff"><i class="fa fa-check"></i><b>22.3</b> Extra GLM stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a></li>
+<li class="chapter" data-level="24" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>24</b> Class 19: 02 12 2020</a></li>
+<li class="chapter" data-level="25" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>25</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -212,16 +227,389 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="aula16" class="section level1">
-<h1><span class="header-section-number">Chapter 18</span> Class 16: 17 11 2020</h1>
+<h1><span class="header-section-number">Chapter 21</span> Class 16: 18 11 2020</h1>
+<div id="a-logistic-regression-example" class="section level2">
+<h2><span class="header-section-number">21.1</span> A logistic regression example</h2>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" title="1"><span class="co">#</span></a>
+<a class="sourceLine" id="cb384-2" title="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb384-3" title="3">n=<span class="dv">200</span></a>
+<a class="sourceLine" id="cb384-4" title="4"><span class="co">#a covariate</span></a>
+<a class="sourceLine" id="cb384-5" title="5">xs=<span class="kw">runif</span>(n,<span class="op">-</span><span class="dv">20</span>,<span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb384-6" title="6"><span class="co">#get the mean value</span></a>
+<a class="sourceLine" id="cb384-7" title="7">ilogit=<span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb384-8" title="8">  il=<span class="kw">exp</span>(x)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(x))</a>
+<a class="sourceLine" id="cb384-9" title="9"><span class="kw">return</span>(il)</a>
+<a class="sourceLine" id="cb384-10" title="10">}</a>
+<a class="sourceLine" id="cb384-11" title="11"></a>
+<a class="sourceLine" id="cb384-12" title="12">Ey=<span class="kw">ilogit</span>(<span class="dv">2</span><span class="fl">+0.4</span><span class="op">*</span>xs)</a>
+<a class="sourceLine" id="cb384-13" title="13"><span class="co">#generate data</span></a>
+<a class="sourceLine" id="cb384-14" title="14">ys=<span class="kw">rbinom</span>(n,<span class="dt">size =</span> <span class="kw">rep</span>(<span class="dv">1</span>,n),<span class="dt">prob =</span> Ey)</a>
+<a class="sourceLine" id="cb384-15" title="15"><span class="co">#plot data</span></a>
+<a class="sourceLine" id="cb384-16" title="16"><span class="kw">plot</span>(xs,ys)</a>
+<a class="sourceLine" id="cb384-17" title="17"></a>
+<a class="sourceLine" id="cb384-18" title="18"></a>
+<a class="sourceLine" id="cb384-19" title="19"><span class="co">#run a glm</span></a>
+<a class="sourceLine" id="cb384-20" title="20">glmLR1=<span class="kw">glm</span>(ys<span class="op">~</span>xs,<span class="dt">family=</span><span class="kw">binomial</span>(<span class="dt">link=</span><span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb384-21" title="21"><span class="kw">summary</span>(glmLR1)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = ys ~ xs, family = binomial(link = &quot;logit&quot;))
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -2.43287  -0.27907   0.04067   0.26528   2.51752  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  1.75279    0.36037   4.864 1.15e-06 ***
+## xs           0.35272    0.05326   6.623 3.53e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 262.5  on 199  degrees of freedom
+## Residual deviance: 102.7  on 198  degrees of freedom
+## AIC: 106.7
+## 
+## Number of Fisher Scoring iterations: 7</code></pre>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" title="1">xs4pred=<span class="kw">seq</span>(<span class="kw">min</span>(xs),<span class="kw">max</span>(xs),<span class="dt">length=</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb386-2" title="2">predglmLR1=<span class="kw">predict</span>(glmLR1,<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">xs=</span>xs4pred),</a>
+<a class="sourceLine" id="cb386-3" title="3"><span class="dt">type=</span><span class="st">&quot;response&quot;</span>)</a>
+<a class="sourceLine" id="cb386-4" title="4"></a>
+<a class="sourceLine" id="cb386-5" title="5"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</a>
+<a class="sourceLine" id="cb386-6" title="6"><span class="kw">plot</span>(xs,ys)</a>
+<a class="sourceLine" id="cb386-7" title="7"><span class="kw">lines</span>(xs4pred,predglmLR1,<span class="dt">col=</span><span class="dv">3</span>,<span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb387-1" title="1"><span class="kw">summary</span>(glmLR1)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = ys ~ xs, family = binomial(link = &quot;logit&quot;))
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -2.43287  -0.27907   0.04067   0.26528   2.51752  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  1.75279    0.36037   4.864 1.15e-06 ***
+## xs           0.35272    0.05326   6.623 3.53e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 262.5  on 199  degrees of freedom
+## Residual deviance: 102.7  on 198  degrees of freedom
+## AIC: 106.7
+## 
+## Number of Fisher Scoring iterations: 7</code></pre>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb389-1" title="1"><span class="co">#check model fit</span></a>
+<a class="sourceLine" id="cb389-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="fl">0.2</span>))</a>
+<a class="sourceLine" id="cb389-3" title="3"><span class="kw">plot</span>(glmLR1)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+</div>
+<div id="about-multicollinearity" class="section level2">
+<h2><span class="header-section-number">21.2</span> About multicollinearity</h2>
+<p>(this is probably best way before, in the linear model stuff… any way, I presented it here as this topic started from a student question)</p>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" title="1"><span class="co">#Código da aula 11</span></a>
+<a class="sourceLine" id="cb390-2" title="2"></a>
+<a class="sourceLine" id="cb390-3" title="3"><span class="co">#--------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb390-4" title="4"><span class="co"># When good models go wrong as </span></a>
+<a class="sourceLine" id="cb390-5" title="5"><span class="co"># multicollinearity kicks in</span></a>
+<a class="sourceLine" id="cb390-6" title="6"><span class="co">#--------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb390-7" title="7"><span class="kw">library</span>(MASS)</a>
+<a class="sourceLine" id="cb390-8" title="8"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb390-9" title="9">n=<span class="dv">100</span></a>
+<a class="sourceLine" id="cb390-10" title="10">means &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb390-11" title="11">ncovs=(<span class="dv">36-6</span>)<span class="op">/</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb390-12" title="12">covs&lt;-<span class="st"> </span><span class="kw">rnorm</span>(ncovs,<span class="dt">mean=</span><span class="dv">10</span>,<span class="dt">sd=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb390-13" title="13">varcovars=<span class="kw">matrix</span>(<span class="ot">NA</span>,<span class="dv">6</span>,<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb390-14" title="14">varcovars[<span class="kw">lower.tri</span>(varcovars)]=covs</a>
+<a class="sourceLine" id="cb390-15" title="15">varcovars=<span class="kw">t</span>(varcovars)</a>
+<a class="sourceLine" id="cb390-16" title="16">varcovars[<span class="kw">lower.tri</span>(varcovars)]=covs</a>
+<a class="sourceLine" id="cb390-17" title="17"><span class="kw">diag</span>(varcovars)=means</a>
+<a class="sourceLine" id="cb390-18" title="18">varcovars=<span class="kw">t</span>(varcovars) <span class="op">%*%</span><span class="st"> </span>varcovars</a>
+<a class="sourceLine" id="cb390-19" title="19">indvars &lt;-<span class="st"> </span><span class="kw">mvrnorm</span>(<span class="dt">n =</span> n, <span class="dt">mu=</span>means, <span class="dt">Sigma=</span>varcovars)</a>
+<a class="sourceLine" id="cb390-20" title="20"></a>
+<a class="sourceLine" id="cb390-21" title="21"><span class="co"># we can see that we have high correlations </span></a>
+<a class="sourceLine" id="cb390-22" title="22"><span class="co">#across the board in explanatory variables</span></a>
+<a class="sourceLine" id="cb390-23" title="23">indvars=<span class="kw">as.data.frame</span>(indvars)</a>
+<a class="sourceLine" id="cb390-24" title="24"><span class="kw">names</span>(indvars)=<span class="kw">paste0</span>(<span class="st">&quot;X&quot;</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb390-25" title="25"><span class="kw">head</span>(indvars)</a></code></pre></div>
+<pre><code>##           X1         X2         X3         X4         X5         X6
+## 1   9.541304   4.656261   3.519952   6.511551  17.806161  14.773197
+## 2   3.994445  11.434166  20.327380  24.241666  15.890631  31.525666
+## 3  18.024736  24.941978  21.872642  26.629010  34.570050  35.874779
+## 4  24.192031  24.081062  21.521784  24.605110  27.886290  31.084587
+## 5 -45.216392 -46.471634 -42.049067 -46.874143 -43.935034 -51.421911
+## 6  -1.530172  -2.414988   6.496899   5.861754   9.758315   6.201106</code></pre>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" title="1"><span class="kw">round</span>(<span class="kw">cor</span>(indvars),<span class="dv">2</span>)</a></code></pre></div>
+<pre><code>##      X1   X2   X3   X4   X5   X6
+## X1 1.00 0.91 0.83 0.84 0.95 0.88
+## X2 0.91 1.00 0.91 0.95 0.96 0.97
+## X3 0.83 0.91 1.00 0.98 0.92 0.98
+## X4 0.84 0.95 0.98 1.00 0.93 0.98
+## X5 0.95 0.96 0.92 0.93 1.00 0.96
+## X6 0.88 0.97 0.98 0.98 0.96 1.00</code></pre>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" title="1">ys &lt;-<span class="dv">510</span><span class="op">+</span><span class="dv">4</span><span class="op">*</span>indvars<span class="op">$</span>X1<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dt">mean=</span><span class="dv">0</span>,<span class="dt">sd=</span><span class="dv">200</span>)</a>
+<a class="sourceLine" id="cb394-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb394-3" title="3"><span class="kw">plot</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1)</a>
+<a class="sourceLine" id="cb394-4" title="4">lmX1 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1)</a>
+<a class="sourceLine" id="cb394-5" title="5"><span class="kw">abline</span>(lmX1)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb395-1" title="1"><span class="kw">summary</span>(lmX1)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -413.08 -127.50   -7.59  125.10  463.84 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 496.7416    19.0775  26.038  &lt; 2e-16 ***
+## indvars$X1    3.2745     0.8468   3.867 0.000198 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 184.1 on 98 degrees of freedom
+## Multiple R-squared:  0.1324,	Adjusted R-squared:  0.1235 
+## F-statistic: 14.95 on 1 and 98 DF,  p-value: 0.0001984</code></pre>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb397-1" title="1"><span class="kw">plot</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X2)</a>
+<a class="sourceLine" id="cb397-2" title="2">lmX2 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X2)</a>
+<a class="sourceLine" id="cb397-3" title="3"><span class="kw">abline</span>(lmX2)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" title="1"><span class="kw">summary</span>(lmX2)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -407.70 -108.41  -21.64  115.86  444.46 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 495.2459    19.4084  25.517  &lt; 2e-16 ***
+## indvars$X2    3.2979     0.9047   3.645  0.00043 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 185.5 on 98 degrees of freedom
+## Multiple R-squared:  0.1194,	Adjusted R-squared:  0.1104 
+## F-statistic: 13.29 on 1 and 98 DF,  p-value: 0.00043</code></pre>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" title="1"><span class="co">#one error type I + 1 error type 2</span></a>
+<a class="sourceLine" id="cb400-2" title="2">lmX1X2 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X2)</a>
+<a class="sourceLine" id="cb400-3" title="3"><span class="kw">summary</span>(lmX1X2)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X1 + indvars$X2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -412.18 -127.02   -9.52  122.55  457.28 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 495.8151    19.3577  25.613   &lt;2e-16 ***
+## indvars$X1    2.6245     2.0955   1.252    0.213    
+## indvars$X2    0.7542     2.2222   0.339    0.735    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 184.9 on 97 degrees of freedom
+## Multiple R-squared:  0.1334,	Adjusted R-squared:  0.1155 
+## F-statistic: 7.466 on 2 and 97 DF,  p-value: 0.000964</code></pre>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" title="1">lmX3 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X3)</a>
+<a class="sourceLine" id="cb402-2" title="2"><span class="kw">summary</span>(lmX3)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X3)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -411.08 -117.64  -20.46  118.95  492.16 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 494.6520    20.6863   23.91  &lt; 2e-16 ***
+## indvars$X3    2.4810     0.9257    2.68  0.00864 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 190.8 on 98 degrees of freedom
+## Multiple R-squared:  0.06829,	Adjusted R-squared:  0.05878 
+## F-statistic: 7.183 on 1 and 98 DF,  p-value: 0.008637</code></pre>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" title="1">lmX1X3 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X3)</a>
+<a class="sourceLine" id="cb404-2" title="2"><span class="kw">summary</span>(lmX1X3)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X1 + indvars$X3)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -411.85 -132.49   -3.33  114.58  463.85 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  501.703     20.162  24.884  &lt; 2e-16 ***
+## indvars$X1     4.253      1.522   2.795  0.00626 ** 
+## indvars$X3    -1.243      1.605  -0.774  0.44056    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 184.5 on 97 degrees of freedom
+## Multiple R-squared:  0.1377,	Adjusted R-squared:  0.1199 
+## F-statistic: 7.745 on 2 and 97 DF,  p-value: 0.0007572</code></pre>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb406-1" title="1">lmX4 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X4)</a>
+<a class="sourceLine" id="cb406-2" title="2"><span class="kw">summary</span>(lmX4)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X4)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -420.10 -113.31  -25.54  127.44  487.20 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 488.3939    20.9613  23.300  &lt; 2e-16 ***
+## indvars$X4    2.5972     0.8522   3.048  0.00296 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 188.9 on 98 degrees of freedom
+## Multiple R-squared:  0.08658,	Adjusted R-squared:  0.07726 
+## F-statistic: 9.289 on 1 and 98 DF,  p-value: 0.002964</code></pre>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" title="1">lmX1X4 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X4)</a>
+<a class="sourceLine" id="cb408-2" title="2"><span class="kw">summary</span>(lmX1X4)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X1 + indvars$X4)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -411.69 -130.48   -4.08  126.22  463.73 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 498.6500    21.0183  23.725   &lt;2e-16 ***
+## indvars$X1    3.5662     1.5681   2.274   0.0252 *  
+## indvars$X4   -0.3406     1.5379  -0.221   0.8252    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 185 on 97 degrees of freedom
+## Multiple R-squared:  0.1328,	Adjusted R-squared:  0.1149 
+## F-statistic: 7.428 on 2 and 97 DF,  p-value: 0.0009964</code></pre>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1">lmX5 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X5)</a>
+<a class="sourceLine" id="cb410-2" title="2"><span class="kw">summary</span>(lmX5)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X5)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -414.19 -123.28  -16.99  109.47  468.13 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  475.939     21.837   21.80  &lt; 2e-16 ***
+## indvars$X5     3.094      0.879    3.52 0.000657 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 186.2 on 98 degrees of freedom
+## Multiple R-squared:  0.1122,	Adjusted R-squared:  0.1032 
+## F-statistic: 12.39 on 1 and 98 DF,  p-value: 0.0006565</code></pre>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" title="1">lmX1X5 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X5)</a>
+<a class="sourceLine" id="cb412-2" title="2"><span class="kw">summary</span>(lmX1X5)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X1 + indvars$X5)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -412.27 -126.69   -8.23  126.84  465.30 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  504.280     28.412  17.749   &lt;2e-16 ***
+## indvars$X1     4.204      2.723   1.544    0.126    
+## indvars$X5    -1.004      2.794  -0.359    0.720    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 184.9 on 97 degrees of freedom
+## Multiple R-squared:  0.1335,	Adjusted R-squared:  0.1157 
+## F-statistic: 7.474 on 2 and 97 DF,  p-value: 0.0009573</code></pre>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1">lmX6 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X6)</a>
+<a class="sourceLine" id="cb414-2" title="2"><span class="kw">summary</span>(lmX6)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X6)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -413.01 -113.67  -18.88  118.72  465.72 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 478.6605    22.1541  21.606  &lt; 2e-16 ***
+## indvars$X6    2.4758     0.7745   3.197  0.00187 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 188.1 on 98 degrees of freedom
+## Multiple R-squared:  0.09443,	Adjusted R-squared:  0.08519 
+## F-statistic: 10.22 on 1 and 98 DF,  p-value: 0.001871</code></pre>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1">lmX1X6 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X6)</a>
+<a class="sourceLine" id="cb416-2" title="2"><span class="kw">summary</span>(lmX1X6)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X1 + indvars$X6)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -412.53 -130.17   -3.85  125.12  467.06 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 501.3742    24.3612  20.581   &lt;2e-16 ***
+## indvars$X1    3.7658     1.8074   2.084   0.0398 *  
+## indvars$X6   -0.4985     1.6180  -0.308   0.7587    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 185 on 97 degrees of freedom
+## Multiple R-squared:  0.1332,	Adjusted R-squared:  0.1154 
+## F-statistic: 7.455 on 2 and 97 DF,  p-value: 0.0009738</code></pre>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1"><span class="kw">AIC</span>(lmX1,lmX2,lmX3,lmX4,lmX5,lmX6,lmX1X2,lmX1X3,lmX1X4,lmX1X5,lmX1X6)</a></code></pre></div>
+<pre><code>##        df      AIC
+## lmX1    3 1330.863
+## lmX2    3 1332.348
+## lmX3    3 1337.989
+## lmX4    3 1336.007
+## lmX5    3 1333.157
+## lmX6    3 1335.143
+## lmX1X2  4 1332.744
+## lmX1X3  4 1332.246
+## lmX1X4  4 1332.812
+## lmX1X5  4 1332.729
+## lmX1X6  4 1332.765</code></pre>
+<p>The fundamental idea is that most of these models are equally good for prediction. But they might give you the complete wrong picture for explanation. Never confuse the two. Optimal modelling strategies and choices might require know what is more important.</p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="aula15.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="example-2-lagartyos-glm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="aula17.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

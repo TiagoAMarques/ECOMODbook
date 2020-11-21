@@ -1,4 +1,4 @@
-# Class 14: 10 10 2020 GLMs {#aula14}
+# Class 14: 11 11 2020 GLMs {#aula14}
 
 ## What are GLMs
 
@@ -180,7 +180,7 @@ par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))
 plot(glmPoi)
 ```
 
-Additionally, if we would evaluate the AIC for these contending models, the Poisson model would be by far the most parsimonious.
+Additionally, if we would evaluate the AIC for these contending models, the Poisson model would be by far the most parsimonious. We have not talked about model selection yet, but AIC is a model selection criteria that favours models that fit to the data while penalizing for the number of parameters in the model [e.g. @Aho2014].
 
 ```{r glm5}
 library(knitr)

@@ -1,0 +1,15 @@
+# Class 17: 24 11 2020 {#aula17}
+
+## Presence of bats
+
+about presence of bats
+
+## Sponges
+
+about sponge richness
+
+## Extra GLM stuff
+
+Zero inflated models and other similar stuff!
+
+* @Martin2005

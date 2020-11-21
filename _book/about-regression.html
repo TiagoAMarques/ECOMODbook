@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 About regression | Notes for Ecological Modelling</title>
+  <title>Chapter 6 About regression | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 About regression | Notes for Ecological Modelling" />
+  <meta property="og:title" content="Chapter 6 About regression | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 About regression | Notes for Ecological Modelling" />
+  <meta name="twitter:title" content="Chapter 6 About regression | Notes for Ecological Modelling" />
   
   <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -24,14 +24,14 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2020-11-15" />
+<meta name="date" content="2020-11-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="usingRintro.html"/>
+<link rel="prev" href="prelim.html"/>
 <link rel="next" href="handson.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -135,61 +135,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
 <li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
 <li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
-<li class="chapter" data-level="5" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>5</b> About regression</a><ul>
-<li class="chapter" data-level="5.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>5.1</b> What is a regression?</a></li>
-<li class="chapter" data-level="5.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>5.2</b> The general linear model</a></li>
+<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a></li>
+<li class="chapter" data-level="6" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>6</b> About regression</a><ul>
+<li class="chapter" data-level="6.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>6.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="6.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>6.2</b> The general linear model</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>6</b> Hands On Regression</a><ul>
-<li class="chapter" data-level="6.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>6.1</b> The assumptions are on the residuals, not the data</a></li>
+<li class="chapter" data-level="7" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>7</b> Hands On Regression</a><ul>
+<li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>7</b> Class 6 13 10 2020</a><ul>
-<li class="chapter" data-level="7.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>7.1</b> Implementing a regression</a></li>
-<li class="chapter" data-level="7.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>7.2</b> Simulating regression data</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>7.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+<li class="chapter" data-level="8" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>8</b> Class 6 13 10 2020</a><ul>
+<li class="chapter" data-level="8.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>8.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="8.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>8.2</b> Simulating regression data</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>8</b> Class 7 14 10 2020</a><ul>
-<li class="chapter" data-level="8.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>8.1</b> Task 1</a></li>
-<li class="chapter" data-level="8.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>8.2</b> Task 2</a></li>
+<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Class 7 14 10 2020</a><ul>
+<li class="chapter" data-level="9.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>9.1</b> Task 1</a></li>
+<li class="chapter" data-level="9.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>9.2</b> Task 2</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>9</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
-<li class="chapter" data-level="9.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>9.1</b> The t-test</a></li>
-<li class="chapter" data-level="9.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>9.2</b> ANOVA</a></li>
+<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
+<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.1</b> The t-test</a></li>
+<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.2</b> ANOVA</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>10</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
-<li class="chapter" data-level="10.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>10.1</b> Common slope, different intercepts per treatment</a></li>
+<li class="chapter" data-level="11" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>11</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
+<li class="chapter" data-level="11.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>11.1</b> Common slope, different intercepts per treatment</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>11</b> Class 10: 27 10 2020</a><ul>
-<li class="chapter" data-level="11.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>11.1</b> Same story, another spin</a></li>
+<li class="chapter" data-level="12" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>12</b> Class 10: 27 10 2020</a><ul>
+<li class="chapter" data-level="12.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>12.1</b> Same story, another spin</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>12</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a><ul>
-<li class="chapter" data-level="12.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>12.1</b> About interactions</a></li>
-<li class="chapter" data-level="12.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>12.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
-<li class="chapter" data-level="12.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>12.3</b> Task 2 Modeling a data set</a></li>
+<li class="chapter" data-level="13" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>13</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a><ul>
+<li class="chapter" data-level="13.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>13.1</b> About interactions</a></li>
+<li class="chapter" data-level="13.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>13.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="13.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>13.3</b> Task 2 Modeling a data set</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>13</b> Class 12: 04 11 2020 Interactions between continous covariates</a><ul>
-<li class="chapter" data-level="13.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>13.1</b> Larger order interactions</a></li>
+<li class="chapter" data-level="14" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>14</b> Class 12: 04 11 2020 Interactions between continous covariates</a><ul>
+<li class="chapter" data-level="14.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>14.1</b> Larger order interactions</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>14</b> Conlusion on linear regression</a><ul>
-<li class="chapter" data-level="14.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>14.1</b> Conclusion</a></li>
+<li class="chapter" data-level="15" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conlusion on linear regression</a><ul>
+<li class="chapter" data-level="15.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>15</b> Class 13: 10 11 2020 Maximum likelihood and all that</a><ul>
-<li class="chapter" data-level="15.1" data-path="aula12.html"><a href="aula12.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>15.1</b> Maximizing a likelihood algebraically</a></li>
-<li class="chapter" data-level="15.2" data-path="aula12.html"><a href="aula12.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>15.2</b> Numerically Maximizing a likelihood</a></li>
-<li class="chapter" data-level="15.3" data-path="aula12.html"><a href="aula12.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>15.3</b> The case of a Gaussian</a></li>
-<li class="chapter" data-level="15.4" data-path="aula12.html"><a href="aula12.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>15.4</b> The case of a linear model</a></li>
-<li class="chapter" data-level="15.5" data-path="aula12.html"><a href="aula12.html#the-really-interesting-case"><i class="fa fa-check"></i><b>15.5</b> The really interesting case</a></li>
-<li class="chapter" data-level="15.6" data-path="aula12.html"><a href="aula12.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>15.6</b> Likelihood, above and beyond</a></li>
+<li class="chapter" data-level="16" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>16</b> Class 13: 10 11 2020 Maximum likelihood and all that</a><ul>
+<li class="chapter" data-level="16.1" data-path="aula12.html"><a href="aula12.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>16.1</b> Maximizing a likelihood algebraically</a></li>
+<li class="chapter" data-level="16.2" data-path="aula12.html"><a href="aula12.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>16.2</b> Numerically Maximizing a likelihood</a></li>
+<li class="chapter" data-level="16.3" data-path="aula12.html"><a href="aula12.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>16.3</b> The case of a Gaussian</a></li>
+<li class="chapter" data-level="16.4" data-path="aula12.html"><a href="aula12.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>16.4</b> The case of a linear model</a></li>
+<li class="chapter" data-level="16.5" data-path="aula12.html"><a href="aula12.html#the-really-interesting-case"><i class="fa fa-check"></i><b>16.5</b> The really interesting case</a></li>
+<li class="chapter" data-level="16.6" data-path="aula12.html"><a href="aula12.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>16.6</b> Likelihood, above and beyond</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>16</b> Class 14: 10 10 2020 GLMs</a><ul>
-<li class="chapter" data-level="16.1" data-path="aula14.html"><a href="aula14.html#what-are-glms"><i class="fa fa-check"></i><b>16.1</b> What are GLMs</a></li>
-<li class="chapter" data-level="16.2" data-path="aula14.html"><a href="aula14.html#the-link-function"><i class="fa fa-check"></i><b>16.2</b> The link function</a></li>
-<li class="chapter" data-level="16.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>16.3</b> Most useful GLM Families</a></li>
-<li class="chapter" data-level="16.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>16.4</b> An example analysis</a></li>
+<li class="chapter" data-level="17" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>17</b> Class 14: 11 11 2020 GLMs</a><ul>
+<li class="chapter" data-level="17.1" data-path="aula14.html"><a href="aula14.html#what-are-glms"><i class="fa fa-check"></i><b>17.1</b> What are GLMs</a></li>
+<li class="chapter" data-level="17.2" data-path="aula14.html"><a href="aula14.html#the-link-function"><i class="fa fa-check"></i><b>17.2</b> The link function</a></li>
+<li class="chapter" data-level="17.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>17.3</b> Most useful GLM Families</a></li>
+<li class="chapter" data-level="17.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>17.4</b> An example analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>17</b> Class 15: 11 11 2020</a></li>
-<li class="chapter" data-level="18" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>18</b> Class 16: 17 11 2020</a></li>
-<li class="chapter" data-level="19" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>19</b> Final Words</a></li>
+<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a></li>
+<li class="chapter" data-level="19" data-path="example-1-deviance.html"><a href="example-1-deviance.html"><i class="fa fa-check"></i><b>19</b> Example 1 - deviance</a></li>
+<li class="chapter" data-level="20" data-path="example-2-lagartyos-glm.html"><a href="example-2-lagartyos-glm.html"><i class="fa fa-check"></i><b>20</b> Example 2 - lagartyos GLM</a><ul>
+<li class="chapter" data-level="20.1" data-path="example-2-lagartyos-glm.html"><a href="example-2-lagartyos-glm.html#example-2"><i class="fa fa-check"></i><b>20.1</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>21</b> Class 16: 18 11 2020</a><ul>
+<li class="chapter" data-level="21.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>21.1</b> A logistic regression example</a></li>
+<li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.2</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Class 17: 24 11 2020</a><ul>
+<li class="chapter" data-level="22.1" data-path="aula17.html"><a href="aula17.html#presence-of-bats"><i class="fa fa-check"></i><b>22.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="22.2" data-path="aula17.html"><a href="aula17.html#sponges"><i class="fa fa-check"></i><b>22.2</b> Sponges</a></li>
+<li class="chapter" data-level="22.3" data-path="aula17.html"><a href="aula17.html#extra-glm-stuff"><i class="fa fa-check"></i><b>22.3</b> Extra GLM stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a></li>
+<li class="chapter" data-level="24" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>24</b> Class 19: 02 12 2020</a></li>
+<li class="chapter" data-level="25" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>25</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -212,18 +227,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="about-regression" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> About regression</h1>
+<h1><span class="header-section-number">Chapter 6</span> About regression</h1>
 <p>Some references woth looking into.</p>
 <p>An intro to R: <span class="citation">(Zuur, Ieno, and Meesters <a href="#ref-Zuur2009a" role="doc-biblioref">2009</a>)</span></p>
 <p>Models for ecological data: <span class="citation">(Zuur, Ieno, and Smith <a href="#ref-Zuur2007" role="doc-biblioref">2007</a>)</span></p>
 <p>More on regression and extending the linear model (just an example): <span class="citation">(Faraway <a href="#ref-Faraway2006" role="doc-biblioref">2006</a>)</span><span class="citation">(Zuur et al. <a href="#ref-Zuur2009b" role="doc-biblioref">2009</a>)</span></p>
 <div id="what-is-a-regression" class="section level2">
-<h2><span class="header-section-number">5.1</span> What is a regression?</h2>
+<h2><span class="header-section-number">6.1</span> What is a regression?</h2>
 <p>Where does the word come from? Gauss and regression towards the mean.</p>
 <p>A regression is a model that allows us to predict a response variable <span class="math inline">\(y\)</span> (a.k.a the dependent variable, because it depends on the other variables) as a function of the values ofindependent variables (a.k.a. covariates, predictors or explanatory).</p>
 </div>
 <div id="the-general-linear-model" class="section level2">
-<h2><span class="header-section-number">5.2</span> The general linear model</h2>
+<h2><span class="header-section-number">6.2</span> The general linear model</h2>
 <p>A general expression for a regression model (i.e. the expression for a generalized linear model is)</p>
 <p><span class="math display">\[ f[E(Y|X)] = \mu = \beta_0+\beta_1 x_1 + ... + \beta_k x_k \]</span>
 where <span class="math inline">\(f\)</span> is a function - also known as the <strong>link function</strong> - that links the mean value of the response, conditional on the value of the predictors, to the <strong>linear predictor</strong> <span class="math inline">\(\beta_0+\beta_1 x_1 + ... + \beta_k x_k\)</span> (<span class="math inline">\(\mu\)</span>, a linear function of <span class="math inline">\(k\)</span> covariates). In general books tend to represent this as</p>
@@ -264,7 +279,7 @@ with residuals</p>
           </div>
         </div>
       </div>
-<a href="usingRintro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prelim.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="handson.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

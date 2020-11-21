@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2020.7.22)  15 NOV 2020 14:18
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2020.7.22)  19 NOV 2020 15:31
 entering extended mode
 **./ECOMODbook.tex
 (ECOMODbook.tex
@@ -1134,21 +1134,21 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 
 ] (ECOMODbook.toc
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.0pt on input line 6.
+(Font)              scaled to size 7.0pt on input line 7.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 6.
+(Font)              scaled to size 5.0pt on input line 7.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.00107pt on input line 6.
+(Font)              scaled to size 10.00107pt on input line 7.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.00075pt on input line 6.
+(Font)              scaled to size 7.00075pt on input line 7.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00053pt on input line 6.
+(Font)              scaled to size 5.00053pt on input line 7.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 9.99893pt on input line 6.
+(Font)              scaled to size 9.99893pt on input line 7.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.99925pt on input line 6.
+(Font)              scaled to size 6.99925pt on input line 7.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 6.
+(Font)              scaled to size 4.99947pt on input line 7.
 [3])
 \tf@toc=\write4
 \openout4 = `ECOMODbook.toc'.
@@ -1169,10 +1169,6 @@ Chapter 3.
 Chapter 4.
 File: extfiles/monsteRs.jpg Graphic file (type bmp)
 <extfiles/monsteRs.jpg>
-
-Package natbib Warning: Citation `allison_horst' on page 11 undefined on input 
-line 181.
-
 File: extfiles/derivative_1.jpg Graphic file (type bmp)
 <extfiles/derivative_1.jpg>
 File: extfiles/monster_support.jpg Graphic file (type bmp)
@@ -1192,20 +1188,24 @@ Chapter 5.
 
 ] [18]
 Chapter 6.
-LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 297.
 [19
+
+] [20]
+Chapter 7.
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 333.
+[21
 
 ]
 File: ECOMODbook_files/figure-latex/Freg-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/Freg-1.pdf>
-[20]
+[22]
 File: ECOMODbook_files/figure-latex/reg9-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/reg9-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[21]
+[23]
 File: ECOMODbook_files/figure-latex/figrodents-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/figrodents-1.pdf>
 File: ECOMODbook_files/figure-latex/reg11-1.pdf Graphic file (type pdf)
@@ -1213,34 +1213,34 @@ File: ECOMODbook_files/figure-latex/reg11-1.pdf Graphic file (type pdf)
 
 Underfull \vbox (badness 4429) has occurred while \output is active []
 
-[22] [23]
+[24] [25]
 File: ECOMODbook_files/figure-latex/reg12-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/reg12-1.pdf>
-[24]
-Chapter 7.
+[26]
+Chapter 8.
 File: ECOMODbook_files/figure-latex/a6.2-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.2-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[25
+[27
 
-] [26]
-Overfull \hbox (6.75pt too wide) in paragraph at lines 544--544
+] [28]
+Overfull \hbox (6.75pt too wide) in paragraph at lines 580--580
 []\TU/lmtt/m/n/10 ## glm(formula = peso ~ comp, family = gaussian(link = "ident
 ity"),[] 
  []
 
 
-Overfull \hbox (1.5pt too wide) in paragraph at lines 544--544
+Overfull \hbox (1.5pt too wide) in paragraph at lines 580--580
 []\TU/lmtt/m/n/10 ## (Dispersion parameter for gaussian family taken to be 5.83
 0492)[] 
  []
 
-[27] [28]
+[29] [30]
 File: ECOMODbook_files/figure-latex/a6.9-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.9-1.pdf>
-[29]
+[31]
 File: ECOMODbook_files/figure-latex/a6.11-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.11-1.pdf>
 File: ECOMODbook_files/figure-latex/a6.12-1.pdf Graphic file (type pdf)
@@ -1248,59 +1248,59 @@ File: ECOMODbook_files/figure-latex/a6.12-1.pdf Graphic file (type pdf)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[30]
+[32]
 File: ECOMODbook_files/figure-latex/a6.13-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.13-1.pdf>
 
 Underfull \vbox (badness 3930) has occurred while \output is active []
 
-[31]
+[33]
 File: ECOMODbook_files/figure-latex/a6.14-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.14-1.pdf>
-[32]
+[34]
 Missing character: There is no Ã in font lmmi7!
 File: ECOMODbook_files/figure-latex/a6.18-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.18-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[33]
+[35]
 Missing character: There is no Ã in font lmmi7!
 Missing character: There is no Ã in font lmmi7!
-[34]
+[36]
 File: ECOMODbook_files/figure-latex/a6.21-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.21-1.pdf>
-[35]
+[37]
 File: ECOMODbook_files/figure-latex/a6.23-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.23-1.pdf>
 
-Overfull \hbox (64.5pt too wide) in paragraph at lines 872--872
+Overfull \hbox (64.5pt too wide) in paragraph at lines 908--908
 []\TU/lmtt/m/n/10 ## Warning in summary.lm(lm(ys ~ xs)): essentially perfect fi
 t: summary may be[] 
  []
 
-[36]
+[38]
 File: ECOMODbook_files/figure-latex/a6.25-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.25-1.pdf>
-[37]
+[39]
 File: ECOMODbook_files/figure-latex/a6.26-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.26-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[38] [39]
+[40] [41]
 File: ECOMODbook_files/figure-latex/a6.27-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.27-1.pdf>
-[40]
+[42]
 File: ECOMODbook_files/figure-latex/a6.28-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.28-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[41] [42] [43] [44]
+[43] [44] [45] [46]
 File: ECOMODbook_files/figure-latex/a6.30-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.30-1.pdf>
-[45]
+[47]
 File: ECOMODbook_files/figure-latex/a6.31-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.31-1.pdf>
 File: ECOMODbook_files/figure-latex/a6.32-1.pdf Graphic file (type pdf)
@@ -1308,48 +1308,48 @@ File: ECOMODbook_files/figure-latex/a6.32-1.pdf Graphic file (type pdf)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[46]
+[48]
 File: ECOMODbook_files/figure-latex/a6.33-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.33-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[47]
+[49]
 File: ECOMODbook_files/figure-latex/a6.34-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a6.34-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[48] [49] [50
+[50] [51] [52
 
 ]
-Chapter 8.
-[51] [52]
+Chapter 9.
+[53] [54]
 File: ECOMODbook_files/figure-latex/a7.4-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a7.4-1.pdf>
 
-Overfull \vbox (2.25284pt too high) detected at line 1404
+Overfull \vbox (2.25284pt too high) detected at line 1440
  []
 
-[53]
+[55]
 File: ECOMODbook_files/figure-latex/a7.5-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a7.5-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[54] [55]
+[56] [57]
 File: ECOMODbook_files/figure-latex/a7.6-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a7.6-1.pdf>
-[56]
+[58]
 File: ECOMODbook_files/figure-latex/a7.7-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a7.7-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[57] [58]
+[59] [60]
 File: extfiles/Aula7Task7.JPG Graphic file (type bmp)
 <extfiles/Aula7Task7.JPG>
-[59]
+[61]
 File: ECOMODbook_files/figure-latex/a7.9-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a7.9-1.pdf>
 File: ECOMODbook_files/figure-latex/a7.10-1.pdf Graphic file (type pdf)
@@ -1357,18 +1357,18 @@ File: ECOMODbook_files/figure-latex/a7.10-1.pdf Graphic file (type pdf)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[60] [61]
+[62] [63]
 File: ECOMODbook_files/figure-latex/a7.11-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a7.11-1.pdf>
-[62] [63]
-Overfull \hbox (237.73401pt too wide) in paragraph at lines 1738--1739
+[64] [65]
+Overfull \hbox (237.73401pt too wide) in paragraph at lines 1774--1775
 []\TU/lmr/m/n/10 and so, from the above output, that equates to \TU/lmtt/m/n/10
  y=lmlines$coefficients[1]+lmlines$coefficients[4],lmlines$coefficients[2]
  []
 
 File: ECOMODbook_files/figure-latex/a7.13-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a7.13-1.pdf>
-[64]
+[66]
 File: ECOMODbook_files/figure-latex/a7.14-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a7.14-1.pdf>
 File: ECOMODbook_files/figure-latex/a7.15-1.pdf Graphic file (type pdf)
@@ -1376,143 +1376,143 @@ File: ECOMODbook_files/figure-latex/a7.15-1.pdf Graphic file (type pdf)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[65]
+[67]
 File: ECOMODbook_files/figure-latex/a7.16-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a7.16-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[66] [67] [68
+[68] [69] [70
 
 ]
-Chapter 9.
-[69]
+Chapter 10.
+[71]
 File: ECOMODbook_files/figure-latex/a8.7-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a8.7-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Overfull \hbox (64.48233pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 70 \TU/lmr/m/sl/10 CHAPTER 9.  CLASS 8 20 10 2020 - T-TEST AND A
-NOVA ARE JUST LINEAR MODELS
- []
-
-[70]
-Overfull \hbox (17.25pt too wide) in paragraph at lines 1943--1943
-[]\TU/lmtt/m/n/10 ## alternative hypothesis: true difference in means is not eq
-ual to 0[] 
- []
-
-[71]
-File: ECOMODbook_files/figure-latex/a8.12-1.pdf Graphic file (type pdf)
-<use ECOMODbook_files/figure-latex/a8.12-1.pdf>
-
-Overfull \hbox (64.48233pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 72 \TU/lmr/m/sl/10 CHAPTER 9.  CLASS 8 20 10 2020 - T-TEST AND A
-NOVA ARE JUST LINEAR MODELS
+Overfull \hbox (69.48233pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 72 \TU/lmr/m/sl/10 CHAPTER 10.  CLASS 8 20 10 2020 - T-TEST AND 
+ANOVA ARE JUST LINEAR MODELS
  []
 
 [72]
-Overfull \hbox (17.25pt too wide) in paragraph at lines 2043--2043
+Overfull \hbox (17.25pt too wide) in paragraph at lines 1979--1979
 []\TU/lmtt/m/n/10 ## alternative hypothesis: true difference in means is not eq
 ual to 0[] 
  []
 
 [73]
+File: ECOMODbook_files/figure-latex/a8.12-1.pdf Graphic file (type pdf)
+<use ECOMODbook_files/figure-latex/a8.12-1.pdf>
+
+Overfull \hbox (69.48233pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 74 \TU/lmr/m/sl/10 CHAPTER 10.  CLASS 8 20 10 2020 - T-TEST AND 
+ANOVA ARE JUST LINEAR MODELS
+ []
+
+[74]
+Overfull \hbox (17.25pt too wide) in paragraph at lines 2079--2079
+[]\TU/lmtt/m/n/10 ## alternative hypothesis: true difference in means is not eq
+ual to 0[] 
+ []
+
+[75]
 File: ECOMODbook_files/figure-latex/a8.16-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a8.16-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Overfull \hbox (64.48233pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 74 \TU/lmr/m/sl/10 CHAPTER 9.  CLASS 8 20 10 2020 - T-TEST AND A
-NOVA ARE JUST LINEAR MODELS
+Overfull \hbox (69.48233pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 76 \TU/lmr/m/sl/10 CHAPTER 10.  CLASS 8 20 10 2020 - T-TEST AND 
+ANOVA ARE JUST LINEAR MODELS
  []
 
-[74]
-Overfull \hbox (17.25pt too wide) in paragraph at lines 2118--2118
+[76]
+Overfull \hbox (17.25pt too wide) in paragraph at lines 2154--2154
 []\TU/lmtt/m/n/10 ## alternative hypothesis: true difference in means is not eq
 ual to 0[] 
  []
 
-[75]
-Underfull \hbox (badness 2165) in paragraph at lines 2153--2154
+[77]
+Underfull \hbox (badness 2165) in paragraph at lines 2189--2190
 \TU/lmr/m/n/10 We move on with perhaps the most famous example of a statistical
 
  []
 
 
-Overfull \vbox (0.25836pt too high) detected at line 2193
+Overfull \vbox (0.25836pt too high) detected at line 2229
  []
 
 
-Overfull \hbox (64.48233pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 76 \TU/lmr/m/sl/10 CHAPTER 9.  CLASS 8 20 10 2020 - T-TEST AND A
-NOVA ARE JUST LINEAR MODELS
+Overfull \hbox (69.48233pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 78 \TU/lmr/m/sl/10 CHAPTER 10.  CLASS 8 20 10 2020 - T-TEST AND 
+ANOVA ARE JUST LINEAR MODELS
  []
 
-[76]
+[78]
 File: ECOMODbook_files/figure-latex/a8.26-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a8.26-1.pdf>
 
 Underfull \vbox (badness 6348) has occurred while \output is active []
 
-[77]
-Overfull \hbox (64.48233pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 78 \TU/lmr/m/sl/10 CHAPTER 9.  CLASS 8 20 10 2020 - T-TEST AND A
-NOVA ARE JUST LINEAR MODELS
+[79]
+Overfull \hbox (69.48233pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 80 \TU/lmr/m/sl/10 CHAPTER 10.  CLASS 8 20 10 2020 - T-TEST AND 
+ANOVA ARE JUST LINEAR MODELS
  []
 
-[78] [79]
+[80] [81]
 File: ECOMODbook_files/figure-latex/a8.32-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a8.32-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Overfull \hbox (64.48233pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 80 \TU/lmr/m/sl/10 CHAPTER 9.  CLASS 8 20 10 2020 - T-TEST AND A
-NOVA ARE JUST LINEAR MODELS
+Overfull \hbox (69.48233pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 82 \TU/lmr/m/sl/10 CHAPTER 10.  CLASS 8 20 10 2020 - T-TEST AND 
+ANOVA ARE JUST LINEAR MODELS
  []
 
-[80]
-Underfull \vbox (badness 10000) detected at line 2459
+[82]
+Underfull \vbox (badness 10000) detected at line 2495
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[81]
+[83]
 File: ECOMODbook_files/figure-latex/a8.33-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a8.33-1.pdf>
 
-Overfull \hbox (64.48233pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 82 \TU/lmr/m/sl/10 CHAPTER 9.  CLASS 8 20 10 2020 - T-TEST AND A
-NOVA ARE JUST LINEAR MODELS
+Overfull \hbox (69.48233pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 84 \TU/lmr/m/sl/10 CHAPTER 10.  CLASS 8 20 10 2020 - T-TEST AND 
+ANOVA ARE JUST LINEAR MODELS
  []
 
-[82] [83]
-Overfull \hbox (64.48233pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 84 \TU/lmr/m/sl/10 CHAPTER 9.  CLASS 8 20 10 2020 - T-TEST AND A
-NOVA ARE JUST LINEAR MODELS
+[84] [85]
+Overfull \hbox (69.48233pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 86 \TU/lmr/m/sl/10 CHAPTER 10.  CLASS 8 20 10 2020 - T-TEST AND 
+ANOVA ARE JUST LINEAR MODELS
  []
 
-[84
+[86
 
 ]
-Chapter 10.
+Chapter 11.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[85]
+[87]
 Overfull \hbox (45.45734pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 86 \TU/lmr/m/sl/10 CHAPTER 10.  CLASS 9: 21 10 2020 - ANCOVA IS 
+\TU/lmr/m/n/10 88 \TU/lmr/m/sl/10 CHAPTER 11.  CLASS 9: 21 10 2020 - ANCOVA IS 
 (ALSO) JUST A LINEAR MODEL
  []
 
-[86]
+[88]
 File: ECOMODbook_files/figure-latex/a9.2-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a9.2-1.pdf>
 File: ECOMODbook_files/figure-latex/a9.3-1.pdf Graphic file (type pdf)
@@ -1522,17 +1522,17 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \hbox (0.36562pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 10.1.  COMMON SLOPE, DIFFERENT INTERCEPTS PER TREATMENT \TU/lmr
-/m/n/10 87
+\TU/lmr/m/sl/10 11.1.  COMMON SLOPE, DIFFERENT INTERCEPTS PER TREATMENT \TU/lmr
+/m/n/10 89
  []
 
-[87]
+[89]
 Overfull \hbox (45.45734pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 88 \TU/lmr/m/sl/10 CHAPTER 10.  CLASS 9: 21 10 2020 - ANCOVA IS 
+\TU/lmr/m/n/10 90 \TU/lmr/m/sl/10 CHAPTER 11.  CLASS 9: 21 10 2020 - ANCOVA IS 
 (ALSO) JUST A LINEAR MODEL
  []
 
-[88]
+[90]
 File: ECOMODbook_files/figure-latex/a9.7-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a9.7-1.pdf>
 
@@ -1540,11 +1540,11 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \hbox (0.36562pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 10.1.  COMMON SLOPE, DIFFERENT INTERCEPTS PER TREATMENT \TU/lmr
-/m/n/10 89
+\TU/lmr/m/sl/10 11.1.  COMMON SLOPE, DIFFERENT INTERCEPTS PER TREATMENT \TU/lmr
+/m/n/10 91
  []
 
-[89]
+[91]
 File: ECOMODbook_files/figure-latex/a9.8-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a9.8-1.pdf>
 
@@ -1552,27 +1552,43 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \hbox (45.45734pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 90 \TU/lmr/m/sl/10 CHAPTER 10.  CLASS 9: 21 10 2020 - ANCOVA IS 
-(ALSO) JUST A LINEAR MODEL
- []
-
-[90]
-Overfull \hbox (0.36562pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 10.1.  COMMON SLOPE, DIFFERENT INTERCEPTS PER TREATMENT \TU/lmr
-/m/n/10 91
- []
-
-[91]
-Overfull \hbox (45.45734pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 92 \TU/lmr/m/sl/10 CHAPTER 10.  CLASS 9: 21 10 2020 - ANCOVA IS 
+\TU/lmr/m/n/10 92 \TU/lmr/m/sl/10 CHAPTER 11.  CLASS 9: 21 10 2020 - ANCOVA IS 
 (ALSO) JUST A LINEAR MODEL
  []
 
 [92]
-Chapter 11.
-[93
+Overfull \hbox (0.36562pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 11.1.  COMMON SLOPE, DIFFERENT INTERCEPTS PER TREATMENT \TU/lmr
+/m/n/10 93
+ []
+
+[93]
+File: ECOMODbook_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pd
+f)
+<use ECOMODbook_files/figure-latex/unnamed-chunk-1-1.pdf>
+
+Overfull \hbox (45.45734pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 94 \TU/lmr/m/sl/10 CHAPTER 11.  CLASS 9: 21 10 2020 - ANCOVA IS 
+(ALSO) JUST A LINEAR MODEL
+ []
+
+[94]
+Overfull \hbox (0.36562pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 11.1.  COMMON SLOPE, DIFFERENT INTERCEPTS PER TREATMENT \TU/lmr
+/m/n/10 95
+ []
+
+[95]
+Overfull \hbox (45.45734pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 96 \TU/lmr/m/sl/10 CHAPTER 11.  CLASS 9: 21 10 2020 - ANCOVA IS 
+(ALSO) JUST A LINEAR MODEL
+ []
+
+[96
 
 ]
+Chapter 12.
+[97]
 File: ECOMODbook_files/figure-latex/a10.2-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a10.2-1.pdf>
 File: ECOMODbook_files/figure-latex/a10.3-1.pdf Graphic file (type pdf)
@@ -1580,80 +1596,80 @@ File: ECOMODbook_files/figure-latex/a10.3-1.pdf Graphic file (type pdf)
 
 Underfull \vbox (badness 4454) has occurred while \output is active []
 
-[94]
+[98]
 Underfull \vbox (badness 4013) has occurred while \output is active []
 
-[95]
+[99]
 File: ECOMODbook_files/figure-latex/a10.5-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a10.5-1.pdf>
-[96]
+[100]
 File: ECOMODbook_files/figure-latex/a10.6-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a10.6-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[97]
+[101]
 File: ECOMODbook_files/figure-latex/a10.8-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a10.8-1.pdf>
 
 Underfull \vbox (badness 5036) has occurred while \output is active []
 
-[98] [99]
+[102] [103]
 File: ECOMODbook_files/figure-latex/a10.9-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a10.9-1.pdf>
 
-Underfull \vbox (badness 1009) detected at line 3054
+Underfull \vbox (badness 1009) detected at line 3107
  []
 
-[100]
+[104]
 File: ECOMODbook_files/figure-latex/a10.11-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a10.11-1.pdf>
-[101]
+[105]
 File: ECOMODbook_files/figure-latex/a10.12-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a10.12-1.pdf>
-[102]
+[106]
 File: ECOMODbook_files/figure-latex/a10.15-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a10.15-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[103]
+[107]
 File: FigPlotRotatedAula10.JPG Graphic file (type bmp)
 <FigPlotRotatedAula10.JPG>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[104] [105] [106
+[108] [109] [110
 
 ]
-Chapter 12.
+Chapter 13.
 File: ECOMODbook_files/figure-latex/a11.1-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a11.1-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[107]
+[111]
 Underfull \vbox (badness 3108) has occurred while \output is active []
 
 
 Overfull \hbox (100.61063pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 108 \TU/lmr/m/sl/10 CHAPTER 12.  CLASS 11: 03 11 2020 ANCOVA WIT
+\TU/lmr/m/n/10 112 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 11: 03 11 2020 ANCOVA WIT
 H DIFFERENT SLOPES: INTERACTIONS
  []
 
-[108]
+[112]
 File: ECOMODbook_files/figure-latex/a11.1-2.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a11.1-2.pdf>
-[109]
+[113]
 File: ECOMODbook_files/figure-latex/a11.2-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a11.2-1.pdf>
 
 Overfull \hbox (100.61063pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 110 \TU/lmr/m/sl/10 CHAPTER 12.  CLASS 11: 03 11 2020 ANCOVA WIT
+\TU/lmr/m/n/10 114 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 11: 03 11 2020 ANCOVA WIT
 H DIFFERENT SLOPES: INTERACTIONS
  []
 
-[110]
+[114]
 File: ECOMODbook_files/figure-latex/a11.6-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a11.6-1.pdf>
 
@@ -1661,82 +1677,82 @@ Underfull \vbox (badness 2512) has occurred while \output is active []
 
 
 Overfull \hbox (19.45341pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 12.2.  TASK 1 IMPLEMENTING THE ANCOVA WITH DIFFERENT SLOPES \TU
-/lmr/m/n/10 111
- []
-
-[111]
-File: ECOMODbook_files/figure-latex/FCR-1.pdf Graphic file (type pdf)
-<use ECOMODbook_files/figure-latex/FCR-1.pdf>
-
-Overfull \hbox (100.61063pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 112 \TU/lmr/m/sl/10 CHAPTER 12.  CLASS 11: 03 11 2020 ANCOVA WIT
-H DIFFERENT SLOPES: INTERACTIONS
- []
-
-[112]
-Overfull \hbox (19.45341pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 12.2.  TASK 1 IMPLEMENTING THE ANCOVA WITH DIFFERENT SLOPES \TU
-/lmr/m/n/10 113
- []
-
-[113]
-Overfull \hbox (100.61063pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 114 \TU/lmr/m/sl/10 CHAPTER 12.  CLASS 11: 03 11 2020 ANCOVA WIT
-H DIFFERENT SLOPES: INTERACTIONS
- []
-
-[114]
-File: ECOMODbook_files/figure-latex/a11.14-1.pdf Graphic file (type pdf)
-<use ECOMODbook_files/figure-latex/a11.14-1.pdf>
-
-Overfull \hbox (19.45341pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 12.2.  TASK 1 IMPLEMENTING THE ANCOVA WITH DIFFERENT SLOPES \TU
+\TU/lmr/m/sl/10 13.2.  TASK 1 IMPLEMENTING THE ANCOVA WITH DIFFERENT SLOPES \TU
 /lmr/m/n/10 115
  []
 
 [115]
+File: ECOMODbook_files/figure-latex/FCR-1.pdf Graphic file (type pdf)
+<use ECOMODbook_files/figure-latex/FCR-1.pdf>
+
+Overfull \hbox (100.61063pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 116 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 11: 03 11 2020 ANCOVA WIT
+H DIFFERENT SLOPES: INTERACTIONS
+ []
+
+[116]
+Overfull \hbox (19.45341pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 13.2.  TASK 1 IMPLEMENTING THE ANCOVA WITH DIFFERENT SLOPES \TU
+/lmr/m/n/10 117
+ []
+
+[117]
+Overfull \hbox (100.61063pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 118 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 11: 03 11 2020 ANCOVA WIT
+H DIFFERENT SLOPES: INTERACTIONS
+ []
+
+[118]
+File: ECOMODbook_files/figure-latex/a11.14-1.pdf Graphic file (type pdf)
+<use ECOMODbook_files/figure-latex/a11.14-1.pdf>
+
+Overfull \hbox (19.45341pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 13.2.  TASK 1 IMPLEMENTING THE ANCOVA WITH DIFFERENT SLOPES \TU
+/lmr/m/n/10 119
+ []
+
+[119]
 File: ECOMODbook_files/figure-latex/a11.15-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a11.15-1.pdf>
 
-Overfull \hbox (21.6301pt too wide) in paragraph at lines 3575--3590
+Overfull \hbox (21.6301pt too wide) in paragraph at lines 3628--3643
 [][] 
  []
 
 
 Overfull \hbox (100.61063pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 116 \TU/lmr/m/sl/10 CHAPTER 12.  CLASS 11: 03 11 2020 ANCOVA WIT
+\TU/lmr/m/n/10 120 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 11: 03 11 2020 ANCOVA WIT
 H DIFFERENT SLOPES: INTERACTIONS
  []
 
-[116] [117]
+[120] [121]
 File: ECOMODbook_files/figure-latex/wod-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/wod-1.pdf>
 
 Overfull \hbox (100.61063pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 118 \TU/lmr/m/sl/10 CHAPTER 12.  CLASS 11: 03 11 2020 ANCOVA WIT
+\TU/lmr/m/n/10 122 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 11: 03 11 2020 ANCOVA WIT
 H DIFFERENT SLOPES: INTERACTIONS
  []
 
-[118]
+[122]
 File: ECOMODbook_files/figure-latex/a11.20-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a11.20-1.pdf>
-[119]
+[123]
 Underfull \vbox (badness 1082) has occurred while \output is active []
 
 
 Overfull \hbox (100.61063pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 120 \TU/lmr/m/sl/10 CHAPTER 12.  CLASS 11: 03 11 2020 ANCOVA WIT
+\TU/lmr/m/n/10 124 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 11: 03 11 2020 ANCOVA WIT
 H DIFFERENT SLOPES: INTERACTIONS
  []
 
-[120]
+[124]
 File: ECOMODbook_files/figure-latex/a11.24-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a11.24-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[121]
+[125]
 File: ECOMODbook_files/figure-latex/a11.25-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a11.25-1.pdf>
 
@@ -1744,17 +1760,17 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \hbox (100.61063pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 122 \TU/lmr/m/sl/10 CHAPTER 12.  CLASS 11: 03 11 2020 ANCOVA WIT
+\TU/lmr/m/n/10 126 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 11: 03 11 2020 ANCOVA WIT
 H DIFFERENT SLOPES: INTERACTIONS
  []
 
-[122]
+[126]
 File: ECOMODbook_files/figure-latex/a11.26-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a11.26-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[123]
+[127]
 File: ECOMODbook_files/figure-latex/a11.27-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a11.27-1.pdf>
 
@@ -1762,141 +1778,141 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \hbox (100.61063pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 124 \TU/lmr/m/sl/10 CHAPTER 12.  CLASS 11: 03 11 2020 ANCOVA WIT
+\TU/lmr/m/n/10 128 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 11: 03 11 2020 ANCOVA WIT
 H DIFFERENT SLOPES: INTERACTIONS
  []
 
-[124] [125]
+[128] [129]
 Overfull \hbox (100.61063pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 126 \TU/lmr/m/sl/10 CHAPTER 12.  CLASS 11: 03 11 2020 ANCOVA WIT
+\TU/lmr/m/n/10 130 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 11: 03 11 2020 ANCOVA WIT
 H DIFFERENT SLOPES: INTERACTIONS
  []
 
-[126
+[130
 
 ]
-Chapter 13.
-[127]
+Chapter 14.
+[131]
 File: ECOMODbook_files/figure-latex/a12.1-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a12.1-1.pdf>
 
 Overfull \hbox (104.63062pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 128 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 12: 04 11 2020 INTERACTIO
-NS BETWEEN CONTINOUS COVARIATES
- []
-
-[128] [129]
-Overfull \hbox (104.63062pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 130 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 12: 04 11 2020 INTERACTIO
-NS BETWEEN CONTINOUS COVARIATES
- []
-
-[130]
-File: ECOMODbook_files/figure-latex/a12.5-1.pdf Graphic file (type pdf)
-<use ECOMODbook_files/figure-latex/a12.5-1.pdf>
-[131]
-Overfull \hbox (104.63062pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 132 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 12: 04 11 2020 INTERACTIO
+\TU/lmr/m/n/10 132 \TU/lmr/m/sl/10 CHAPTER 14.  CLASS 12: 04 11 2020 INTERACTIO
 NS BETWEEN CONTINOUS COVARIATES
  []
 
 [132] [133]
 Overfull \hbox (104.63062pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 134 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 12: 04 11 2020 INTERACTIO
+\TU/lmr/m/n/10 134 \TU/lmr/m/sl/10 CHAPTER 14.  CLASS 12: 04 11 2020 INTERACTIO
 NS BETWEEN CONTINOUS COVARIATES
  []
 
 [134]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+File: ECOMODbook_files/figure-latex/a12.5-1.pdf Graphic file (type pdf)
+<use ECOMODbook_files/figure-latex/a12.5-1.pdf>
 [135]
 Overfull \hbox (104.63062pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 136 \TU/lmr/m/sl/10 CHAPTER 13.  CLASS 12: 04 11 2020 INTERACTIO
+\TU/lmr/m/n/10 136 \TU/lmr/m/sl/10 CHAPTER 14.  CLASS 12: 04 11 2020 INTERACTIO
 NS BETWEEN CONTINOUS COVARIATES
  []
 
-[136]
-Chapter 14.
-[137
+[136] [137]
+Overfull \hbox (104.63062pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 138 \TU/lmr/m/sl/10 CHAPTER 14.  CLASS 12: 04 11 2020 INTERACTIO
+NS BETWEEN CONTINOUS COVARIATES
+ []
 
-] [138
+[138]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-]
-Chapter 15.
 [139]
-Overfull \hbox (38.09953pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 140 \TU/lmr/m/sl/10 CHAPTER 15.  CLASS 13: 10 11 2020 MAXIMUM LI
-KELIHOOD AND ALL THAT
+Overfull \hbox (104.63062pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 140 \TU/lmr/m/sl/10 CHAPTER 14.  CLASS 12: 04 11 2020 INTERACTIO
+NS BETWEEN CONTINOUS COVARIATES
  []
 
 [140]
+Chapter 15.
+[141
+
+] [142
+
+]
+Chapter 16.
+[143]
+Overfull \hbox (38.09953pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 144 \TU/lmr/m/sl/10 CHAPTER 16.  CLASS 13: 10 11 2020 MAXIMUM LI
+KELIHOOD AND ALL THAT
+ []
+
+[144]
 Missing character: There is no 𝜃 in font [lmroman10-regular]:mapping=tex-text;!
-[141]
+[145]
 File: ECOMODbook_files/figure-latex/ch13.3-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/ch13.3-1.pdf>
 
 Overfull \hbox (38.09953pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 142 \TU/lmr/m/sl/10 CHAPTER 15.  CLASS 13: 10 11 2020 MAXIMUM LI
+\TU/lmr/m/n/10 146 \TU/lmr/m/sl/10 CHAPTER 16.  CLASS 13: 10 11 2020 MAXIMUM LI
 KELIHOOD AND ALL THAT
  []
 
-[142] [143]
+[146] [147]
 File: ECOMODbook_files/figure-latex/ch13.4-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/ch13.4-1.pdf>
 
 Overfull \hbox (38.09953pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 144 \TU/lmr/m/sl/10 CHAPTER 15.  CLASS 13: 10 11 2020 MAXIMUM LI
-KELIHOOD AND ALL THAT
- []
-
-[144] [145]
-File: ECOMODbook_files/figure-latex/country-1.pdf Graphic file (type pdf)
-<use ECOMODbook_files/figure-latex/country-1.pdf>
-
-Overfull \hbox (38.09953pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 146 \TU/lmr/m/sl/10 CHAPTER 15.  CLASS 13: 10 11 2020 MAXIMUM LI
-KELIHOOD AND ALL THAT
- []
-
-[146]
-File: extfiles/grand-canyon.jpg Graphic file (type bmp)
-<extfiles/grand-canyon.jpg>
-File: extfiles/munros.jpg Graphic file (type bmp)
-<extfiles/munros.jpg>
-[147]
-Overfull \hbox (38.09953pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 148 \TU/lmr/m/sl/10 CHAPTER 15.  CLASS 13: 10 11 2020 MAXIMUM LI
+\TU/lmr/m/n/10 148 \TU/lmr/m/sl/10 CHAPTER 16.  CLASS 13: 10 11 2020 MAXIMUM LI
 KELIHOOD AND ALL THAT
  []
 
 [148] [149]
+File: ECOMODbook_files/figure-latex/country-1.pdf Graphic file (type pdf)
+<use ECOMODbook_files/figure-latex/country-1.pdf>
+
 Overfull \hbox (38.09953pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 150 \TU/lmr/m/sl/10 CHAPTER 15.  CLASS 13: 10 11 2020 MAXIMUM LI
+\TU/lmr/m/n/10 150 \TU/lmr/m/sl/10 CHAPTER 16.  CLASS 13: 10 11 2020 MAXIMUM LI
 KELIHOOD AND ALL THAT
  []
 
 [150]
-File: ECOMODbook_files/figure-latex/ch13.16-1.pdf Graphic file (type pdf)
-<use ECOMODbook_files/figure-latex/ch13.16-1.pdf>
+File: extfiles/grand-canyon.jpg Graphic file (type bmp)
+<extfiles/grand-canyon.jpg>
+File: extfiles/munros.jpg Graphic file (type bmp)
+<extfiles/munros.jpg>
 [151]
 Overfull \hbox (38.09953pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 152 \TU/lmr/m/sl/10 CHAPTER 15.  CLASS 13: 10 11 2020 MAXIMUM LI
+\TU/lmr/m/n/10 152 \TU/lmr/m/sl/10 CHAPTER 16.  CLASS 13: 10 11 2020 MAXIMUM LI
 KELIHOOD AND ALL THAT
  []
 
 [152] [153]
-File: ECOMODbook_files/figure-latex/ch13.24-1.pdf Graphic file (type pdf)
-<use ECOMODbook_files/figure-latex/ch13.24-1.pdf>
-
 Overfull \hbox (38.09953pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 154 \TU/lmr/m/sl/10 CHAPTER 15.  CLASS 13: 10 11 2020 MAXIMUM LI
+\TU/lmr/m/n/10 154 \TU/lmr/m/sl/10 CHAPTER 16.  CLASS 13: 10 11 2020 MAXIMUM LI
 KELIHOOD AND ALL THAT
  []
 
 [154]
+File: ECOMODbook_files/figure-latex/ch13.16-1.pdf Graphic file (type pdf)
+<use ECOMODbook_files/figure-latex/ch13.16-1.pdf>
+[155]
+Overfull \hbox (38.09953pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 156 \TU/lmr/m/sl/10 CHAPTER 16.  CLASS 13: 10 11 2020 MAXIMUM LI
+KELIHOOD AND ALL THAT
+ []
+
+[156] [157]
+File: ECOMODbook_files/figure-latex/ch13.24-1.pdf Graphic file (type pdf)
+<use ECOMODbook_files/figure-latex/ch13.24-1.pdf>
+
+Overfull \hbox (38.09953pt too wide) has occurred while \output is active
+\TU/lmr/m/n/10 158 \TU/lmr/m/sl/10 CHAPTER 16.  CLASS 13: 10 11 2020 MAXIMUM LI
+KELIHOOD AND ALL THAT
+ []
+
+[158]
 File: ECOMODbook_files/figure-latex/ch13.26-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/ch13.26-1.pdf>
-[155]
+[159]
 File: ECOMODbook_files/figure-latex/ch13.29-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/ch13.29-1.pdf>
 
@@ -1904,64 +1920,74 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \hbox (38.09953pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 156 \TU/lmr/m/sl/10 CHAPTER 15.  CLASS 13: 10 11 2020 MAXIMUM LI
+\TU/lmr/m/n/10 160 \TU/lmr/m/sl/10 CHAPTER 16.  CLASS 13: 10 11 2020 MAXIMUM LI
 KELIHOOD AND ALL THAT
  []
 
-[156] [157]
+[160] [161]
 File: ECOMODbook_files/figure-latex/ch13.30.5-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/ch13.30.5-1.pdf>
 
 Overfull \hbox (38.09953pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 158 \TU/lmr/m/sl/10 CHAPTER 15.  CLASS 13: 10 11 2020 MAXIMUM LI
+\TU/lmr/m/n/10 162 \TU/lmr/m/sl/10 CHAPTER 16.  CLASS 13: 10 11 2020 MAXIMUM LI
 KELIHOOD AND ALL THAT
  []
 
-[158]
+[162]
 File: ECOMODbook_files/figure-latex/ch13.33-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/ch13.33-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[159]
+[163]
 Overfull \hbox (38.09953pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 160 \TU/lmr/m/sl/10 CHAPTER 15.  CLASS 13: 10 11 2020 MAXIMUM LI
+\TU/lmr/m/n/10 164 \TU/lmr/m/sl/10 CHAPTER 16.  CLASS 13: 10 11 2020 MAXIMUM LI
 KELIHOOD AND ALL THAT
  []
 
-[160]
+[164]
 File: ECOMODbook_files/figure-latex/ch13.36-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/ch13.36-1.pdf>
-[161]
+[165]
 
-LaTeX Warning: Reference `@' on page 162 undefined on input line 5189.
+LaTeX Warning: Reference `@' on page 166 undefined on input line 5242.
 
 
 Overfull \hbox (38.09953pt too wide) has occurred while \output is active
-\TU/lmr/m/n/10 162 \TU/lmr/m/sl/10 CHAPTER 15.  CLASS 13: 10 11 2020 MAXIMUM LI
+\TU/lmr/m/n/10 166 \TU/lmr/m/sl/10 CHAPTER 16.  CLASS 13: 10 11 2020 MAXIMUM LI
 KELIHOOD AND ALL THAT
  []
 
-[162]
-Chapter 16.
-[163
+[166]
+Chapter 17.
+[167
 
-] [164]
+] [168]
 File: ECOMODbook_files/figure-latex/links2-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/links2-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[165]
+[169]
 Underfull \vbox (badness 2818) has occurred while \output is active []
 
-[166]
+[170]
 File: ECOMODbook_files/figure-latex/glm2-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/glm2-1.pdf>
-[167]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[171]
+File: ECOMODbook_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pd
+f)
+<use ECOMODbook_files/figure-latex/unnamed-chunk-2-1.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[172] [173]
 File: ECOMODbook_files/figure-latex/glm4-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/glm4-1.pdf>
-[168]
+[174]
 File: ECOMODbook_files/figure-latex/glm6-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/glm6-1.pdf>
 File: ECOMODbook_files/figure-latex/glm7-1.pdf Graphic file (type pdf)
@@ -1969,41 +1995,202 @@ File: ECOMODbook_files/figure-latex/glm7-1.pdf Graphic file (type pdf)
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[169] [170]
-Chapter 17.
-[171
-
-] [172
-
-]
+[175] [176]
 Chapter 18.
-[173] [174
+[177
+
+] [178
 
 ]
 Chapter 19.
-(ECOMODbook.bbl [175] [176
+[179] [180
 
-])
+]
+Chapter 20.
+File: ECOMODbook_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pd
+f)
+<use ECOMODbook_files/figure-latex/unnamed-chunk-4-1.pdf>
 
-Package natbib Warning: There were undefined citations.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 5424.
-[177]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 5424.
+[181]
+Overfull \hbox (33.0pt too wide) in paragraph at lines 5579--5579
+[]\TU/lmtt/m/n/10 ##      1      2      3      4      5      6      7      8   
+   9     10[] 
+ []
+
+
+Overfull \hbox (33.0pt too wide) in paragraph at lines 5579--5579
+[]\TU/lmtt/m/n/10 ## -2.146  1.872 -2.155  3.056 -1.753 -1.536  7.734 -2.491 -4
+.593  2.010[] 
+ []
+
+[182]
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5619--5619
+[]\TU/lmtt/m/n/10 ##       1        2        3        4        5        6      
+  7        8[] 
+ []
+
+
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5619--5619
+[]\TU/lmtt/m/n/10 ## -1.5764   0.6427  -0.2479   0.4979   0.1835   0.1391   0.5
+995  -0.2857[] 
+ []
+
+[183]
+Overfull \hbox (54.0pt too wide) in paragraph at lines 5685--5685
+[]\TU/lmtt/m/n/10 ## glm(formula = mortalidade ~ densidade.aero + altitude + pr
+oximidade.aero,[] 
+ []
+
+[184]
+Overfull \hbox (22.5pt too wide) in paragraph at lines 5751--5751
+[]\TU/lmtt/m/n/10 ## glm(formula = mortalidade ~ altitude + proximidade.aero + 
+estradas,[] 
+ []
+
+[185]
+Overfull \hbox (59.25pt too wide) in paragraph at lines 5783--5783
+[]\TU/lmtt/m/n/10 ## Call:  glm(formula = y ~ ., family = family, data = Xi, we
+ights = weights)[] 
+ []
+
+
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5783--5783
+[]\TU/lmtt/m/n/10 ##      (Intercept)          altitude  proximidade.aero      
+    estradas[] 
+ []
+
+
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5783--5783
+[]\TU/lmtt/m/n/10 ##         0.938731          0.001594          0.001886      
+    0.021331[] 
+ []
+
+
+Overfull \hbox (59.25pt too wide) in paragraph at lines 5815--5815
+[]\TU/lmtt/m/n/10 ## Call:  glm(formula = y ~ ., family = family, data = Xi, we
+ights = weights)[] 
+ []
+
+
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5815--5815
+[]\TU/lmtt/m/n/10 ##      (Intercept)    densidade.aero          altitude  prox
+imidade.aero[] 
+ []
+
+
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5815--5815
+[]\TU/lmtt/m/n/10 ##          2.66555          -0.25551           0.01736      
+     0.25974[] 
+ []
+
+[186]
+Chapter 21.
+[187
+
+]
+File: ECOMODbook_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type p
+df)
+<use ECOMODbook_files/figure-latex/unnamed-chunk-13-1.pdf>
+[188]
+File: ECOMODbook_files/figure-latex/unnamed-chunk-13-2.pdf Graphic file (type p
+df)
+<use ECOMODbook_files/figure-latex/unnamed-chunk-13-2.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[189] [190]
+Overfull \hbox (22.5pt too wide) in paragraph at lines 5974--5974
+[]\TU/lmtt/m/n/10 ##           X1         X2         X3         X4         X5  
+       X6[] 
+ []
+
+
+Overfull \hbox (22.5pt too wide) in paragraph at lines 5974--5974
+[]\TU/lmtt/m/n/10 ## 1   9.541304   4.656261   3.519952   6.511551  17.806161  
+14.773197[] 
+ []
+
+
+Overfull \hbox (22.5pt too wide) in paragraph at lines 5974--5974
+[]\TU/lmtt/m/n/10 ## 2   3.994445  11.434166  20.327380  24.241666  15.890631  
+31.525666[] 
+ []
+
+
+Overfull \hbox (22.5pt too wide) in paragraph at lines 5974--5974
+[]\TU/lmtt/m/n/10 ## 3  18.024736  24.941978  21.872642  26.629010  34.570050  
+35.874779[] 
+ []
+
+
+Overfull \hbox (22.5pt too wide) in paragraph at lines 5974--5974
+[]\TU/lmtt/m/n/10 ## 4  24.192031  24.081062  21.521784  24.605110  27.886290  
+31.084587[] 
+ []
+
+
+Overfull \hbox (22.5pt too wide) in paragraph at lines 5974--5974
+[]\TU/lmtt/m/n/10 ## 5 -45.216392 -46.471634 -42.049067 -46.874143 -43.935034 -
+51.421911[] 
+ []
+
+
+Overfull \hbox (22.5pt too wide) in paragraph at lines 5974--5974
+[]\TU/lmtt/m/n/10 ## 6  -1.530172  -2.414988   6.496899   5.861754   9.758315  
+ 6.201106[] 
+ []
+
+File: ECOMODbook_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type p
+df)
+<use ECOMODbook_files/figure-latex/unnamed-chunk-14-1.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[191]
+File: ECOMODbook_files/figure-latex/unnamed-chunk-14-2.pdf Graphic file (type p
+df)
+<use ECOMODbook_files/figure-latex/unnamed-chunk-14-2.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[192] [193] [194] [195] [196] [197] [198]
+Chapter 22.
+[199
+
+] [200
+
+]
+Chapter 23.
+[201] [202
+
+]
+Chapter 24.
+[203] [204
+
+]
+Chapter 25.
+(ECOMODbook.bbl [205] [206
+
+] [207])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 6388.
+[208]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 6388.
 (ECOMODbook.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 5424.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 5424.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 6388.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 6388.
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 31516 strings out of 427232
- 576571 string characters out of 3141530
- 772491 words of memory out of 3000000
- 35643 multiletter control sequences out of 15000+200000
+ 31624 strings out of 427232
+ 579743 string characters out of 3141530
+ 773515 words of memory out of 3000000
+ 35744 multiletter control sequences out of 15000+200000
  538764 words of font info for 81 fonts, out of 3000000 for 9000
  1348 hyphenation exceptions out of 8191
  58i,8n,115p,1545b,2146s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on ECOMODbook.pdf (177 pages).
+Output written on ECOMODbook.pdf (208 pages).

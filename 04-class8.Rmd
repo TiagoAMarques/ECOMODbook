@@ -152,7 +152,9 @@ summary(lm0)
 
 We move on with perhaps the most famous example of a statistical test/procedure, the ANOVA. An ANOVA is nothing but a linear model, where we have a continuous response variable, which we want to explain as a function of a factor (with several levels, or treatments).
 
-We simulate a data set, beginning by making sure everyone gets the same results by using `set.seed`
+There is a slight difference in the way we can code the dummy variables that might be worth to explore (this relates to contrasts, but perhaps beyond what I want to let the students know? cf. https://www.theanalysisfactor.com/why-anova-and-linear-regression-are-the-same-analysis/).
+
+Here we simulate a data set, beginning by making sure everyone gets the same results by using `set.seed`
 
 ```{r a8.19}
 #Making up an ANOVA
