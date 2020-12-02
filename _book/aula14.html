@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2020-11-21" />
+<meta name="date" content="2020-11-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -197,12 +197,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="21.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>21.1</b> A logistic regression example</a></li>
 <li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.2</b> About multicollinearity</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Class 17: 24 11 2020</a><ul>
-<li class="chapter" data-level="22.1" data-path="aula17.html"><a href="aula17.html#presence-of-bats"><i class="fa fa-check"></i><b>22.1</b> Presence of bats</a></li>
-<li class="chapter" data-level="22.2" data-path="aula17.html"><a href="aula17.html#sponges"><i class="fa fa-check"></i><b>22.2</b> Sponges</a></li>
-<li class="chapter" data-level="22.3" data-path="aula17.html"><a href="aula17.html#extra-glm-stuff"><i class="fa fa-check"></i><b>22.3</b> Extra GLM stuff</a></li>
+<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Class 17: 24 11 2020</a></li>
+<li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a><ul>
+<li class="chapter" data-level="23.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>23.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="23.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>23.2</b> Sponges</a><ul>
+<li class="chapter" data-level="23.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>23.2.1</b> Reading data in</a></li>
+<li class="chapter" data-level="23.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>23.2.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="23.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>23.2.3</b> Modelling</a></li>
 </ul></li>
-<li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a></li>
+<li class="chapter" data-level="23.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>23.3</b> Extra GLM stuff</a></li>
+</ul></li>
 <li class="chapter" data-level="24" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>24</b> Class 19: 02 12 2020</a></li>
 <li class="chapter" data-level="25" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>25</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -358,13 +362,19 @@ mean value of the response, and then</li>
 <div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
 <a class="sourceLine" id="cb356-2" title="2"><span class="kw">plot</span>(glmGau)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/glm6-1.png" width="672" /></p>
-<p>On the other hadn, the diagnostics for the Poisson model do not show any reasons to worry.</p>
+<p>On the other hand, the diagnostics for the Poisson model do not show any reasons to worry.</p>
 <div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
 <a class="sourceLine" id="cb357-2" title="2"><span class="kw">plot</span>(glmPoi)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/glm7-1.png" width="672" /></p>
+<p>A really nice and interesting evaluation of model adequacy, or in other words, a different way of looking that the plots produced by default by the <code>plot</code> of a model object, is in the package <code>performance</code>, part of the <code>easystats</code> family</p>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" title="1"><span class="kw">library</span>(performance)</a>
+<a class="sourceLine" id="cb358-2" title="2"><span class="kw">check_model</span>(glmPoi)</a></code></pre></div>
+<pre><code>## Not enough model terms in the conditional part of the model to check for multicollinearity.</code></pre>
+<pre><code>## Warning: Removed 100 rows containing missing values (geom_text_repel).</code></pre>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Additionally, if we would evaluate the AIC for these contending models, the Poisson model would be by far the most parsimonious. We have not talked about model selection yet, but AIC is a model selection criteria that favours models that fit to the data while penalizing for the number of parameters in the model <span class="citation">(e.g. Aho, Derryberry, and Peterson <a href="#ref-Aho2014" role="doc-biblioref">2014</a>)</span>.</p>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" title="1"><span class="kw">library</span>(knitr)</a>
-<a class="sourceLine" id="cb358-2" title="2"><span class="kw">kable</span>(<span class="kw">AIC</span>(lm1A,lm1B,glmGau,glmPoi))</a></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" title="1"><span class="kw">library</span>(knitr)</a>
+<a class="sourceLine" id="cb361-2" title="2"><span class="kw">kable</span>(<span class="kw">AIC</span>(lm1A,lm1B,glmGau,glmPoi))</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">

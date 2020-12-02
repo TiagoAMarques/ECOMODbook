@@ -353,3 +353,19 @@ lm.anova$coefficients[1]+lm.anova$coefficients[4]
 ```
 
 and we can see these are exactly the same values.
+
+## Task: do it yourself
+
+The dataset `penguins` in the package `` is very useful to illustrate ANOVA's . It includes body size measurements (bill length and depth, flipper length and body mass) by sex for adult foraging penguins near Palmer Station, Antarctica, for 3 islands. I found out about this data in this twitter post by Trevor Branch (\@\ TrevorABranch, https://twitter.com/TrevorABranch/status/1333844966632607745). This dataset was made as an R package by Allison Horst (yes, the same person that makes the amazing R abd RStudio related artwork that we used before, https://www.allisonhorst.com/). Here we brighten up our book with Allison's artwork again, for a reminder that the residuals of the ANOVA should be approximately Gaussian, with constant variance! If they are not Gaussian, you might more elaborate models, like a GLM, say.
+
+![](extfiles/not_normal.png)
+
+
+The interaction plot below illustrates the data of the flipper lenght as a function of sex and island. Looking at the dataset in question, explore the two way ANOVA as a linear model. 
+
+```{r}
+library(palmerpenguins)
+data(penguins)
+with(penguins,interaction.plot(x.factor=species,trace.factor=sex,response=flipper_length_mm),ylab="Flipper length (mm)")
+```
+

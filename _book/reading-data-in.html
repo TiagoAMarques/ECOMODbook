@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 15 Conlusion on linear regression | Notes for Ecological Modelling</title>
+  <title>Chapter 22 Reading data in | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 15 Conlusion on linear regression | Notes for Ecological Modelling" />
+  <meta property="og:title" content="Chapter 22 Reading data in | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 15 Conlusion on linear regression | Notes for Ecological Modelling" />
+  <meta name="twitter:title" content="Chapter 22 Reading data in | Notes for Ecological Modelling" />
   
   <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="aula13.html"/>
-<link rel="next" href="aula12.html"/>
+<link rel="prev" href="aula18.html"/>
+<link rel="next" href="exploratory-data-analysis.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -188,27 +188,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="17.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>17.3</b> Most useful GLM Families</a></li>
 <li class="chapter" data-level="17.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>17.4</b> An example analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a></li>
-<li class="chapter" data-level="19" data-path="example-1-deviance.html"><a href="example-1-deviance.html"><i class="fa fa-check"></i><b>19</b> Example 1 - deviance</a></li>
-<li class="chapter" data-level="20" data-path="example-2-lagartyos-glm.html"><a href="example-2-lagartyos-glm.html"><i class="fa fa-check"></i><b>20</b> Example 2 - lagartyos GLM</a><ul>
-<li class="chapter" data-level="20.1" data-path="example-2-lagartyos-glm.html"><a href="example-2-lagartyos-glm.html#example-2"><i class="fa fa-check"></i><b>20.1</b> Example 2</a></li>
+<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a><ul>
+<li class="chapter" data-level="18.1" data-path="aula15.html"><a href="aula15.html#example-2"><i class="fa fa-check"></i><b>18.1</b> Example 2</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>21</b> Class 16: 18 11 2020</a><ul>
-<li class="chapter" data-level="21.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>21.1</b> A logistic regression example</a></li>
-<li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.2</b> About multicollinearity</a></li>
+<li class="chapter" data-level="19" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>19</b> Class 16: 18 11 2020</a><ul>
+<li class="chapter" data-level="19.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>19.1</b> A logistic regression example</a></li>
+<li class="chapter" data-level="19.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>19.2</b> About multicollinearity</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Class 17: 24 11 2020</a></li>
-<li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a><ul>
-<li class="chapter" data-level="23.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>23.1</b> Presence of bats</a></li>
-<li class="chapter" data-level="23.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>23.2</b> Sponges</a><ul>
-<li class="chapter" data-level="23.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>23.2.1</b> Reading data in</a></li>
-<li class="chapter" data-level="23.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>23.2.2</b> Exploratory Data Analysis</a></li>
-<li class="chapter" data-level="23.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>23.2.3</b> Modelling</a></li>
+<li class="chapter" data-level="20" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>20</b> Class 17: 24 11 2020</a><ul>
+<li class="chapter" data-level="20.1" data-path="aula17.html"><a href="aula17.html#presence-of-bats"><i class="fa fa-check"></i><b>20.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="20.2" data-path="aula17.html"><a href="aula17.html#sponges"><i class="fa fa-check"></i><b>20.2</b> Sponges</a></li>
+<li class="chapter" data-level="20.3" data-path="aula17.html"><a href="aula17.html#extra-glm-stuff"><i class="fa fa-check"></i><b>20.3</b> Extra GLM stuff</a></li>
 </ul></li>
-<li class="chapter" data-level="23.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>23.3</b> Extra GLM stuff</a></li>
+<li class="chapter" data-level="21" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>21</b> Class 18: 25 11 2020</a><ul>
+<li class="chapter" data-level="21.1" data-path="aula17.html"><a href="aula17.html#presence-of-bats"><i class="fa fa-check"></i><b>21.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="21.2" data-path="aula17.html"><a href="aula17.html#sponges"><i class="fa fa-check"></i><b>21.2</b> Sponges</a></li>
 </ul></li>
-<li class="chapter" data-level="24" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>24</b> Class 19: 02 12 2020</a></li>
-<li class="chapter" data-level="25" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>25</b> Final Words</a></li>
+<li class="chapter" data-level="22" data-path="reading-data-in.html"><a href="reading-data-in.html"><i class="fa fa-check"></i><b>22</b> Reading data in</a></li>
+<li class="chapter" data-level="23" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>23</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="24" data-path="modelling.html"><a href="modelling.html"><i class="fa fa-check"></i><b>24</b> Modelling</a><ul>
+<li class="chapter" data-level="24.1" data-path="aula17.html"><a href="aula17.html#extra-glm-stuff"><i class="fa fa-check"></i><b>24.1</b> Extra GLM stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>25</b> Class 19: 02 12 2020</a></li>
+<li class="chapter" data-level="26" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>26</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -230,24 +232,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="conlusion-on-linear-regression" class="section level1">
-<h1><span class="header-section-number">Chapter 15</span> Conlusion on linear regression</h1>
-<div id="conclusion" class="section level2">
-<h2><span class="header-section-number">15.1</span> Conclusion</h2>
-<p>The material in previous 4 lectures allows you to fully understand the outputs of simple regression models, and to see how some statistical models that you know by other names, like an ANOVA or a the t-test, are just simple special cases of a linear model.</p>
-<p>It also helps you understand how the parameter values represent just features of the data and its generating process, and how we can recover estimates of the original relationships between the variables from said set of parameters.</p>
-<p>I recommend you explore the code and output above, and that in particular you experiment with changing means (parameter values for the real models), variances (the precision of how you would measure variables) and sample sizes (which gives you an indication of how much information you have to estimate the underlying reality). Understanding the outputs under these new scenarios is fundamental for progressing towards more complex regression models, like GLMs or GAMs, of which the above cases are just particular cases.</p>
-<p>Many additional interesting links on linear models exist online. This is just one of them: <a href="https://data-flair.training/blogs/r-linear-regression-tutorial/" class="uri">https://data-flair.training/blogs/r-linear-regression-tutorial/</a></p>
-
-</div>
+<div id="reading-data-in" class="section level1">
+<h1><span class="header-section-number">Chapter 22</span> Reading data in</h1>
+<p>We read the data in (assumes data is in the same folder as the .Rmd that produces this dynamic report)</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;extfiles/1-s2.0-S1364815217301615-mmc2.csv&quot;</span>)</a></code></pre></div>
+<p>We briefly look at the data to make sure that all was read properly. We have sites with Sponge Species Richness (SSR) going from 1 to 39, with a mean of 10.4805195 and variance 110.7792208. In total we have 77 observations and 80 potential explanatory variables.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="aula13.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="aula12.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="aula18.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploratory-data-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -297,20 +294,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

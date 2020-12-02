@@ -1,3 +1,218 @@
 # Class 18: 25 11 2020 {#aula18}
 
-Special class: trabalho 2 presentation
+Special class: trabalho 2 presentation, continued
+
+Hands on GLM
+
+## Presence of bats
+
+Here we look at a dataset provided in 
+
+## Sponges
+
+In this chapter we model data on species sponge richness (SSR) as a gunction of environmental covariates. This data set is distributed with the paper Li et al. 2017 Application of random forest, generalised linear model and their hybrid methods with geostatistical techniques to count data: Predicting sponge species richness *Environmental Modelling & Software* **97**: 112-129. The data set is in file "1-s2.0-S1364815217301615-mmc2.csv". The reader is directed to the paper for additional details on data collection and the methods Li et al. 2017 used for analysis. Here we concentrate on GLMs to explore the main drivers of sponge species richness (SSR) across the area studied.
+
+### Reading data in 
+
+We read the data in
+
+```{r}
+sponges <- read.csv("extfiles/1-s2.0-S1364815217301615-mmc2.csv")
+```
+
+```{r,echo=FALSE}
+#the range of the response variable
+minSSR=with(sponges,min(species.richness))
+maxSSR=with(sponges,max(species.richness))
+#the mean of the response variable
+mSSR=with(sponges,mean(species.richness))
+#the variability of the response variable
+sdSSR=with(sponges,sd(species.richness))
+varSSR=with(sponges,var(species.richness))
+```
+
+
+We briefly look at the data to make sure that all was read properly. We have sites with Sponge Species Richness (SSR) going from `r minSSR` to `r maxSSR`, with a mean of `r round(mSSR,2)` and variance `r round(varSSR,2)`. In total we have `r nrow(sponges)` observations and `r ncol(sponges)-1` potential explanatory variables. We note upfront the potential practical issue that having more explanatory variables than observations raises. 
+
+### Exploratory Data Analysis
+
+Since we have the geographic coordinates of all the samples, we can look at the data in space. 
+
+This lets us visualize that the data comes from 8 clusters of locations, in the actual paper referred as sites A to H. 
+
+
+
+```{r}
+with(sponges,plot(long.sample,lat.sample)) 
+with(sponges,plot(long.sample,lat.sample,cex=1+species.richness/max(species.richness))) 
+with(sponges,plot(long.sample,lat.sample,col=ifelse(1+species.richness/max(species.richness)<1.5,"red","green"))) 
+```
+
+Note that cluster would have been an obvious covariate to use, namely as a random effect. While we are not interested in cluster per se, we know that sites are more alike within clusters just due to spatial auto-correlation, and hence that would have been sensible to include in the modelling.
+
+Of course the other option might be to include latitude and longitude and explicitly consider to incorporate the spatiall auto-correlation structure. However, that is beyhond the objectives in this chapter, which are essentially to illustrate a GLM analysis over a real dataset.
+
+We will now investigate the data set in a bit more detail. We begin by looking at whether there are large correlations between the explanatory variables and SSR
+
+```{r}
+corsponges=cor(sponges)
+corWithSSR=corsponges[,3]
+hist(corWithSSR[corWithSSR!=1],main="Correlations between SSR and explanatory covariates",breaks=seq(-1,1,by=0.05))
+```
+
+The largest positive correlation of a variable with the response SSR is   `r round(max(corWithSSR[corWithSSR!=1]),2)`, while the largest negative correlation is  `r round(min(corWithSSR[corWithSSR!=1]),2)`. Nonetheless, that is no reason to despair. Hopefully, when considering multiple variables we will be able to model SSR in a reasonable way.
+
+Since we have too many variables compared to observations any way, we can ask ourselves is if there are variables which are highly correlated, which could lead to unstable models and incorrect inferences about causality (which is, regardless, always hard in observational studies).
+
+```{r}
+corsponges=cor(sponges)
+covars=corsponges[,-c(1:3)]
+corcovars=cor(covars)
+hist(corcovars[corcovars!=1],main="Correlations between explanatory covariates (lat,long excluded)",breaks=seq(-1,1,by=0.05))
+```
+
+As we can see, there is a wide range of correlations, but in particular there is a peak at the 0.95-1 range, which we suspected might be due to the fact that some variables are actually obtained as a function of others. After a closer read at the original paper we come to realize these are highly correlated just by constriction. These correspond to echoes of radar on different frequency bands, and hence it is not surprising that they present incredibly high correlations across. It is somewhat surprising that the authors did not note this fact upfront on their paper. These are associated with backscatter variables, with code `bs`so we can use the function `grep` to look at these (note even so we divide these into several `pairs` plots otherwise the plots are too small for being useful).
+
+```{r}
+pairs(sponges[,grep(pattern="bs", x=names(sponges),value = TRUE)[1:14]])
+pairs(sponges[,grep(pattern="bs", x=names(sponges),value = TRUE)[15:28]])
+pairs(sponges[,grep(pattern="bs", x=names(sponges),value = TRUE)[29:35]])
+```
+
+
+Including pairs of such highly correlated variables in the models could lead to problems nad makes interpretation harder, and hence we need to decide which to remove a priori. This should be driven by ecological knowledge, which in our case, for SSR, is close to inexistent!
+
+```{r}
+sort(abs(round(corWithSSR,2)))
+```
+
+What does the response variable itself look like? That is the key question to answer, as it will determine the distribution we use to model it. We already saw that the variance is considerably larger than the mean, and therefore, the default go-to distribution for counts, a Poisson, will probably not be the best choice here.
+
+```{r}
+hist(sponges$species.richness,xlab="Species Richness",main="",breaks=seq(0,40,by=1))
+text(30,7,paste0("Mean=",round(mean(sponges$species.richness),1)))
+text(30,5,paste0("Variance=",round(var(sponges$species.richness),1)))
+```
+
+We can compare this with a poisson with the same mean, or a negative binomial with the same mean and variance. It should be obvious which provides a closer approximation, even before covariates get added to the mix.
+
+```{r}
+par(mfrow=c(3,1),mar=c(4,4,0.5,0.5))
+hist(sponges$species.richness,xlab="Species Richness",main="",breaks=seq(0,40,by=5))
+text(30,20,paste0("Mean=",round(mean(sponges$species.richness),1)))
+text(30,10,paste0("Variance=",round(var(sponges$species.richness),1)))
+# Poisson
+mean=10
+hist(rpois(10000,mean),main="",xlab="Poisson, mean=10",breaks=seq(0,40,by=5))
+#Neg Bin
+mean=10
+var=100
+dat=rnbinom(10000,size=mean^2/(var-mean),mu=mean)
+hist(dat[dat<40],main="",xlab="Negative Binomial, mean=10, var=100",breaks=seq(0,40,by=5))
+```
+
+
+
+While there is never too much Exploratory Data Analysis (EDA), here we move on to do some modelling.
+
+### Modelling
+
+Just to begin, we take a peak at one of the variables that had a large positive correlation with SSR, in this case, `dist.coast`.
+
+```{r}
+#testing a random variable!!
+with(sponges,plot(dist.coast,species.richness))
+lm0<-lm(species.richness~dist.coast,data=sponges)
+abline(lm0)
+summary(lm0)
+```
+
+Apparently there is information to explain the species richness, and while the correlation is low, we can see that from a classical perspective, the coeficient associated with the variable would be considered significant at the usual significance levels, considering a simple linear model. However, we now that we are modelling counts,a nd hence, the Gaussian distribution is unlikely to be reasonable assumption. So, we move on to GLMs.
+
+Lets begin by comparing just how different the model using a Poisson or a NB becomes, in terms of AIC
+
+```{r}
+#testing a random variable!!
+glmP1=glm(species.richness~dist.coast,family=poisson(link="log"),data=sponges)
+library(MASS)
+glmNB1=glm.nb(species.richness~dist.coast,link=log,data=sponges)
+AIC(glmP1,glmNB1)
+```
+
+There is absolutely no question about the fact that the NB is better here! Which does not necessarily mean it is the best model - remember AIC is a relative measure of fit.
+
+We can compare with the quasi-poisson
+
+```{r}
+glmQP1=glm(species.richness~dist.coast,family=quasipoisson,data=sponges)
+```
+
+and now we compare the two
+
+```{r}
+summary(glmP1)
+summary(glmQP1)
+```
+
+as expected, the only difference is the increase of the standard errors associated with the parameters. Note also that in the Quasi-Poisson we get an estimate of the over-dispersion parameter, and, since we do not have a likelihood, we do not get an AIC. The parameter standard errors are bigger in the quasi case, given that the overdispersion parameter is larger than 1.
+
+Just for comparison, we look at the output from the negative binomial model
+
+```{r}
+summary(glmNB1)
+```
+
+Note that in practice all models would lead us to find the `dist.coast` to be considered relevant to model species richness.
+
+A bit on model selection, using `anova`, a Chi-squared test,
+
+```{r}
+glmQP2=glm(species.richness~1,family=quasipoisson,data=sponges)
+anova(glmQP1,glmQP2, test = "Chi")
+```
+
+or using `drop1`, with an F-test
+
+```{r}
+drop1(glmQP1,test="F")
+```
+
+again, both tell us that `dist.coast` is a relevant covariate.
+
+We could look at the residuals for both models. First the Poisson
+
+```{r}
+par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))
+plot(glmP1)
+```
+
+and then the negative binomial
+
+```{r}
+par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))
+plot(glmNB1)
+```
+
+It is quite hard to choose between these based on the residuals, but remember that the AIC does not leave any room for doubts, the Negative Binomial is the most likely road to take here. So now it is time to investigate what might be the best model.
+
+```{r}
+AIC(lm0,glmP1,glmNB1)
+```
+
+
+```{r}
+glmNB.0.15=glm.nb(species.richness~slope_o+prof_cur5+entro3 
++rugosity7+tpi3+prof_cur7+relief_3 
++slope3+tpi5+plan_curv3+slope5 
++slope7+relief_5+relief_7+long.sample 
++lat.sample+gravel+dist.coast+sand,link=log,data=sponges)
+```
+
+
+
+
+## Extra GLM stuff
+
+Zero inflated models and other similar stuff!
+
+* @Martin2005

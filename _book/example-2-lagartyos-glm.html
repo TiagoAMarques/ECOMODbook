@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2020-11-21" />
+<meta name="date" content="2020-11-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -197,12 +197,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="21.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>21.1</b> A logistic regression example</a></li>
 <li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.2</b> About multicollinearity</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Class 17: 24 11 2020</a><ul>
-<li class="chapter" data-level="22.1" data-path="aula17.html"><a href="aula17.html#presence-of-bats"><i class="fa fa-check"></i><b>22.1</b> Presence of bats</a></li>
-<li class="chapter" data-level="22.2" data-path="aula17.html"><a href="aula17.html#sponges"><i class="fa fa-check"></i><b>22.2</b> Sponges</a></li>
-<li class="chapter" data-level="22.3" data-path="aula17.html"><a href="aula17.html#extra-glm-stuff"><i class="fa fa-check"></i><b>22.3</b> Extra GLM stuff</a></li>
+<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Class 17: 24 11 2020</a></li>
+<li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a><ul>
+<li class="chapter" data-level="23.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>23.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="23.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>23.2</b> Sponges</a><ul>
+<li class="chapter" data-level="23.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>23.2.1</b> Reading data in</a></li>
+<li class="chapter" data-level="23.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>23.2.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="23.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>23.2.3</b> Modelling</a></li>
 </ul></li>
-<li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a></li>
+<li class="chapter" data-level="23.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>23.3</b> Extra GLM stuff</a></li>
+</ul></li>
 <li class="chapter" data-level="24" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>24</b> Class 19: 02 12 2020</a></li>
 <li class="chapter" data-level="25" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>25</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -234,13 +238,13 @@ slides 26-33</p>
 <h2><span class="header-section-number">20.1</span> Example 2</h2>
 <p>Use the aerogeradores example to see how AIC and significance tests on the parameters can tell you different things</p>
 <p>Read in the data</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" title="1">peol &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;extfiles/parqueseolicos.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;;&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb362-1" title="1">peol &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;extfiles/parqueseolicos.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;;&quot;</span>)</a></code></pre></div>
 <p>Look at the data</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" title="1"><span class="kw">pairs</span>(peol)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" title="1"><span class="kw">pairs</span>(peol)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>Implement multiple regression</p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" title="1">regmul=<span class="kw">lm</span>(mortalidade<span class="op">~</span>.,<span class="dt">data=</span>peol)</a>
-<a class="sourceLine" id="cb361-2" title="2"><span class="kw">summary</span>(regmul)</a></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" title="1">regmul=<span class="kw">lm</span>(mortalidade<span class="op">~</span>.,<span class="dt">data=</span>peol)</a>
+<a class="sourceLine" id="cb364-2" title="2"><span class="kw">summary</span>(regmul)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = mortalidade ~ ., data = peol)
@@ -263,8 +267,8 @@ slides 26-33</p>
 ## Multiple R-squared:  0.9908,	Adjusted R-squared:  0.9835 
 ## F-statistic:   135 on 4 and 5 DF,  p-value: 2.804e-05</code></pre>
 <p>Implement poisson GLM with all variables</p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" title="1">glmALL=<span class="kw">glm</span>(mortalidade<span class="op">~</span>.,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
-<a class="sourceLine" id="cb363-2" title="2"><span class="kw">summary</span>(glmALL)</a></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" title="1">glmALL=<span class="kw">glm</span>(mortalidade<span class="op">~</span>.,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
+<a class="sourceLine" id="cb366-2" title="2"><span class="kw">summary</span>(glmALL)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = mortalidade ~ ., family = poisson(link = &quot;log&quot;), 
@@ -294,13 +298,13 @@ slides 26-33</p>
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
 <p>Run a few other models</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" title="1">glmda&lt;-<span class="kw">glm</span>(mortalidade<span class="op">~</span>densidade.aero,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
-<a class="sourceLine" id="cb365-2" title="2">glma&lt;-<span class="kw">glm</span>(mortalidade<span class="op">~</span>altitude,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
-<a class="sourceLine" id="cb365-3" title="3">glmpa&lt;-<span class="kw">glm</span>(mortalidade<span class="op">~</span>proximidade.aero,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
-<a class="sourceLine" id="cb365-4" title="4">glmapa&lt;-<span class="kw">glm</span>(mortalidade<span class="op">~</span>altitude<span class="op">+</span>proximidade.aero,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
-<a class="sourceLine" id="cb365-5" title="5">glmdaapa=<span class="kw">glm</span>(mortalidade<span class="op">~</span>densidade.aero<span class="op">+</span>altitude<span class="op">+</span>proximidade.aero,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" title="1">glmda&lt;-<span class="kw">glm</span>(mortalidade<span class="op">~</span>densidade.aero,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
+<a class="sourceLine" id="cb368-2" title="2">glma&lt;-<span class="kw">glm</span>(mortalidade<span class="op">~</span>altitude,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
+<a class="sourceLine" id="cb368-3" title="3">glmpa&lt;-<span class="kw">glm</span>(mortalidade<span class="op">~</span>proximidade.aero,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
+<a class="sourceLine" id="cb368-4" title="4">glmapa&lt;-<span class="kw">glm</span>(mortalidade<span class="op">~</span>altitude<span class="op">+</span>proximidade.aero,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
+<a class="sourceLine" id="cb368-5" title="5">glmdaapa=<span class="kw">glm</span>(mortalidade<span class="op">~</span>densidade.aero<span class="op">+</span>altitude<span class="op">+</span>proximidade.aero,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a></code></pre></div>
 <p>Check that best model by AIC inclues non significant variables</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" title="1"><span class="kw">AIC</span>(glmda,glma,glmpa,glmapa,glmdaapa,glmALL)</a></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb369-1" title="1"><span class="kw">AIC</span>(glmda,glma,glmpa,glmapa,glmdaapa,glmALL)</a></code></pre></div>
 <pre><code>##          df       AIC
 ## glmda     2 361.92796
 ## glma      2  60.98652
@@ -309,7 +313,7 @@ slides 26-33</p>
 ## glmdaapa  4  59.09642
 ## glmALL    5  59.93416</code></pre>
 <p>Check best AIC model</p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" title="1"><span class="kw">summary</span>(glmdaapa)</a></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb371-1" title="1"><span class="kw">summary</span>(glmdaapa)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = mortalidade ~ densidade.aero + altitude + proximidade.aero, 
@@ -336,9 +340,9 @@ slides 26-33</p>
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
 <p>Use <code>stepAIC</code></p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" title="1"><span class="kw">library</span>(MASS)</a>
-<a class="sourceLine" id="cb370-2" title="2">fullmodel=<span class="kw">glm</span>(mortalidade<span class="op">~</span>.,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
-<a class="sourceLine" id="cb370-3" title="3">best.model=<span class="kw">stepAIC</span>(fullmodel,<span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb373-1" title="1"><span class="kw">library</span>(MASS)</a>
+<a class="sourceLine" id="cb373-2" title="2">fullmodel=<span class="kw">glm</span>(mortalidade<span class="op">~</span>.,<span class="dt">data=</span>peol,<span class="dt">family=</span><span class="kw">poisson</span>(<span class="dt">link=</span><span class="st">&quot;log&quot;</span>))</a>
+<a class="sourceLine" id="cb373-3" title="3">best.model=<span class="kw">stepAIC</span>(fullmodel,<span class="dt">direction=</span><span class="st">&quot;backward&quot;</span>)</a></code></pre></div>
 <pre><code>## Start:  AIC=59.93
 ## mortalidade ~ densidade.aero + altitude + proximidade.aero + 
 ##     estradas
@@ -358,7 +362,7 @@ slides 26-33</p>
 ## - estradas          1    8.169  60.257
 ## - proximidade.aero  1    9.737  61.825
 ## - altitude          1   79.310 131.398</code></pre>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" title="1"><span class="kw">summary</span>(best.model)</a></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb375-1" title="1"><span class="kw">summary</span>(best.model)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = mortalidade ~ altitude + proximidade.aero + estradas, 
@@ -385,11 +389,11 @@ slides 26-33</p>
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
 <p>Use function <code>bestglm</code>, confirm you get the best above and also the same as from stepAIC</p>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb374-1" title="1"><span class="kw">library</span>(bestglm)</a></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb377-1" title="1"><span class="kw">library</span>(bestglm)</a></code></pre></div>
 <pre><code>## Loading required package: leaps</code></pre>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb376-1" title="1">bestGLM=<span class="kw">bestglm</span>(<span class="dt">Xy=</span>peol[,<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">1</span>)],<span class="dt">family=</span><span class="kw">poisson</span>(),<span class="dt">IC=</span><span class="st">&quot;AIC&quot;</span>,<span class="dt">RequireFullEnumeration=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" title="1">bestGLM=<span class="kw">bestglm</span>(<span class="dt">Xy=</span>peol[,<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">1</span>)],<span class="dt">family=</span><span class="kw">poisson</span>(),<span class="dt">IC=</span><span class="st">&quot;AIC&quot;</span>,<span class="dt">RequireFullEnumeration=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## Morgan-Tatar search since family is non-gaussian.</code></pre>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" title="1">bestGLM<span class="op">$</span>BestModel</a></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" title="1">bestGLM<span class="op">$</span>BestModel</a></code></pre></div>
 <pre><code>## 
 ## Call:  glm(formula = y ~ ., family = family, data = Xi, weights = weights)
 ## 
@@ -401,10 +405,10 @@ slides 26-33</p>
 ## Null Deviance:	    346.5 
 ## Residual Deviance: 3.857 	AIC: 57.95</code></pre>
 <p>Interesting, with the Gaussian response (and I used the Gaussian response on the slides in class!) one would get a different answer… explore?</p>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb380-1" title="1"><span class="kw">library</span>(bestglm)</a>
-<a class="sourceLine" id="cb380-2" title="2">bestGLM=<span class="kw">bestglm</span>(<span class="dt">Xy=</span>peol[,<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">1</span>)],<span class="dt">family=</span><span class="kw">gaussian</span>(),<span class="dt">IC=</span><span class="st">&quot;AIC&quot;</span>,<span class="dt">RequireFullEnumeration=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb383-1" title="1"><span class="kw">library</span>(bestglm)</a>
+<a class="sourceLine" id="cb383-2" title="2">bestGLM=<span class="kw">bestglm</span>(<span class="dt">Xy=</span>peol[,<span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">1</span>)],<span class="dt">family=</span><span class="kw">gaussian</span>(),<span class="dt">IC=</span><span class="st">&quot;AIC&quot;</span>,<span class="dt">RequireFullEnumeration=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## Morgan-Tatar search since family is non-gaussian.</code></pre>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb382-1" title="1">bestGLM<span class="op">$</span>BestModel</a></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" title="1">bestGLM<span class="op">$</span>BestModel</a></code></pre></div>
 <pre><code>## 
 ## Call:  glm(formula = y ~ ., family = family, data = Xi, weights = weights)
 ## 

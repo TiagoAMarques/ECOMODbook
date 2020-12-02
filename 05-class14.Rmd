@@ -173,12 +173,20 @@ par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))
 plot(glmGau)
 ```
 
-On the other hadn, the diagnostics for the Poisson model do not show any reasons to worry.
+On the other hand, the diagnostics for the Poisson model do not show any reasons to worry.
 
 ```{r glm7}
 par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))
 plot(glmPoi)
 ```
+
+A really nice and interesting evaluation of model adequacy, or in other words, a different way of looking that the plots produced by default by the `plot` of a model object, is in the package `performance`, part of the `easystats` family
+
+```{r,warning=~FALSE,message=FALSE}
+library(performance)
+check_model(glmPoi)
+```
+
 
 Additionally, if we would evaluate the AIC for these contending models, the Poisson model would be by far the most parsimonious. We have not talked about model selection yet, but AIC is a model selection criteria that favours models that fit to the data while penalizing for the number of parameters in the model [e.g. @Aho2014].
 

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 23 Exploratory Data Analysis | Notes for Ecological Modelling</title>
+  <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 23 Exploratory Data Analysis | Notes for Ecological Modelling" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 23 Exploratory Data Analysis | Notes for Ecological Modelling" />
+  
+  <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Tiago A. Marques" />
+
+
+<meta name="date" content="2020-11-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="reading-data-in.html"/>
+<link rel="next" href="modelling.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
+<li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
+<li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
+<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a></li>
+<li class="chapter" data-level="6" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>6</b> About regression</a><ul>
+<li class="chapter" data-level="6.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>6.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="6.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>6.2</b> The general linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>7</b> Hands On Regression</a><ul>
+<li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>8</b> Class 6 13 10 2020</a><ul>
+<li class="chapter" data-level="8.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>8.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="8.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>8.2</b> Simulating regression data</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Class 7 14 10 2020</a><ul>
+<li class="chapter" data-level="9.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>9.1</b> Task 1</a></li>
+<li class="chapter" data-level="9.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>9.2</b> Task 2</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
+<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.1</b> The t-test</a></li>
+<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.2</b> ANOVA</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>11</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
+<li class="chapter" data-level="11.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>11.1</b> Common slope, different intercepts per treatment</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>12</b> Class 10: 27 10 2020</a><ul>
+<li class="chapter" data-level="12.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>12.1</b> Same story, another spin</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>13</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a><ul>
+<li class="chapter" data-level="13.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>13.1</b> About interactions</a></li>
+<li class="chapter" data-level="13.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>13.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="13.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>13.3</b> Task 2 Modeling a data set</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>14</b> Class 12: 04 11 2020 Interactions between continous covariates</a><ul>
+<li class="chapter" data-level="14.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>14.1</b> Larger order interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conlusion on linear regression</a><ul>
+<li class="chapter" data-level="15.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>16</b> Class 13: 10 11 2020 Maximum likelihood and all that</a><ul>
+<li class="chapter" data-level="16.1" data-path="aula12.html"><a href="aula12.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>16.1</b> Maximizing a likelihood algebraically</a></li>
+<li class="chapter" data-level="16.2" data-path="aula12.html"><a href="aula12.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>16.2</b> Numerically Maximizing a likelihood</a></li>
+<li class="chapter" data-level="16.3" data-path="aula12.html"><a href="aula12.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>16.3</b> The case of a Gaussian</a></li>
+<li class="chapter" data-level="16.4" data-path="aula12.html"><a href="aula12.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>16.4</b> The case of a linear model</a></li>
+<li class="chapter" data-level="16.5" data-path="aula12.html"><a href="aula12.html#the-really-interesting-case"><i class="fa fa-check"></i><b>16.5</b> The really interesting case</a></li>
+<li class="chapter" data-level="16.6" data-path="aula12.html"><a href="aula12.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>16.6</b> Likelihood, above and beyond</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>17</b> Class 14: 11 11 2020 GLMs</a><ul>
+<li class="chapter" data-level="17.1" data-path="aula14.html"><a href="aula14.html#what-are-glms"><i class="fa fa-check"></i><b>17.1</b> What are GLMs</a></li>
+<li class="chapter" data-level="17.2" data-path="aula14.html"><a href="aula14.html#the-link-function"><i class="fa fa-check"></i><b>17.2</b> The link function</a></li>
+<li class="chapter" data-level="17.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>17.3</b> Most useful GLM Families</a></li>
+<li class="chapter" data-level="17.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>17.4</b> An example analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a><ul>
+<li class="chapter" data-level="18.1" data-path="aula15.html"><a href="aula15.html#example-2"><i class="fa fa-check"></i><b>18.1</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>19</b> Class 16: 18 11 2020</a><ul>
+<li class="chapter" data-level="19.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>19.1</b> A logistic regression example</a></li>
+<li class="chapter" data-level="19.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>19.2</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>20</b> Class 17: 24 11 2020</a><ul>
+<li class="chapter" data-level="20.1" data-path="aula17.html"><a href="aula17.html#presence-of-bats"><i class="fa fa-check"></i><b>20.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="20.2" data-path="aula17.html"><a href="aula17.html#sponges"><i class="fa fa-check"></i><b>20.2</b> Sponges</a></li>
+<li class="chapter" data-level="20.3" data-path="aula17.html"><a href="aula17.html#extra-glm-stuff"><i class="fa fa-check"></i><b>20.3</b> Extra GLM stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>21</b> Class 18: 25 11 2020</a><ul>
+<li class="chapter" data-level="21.1" data-path="aula17.html"><a href="aula17.html#presence-of-bats"><i class="fa fa-check"></i><b>21.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="21.2" data-path="aula17.html"><a href="aula17.html#sponges"><i class="fa fa-check"></i><b>21.2</b> Sponges</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="reading-data-in.html"><a href="reading-data-in.html"><i class="fa fa-check"></i><b>22</b> Reading data in</a></li>
+<li class="chapter" data-level="23" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>23</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="24" data-path="modelling.html"><a href="modelling.html"><i class="fa fa-check"></i><b>24</b> Modelling</a><ul>
+<li class="chapter" data-level="24.1" data-path="aula17.html"><a href="aula17.html#extra-glm-stuff"><i class="fa fa-check"></i><b>24.1</b> Extra GLM stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>25</b> Class 19: 02 12 2020</a></li>
+<li class="chapter" data-level="26" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>26</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes for Ecological Modelling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exploratory-data-analysis" class="section level1">
+<h1><span class="header-section-number">Chapter 23</span> Exploratory Data Analysis</h1>
+<p>We will now investigate the data set in a bit more detail. We begin by looking at whether there are large correlations between the explanatory variables and SSR</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">cordata=<span class="kw">cor</span>(data)</a>
+<a class="sourceLine" id="cb2-2" title="2">corWithSSR=cordata[,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw">hist</span>(corWithSSR[corWithSSR<span class="op">!=</span><span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Correlations between SSR and explanatory covariates&quot;</span>,<span class="dt">breaks=</span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.05</span>))</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>As it seems, there is no single variable with a correlation larger than 0.31 with SSR. Hopefully, when considering multiple variables we will be able to model SSR in a reasonable way.</p>
+<p>We can ask ourselves is if there are variables which are highly correlated, which could lead to unstable models and incorrect inferences.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">cordata=<span class="kw">cor</span>(data)</a>
+<a class="sourceLine" id="cb3-2" title="2">covars=cordata[,<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)]</a>
+<a class="sourceLine" id="cb3-3" title="3">corcovars=<span class="kw">cor</span>(covars)</a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="kw">hist</span>(corcovars[corcovars<span class="op">!=</span><span class="dv">1</span>],<span class="dt">main=</span><span class="st">&quot;Correlations between explanatory covariates (lat,long excluded)&quot;</span>,<span class="dt">breaks=</span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.05</span>))</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>As we can see, there is a wide range of correlations, but in particular there is a peak at the 0.95-1 range, which we suspect is du3e to the fact that some variables are actually obtained as a function of others (something to confirm at some point by reading the paper!).</p>
+<p>Of course, including pairs of such highly correlated variables in the models would lead to problems, and hence we need to decide which to remove a priori. This should be driven by ecological knowledge, which in our case, for SSR, is close to inexistent!</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">sort</span>(<span class="kw">abs</span>(<span class="kw">round</span>(corWithSSR,<span class="dv">2</span>)))</a></code></pre></div>
+<pre><code>##             bs22             bs23             bs24             bs29 
+##             0.00             0.00             0.00             0.00 
+##             bs35             bs_o       rugosity_o             bs25 
+##             0.00             0.00             0.00             0.01 
+##             bs26             bs27             bs28             bs33 
+##             0.01             0.01             0.01             0.01 
+##             bs34             bs36             bs21             bs30 
+##             0.01             0.01             0.02             0.02 
+##             bs31             bs32            tpi_o             bs20 
+##             0.02             0.02             0.02             0.03 
+##             var3             bs17             bs18             bs19 
+##             0.03             0.04             0.04             0.04 
+##          bathy_o        rugosity3       plan_curv5            bathy 
+##             0.04             0.04             0.04             0.05 
+##             bs10             bs11             bs12             bs13 
+##             0.06             0.06             0.06             0.06 
+##             bs16       bs_entro_o         bs_var_o             bs14 
+##             0.06             0.06             0.06             0.07 
+##             bs15       prof_cur_o            homo7       plan_cur_o 
+##             0.07             0.07             0.07             0.08 
+##            homo5             var7              mud             tpi7 
+##             0.08             0.08             0.09             0.09 
+##           entro5           entro7         bs_lmi_o         relief_o 
+##             0.09             0.09             0.10             0.10 
+##             var5          bs_lmi3          bs_lmi5          bs_lmi7 
+##             0.10             0.10             0.10             0.10 
+##        prof_cur3        rugosity5        bs_homo_o      bathy_lmi_o 
+##             0.12             0.13             0.14             0.14 
+##       bathy_lmi3       bathy_lmi5       bathy_lmi7       plan_curv7 
+##             0.14             0.14             0.14             0.14 
+##            homo3          slope_o        prof_cur5           entro3 
+##             0.14             0.15             0.15             0.15 
+##        rugosity7             tpi3        prof_cur7         relief_3 
+##             0.16             0.16             0.17             0.18 
+##           slope3             tpi5       plan_curv3           slope5 
+##             0.19             0.20             0.22             0.23 
+##           slope7         relief_5         relief_7      long.sample 
+##             0.25             0.28             0.28             0.30 
+##       lat.sample           gravel       dist.coast             sand 
+##             0.30             0.30             0.31             0.35 
+## species.richness 
+##             1.00</code></pre>
+<p>What does the response varianble itself look like? That is the key question to answer, as it will determine the distribution we use to model it. We already saw that the variance is considerably larger than the mean.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">hist</span>(data<span class="op">$</span>species.richness,<span class="dt">xlab=</span><span class="st">&quot;Species Richness&quot;</span>,<span class="dt">main=</span><span class="st">&quot;&quot;</span>,<span class="dt">breaks=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="dt">by=</span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">text</span>(<span class="dv">30</span>,<span class="dv">7</span>,<span class="kw">paste0</span>(<span class="st">&quot;Mean=&quot;</span>,<span class="kw">round</span>(<span class="kw">mean</span>(data<span class="op">$</span>species.richness),<span class="dv">1</span>)))</a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="kw">text</span>(<span class="dv">30</span>,<span class="dv">5</span>,<span class="kw">paste0</span>(<span class="st">&quot;Variance=&quot;</span>,<span class="kw">round</span>(<span class="kw">var</span>(data<span class="op">$</span>species.richness),<span class="dv">1</span>)))</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>We can compare this with a poisson with the same mean, or a negative binomial with the same mean and variance. It should be obvious which provides a closer approximation, even before covariates get added to the mix.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw">hist</span>(data<span class="op">$</span>species.richness,<span class="dt">xlab=</span><span class="st">&quot;Species Richness&quot;</span>,<span class="dt">main=</span><span class="st">&quot;&quot;</span>,<span class="dt">breaks=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="dt">by=</span><span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="kw">text</span>(<span class="dv">30</span>,<span class="dv">20</span>,<span class="kw">paste0</span>(<span class="st">&quot;Mean=&quot;</span>,<span class="kw">round</span>(<span class="kw">mean</span>(data<span class="op">$</span>species.richness),<span class="dv">1</span>)))</a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="kw">text</span>(<span class="dv">30</span>,<span class="dv">10</span>,<span class="kw">paste0</span>(<span class="st">&quot;Variance=&quot;</span>,<span class="kw">round</span>(<span class="kw">var</span>(data<span class="op">$</span>species.richness),<span class="dv">1</span>)))</a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="co"># Poisson</span></a>
+<a class="sourceLine" id="cb7-6" title="6">mean=<span class="dv">10</span></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="kw">hist</span>(<span class="kw">rpois</span>(<span class="dv">10000</span>,mean),<span class="dt">main=</span><span class="st">&quot;&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Poisson, mean=10&quot;</span>,<span class="dt">breaks=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="dt">by=</span><span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="co">#Neg Bin</span></a>
+<a class="sourceLine" id="cb7-9" title="9">mean=<span class="dv">10</span></a>
+<a class="sourceLine" id="cb7-10" title="10">var=<span class="dv">100</span></a>
+<a class="sourceLine" id="cb7-11" title="11">dat=<span class="kw">rnbinom</span>(<span class="dv">10000</span>,<span class="dt">size=</span>mean<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(var<span class="op">-</span>mean),<span class="dt">mu=</span>mean)</a>
+<a class="sourceLine" id="cb7-12" title="12"><span class="kw">hist</span>(dat[dat<span class="op">&lt;</span><span class="dv">40</span>],<span class="dt">main=</span><span class="st">&quot;&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Negative Binomial, mean=10, var=100&quot;</span>,<span class="dt">breaks=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="dt">by=</span><span class="dv">5</span>))</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Just to begin, we take a peak at a random variable (<code>dist.coast</code>) to see if there is information in it about SSR.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co">#testing a random variable!!</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw">with</span>(data,<span class="kw">plot</span>(dist.coast,species.richness))</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="kw">abline</span>(<span class="kw">with</span>(data,<span class="kw">lm</span>(species.richness<span class="op">~</span>dist.coast)))</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">summary</span>(<span class="kw">with</span>(data,<span class="kw">lm</span>(species.richness<span class="op">~</span>dist.coast)))</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = species.richness ~ dist.coast)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -14.016  -6.986  -4.938   4.103  27.174 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) 5.705e+00  2.026e+00   2.816  0.00621 **
+## dist.coast  4.785e-05  1.673e-05   2.859  0.00549 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.06 on 75 degrees of freedom
+## Multiple R-squared:  0.09831,	Adjusted R-squared:  0.08628 
+## F-statistic: 8.177 on 1 and 75 DF,  p-value: 0.005492</code></pre>
+<p>and apparently there is information to explain the species richness.</p>
+<p>While there is never too much Exploratory Data Analysis (EDA), here we move on to do some modelling.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reading-data-in.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modelling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ECOMODbook.pdf", "ECOMODbook.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
