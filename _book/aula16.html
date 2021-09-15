@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2020-11-25" />
+<meta name="date" content="2020-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,6 +156,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
 <li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.1</b> The t-test</a></li>
 <li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.2</b> ANOVA</a></li>
+<li class="chapter" data-level="10.3" data-path="aula8.html"><a href="aula8.html#task-do-it-yourself"><i class="fa fa-check"></i><b>10.3</b> Task: do it yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>11</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
 <li class="chapter" data-level="11.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>11.1</b> Common slope, different intercepts per treatment</a></li>
@@ -234,27 +235,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 21</span> Class 16: 18 11 2020</h1>
 <div id="a-logistic-regression-example" class="section level2">
 <h2><span class="header-section-number">21.1</span> A logistic regression example</h2>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb387-1" title="1"><span class="co">#</span></a>
-<a class="sourceLine" id="cb387-2" title="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
-<a class="sourceLine" id="cb387-3" title="3">n=<span class="dv">200</span></a>
-<a class="sourceLine" id="cb387-4" title="4"><span class="co">#a covariate</span></a>
-<a class="sourceLine" id="cb387-5" title="5">xs=<span class="kw">runif</span>(n,<span class="op">-</span><span class="dv">20</span>,<span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb387-6" title="6"><span class="co">#get the mean value</span></a>
-<a class="sourceLine" id="cb387-7" title="7">ilogit=<span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb387-8" title="8">  il=<span class="kw">exp</span>(x)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(x))</a>
-<a class="sourceLine" id="cb387-9" title="9"><span class="kw">return</span>(il)</a>
-<a class="sourceLine" id="cb387-10" title="10">}</a>
-<a class="sourceLine" id="cb387-11" title="11"></a>
-<a class="sourceLine" id="cb387-12" title="12">Ey=<span class="kw">ilogit</span>(<span class="dv">2</span><span class="fl">+0.4</span><span class="op">*</span>xs)</a>
-<a class="sourceLine" id="cb387-13" title="13"><span class="co">#generate data</span></a>
-<a class="sourceLine" id="cb387-14" title="14">ys=<span class="kw">rbinom</span>(n,<span class="dt">size =</span> <span class="kw">rep</span>(<span class="dv">1</span>,n),<span class="dt">prob =</span> Ey)</a>
-<a class="sourceLine" id="cb387-15" title="15"><span class="co">#plot data</span></a>
-<a class="sourceLine" id="cb387-16" title="16"><span class="kw">plot</span>(xs,ys)</a>
-<a class="sourceLine" id="cb387-17" title="17"></a>
-<a class="sourceLine" id="cb387-18" title="18"></a>
-<a class="sourceLine" id="cb387-19" title="19"><span class="co">#run a glm</span></a>
-<a class="sourceLine" id="cb387-20" title="20">glmLR1=<span class="kw">glm</span>(ys<span class="op">~</span>xs,<span class="dt">family=</span><span class="kw">binomial</span>(<span class="dt">link=</span><span class="st">&quot;logit&quot;</span>))</a>
-<a class="sourceLine" id="cb387-21" title="21"><span class="kw">summary</span>(glmLR1)</a></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" title="1"><span class="co">#</span></a>
+<a class="sourceLine" id="cb388-2" title="2"><span class="kw">set.seed</span>(<span class="dv">123</span>)</a>
+<a class="sourceLine" id="cb388-3" title="3">n=<span class="dv">200</span></a>
+<a class="sourceLine" id="cb388-4" title="4"><span class="co">#a covariate</span></a>
+<a class="sourceLine" id="cb388-5" title="5">xs=<span class="kw">runif</span>(n,<span class="op">-</span><span class="dv">20</span>,<span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb388-6" title="6"><span class="co">#get the mean value</span></a>
+<a class="sourceLine" id="cb388-7" title="7">ilogit=<span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb388-8" title="8">  il=<span class="kw">exp</span>(x)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(x))</a>
+<a class="sourceLine" id="cb388-9" title="9"><span class="kw">return</span>(il)</a>
+<a class="sourceLine" id="cb388-10" title="10">}</a>
+<a class="sourceLine" id="cb388-11" title="11"></a>
+<a class="sourceLine" id="cb388-12" title="12">Ey=<span class="kw">ilogit</span>(<span class="dv">2</span><span class="fl">+0.4</span><span class="op">*</span>xs)</a>
+<a class="sourceLine" id="cb388-13" title="13"><span class="co">#generate data</span></a>
+<a class="sourceLine" id="cb388-14" title="14">ys=<span class="kw">rbinom</span>(n,<span class="dt">size =</span> <span class="kw">rep</span>(<span class="dv">1</span>,n),<span class="dt">prob =</span> Ey)</a>
+<a class="sourceLine" id="cb388-15" title="15"><span class="co">#plot data</span></a>
+<a class="sourceLine" id="cb388-16" title="16"><span class="kw">plot</span>(xs,ys)</a>
+<a class="sourceLine" id="cb388-17" title="17"></a>
+<a class="sourceLine" id="cb388-18" title="18"></a>
+<a class="sourceLine" id="cb388-19" title="19"><span class="co">#run a glm</span></a>
+<a class="sourceLine" id="cb388-20" title="20">glmLR1=<span class="kw">glm</span>(ys<span class="op">~</span>xs,<span class="dt">family=</span><span class="kw">binomial</span>(<span class="dt">link=</span><span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb388-21" title="21"><span class="kw">summary</span>(glmLR1)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = ys ~ xs, family = binomial(link = &quot;logit&quot;))
@@ -277,15 +278,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## AIC: 106.7
 ## 
 ## Number of Fisher Scoring iterations: 7</code></pre>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb389-1" title="1">xs4pred=<span class="kw">seq</span>(<span class="kw">min</span>(xs),<span class="kw">max</span>(xs),<span class="dt">length=</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb389-2" title="2">predglmLR1=<span class="kw">predict</span>(glmLR1,<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">xs=</span>xs4pred),</a>
-<a class="sourceLine" id="cb389-3" title="3"><span class="dt">type=</span><span class="st">&quot;response&quot;</span>)</a>
-<a class="sourceLine" id="cb389-4" title="4"></a>
-<a class="sourceLine" id="cb389-5" title="5"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</a>
-<a class="sourceLine" id="cb389-6" title="6"><span class="kw">plot</span>(xs,ys)</a>
-<a class="sourceLine" id="cb389-7" title="7"><span class="kw">lines</span>(xs4pred,predglmLR1,<span class="dt">col=</span><span class="dv">3</span>,<span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" title="1"><span class="kw">summary</span>(glmLR1)</a></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" title="1">xs4pred=<span class="kw">seq</span>(<span class="kw">min</span>(xs),<span class="kw">max</span>(xs),<span class="dt">length=</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb390-2" title="2">predglmLR1=<span class="kw">predict</span>(glmLR1,<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">xs=</span>xs4pred),</a>
+<a class="sourceLine" id="cb390-3" title="3"><span class="dt">type=</span><span class="st">&quot;response&quot;</span>)</a>
+<a class="sourceLine" id="cb390-4" title="4"></a>
+<a class="sourceLine" id="cb390-5" title="5"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</a>
+<a class="sourceLine" id="cb390-6" title="6"><span class="kw">plot</span>(xs,ys)</a>
+<a class="sourceLine" id="cb390-7" title="7"><span class="kw">lines</span>(xs4pred,predglmLR1,<span class="dt">col=</span><span class="dv">3</span>,<span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" title="1"><span class="kw">summary</span>(glmLR1)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = ys ~ xs, family = binomial(link = &quot;logit&quot;))
@@ -308,39 +309,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## AIC: 106.7
 ## 
 ## Number of Fisher Scoring iterations: 7</code></pre>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" title="1"><span class="co">#check model fit</span></a>
-<a class="sourceLine" id="cb392-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="fl">0.2</span>))</a>
-<a class="sourceLine" id="cb392-3" title="3"><span class="kw">plot</span>(glmLR1)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb393-1" title="1"><span class="co">#check model fit</span></a>
+<a class="sourceLine" id="cb393-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="fl">0.2</span>))</a>
+<a class="sourceLine" id="cb393-3" title="3"><span class="kw">plot</span>(glmLR1)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
 </div>
 <div id="about-multicollinearity" class="section level2">
 <h2><span class="header-section-number">21.2</span> About multicollinearity</h2>
 <p>(this is probably best way before, in the linear model stuff… any way, I presented it here as this topic started from a student question)</p>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb393-1" title="1"><span class="co">#Código da aula 11</span></a>
-<a class="sourceLine" id="cb393-2" title="2"></a>
-<a class="sourceLine" id="cb393-3" title="3"><span class="co">#--------------------------------------------------------</span></a>
-<a class="sourceLine" id="cb393-4" title="4"><span class="co"># When good models go wrong as </span></a>
-<a class="sourceLine" id="cb393-5" title="5"><span class="co"># multicollinearity kicks in</span></a>
-<a class="sourceLine" id="cb393-6" title="6"><span class="co">#--------------------------------------------------------</span></a>
-<a class="sourceLine" id="cb393-7" title="7"><span class="kw">library</span>(MASS)</a>
-<a class="sourceLine" id="cb393-8" title="8"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
-<a class="sourceLine" id="cb393-9" title="9">n=<span class="dv">100</span></a>
-<a class="sourceLine" id="cb393-10" title="10">means &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb393-11" title="11">ncovs=(<span class="dv">36-6</span>)<span class="op">/</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb393-12" title="12">covs&lt;-<span class="st"> </span><span class="kw">rnorm</span>(ncovs,<span class="dt">mean=</span><span class="dv">10</span>,<span class="dt">sd=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb393-13" title="13">varcovars=<span class="kw">matrix</span>(<span class="ot">NA</span>,<span class="dv">6</span>,<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb393-14" title="14">varcovars[<span class="kw">lower.tri</span>(varcovars)]=covs</a>
-<a class="sourceLine" id="cb393-15" title="15">varcovars=<span class="kw">t</span>(varcovars)</a>
-<a class="sourceLine" id="cb393-16" title="16">varcovars[<span class="kw">lower.tri</span>(varcovars)]=covs</a>
-<a class="sourceLine" id="cb393-17" title="17"><span class="kw">diag</span>(varcovars)=means</a>
-<a class="sourceLine" id="cb393-18" title="18">varcovars=<span class="kw">t</span>(varcovars) <span class="op">%*%</span><span class="st"> </span>varcovars</a>
-<a class="sourceLine" id="cb393-19" title="19">indvars &lt;-<span class="st"> </span><span class="kw">mvrnorm</span>(<span class="dt">n =</span> n, <span class="dt">mu=</span>means, <span class="dt">Sigma=</span>varcovars)</a>
-<a class="sourceLine" id="cb393-20" title="20"></a>
-<a class="sourceLine" id="cb393-21" title="21"><span class="co"># we can see that we have high correlations </span></a>
-<a class="sourceLine" id="cb393-22" title="22"><span class="co">#across the board in explanatory variables</span></a>
-<a class="sourceLine" id="cb393-23" title="23">indvars=<span class="kw">as.data.frame</span>(indvars)</a>
-<a class="sourceLine" id="cb393-24" title="24"><span class="kw">names</span>(indvars)=<span class="kw">paste0</span>(<span class="st">&quot;X&quot;</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb393-25" title="25"><span class="kw">head</span>(indvars)</a></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" title="1"><span class="co">#Código da aula 11</span></a>
+<a class="sourceLine" id="cb394-2" title="2"></a>
+<a class="sourceLine" id="cb394-3" title="3"><span class="co">#--------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb394-4" title="4"><span class="co"># When good models go wrong as </span></a>
+<a class="sourceLine" id="cb394-5" title="5"><span class="co"># multicollinearity kicks in</span></a>
+<a class="sourceLine" id="cb394-6" title="6"><span class="co">#--------------------------------------------------------</span></a>
+<a class="sourceLine" id="cb394-7" title="7"><span class="kw">library</span>(MASS)</a>
+<a class="sourceLine" id="cb394-8" title="8"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb394-9" title="9">n=<span class="dv">100</span></a>
+<a class="sourceLine" id="cb394-10" title="10">means &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb394-11" title="11">ncovs=(<span class="dv">36-6</span>)<span class="op">/</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb394-12" title="12">covs&lt;-<span class="st"> </span><span class="kw">rnorm</span>(ncovs,<span class="dt">mean=</span><span class="dv">10</span>,<span class="dt">sd=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb394-13" title="13">varcovars=<span class="kw">matrix</span>(<span class="ot">NA</span>,<span class="dv">6</span>,<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb394-14" title="14">varcovars[<span class="kw">lower.tri</span>(varcovars)]=covs</a>
+<a class="sourceLine" id="cb394-15" title="15">varcovars=<span class="kw">t</span>(varcovars)</a>
+<a class="sourceLine" id="cb394-16" title="16">varcovars[<span class="kw">lower.tri</span>(varcovars)]=covs</a>
+<a class="sourceLine" id="cb394-17" title="17"><span class="kw">diag</span>(varcovars)=means</a>
+<a class="sourceLine" id="cb394-18" title="18">varcovars=<span class="kw">t</span>(varcovars) <span class="op">%*%</span><span class="st"> </span>varcovars</a>
+<a class="sourceLine" id="cb394-19" title="19">indvars &lt;-<span class="st"> </span><span class="kw">mvrnorm</span>(<span class="dt">n =</span> n, <span class="dt">mu=</span>means, <span class="dt">Sigma=</span>varcovars)</a>
+<a class="sourceLine" id="cb394-20" title="20"></a>
+<a class="sourceLine" id="cb394-21" title="21"><span class="co"># we can see that we have high correlations </span></a>
+<a class="sourceLine" id="cb394-22" title="22"><span class="co">#across the board in explanatory variables</span></a>
+<a class="sourceLine" id="cb394-23" title="23">indvars=<span class="kw">as.data.frame</span>(indvars)</a>
+<a class="sourceLine" id="cb394-24" title="24"><span class="kw">names</span>(indvars)=<span class="kw">paste0</span>(<span class="st">&quot;X&quot;</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb394-25" title="25"><span class="kw">head</span>(indvars)</a></code></pre></div>
 <pre><code>##           X1         X2         X3         X4         X5         X6
 ## 1   9.541304   4.656261   3.519952   6.511551  17.806161  14.773197
 ## 2   3.994445  11.434166  20.327380  24.241666  15.890631  31.525666
@@ -348,7 +349,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4  24.192031  24.081062  21.521784  24.605110  27.886290  31.084587
 ## 5 -45.216392 -46.471634 -42.049067 -46.874143 -43.935034 -51.421911
 ## 6  -1.530172  -2.414988   6.496899   5.861754   9.758315   6.201106</code></pre>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb395-1" title="1"><span class="kw">round</span>(<span class="kw">cor</span>(indvars),<span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" title="1"><span class="kw">round</span>(<span class="kw">cor</span>(indvars),<span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##      X1   X2   X3   X4   X5   X6
 ## X1 1.00 0.91 0.83 0.84 0.95 0.88
 ## X2 0.91 1.00 0.91 0.95 0.96 0.97
@@ -356,13 +357,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## X4 0.84 0.95 0.98 1.00 0.93 0.98
 ## X5 0.95 0.96 0.92 0.93 1.00 0.96
 ## X6 0.88 0.97 0.98 0.98 0.96 1.00</code></pre>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb397-1" title="1">ys &lt;-<span class="dv">510</span><span class="op">+</span><span class="dv">4</span><span class="op">*</span>indvars<span class="op">$</span>X1<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dt">mean=</span><span class="dv">0</span>,<span class="dt">sd=</span><span class="dv">200</span>)</a>
-<a class="sourceLine" id="cb397-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
-<a class="sourceLine" id="cb397-3" title="3"><span class="kw">plot</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1)</a>
-<a class="sourceLine" id="cb397-4" title="4">lmX1 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1)</a>
-<a class="sourceLine" id="cb397-5" title="5"><span class="kw">abline</span>(lmX1)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" title="1"><span class="kw">summary</span>(lmX1)</a></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" title="1">ys &lt;-<span class="dv">510</span><span class="op">+</span><span class="dv">4</span><span class="op">*</span>indvars<span class="op">$</span>X1<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dt">mean=</span><span class="dv">0</span>,<span class="dt">sd=</span><span class="dv">200</span>)</a>
+<a class="sourceLine" id="cb398-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb398-3" title="3"><span class="kw">plot</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1)</a>
+<a class="sourceLine" id="cb398-4" title="4">lmX1 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1)</a>
+<a class="sourceLine" id="cb398-5" title="5"><span class="kw">abline</span>(lmX1)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb399-1" title="1"><span class="kw">summary</span>(lmX1)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X1)
@@ -381,11 +382,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 184.1 on 98 degrees of freedom
 ## Multiple R-squared:  0.1324,	Adjusted R-squared:  0.1235 
 ## F-statistic: 14.95 on 1 and 98 DF,  p-value: 0.0001984</code></pre>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" title="1"><span class="kw">plot</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X2)</a>
-<a class="sourceLine" id="cb400-2" title="2">lmX2 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X2)</a>
-<a class="sourceLine" id="cb400-3" title="3"><span class="kw">abline</span>(lmX2)</a></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb401-1" title="1"><span class="kw">summary</span>(lmX2)</a></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb401-1" title="1"><span class="kw">plot</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X2)</a>
+<a class="sourceLine" id="cb401-2" title="2">lmX2 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X2)</a>
+<a class="sourceLine" id="cb401-3" title="3"><span class="kw">abline</span>(lmX2)</a></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" title="1"><span class="kw">summary</span>(lmX2)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X2)
@@ -404,9 +405,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 185.5 on 98 degrees of freedom
 ## Multiple R-squared:  0.1194,	Adjusted R-squared:  0.1104 
 ## F-statistic: 13.29 on 1 and 98 DF,  p-value: 0.00043</code></pre>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb403-1" title="1"><span class="co">#one error type I + 1 error type 2</span></a>
-<a class="sourceLine" id="cb403-2" title="2">lmX1X2 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X2)</a>
-<a class="sourceLine" id="cb403-3" title="3"><span class="kw">summary</span>(lmX1X2)</a></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" title="1"><span class="co">#one error type I + 1 error type 2</span></a>
+<a class="sourceLine" id="cb404-2" title="2">lmX1X2 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X2)</a>
+<a class="sourceLine" id="cb404-3" title="3"><span class="kw">summary</span>(lmX1X2)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X1 + indvars$X2)
@@ -426,8 +427,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 184.9 on 97 degrees of freedom
 ## Multiple R-squared:  0.1334,	Adjusted R-squared:  0.1155 
 ## F-statistic: 7.466 on 2 and 97 DF,  p-value: 0.000964</code></pre>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" title="1">lmX3 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X3)</a>
-<a class="sourceLine" id="cb405-2" title="2"><span class="kw">summary</span>(lmX3)</a></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb406-1" title="1">lmX3 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X3)</a>
+<a class="sourceLine" id="cb406-2" title="2"><span class="kw">summary</span>(lmX3)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X3)
@@ -446,8 +447,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 190.8 on 98 degrees of freedom
 ## Multiple R-squared:  0.06829,	Adjusted R-squared:  0.05878 
 ## F-statistic: 7.183 on 1 and 98 DF,  p-value: 0.008637</code></pre>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" title="1">lmX1X3 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X3)</a>
-<a class="sourceLine" id="cb407-2" title="2"><span class="kw">summary</span>(lmX1X3)</a></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" title="1">lmX1X3 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X3)</a>
+<a class="sourceLine" id="cb408-2" title="2"><span class="kw">summary</span>(lmX1X3)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X1 + indvars$X3)
@@ -467,8 +468,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 184.5 on 97 degrees of freedom
 ## Multiple R-squared:  0.1377,	Adjusted R-squared:  0.1199 
 ## F-statistic: 7.745 on 2 and 97 DF,  p-value: 0.0007572</code></pre>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" title="1">lmX4 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X4)</a>
-<a class="sourceLine" id="cb409-2" title="2"><span class="kw">summary</span>(lmX4)</a></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1">lmX4 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X4)</a>
+<a class="sourceLine" id="cb410-2" title="2"><span class="kw">summary</span>(lmX4)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X4)
@@ -487,8 +488,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 188.9 on 98 degrees of freedom
 ## Multiple R-squared:  0.08658,	Adjusted R-squared:  0.07726 
 ## F-statistic: 9.289 on 1 and 98 DF,  p-value: 0.002964</code></pre>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" title="1">lmX1X4 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X4)</a>
-<a class="sourceLine" id="cb411-2" title="2"><span class="kw">summary</span>(lmX1X4)</a></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" title="1">lmX1X4 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X4)</a>
+<a class="sourceLine" id="cb412-2" title="2"><span class="kw">summary</span>(lmX1X4)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X1 + indvars$X4)
@@ -508,8 +509,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 185 on 97 degrees of freedom
 ## Multiple R-squared:  0.1328,	Adjusted R-squared:  0.1149 
 ## F-statistic: 7.428 on 2 and 97 DF,  p-value: 0.0009964</code></pre>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" title="1">lmX5 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X5)</a>
-<a class="sourceLine" id="cb413-2" title="2"><span class="kw">summary</span>(lmX5)</a></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1">lmX5 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X5)</a>
+<a class="sourceLine" id="cb414-2" title="2"><span class="kw">summary</span>(lmX5)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X5)
@@ -528,8 +529,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 186.2 on 98 degrees of freedom
 ## Multiple R-squared:  0.1122,	Adjusted R-squared:  0.1032 
 ## F-statistic: 12.39 on 1 and 98 DF,  p-value: 0.0006565</code></pre>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1">lmX1X5 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X5)</a>
-<a class="sourceLine" id="cb415-2" title="2"><span class="kw">summary</span>(lmX1X5)</a></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1">lmX1X5 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X5)</a>
+<a class="sourceLine" id="cb416-2" title="2"><span class="kw">summary</span>(lmX1X5)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X1 + indvars$X5)
@@ -549,8 +550,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 184.9 on 97 degrees of freedom
 ## Multiple R-squared:  0.1335,	Adjusted R-squared:  0.1157 
 ## F-statistic: 7.474 on 2 and 97 DF,  p-value: 0.0009573</code></pre>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" title="1">lmX6 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X6)</a>
-<a class="sourceLine" id="cb417-2" title="2"><span class="kw">summary</span>(lmX6)</a></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1">lmX6 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X6)</a>
+<a class="sourceLine" id="cb418-2" title="2"><span class="kw">summary</span>(lmX6)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X6)
@@ -569,8 +570,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 188.1 on 98 degrees of freedom
 ## Multiple R-squared:  0.09443,	Adjusted R-squared:  0.08519 
 ## F-statistic: 10.22 on 1 and 98 DF,  p-value: 0.001871</code></pre>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1">lmX1X6 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X6)</a>
-<a class="sourceLine" id="cb419-2" title="2"><span class="kw">summary</span>(lmX1X6)</a></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" title="1">lmX1X6 &lt;-<span class="st"> </span><span class="kw">lm</span>(ys<span class="op">~</span>indvars<span class="op">$</span>X1<span class="op">+</span>indvars<span class="op">$</span>X6)</a>
+<a class="sourceLine" id="cb420-2" title="2"><span class="kw">summary</span>(lmX1X6)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X1 + indvars$X6)
@@ -590,7 +591,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual standard error: 185 on 97 degrees of freedom
 ## Multiple R-squared:  0.1332,	Adjusted R-squared:  0.1154 
 ## F-statistic: 7.455 on 2 and 97 DF,  p-value: 0.0009738</code></pre>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1"><span class="kw">AIC</span>(lmX1,lmX2,lmX3,lmX4,lmX5,lmX6,lmX1X2,lmX1X3,lmX1X4,lmX1X5,lmX1X6)</a></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1"><span class="kw">AIC</span>(lmX1,lmX2,lmX3,lmX4,lmX5,lmX6,lmX1X2,lmX1X3,lmX1X4,lmX1X5,lmX1X6)</a></code></pre></div>
 <pre><code>##        df      AIC
 ## lmX1    3 1330.863
 ## lmX2    3 1332.348

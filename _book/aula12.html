@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2020-11-25" />
+<meta name="date" content="2020-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,6 +156,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a><ul>
 <li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.1</b> The t-test</a></li>
 <li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.2</b> ANOVA</a></li>
+<li class="chapter" data-level="10.3" data-path="aula8.html"><a href="aula8.html#task-do-it-yourself"><i class="fa fa-check"></i><b>10.3</b> Task: do it yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>11</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a><ul>
 <li class="chapter" data-level="11.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>11.1</b> Common slope, different intercepts per treatment</a></li>
@@ -247,8 +248,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Assuming that the probability of different nests having eggs is independent, each of these is a Bernoulli trial, and there are <span class="math inline">\(N\)</span> trials, of which we could say <span class="math inline">\(n\)</span> will be successes, and <span class="math inline">\(n-n\)</span> will be failures. The Bernoulli distribution is a special case of a Binomial random variable, with a single trial and probability of success <span class="math inline">\(\theta\)</span>. In fact, you you consider all the nests together that is indeed a Binomial with parameters <span class="math inline">\(N\)</span> and <span class="math inline">\(p\)</span>. A small detour to justify this statement: there is a theoretical result that demonstrates that the sum of <span class="math inline">\(K\)</span> independent Binomials <span class="math inline">\(X_k\)</span>, each with <span class="math inline">\(N_k\)</span> trials, with constant probability of success <span class="math inline">\(p\)</span>, is a Binomial(<span class="math inline">\(N,p\)</span>), where <span class="math inline">\(N=\sum_{k=1}^K N_k\)</span>. Therefore, the sum of <span class="math inline">\(k\)</span> Bernoulli trials, i.e. <span class="math inline">\(k\)</span> Binomial(1,p) independent random variables, is a Binomial(<span class="math inline">\(K,p\)</span>).</p>
 <p>So this is a model with a single parameter, <span class="math inline">\(\theta\)</span>. (since we know <span class="math inline">\(N\)</span>, the number of trials!)</p>
 <p>Andreia goes out and about in the field and finds 5 nests. The first has eggs, the second and third do not, the forth does, and the fifth does not. By this time Andreia is tired and decides to call it a day, with her sample <span class="math inline">\(x\)</span> collected: <span class="math inline">\(x=c(1,0,0,1,0)\)</span>.</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" title="1"><span class="co">#a 1 is a nest with eggs, a 0 is a nest without eggs</span></a>
-<a class="sourceLine" id="cb292-2" title="2">nests=<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" title="1"><span class="co">#a 1 is a nest with eggs, a 0 is a nest without eggs</span></a>
+<a class="sourceLine" id="cb293-2" title="2">nests=<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)</a></code></pre></div>
 <p>Note that in this case the number of successes n is 2 and the number of failures <code>N-n</code> is 3.</p>
 <p>Then she asks a friend doing an MSc in biostatistics how she can estimate the value of <span class="math inline">\(\theta\)</span>. Unfortunately, her friend has just started her classes, and she too is a bit unsure about what to do too. But she does know how to calculate the probability of the observed sample.</p>
 <p><span class="math display">\[P(x|\theta)=\theta (1-\theta) (1-\theta) \theta (1-\theta)=\theta^2 (1-\theta)^3\]</span></p>
@@ -256,10 +257,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>And here’s when Andreia’s friend has a great idea. What if we turn it around and look at this as a function of theta, conditional on the data</p>
 <p><span class="math display">\[P(\theta|x)=\theta (1-\theta) (1-\theta) \theta (1-\theta)=\theta^2 (1-\theta)^3\]</span></p>
 <p>Then we could evaluate the expression for a set of possible values for <span class="math inline">\(\theta\)</span>, and the largest probability will intuitively correspond to the most likely value of <span class="math inline">\(\theta\)</span>.</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" title="1"><span class="kw">library</span>(knitr)</a>
-<a class="sourceLine" id="cb293-2" title="2">thetas&lt;-<span class="kw">seq</span>(<span class="fl">0.05</span>,<span class="fl">0.95</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb293-3" title="3">pthetas&lt;-thetas<span class="op">^</span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>thetas)<span class="op">^</span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb293-4" title="4"><span class="kw">kable</span>(<span class="kw">cbind</span>(thetas,pthetas),<span class="dt">col.names =</span> <span class="kw">c</span>(<span class="st">&quot;theta&quot;</span>,<span class="st">&quot;P(theta)&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" title="1"><span class="kw">library</span>(knitr)</a>
+<a class="sourceLine" id="cb294-2" title="2">thetas&lt;-<span class="kw">seq</span>(<span class="fl">0.05</span>,<span class="fl">0.95</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb294-3" title="3">pthetas&lt;-thetas<span class="op">^</span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>thetas)<span class="op">^</span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb294-4" title="4"><span class="kw">kable</span>(<span class="kw">cbind</span>(thetas,pthetas),<span class="dt">col.names =</span> <span class="kw">c</span>(<span class="st">&quot;theta&quot;</span>,<span class="st">&quot;P(theta)&quot;</span>))</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -311,10 +312,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>The largest values are observed for the trial values of <span class="math inline">\(\theta\)</span> of 0.35 and 0.45. What if we calculate that probability for a fine grid of values possible for <span class="math inline">\(\theta\)</span> and represent it in a plot. This is what follows, and we add to the plot a dashed vertical line representing the value of <span class="math inline">\(\theta\)</span> for which that function is maximized.</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" title="1">thetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb294-2" title="2">pthetas&lt;-thetas<span class="op">^</span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>thetas)<span class="op">^</span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb294-3" title="3"><span class="kw">plot</span>(thetas,pthetas,<span class="dt">ylab=</span><span class="st">&quot;P(</span><span class="ch">\t</span><span class="st">heta|x)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;theta&quot;</span>)</a>
-<a class="sourceLine" id="cb294-4" title="4"><span class="kw">abline</span>(<span class="dt">v=</span>thetas[pthetas<span class="op">==</span><span class="kw">max</span>(pthetas)],<span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" title="1">thetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb295-2" title="2">pthetas&lt;-thetas<span class="op">^</span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>thetas)<span class="op">^</span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb295-3" title="3"><span class="kw">plot</span>(thetas,pthetas,<span class="dt">ylab=</span><span class="st">&quot;P(</span><span class="ch">\t</span><span class="st">heta|x)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;theta&quot;</span>)</a>
+<a class="sourceLine" id="cb295-4" title="4"><span class="kw">abline</span>(<span class="dt">v=</span>thetas[pthetas<span class="op">==</span><span class="kw">max</span>(pthetas)],<span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/ch13.3-1.png" width="672" /></p>
 <p>You will probably not be too surprised to find out that <span class="math inline">\(\hat \theta\)</span>=0.4 is indeed the maximum likelihood estimate (MLEe), and that for a proportion <span class="math inline">\(\hat \theta\)</span>=successes/trials is the maximum likelihood estimate (MLE). Therefore, note that it will only be from the context that one can say if MLE stands for an estimate, which corresponds to a random realization of the estimator, or for the estimator itself. This should not have come as a surprise. Remember we had 2 successes in 5 trials, and that corresponds to 0.4.</p>
 <p>Andreia asks her friend what was the point. If the MLE was just the empirical proportion, 2/5=0.4, why going through all this trouble? There’s at least 3 good reasons for that:</p>
@@ -328,23 +329,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 <p>To illustrate the point above regarding being able to estimate the precision around the parameter estimate from the likelihood function, lets consider that we had not 5 samples, but man more. In the figure below we contrast the small sample size to a set of increasing sample sizes: 50, 100 or 200.</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">1</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
-<a class="sourceLine" id="cb295-2" title="2">thetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb295-3" title="3">pthetas&lt;-thetas<span class="op">^</span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>thetas)<span class="op">^</span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb295-4" title="4"><span class="kw">plot</span>(thetas,pthetas,<span class="dt">ylab=</span><span class="st">&quot;P(</span><span class="ch">\t</span><span class="st">heta|x)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;theta (n=5)&quot;</span>)</a>
-<a class="sourceLine" id="cb295-5" title="5"><span class="kw">abline</span>(<span class="dt">v=</span>thetas[pthetas<span class="op">==</span><span class="kw">max</span>(pthetas)],<span class="dt">lty=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb295-6" title="6">thetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb295-7" title="7">pthetas&lt;-thetas<span class="op">^</span><span class="dv">20</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>thetas)<span class="op">^</span><span class="dv">30</span></a>
-<a class="sourceLine" id="cb295-8" title="8"><span class="kw">plot</span>(thetas,pthetas,<span class="dt">ylab=</span><span class="st">&quot;P(</span><span class="ch">\t</span><span class="st">heta|x)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;theta  (n=50)&quot;</span>)</a>
-<a class="sourceLine" id="cb295-9" title="9"><span class="kw">abline</span>(<span class="dt">v=</span>thetas[pthetas<span class="op">==</span><span class="kw">max</span>(pthetas)],<span class="dt">lty=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb295-10" title="10">thetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb295-11" title="11">pthetas&lt;-thetas<span class="op">^</span><span class="dv">40</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>thetas)<span class="op">^</span><span class="dv">60</span></a>
-<a class="sourceLine" id="cb295-12" title="12"><span class="kw">plot</span>(thetas,pthetas,<span class="dt">ylab=</span><span class="st">&quot;P(</span><span class="ch">\t</span><span class="st">heta|x)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;theta  (n=100)&quot;</span>)</a>
-<a class="sourceLine" id="cb295-13" title="13"><span class="kw">abline</span>(<span class="dt">v=</span>thetas[pthetas<span class="op">==</span><span class="kw">max</span>(pthetas)],<span class="dt">lty=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb295-14" title="14">thetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb295-15" title="15">pthetas&lt;-thetas<span class="op">^</span><span class="dv">80</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>thetas)<span class="op">^</span><span class="dv">120</span></a>
-<a class="sourceLine" id="cb295-16" title="16"><span class="kw">plot</span>(thetas,pthetas,<span class="dt">ylab=</span><span class="st">&quot;P(</span><span class="ch">\t</span><span class="st">heta|x)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;theta  (n=200)&quot;</span>)</a>
-<a class="sourceLine" id="cb295-17" title="17"><span class="kw">abline</span>(<span class="dt">v=</span>thetas[pthetas<span class="op">==</span><span class="kw">max</span>(pthetas)],<span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">1</span>),<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb296-2" title="2">thetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb296-3" title="3">pthetas&lt;-thetas<span class="op">^</span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>thetas)<span class="op">^</span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb296-4" title="4"><span class="kw">plot</span>(thetas,pthetas,<span class="dt">ylab=</span><span class="st">&quot;P(</span><span class="ch">\t</span><span class="st">heta|x)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;theta (n=5)&quot;</span>)</a>
+<a class="sourceLine" id="cb296-5" title="5"><span class="kw">abline</span>(<span class="dt">v=</span>thetas[pthetas<span class="op">==</span><span class="kw">max</span>(pthetas)],<span class="dt">lty=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb296-6" title="6">thetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb296-7" title="7">pthetas&lt;-thetas<span class="op">^</span><span class="dv">20</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>thetas)<span class="op">^</span><span class="dv">30</span></a>
+<a class="sourceLine" id="cb296-8" title="8"><span class="kw">plot</span>(thetas,pthetas,<span class="dt">ylab=</span><span class="st">&quot;P(</span><span class="ch">\t</span><span class="st">heta|x)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;theta  (n=50)&quot;</span>)</a>
+<a class="sourceLine" id="cb296-9" title="9"><span class="kw">abline</span>(<span class="dt">v=</span>thetas[pthetas<span class="op">==</span><span class="kw">max</span>(pthetas)],<span class="dt">lty=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb296-10" title="10">thetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb296-11" title="11">pthetas&lt;-thetas<span class="op">^</span><span class="dv">40</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>thetas)<span class="op">^</span><span class="dv">60</span></a>
+<a class="sourceLine" id="cb296-12" title="12"><span class="kw">plot</span>(thetas,pthetas,<span class="dt">ylab=</span><span class="st">&quot;P(</span><span class="ch">\t</span><span class="st">heta|x)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;theta  (n=100)&quot;</span>)</a>
+<a class="sourceLine" id="cb296-13" title="13"><span class="kw">abline</span>(<span class="dt">v=</span>thetas[pthetas<span class="op">==</span><span class="kw">max</span>(pthetas)],<span class="dt">lty=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb296-14" title="14">thetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb296-15" title="15">pthetas&lt;-thetas<span class="op">^</span><span class="dv">80</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>thetas)<span class="op">^</span><span class="dv">120</span></a>
+<a class="sourceLine" id="cb296-16" title="16"><span class="kw">plot</span>(thetas,pthetas,<span class="dt">ylab=</span><span class="st">&quot;P(</span><span class="ch">\t</span><span class="st">heta|x)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;theta  (n=200)&quot;</span>)</a>
+<a class="sourceLine" id="cb296-17" title="17"><span class="kw">abline</span>(<span class="dt">v=</span>thetas[pthetas<span class="op">==</span><span class="kw">max</span>(pthetas)],<span class="dt">lty=</span><span class="dv">2</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/ch13.4-1.png" width="672" /></p>
 <p>As we increase the sample size, and hence we increase the amount of information available to estimate <span class="math inline">\(\theta\)</span>, the likelihood profile becomes more spiky. It can be demonstrated that the curvature of the likelihood profile allows us to quantify the precision on our estimate of the parameter. Naturally, the steeper the curve, the better, in the sense that the more certain we are. On the other hand, when the likelihood surface is very flat, we might hit problems in terms of the numerical maximization of the likelihood.</p>
 <div id="maximizing-a-likelihood-algebraically" class="section level2">
@@ -361,26 +362,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="numerically-maximizing-a-likelihood" class="section level2">
 <h2><span class="header-section-number">16.2</span> Numerically Maximizing a likelihood</h2>
 <p>Here we look at using a numerical maximization procedure, which means that we will derive a procedure, and algorithm, that will find the maximum of a function computationally. The analogy with the real world is simple. Imagine that you were somewhere in the most boring country in the world, Boredomnesia. It happens to be a square with a single mountain at the center, as depicted in the image below, and you wanted to start walking and reaching the highest point in the country. Boredomnesia happens to also be the foggiest country in the world, so you manage to see about 3 meters around you, at most!</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1"><span class="co"># need mvtnorm package</span></a>
-<a class="sourceLine" id="cb296-2" title="2"><span class="kw">library</span>(<span class="st">&quot;mvtnorm&quot;</span>)</a>
-<a class="sourceLine" id="cb296-3" title="3">range =<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb296-4" title="4">mean =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb296-5" title="5">Sigma =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">.5</span>, <span class="fl">.5</span>, <span class="dv">1</span>), <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb296-6" title="6">out =<span class="st"> </span><span class="kw">matrix</span> (<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">101</span><span class="op">*</span><span class="dv">101</span>),<span class="dv">101</span>)</a>
-<a class="sourceLine" id="cb296-7" title="7"></a>
-<a class="sourceLine" id="cb296-8" title="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(range)){</a>
-<a class="sourceLine" id="cb296-9" title="9">	<span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(range)){</a>
-<a class="sourceLine" id="cb296-10" title="10">		out[i,j] =<span class="st"> </span><span class="kw">dmvnorm</span>(<span class="kw">c</span>(range[i],range[j]),<span class="dt">mean=</span>mean,<span class="dt">sigma=</span>Sigma)</a>
-<a class="sourceLine" id="cb296-11" title="11">	}</a>
-<a class="sourceLine" id="cb296-12" title="12">}</a>
-<a class="sourceLine" id="cb296-13" title="13"> <span class="kw">persp</span>(out,<span class="dt">theta =</span> <span class="dv">30</span>,<span class="dt">phi =</span> <span class="dv">20</span>,<span class="dt">col=</span><span class="st">&quot;lightblue&quot;</span>,<span class="dt">xlab =</span> <span class="st">&quot;Latitude&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Longitude&quot;</span>,<span class="dt">zlab=</span><span class="st">&quot;Elevation&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" title="1"><span class="co"># need mvtnorm package</span></a>
+<a class="sourceLine" id="cb297-2" title="2"><span class="kw">library</span>(<span class="st">&quot;mvtnorm&quot;</span>)</a>
+<a class="sourceLine" id="cb297-3" title="3">range =<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb297-4" title="4">mean =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb297-5" title="5">Sigma =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">.5</span>, <span class="fl">.5</span>, <span class="dv">1</span>), <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb297-6" title="6">out =<span class="st"> </span><span class="kw">matrix</span> (<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">101</span><span class="op">*</span><span class="dv">101</span>),<span class="dv">101</span>)</a>
+<a class="sourceLine" id="cb297-7" title="7"></a>
+<a class="sourceLine" id="cb297-8" title="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(range)){</a>
+<a class="sourceLine" id="cb297-9" title="9">	<span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(range)){</a>
+<a class="sourceLine" id="cb297-10" title="10">		out[i,j] =<span class="st"> </span><span class="kw">dmvnorm</span>(<span class="kw">c</span>(range[i],range[j]),<span class="dt">mean=</span>mean,<span class="dt">sigma=</span>Sigma)</a>
+<a class="sourceLine" id="cb297-11" title="11">	}</a>
+<a class="sourceLine" id="cb297-12" title="12">}</a>
+<a class="sourceLine" id="cb297-13" title="13"> <span class="kw">persp</span>(out,<span class="dt">theta =</span> <span class="dv">30</span>,<span class="dt">phi =</span> <span class="dv">20</span>,<span class="dt">col=</span><span class="st">&quot;lightblue&quot;</span>,<span class="dt">xlab =</span> <span class="st">&quot;Latitude&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Longitude&quot;</span>,<span class="dt">zlab=</span><span class="st">&quot;Elevation&quot;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:country"></span>
 <img src="ECOMODbook_files/figure-html/country-1.png" alt="Ilustrating a likelihood. This would be Boredomnesia, the most boring country in the world. You want to to find a way to reach its highest point amidst the dense fog that characterizes it. How can you do it? Just keep moving up!" width="80%" />
 <p class="caption">
 Figure 16.1: Ilustrating a likelihood. This would be Boredomnesia, the most boring country in the world. You want to to find a way to reach its highest point amidst the dense fog that characterizes it. How can you do it? Just keep moving up!
 </p>
 </div>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" title="1"><span class="co">#add an emoji that is a small man to it!</span></a></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1"><span class="co">#add an emoji that is a small man to it!</span></a></code></pre></div>
 <p>But you actually have no idea about the orography of the country, and you can only see so much as the country is always a bit foggy. To make sure you manage, you could set up a set of rules for yourself:</p>
 <ol style="list-style-type: decimal">
 <li>starting where you are (this seems like a lame first step, but you will see surprisingly that is actually one of the hardest for a computer!). Then, until you can’t find a higher point, repeat the following steps:</li>
@@ -411,32 +412,32 @@ Figure 16.1: Ilustrating a likelihood. This would be Boredomnesia, the most bori
 <p>Recall the probability of <span class="math inline">\(\theta\)</span>, given the data 1,0,1,0,0.</p>
 <p><span class="math display">\[P(\theta|x)=\theta (1-\theta) (1-\theta) \theta (1-\theta)=\theta^2 (1-\theta)^3\]</span></p>
 <p>We can write a bespoke function of theta to evaluate this probability</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1">liktheta1=<span class="cf">function</span>(theta){</a>
-<a class="sourceLine" id="cb298-2" title="2">  lik&lt;-theta<span class="op">^</span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>theta)<span class="op">^</span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb298-3" title="3">  <span class="kw">return</span>(lik)</a>
-<a class="sourceLine" id="cb298-4" title="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" title="1">liktheta1=<span class="cf">function</span>(theta){</a>
+<a class="sourceLine" id="cb299-2" title="2">  lik&lt;-theta<span class="op">^</span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>theta)<span class="op">^</span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb299-3" title="3">  <span class="kw">return</span>(lik)</a>
+<a class="sourceLine" id="cb299-4" title="4">}</a></code></pre></div>
 <p>Now we use it, job done</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" title="1"><span class="kw">liktheta1</span>(<span class="fl">0.35</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" title="1"><span class="kw">liktheta1</span>(<span class="fl">0.35</span>)</a></code></pre></div>
 <pre><code>## [1] 0.03364156</code></pre>
 <p>just as in the table above, we are good. But this is not really what we want, because the data, our sample was hardwired, we need a function that could cope with any sample. We need to be able to compute the relevant statistics from the sample. Andreia realizes that she can do that easily by summing successes and failures in the table</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" title="1"><span class="kw">sum</span>(nests<span class="op">==</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" title="1"><span class="kw">sum</span>(nests<span class="op">==</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" title="1"><span class="kw">sum</span>(nests<span class="op">==</span><span class="dv">0</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" title="1"><span class="kw">sum</span>(nests<span class="op">==</span><span class="dv">0</span>)</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>and hence she suggests this new formulation</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" title="1">liktheta2=<span class="cf">function</span>(theta,samp){</a>
-<a class="sourceLine" id="cb305-2" title="2">  lik&lt;-theta<span class="op">^</span><span class="kw">sum</span>(samp<span class="op">==</span><span class="dv">1</span>)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>theta)<span class="op">^</span><span class="kw">sum</span>(samp<span class="op">==</span><span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb305-3" title="3">  <span class="kw">return</span>(lik)</a>
-<a class="sourceLine" id="cb305-4" title="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" title="1">liktheta2=<span class="cf">function</span>(theta,samp){</a>
+<a class="sourceLine" id="cb306-2" title="2">  lik&lt;-theta<span class="op">^</span><span class="kw">sum</span>(samp<span class="op">==</span><span class="dv">1</span>)<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>theta)<span class="op">^</span><span class="kw">sum</span>(samp<span class="op">==</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb306-3" title="3">  <span class="kw">return</span>(lik)</a>
+<a class="sourceLine" id="cb306-4" title="4">}</a></code></pre></div>
 <p>She tries it out</p>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" title="1"><span class="kw">liktheta2</span>(<span class="fl">0.35</span>,nests)</a></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" title="1"><span class="kw">liktheta2</span>(<span class="fl">0.35</span>,nests)</a></code></pre></div>
 <pre><code>## [1] 0.03364156</code></pre>
 <p>and she gets the same value as above. She’s happy, as she can now calculate the likelihood for (1) any parameter value and (2) any sample. Excited, she shows how this would be the case for 11 nests, with just 1 success.</p>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" title="1"><span class="kw">liktheta2</span>(<span class="fl">0.35</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">10</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" title="1"><span class="kw">liktheta2</span>(<span class="fl">0.35</span>,<span class="kw">c</span>(<span class="dv">1</span>,<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">10</span>)))</a></code></pre></div>
 <pre><code>## [1] 0.00471196</code></pre>
 <p>Now, she’s really excited and she has a dream where she samples 1000 eggs, and 300 successes. She wakes up and wants to know the likelihood under that scenario</p>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" title="1">dreameggs&lt;-<span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">300</span>),<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">700</span>))</a>
-<a class="sourceLine" id="cb310-2" title="2"><span class="kw">liktheta2</span>(<span class="fl">0.35</span>,dreameggs)</a></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" title="1">dreameggs&lt;-<span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">300</span>),<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">700</span>))</a>
+<a class="sourceLine" id="cb311-2" title="2"><span class="kw">liktheta2</span>(<span class="fl">0.35</span>,dreameggs)</a></code></pre></div>
 <pre><code>## [1] 1.818708e-268</code></pre>
 <p>Ups, something went terribly wrong, the likelihood is now… 0. This is unhelpful, I can’t climb a mountain if there is no mountain! She scratches her head for a while and she realizes what is going on. She’s multiplying 5000 probabilities, even if those were high, the computer will round them to 0.</p>
 <p>Andreia calls a friend, and he says that he will give her two clues that might help. And then says:</p>
@@ -445,24 +446,24 @@ Figure 16.1: Ilustrating a likelihood. This would be Boredomnesia, the most bori
 <li><p>log(a*b)=log(a+b)</p></li>
 </ol>
 <p>Andreia hangs up the phone and takes a mental note: “I need to find better, more useful friends”! But during the night she has an epiphany. If she logs the function, a product of probabilities, she will get a sum of log probabilities. Log probabilities are smaller than probabilities, but there’s a small miracle in the process. The sum of small numbers does not tend (does not converge to 0!). And so she tries a new function, where she adds the log probabilities</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" title="1">logliktheta=<span class="cf">function</span>(theta,data){</a>
-<a class="sourceLine" id="cb312-2" title="2">  loglik=<span class="kw">sum</span>(<span class="kw">log</span>(theta<span class="op">^</span><span class="kw">sum</span>(data<span class="op">==</span><span class="dv">1</span>))<span class="op">+</span><span class="kw">sum</span>(<span class="kw">log</span>((<span class="dv">1</span><span class="op">-</span>theta)<span class="op">^</span><span class="kw">sum</span>(data<span class="op">==</span><span class="dv">0</span>))))</a>
-<a class="sourceLine" id="cb312-3" title="3">  <span class="kw">return</span>(loglik)</a>
-<a class="sourceLine" id="cb312-4" title="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" title="1">logliktheta=<span class="cf">function</span>(theta,data){</a>
+<a class="sourceLine" id="cb313-2" title="2">  loglik=<span class="kw">sum</span>(<span class="kw">log</span>(theta<span class="op">^</span><span class="kw">sum</span>(data<span class="op">==</span><span class="dv">1</span>))<span class="op">+</span><span class="kw">sum</span>(<span class="kw">log</span>((<span class="dv">1</span><span class="op">-</span>theta)<span class="op">^</span><span class="kw">sum</span>(data<span class="op">==</span><span class="dv">0</span>))))</a>
+<a class="sourceLine" id="cb313-3" title="3">  <span class="kw">return</span>(loglik)</a>
+<a class="sourceLine" id="cb313-4" title="4">}</a></code></pre></div>
 <p>She calculates the function that gave her grief above, and the egg dream meets the epiphany</p>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" title="1"><span class="kw">logliktheta</span>(<span class="fl">0.35</span>,dreameggs)</a></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" title="1"><span class="kw">logliktheta</span>(<span class="fl">0.35</span>,dreameggs)</a></code></pre></div>
 <pre><code>## [1] -616.4947</code></pre>
 <p>Then, she just needs to call the <code>optimize</code>, where <code>interval</code> defines the plausible parameter space, and we make sure that <code>maximum</code> is TRUE because by default the function <code>optimize</code> minimizes (That is why we sometimes use a function that is <code>-log(likelihood)</code>, that means the minimum is the point we want!) the function <code>f</code> with respect to its first parameter, given any other arguments provided to <code>f</code>. In this case those other parameters are just the <code>data</code>, the second argument for <code>liktheta</code>. Those you will recognize as our data.</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb315-1" title="1">MLEtheta&lt;-<span class="kw">optimize</span>(<span class="dt">f=</span>logliktheta,<span class="dt">interval=</span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>),<span class="dt">data=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="dt">maximum=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb315-2" title="2">MLEtheta</a></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" title="1">MLEtheta&lt;-<span class="kw">optimize</span>(<span class="dt">f=</span>logliktheta,<span class="dt">interval=</span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>),<span class="dt">data=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="dt">maximum=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb316-2" title="2">MLEtheta</a></code></pre></div>
 <pre><code>## $maximum
 ## [1] 0.399996
 ## 
 ## $objective
 ## [1] -3.365058</code></pre>
 <p>Now we can actually calculate the MLE for <span class="math inline">\(\theta\)</span> in the case of Andreia’s dream sample.</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" title="1">MLEthetadream&lt;-<span class="kw">optimize</span>(<span class="dt">f=</span>logliktheta,<span class="dt">interval=</span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>),<span class="dt">data=</span>dreameggs,<span class="dt">maximum=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb317-2" title="2">MLEthetadream</a></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" title="1">MLEthetadream&lt;-<span class="kw">optimize</span>(<span class="dt">f=</span>logliktheta,<span class="dt">interval=</span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>),<span class="dt">data=</span>dreameggs,<span class="dt">maximum=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb318-2" title="2">MLEthetadream</a></code></pre></div>
 <pre><code>## $maximum
 ## [1] 0.2999964
 ## 
@@ -470,21 +471,21 @@ Figure 16.1: Ilustrating a likelihood. This would be Boredomnesia, the most bori
 ## [1] -610.8643</code></pre>
 <p>So the output of <code>optimize</code> has two components, <span class="math inline">\(maximum\)</span> and <span class="math inline">\(objective\)</span>. What are these?
 The two components of this object are the MLE of the parameter, in this case 0.399996 and the value of the function at that point for <span class="math inline">\(\theta\)</span>, in this case -3.3650583. This will be the actual value of the likelihood at this point and might be useful later, but for now we ignore it. Note that 0.399996 is just a numeric approximation of the real value, that we know analytically to be 0.4. These are illustrated below:</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" title="1"><span class="co">#valores possiveis para thetas</span></a>
-<a class="sourceLine" id="cb319-2" title="2">thetas&lt;-<span class="kw">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb319-3" title="3"><span class="co">#object to hold the values of the likelihood</span></a>
-<a class="sourceLine" id="cb319-4" title="4">nthetas &lt;-<span class="st"> </span><span class="kw">length</span>(thetas)</a>
-<a class="sourceLine" id="cb319-5" title="5">loglikthetas&lt;-<span class="kw">numeric</span>(nthetas)</a>
-<a class="sourceLine" id="cb319-6" title="6"><span class="co">#para cada theta</span></a>
-<a class="sourceLine" id="cb319-7" title="7"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nthetas){</a>
-<a class="sourceLine" id="cb319-8" title="8">  loglikthetas[i] &lt;-<span class="st"> </span><span class="kw">logliktheta</span>(thetas[i],nests)</a>
-<a class="sourceLine" id="cb319-9" title="9">}</a>
-<a class="sourceLine" id="cb319-10" title="10"><span class="kw">plot</span>(<span class="dt">x=</span>thetas,<span class="dt">y=</span>loglikthetas,<span class="dt">ylab=</span><span class="st">&quot;Log likelihood&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;theta&quot;</span>)</a>
-<a class="sourceLine" id="cb319-11" title="11"><span class="kw">abline</span>(<span class="dt">v=</span>MLEtheta<span class="op">$</span>maximum,<span class="dt">h=</span>MLEtheta<span class="op">$</span>objective,<span class="dt">col=</span><span class="st">&quot;green&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" title="1"><span class="co">#valores possiveis para thetas</span></a>
+<a class="sourceLine" id="cb320-2" title="2">thetas&lt;-<span class="kw">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>,<span class="dt">by=</span><span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb320-3" title="3"><span class="co">#object to hold the values of the likelihood</span></a>
+<a class="sourceLine" id="cb320-4" title="4">nthetas &lt;-<span class="st"> </span><span class="kw">length</span>(thetas)</a>
+<a class="sourceLine" id="cb320-5" title="5">loglikthetas&lt;-<span class="kw">numeric</span>(nthetas)</a>
+<a class="sourceLine" id="cb320-6" title="6"><span class="co">#para cada theta</span></a>
+<a class="sourceLine" id="cb320-7" title="7"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nthetas){</a>
+<a class="sourceLine" id="cb320-8" title="8">  loglikthetas[i] &lt;-<span class="st"> </span><span class="kw">logliktheta</span>(thetas[i],nests)</a>
+<a class="sourceLine" id="cb320-9" title="9">}</a>
+<a class="sourceLine" id="cb320-10" title="10"><span class="kw">plot</span>(<span class="dt">x=</span>thetas,<span class="dt">y=</span>loglikthetas,<span class="dt">ylab=</span><span class="st">&quot;Log likelihood&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;theta&quot;</span>)</a>
+<a class="sourceLine" id="cb320-11" title="11"><span class="kw">abline</span>(<span class="dt">v=</span>MLEtheta<span class="op">$</span>maximum,<span class="dt">h=</span>MLEtheta<span class="op">$</span>objective,<span class="dt">col=</span><span class="st">&quot;green&quot;</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/ch13.16-1.png" width="672" /></p>
 <p>As a task, what would it require to change the above code to calculate the value of theta if we had 78 trials and 43 sucesses? You got it, just need to change the data</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" title="1">MLEtheta&lt;-<span class="kw">optimize</span>(<span class="dt">f=</span>logliktheta,<span class="dt">interval=</span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>),<span class="dt">data=</span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">43</span>),<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">78-43</span>)),<span class="dt">maximum=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb320-2" title="2">MLEtheta</a></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" title="1">MLEtheta&lt;-<span class="kw">optimize</span>(<span class="dt">f=</span>logliktheta,<span class="dt">interval=</span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="fl">0.99</span>),<span class="dt">data=</span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">43</span>),<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">78-43</span>)),<span class="dt">maximum=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb321-2" title="2">MLEtheta</a></code></pre></div>
 <pre><code>## $maximum
 ## [1] 0.5512824
 ## 
@@ -495,26 +496,26 @@ The two components of this object are the MLE of the parameter, in this case 0.3
 <div id="the-case-of-a-gaussian" class="section level2">
 <h2><span class="header-section-number">16.3</span> The case of a Gaussian</h2>
 <p>Lets now look at situation where Andreia is interested in characterizing how far away from the nearest river, in a straight line, are the nests from water. She assumes that these might be hypothetically described by a Gaussian random variable. That will be the basis for constructing a likelihood. For her 5 nests, those distances in kilometers are</p>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" title="1">dists&lt;-<span class="kw">c</span>(<span class="fl">0.78</span>,<span class="fl">1.73</span>,<span class="fl">1.32</span>,<span class="fl">0.54</span>,<span class="fl">2.12</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" title="1">dists&lt;-<span class="kw">c</span>(<span class="fl">0.78</span>,<span class="fl">1.73</span>,<span class="fl">1.32</span>,<span class="fl">0.54</span>,<span class="fl">2.12</span>)</a></code></pre></div>
 <p>Then she thinks about what might the likelihood look like for a Gaussian. She knows R can calculate the density of a Gaussian via <code>rnorm</code>, and so she suggests the following minus log likelihood function:</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" title="1">minuslogliknorm=<span class="cf">function</span>(pars,data){</a>
-<a class="sourceLine" id="cb323-2" title="2">  media=pars[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb323-3" title="3">  desvio=pars[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb323-4" title="4">  minusloglik=<span class="op">-</span><span class="kw">sum</span>(<span class="kw">log</span>(<span class="kw">dnorm</span>(data,<span class="dt">mean=</span>media,<span class="dt">sd=</span>desvio)))</a>
-<a class="sourceLine" id="cb323-5" title="5">  <span class="kw">return</span>(minusloglik)</a>
-<a class="sourceLine" id="cb323-6" title="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" title="1">minuslogliknorm=<span class="cf">function</span>(pars,data){</a>
+<a class="sourceLine" id="cb324-2" title="2">  media=pars[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb324-3" title="3">  desvio=pars[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb324-4" title="4">  minusloglik=<span class="op">-</span><span class="kw">sum</span>(<span class="kw">log</span>(<span class="kw">dnorm</span>(data,<span class="dt">mean=</span>media,<span class="dt">sd=</span>desvio)))</a>
+<a class="sourceLine" id="cb324-5" title="5">  <span class="kw">return</span>(minusloglik)</a>
+<a class="sourceLine" id="cb324-6" title="6">}</a></code></pre></div>
 <p>She tests the function on simulated data, 10000 fake distances with mean 2 and standard deviation 2.7. Either a small miracle happened, or she got it right at first try:</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" title="1"><span class="co">#simulated sample size</span></a>
-<a class="sourceLine" id="cb324-2" title="2">n&lt;-<span class="dv">10000</span></a>
-<a class="sourceLine" id="cb324-3" title="3"><span class="co"># simulated mean</span></a>
-<a class="sourceLine" id="cb324-4" title="4">mG&lt;-<span class="dv">2</span></a>
-<a class="sourceLine" id="cb324-5" title="5"><span class="co"># simulated standard deviation</span></a>
-<a class="sourceLine" id="cb324-6" title="6">sdG&lt;-<span class="fl">0.7</span></a>
-<a class="sourceLine" id="cb324-7" title="7"><span class="co"># simulated sample</span></a>
-<a class="sourceLine" id="cb324-8" title="8">xs=<span class="kw">rnorm</span>(n,<span class="dt">mean=</span>mG,<span class="dt">sd=</span>sdG)</a>
-<a class="sourceLine" id="cb324-9" title="9"><span class="co"># MLE of the parameters</span></a>
-<a class="sourceLine" id="cb324-10" title="10">MLEGau&lt;-<span class="kw">optim</span>(<span class="dt">par=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">fn=</span>minuslogliknorm,<span class="dt">data=</span>xs)</a>
-<a class="sourceLine" id="cb324-11" title="11">MLEGau</a></code></pre></div>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" title="1"><span class="co">#simulated sample size</span></a>
+<a class="sourceLine" id="cb325-2" title="2">n&lt;-<span class="dv">10000</span></a>
+<a class="sourceLine" id="cb325-3" title="3"><span class="co"># simulated mean</span></a>
+<a class="sourceLine" id="cb325-4" title="4">mG&lt;-<span class="dv">2</span></a>
+<a class="sourceLine" id="cb325-5" title="5"><span class="co"># simulated standard deviation</span></a>
+<a class="sourceLine" id="cb325-6" title="6">sdG&lt;-<span class="fl">0.7</span></a>
+<a class="sourceLine" id="cb325-7" title="7"><span class="co"># simulated sample</span></a>
+<a class="sourceLine" id="cb325-8" title="8">xs=<span class="kw">rnorm</span>(n,<span class="dt">mean=</span>mG,<span class="dt">sd=</span>sdG)</a>
+<a class="sourceLine" id="cb325-9" title="9"><span class="co"># MLE of the parameters</span></a>
+<a class="sourceLine" id="cb325-10" title="10">MLEGau&lt;-<span class="kw">optim</span>(<span class="dt">par=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">fn=</span>minuslogliknorm,<span class="dt">data=</span>xs)</a>
+<a class="sourceLine" id="cb325-11" title="11">MLEGau</a></code></pre></div>
 <pre><code>## $par
 ## [1] 1.9994644 0.6987295
 ## 
@@ -531,13 +532,13 @@ The two components of this object are the MLE of the parameter, in this case 0.3
 ## $message
 ## NULL</code></pre>
 <p>Note she now has more than 1 parameter, so <code>optimize</code> was not an option, and had to use function <code>optim</code>. This requires starting values via argument <code>par</code>, but the rest is similar to <code>optimize</code>, the <code>data</code> and the function to maximize is <code>fn</code>. The output is a bit messier, and while the resulting object components are all relevant to know about, we ignore them for now for simplicity. If we evaluate this likelihood using a brute force grid approach, this is what we get</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" title="1"><span class="co">#to implement later</span></a></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" title="1"><span class="co">#to implement later</span></a></code></pre></div>
 <p>Notice that this image reminds us of Boredomnesia! Now, we know how to do this for more than one parameter, but why would we. After all, if I wanted to estimate the MLE of a Gaussian, actually, the sample mean <code>mean(xs)</code>=1.999534 and the sample standard deviation <code>sd(xs)</code>=0.6987875 are what I want. So the above values obtained by <code>optim</code> for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, the MLEs, 1.9994644 and 1.9994644 respectively, are really just numerical approximations of the real analytically obtainable MLE’s 1.999534 and 0.6987875, respectively (note: need, strictly, to refer to minor detail regarding denominator of the standard deviation, considering n, the MLE, or n-1, not MLE but unbiased; ME students can ignore detail for now!). These are themselves, in this case where we know reality, estimates of the true simulated values generating our data, 2 and 0.7, respectively. So all quite reasonable and close, really, what is not surprising given a sample size of 10^{4}!</p>
 <p>Now, what about based on the distances Andreia had for the 5 nests</p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" title="1">dists</a></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" title="1">dists</a></code></pre></div>
 <pre><code>## [1] 0.78 1.73 1.32 0.54 2.12</code></pre>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" title="1">MLEGaud&lt;-<span class="kw">optim</span>(<span class="dt">par=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">fn=</span>minuslogliknorm,<span class="dt">data=</span>dists)</a>
-<a class="sourceLine" id="cb329-2" title="2">MLEGaud</a></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" title="1">MLEGaud&lt;-<span class="kw">optim</span>(<span class="dt">par=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">fn=</span>minuslogliknorm,<span class="dt">data=</span>dists)</a>
+<a class="sourceLine" id="cb330-2" title="2">MLEGaud</a></code></pre></div>
 <pre><code>## $par
 ## [1] 1.2979771 0.5840272
 ## 
@@ -554,7 +555,7 @@ The two components of this object are the MLE of the parameter, in this case 0.3
 ## $message
 ## NULL</code></pre>
 <p>Note that, as it might be interesting for later, that nests with eggs were closer to the water. But remember also that with such a small sample size, believing in that as being some indication of reality, rather than just a fluke, is a matter of faith.</p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" title="1"><span class="kw">plot</span>(dists,nests,<span class="dt">ylab=</span><span class="st">&quot;nest with eggs&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Distance to water (km)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" title="1"><span class="kw">plot</span>(dists,nests,<span class="dt">ylab=</span><span class="st">&quot;nest with eggs&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Distance to water (km)&quot;</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/ch13.24-1.png" width="672" /></p>
 <p>We get some estimates, despite the fact that it is yet unclear why we should do it this way and not just use <code>mean</code> and <code>sd</code>. To see why, we continue our story, and the plot thickens…</p>
 </div>
@@ -562,28 +563,28 @@ The two components of this object are the MLE of the parameter, in this case 0.3
 <h2><span class="header-section-number">16.4</span> The case of a linear model</h2>
 <p>We started by talking about <code>lm</code>, so, what is happening behind <code>lm</code>.</p>
 <p>Let’s us imagine that for each nest, Andreia also related the size of the nest with the distance to the water. The size of the nest, diameter, in cm, was as below, She is interested in describing, modeling, explaining how nest size changes as a function of distance to the water.</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" title="1">size&lt;-<span class="kw">c</span>(<span class="dv">17</span>,<span class="fl">19.3</span>,<span class="fl">21.2</span>,<span class="fl">13.2</span>,<span class="dv">25</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" title="1">size&lt;-<span class="kw">c</span>(<span class="dv">17</span>,<span class="fl">19.3</span>,<span class="fl">21.2</span>,<span class="fl">13.2</span>,<span class="dv">25</span>)</a></code></pre></div>
 <p>We can visualize the relationship between the distance to the water and the nest diameter</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" title="1"><span class="kw">plot</span>(dists,size,<span class="dt">xlab=</span><span class="st">&quot;Distance (km)&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Nest diameter, cm&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" title="1"><span class="kw">plot</span>(dists,size,<span class="dt">xlab=</span><span class="st">&quot;Distance (km)&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Nest diameter, cm&quot;</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/ch13.26-1.png" width="672" /></p>
 <p>So now Andreia needs a likelihood. Since the above relation seems linear, she remembers that the linear model is given by</p>
 <p><span class="math display">\[y_i=a+b x_i+e_i\]</span></p>
 <p>where the <span class="math inline">\(e_i\)</span> are a Gaussian with mean 0 and constant variance <span class="math inline">\(\sigma^2\)</span>. And then she has another epiphany and realizes that she can construct data for which a likelihood can be derived. Because if she rearranges the above, you have</p>
 <p><span class="math display">\[e_i=y_i-(a+b x_i)=y_i-\hat y_i\]</span>
 where, remember, <span class="math inline">\(e_i\)</span> are a Gaussian with mean 0 and constant variance <span class="math inline">\(\sigma^2\)</span>. And so we can build a likelihood that exploits that Gaussian density for the observed errors, as</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" title="1">liklm=<span class="cf">function</span>(pars,data){</a>
-<a class="sourceLine" id="cb334-2" title="2">  <span class="co">#data must be a data.frame with columns y and x</span></a>
-<a class="sourceLine" id="cb334-3" title="3">  a=pars[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb334-4" title="4">  b=pars[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb334-5" title="5">  sigma=pars[<span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb334-6" title="6">  ps=<span class="kw">dnorm</span>(data<span class="op">$</span>y<span class="op">-</span>(a<span class="op">+</span>b<span class="op">*</span>data<span class="op">$</span>x),<span class="dt">mean=</span><span class="dv">0</span>,<span class="dt">sd=</span>sigma)</a>
-<a class="sourceLine" id="cb334-7" title="7">  <span class="co">#minus loglik</span></a>
-<a class="sourceLine" id="cb334-8" title="8">  loglik=<span class="op">-</span><span class="kw">sum</span>(<span class="kw">log</span>(ps))</a>
-<a class="sourceLine" id="cb334-9" title="9">  <span class="kw">return</span>(loglik)</a>
-<a class="sourceLine" id="cb334-10" title="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" title="1">liklm=<span class="cf">function</span>(pars,data){</a>
+<a class="sourceLine" id="cb335-2" title="2">  <span class="co">#data must be a data.frame with columns y and x</span></a>
+<a class="sourceLine" id="cb335-3" title="3">  a=pars[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb335-4" title="4">  b=pars[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb335-5" title="5">  sigma=pars[<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb335-6" title="6">  ps=<span class="kw">dnorm</span>(data<span class="op">$</span>y<span class="op">-</span>(a<span class="op">+</span>b<span class="op">*</span>data<span class="op">$</span>x),<span class="dt">mean=</span><span class="dv">0</span>,<span class="dt">sd=</span>sigma)</a>
+<a class="sourceLine" id="cb335-7" title="7">  <span class="co">#minus loglik</span></a>
+<a class="sourceLine" id="cb335-8" title="8">  loglik=<span class="op">-</span><span class="kw">sum</span>(<span class="kw">log</span>(ps))</a>
+<a class="sourceLine" id="cb335-9" title="9">  <span class="kw">return</span>(loglik)</a>
+<a class="sourceLine" id="cb335-10" title="10">}</a></code></pre></div>
 <p>and we use it over our sample</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" title="1">lmMLE&lt;-<span class="kw">optim</span>(<span class="dt">par=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">fn=</span>liklm,<span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">y=</span>size,<span class="dt">x=</span>dists))</a>
-<a class="sourceLine" id="cb335-2" title="2">lmMLE</a></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" title="1">lmMLE&lt;-<span class="kw">optim</span>(<span class="dt">par=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">fn=</span>liklm,<span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">y=</span>size,<span class="dt">x=</span>dists))</a>
+<a class="sourceLine" id="cb336-2" title="2">lmMLE</a></code></pre></div>
 <pre><code>## $par
 ## [1] 11.120181  6.178854  1.631731
 ## 
@@ -600,12 +601,12 @@ where, remember, <span class="math inline">\(e_i\)</span> are a Gaussian with me
 ## $message
 ## NULL</code></pre>
 <p>and so we get as estimates of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> and <span class="math inline">\(\sigma\)</span> of 11.1201813, 6.1788541 and 1.6317308, respectively. So finally, Andreia uses her estimated values for <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> and puts them over the above plot of the data</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" title="1"><span class="kw">plot</span>(dists,size,<span class="dt">xlab=</span><span class="st">&quot;Distance (km)&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Nest diameter, cm&quot;</span>)</a>
-<a class="sourceLine" id="cb337-2" title="2"><span class="kw">abline</span>(lmMLE<span class="op">$</span>par[<span class="dv">1</span>],lmMLE<span class="op">$</span>par[<span class="dv">2</span>],<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" title="1"><span class="kw">plot</span>(dists,size,<span class="dt">xlab=</span><span class="st">&quot;Distance (km)&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Nest diameter, cm&quot;</span>)</a>
+<a class="sourceLine" id="cb338-2" title="2"><span class="kw">abline</span>(lmMLE<span class="op">$</span>par[<span class="dv">1</span>],lmMLE<span class="op">$</span>par[<span class="dv">2</span>],<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/ch13.29-1.png" width="672" /></p>
 <p>Now, we know that <code>lm</code> does this kind of stuff very efficiently, so how do these compare across? We can look at the outcome of the <code>lm</code> call</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" title="1">lm0&lt;-<span class="kw">lm</span>(size<span class="op">~</span>dists)</a>
-<a class="sourceLine" id="cb338-2" title="2"><span class="kw">summary</span>(lm0)</a></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" title="1">lm0&lt;-<span class="kw">lm</span>(size<span class="op">~</span>dists)</a>
+<a class="sourceLine" id="cb339-2" title="2"><span class="kw">summary</span>(lm0)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = size ~ dists)
@@ -625,9 +626,9 @@ where, remember, <span class="math inline">\(e_i\)</span> are a Gaussian with me
 ## Multiple R-squared:  0.8304,	Adjusted R-squared:  0.7738 
 ## F-statistic: 14.68 on 1 and 3 DF,  p-value: 0.03132</code></pre>
 <p>and when we add these to the above plot, we see we were bang on: the two lines are indistinguishable by eye.</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" title="1"><span class="kw">plot</span>(dists,size,<span class="dt">xlab=</span><span class="st">&quot;Distance (km)&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Nest diameter, cm&quot;</span>)</a>
-<a class="sourceLine" id="cb340-2" title="2"><span class="kw">abline</span>(lmMLE<span class="op">$</span>par[<span class="dv">1</span>],lmMLE<span class="op">$</span>par[<span class="dv">2</span>],<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a>
-<a class="sourceLine" id="cb340-3" title="3"><span class="kw">abline</span>(lm0,<span class="dt">lty=</span><span class="dv">3</span>,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="st">&quot;green&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" title="1"><span class="kw">plot</span>(dists,size,<span class="dt">xlab=</span><span class="st">&quot;Distance (km)&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Nest diameter, cm&quot;</span>)</a>
+<a class="sourceLine" id="cb341-2" title="2"><span class="kw">abline</span>(lmMLE<span class="op">$</span>par[<span class="dv">1</span>],lmMLE<span class="op">$</span>par[<span class="dv">2</span>],<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb341-3" title="3"><span class="kw">abline</span>(lm0,<span class="dt">lty=</span><span class="dv">3</span>,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="st">&quot;green&quot;</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/ch13.30.5-1.png" width="672" /></p>
 <p>So, but still, why would we do it this way, since <code>lm</code> does it with less hassle, faster, and probably better? For a number of reasons, including:</p>
 <ol style="list-style-type: decimal">
@@ -645,30 +646,30 @@ where, remember, <span class="math inline">\(e_i\)</span> are a Gaussian with me
 <p>A possible way to conceptualize that relationship might be by choosing <span class="math inline">\(f\)</span> in a way that forces <span class="math inline">\(\theta\)</span> to be in the plausible range for a probability. One such way is to assume a logistic relationship between the probability and the distance</p>
 <p><span class="math display">\[\theta_i=\frac{1}{1+exp(-(\alpha+\beta d_i))}\]</span></p>
 <p>which we could easily code up in R as</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" title="1">thetafd&lt;-<span class="cf">function</span>(alpha,beta,d){</a>
-<a class="sourceLine" id="cb341-2" title="2">  res&lt;-<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>(alpha<span class="op">+</span>beta<span class="op">*</span>d)))</a>
-<a class="sourceLine" id="cb341-3" title="3">  <span class="kw">return</span>(res)</a>
-<a class="sourceLine" id="cb341-4" title="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" title="1">thetafd&lt;-<span class="cf">function</span>(alpha,beta,d){</a>
+<a class="sourceLine" id="cb342-2" title="2">  res&lt;-<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span>(alpha<span class="op">+</span>beta<span class="op">*</span>d)))</a>
+<a class="sourceLine" id="cb342-3" title="3">  <span class="kw">return</span>(res)</a>
+<a class="sourceLine" id="cb342-4" title="4">}</a></code></pre></div>
 <p>We can visualize what that function might look like for some arbitrary values for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.</p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" title="1">alpha&lt;-<span class="fl">1.6</span></a>
-<a class="sourceLine" id="cb342-2" title="2">beta &lt;-<span class="st"> </span><span class="fl">-1.8</span></a></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" title="1">alpha&lt;-<span class="fl">1.6</span></a>
+<a class="sourceLine" id="cb343-2" title="2">beta &lt;-<span class="st"> </span><span class="fl">-1.8</span></a></code></pre></div>
 <p>These values imply that the probability of a nest near a body of water having eggs is relatively high, in fact, if just by the water (<span class="math inline">\(d=0\)</span>) then around 0.83, and around 1km it will be 0.45 but by about 5km from the water the probability is down at effectively 0.</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" title="1">alldists&lt;-<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb343-2" title="2"><span class="kw">plot</span>(alldists,<span class="kw">thetafd</span>(alpha,beta,alldists),<span class="dt">ylab=</span><span class="st">&quot;P(nest with eggs)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Distance from water (km)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" title="1">alldists&lt;-<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb344-2" title="2"><span class="kw">plot</span>(alldists,<span class="kw">thetafd</span>(alpha,beta,alldists),<span class="dt">ylab=</span><span class="st">&quot;P(nest with eggs)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Distance from water (km)&quot;</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/ch13.33-1.png" width="672" /></p>
 <p>Having done this, then it is relatively simple to modify the likelihood for theta that we used for <span class="math inline">\(\theta\)</span>, to replace the <span class="math inline">\(\theta\)</span> by a function of the relevant covariate <span class="math inline">\(d\)</span></p>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" title="1">loglikthetad=<span class="cf">function</span>(pars,data){</a>
-<a class="sourceLine" id="cb344-2" title="2">  nests&lt;-data[,<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb344-3" title="3">  dists&lt;-data[,<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb344-4" title="4">  alpha&lt;-pars[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb344-5" title="5">  beta&lt;-pars[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb344-6" title="6">  theta&lt;-<span class="kw">thetafd</span>(alpha,beta,dists)</a>
-<a class="sourceLine" id="cb344-7" title="7">  minusloglik=<span class="op">-</span><span class="kw">sum</span>(<span class="kw">log</span>(theta<span class="op">^</span><span class="kw">sum</span>(nests<span class="op">==</span><span class="dv">1</span>))<span class="op">+</span><span class="kw">sum</span>(<span class="kw">log</span>((<span class="dv">1</span><span class="op">-</span>theta)<span class="op">^</span><span class="kw">sum</span>(nests<span class="op">==</span><span class="dv">0</span>))))</a>
-<a class="sourceLine" id="cb344-8" title="8">  <span class="kw">return</span>(minusloglik)</a>
-<a class="sourceLine" id="cb344-9" title="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" title="1">loglikthetad=<span class="cf">function</span>(pars,data){</a>
+<a class="sourceLine" id="cb345-2" title="2">  nests&lt;-data[,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb345-3" title="3">  dists&lt;-data[,<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb345-4" title="4">  alpha&lt;-pars[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb345-5" title="5">  beta&lt;-pars[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb345-6" title="6">  theta&lt;-<span class="kw">thetafd</span>(alpha,beta,dists)</a>
+<a class="sourceLine" id="cb345-7" title="7">  minusloglik=<span class="op">-</span><span class="kw">sum</span>(<span class="kw">log</span>(theta<span class="op">^</span><span class="kw">sum</span>(nests<span class="op">==</span><span class="dv">1</span>))<span class="op">+</span><span class="kw">sum</span>(<span class="kw">log</span>((<span class="dv">1</span><span class="op">-</span>theta)<span class="op">^</span><span class="kw">sum</span>(nests<span class="op">==</span><span class="dv">0</span>))))</a>
+<a class="sourceLine" id="cb345-8" title="8">  <span class="kw">return</span>(minusloglik)</a>
+<a class="sourceLine" id="cb345-9" title="9">}</a></code></pre></div>
 <p>and so we could maximize this likelihood based on the data, both the successes and the distances to the water observed above</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" title="1">thetadMLE&lt;-<span class="kw">optim</span>(<span class="dt">par=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">fn=</span>loglikthetad,<span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">nests=</span>nests,<span class="dt">dists=</span>dists))</a>
-<a class="sourceLine" id="cb345-2" title="2">thetadMLE</a></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" title="1">thetadMLE&lt;-<span class="kw">optim</span>(<span class="dt">par=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">fn=</span>loglikthetad,<span class="dt">data=</span><span class="kw">data.frame</span>(<span class="dt">nests=</span>nests,<span class="dt">dists=</span>dists))</a>
+<a class="sourceLine" id="cb346-2" title="2">thetadMLE</a></code></pre></div>
 <pre><code>## $par
 ## [1] -2.0139580650 -0.0006849422
 ## 
@@ -685,8 +686,8 @@ where, remember, <span class="math inline">\(e_i\)</span> are a Gaussian with me
 ## $message
 ## NULL</code></pre>
 <p>Now, this provides an interesting ecological insight. Unlike the <code>naive</code> estimator for the probability of a nest having eggs we obtained above, of 0.4, we now can relate that probability to the distance from the water. And what we see is that the probability of a random nest having nests might be well below that. We just happened to consider a small sample for which two out of five nests were near the water. While the <code>naive</code> estimate might change considerably depending on the relative amount of nests near the water versus nests away from the water, if the main determinant of nest success was the distance from the water, our final model would allow a better estimate of the true probability of success of a nest.</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" title="1">alldists&lt;-<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb347-2" title="2"><span class="kw">plot</span>(alldists,<span class="kw">thetafd</span>(thetadMLE<span class="op">$</span>par[<span class="dv">1</span>],thetadMLE<span class="op">$</span>par[<span class="dv">2</span>],alldists),<span class="dt">ylab=</span><span class="st">&quot;Estimated P(nest with eggs)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Distance from water (km)&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" title="1">alldists&lt;-<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb348-2" title="2"><span class="kw">plot</span>(alldists,<span class="kw">thetafd</span>(thetadMLE<span class="op">$</span>par[<span class="dv">1</span>],thetadMLE<span class="op">$</span>par[<span class="dv">2</span>],alldists),<span class="dt">ylab=</span><span class="st">&quot;Estimated P(nest with eggs)&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Distance from water (km)&quot;</span>)</a></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/ch13.36-1.png" width="672" /></p>
 </div>
 <div id="likelihood-above-and-beyond" class="section level2">

@@ -22,3 +22,7 @@ In particular, I have started thinking about whether this could be a book in two
 For the current version I am keeping chapters as individual lectures. Once the Ecological Modelling classes are over I might organize them into sensible chapters for a possible book on statistical models for ecological data.
 
 Disclaimer: if you are not a student in Modelação Ecológica this material might make no sense to you in its current form.
+
+This bookdown is hosted at:
+
+https://bookdown.org/tiagoandremarques/ecomodbook/

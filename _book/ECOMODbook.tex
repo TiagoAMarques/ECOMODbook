@@ -113,7 +113,7 @@
 
 \title{Notes for Ecological Modelling}
 \author{Tiago A. Marques}
-\date{2020-11-19}
+\date{2020-12-02}
 
 \begin{document}
 \maketitle
@@ -2188,7 +2188,9 @@ and now we can do it the linear regression way
 
 We move on with perhaps the most famous example of a statistical test/procedure, the ANOVA. An ANOVA is nothing but a linear model, where we have a continuous response variable, which we want to explain as a function of a factor (with several levels, or treatments).
 
-We simulate a data set, beginning by making sure everyone gets the same results by using \texttt{set.seed}
+There is a slight difference in the way we can code the dummy variables that might be worth to explore (this relates to contrasts, but perhaps beyond what I want to let the students know? cf.~\url{https://www.theanalysisfactor.com/why-anova-and-linear-regression-are-the-same-analysis/}).
+
+Here we simulate a data set, beginning by making sure everyone gets the same results by using \texttt{set.seed}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2567,6 +2569,25 @@ An important note. When you fit models with factors (like here), the intercept t
 
 and we can see these are exactly the same values.
 
+\hypertarget{task-do-it-yourself}{%
+\section{Task: do it yourself}\label{task-do-it-yourself}}
+
+The dataset \texttt{penguins} in the package `` is very useful to illustrate ANOVA's . It includes body size measurements (bill length and depth, flipper length and body mass) by sex for adult foraging penguins near Palmer Station, Antarctica, for 3 islands. I found out about this data in this twitter post by Trevor Branch (@~TrevorABranch, \url{https://twitter.com/TrevorABranch/status/1333844966632607745}). This dataset was made as an R package by Allison Horst (yes, the same person that makes the amazing R abd RStudio related artwork that we used before, \url{https://www.allisonhorst.com/}). Here we brighten up our book with Allison's artwork again, for a reminder that the residuals of the ANOVA should be approximately Gaussian, with constant variance! If they are not Gaussian, you might more elaborate models, like a GLM, say.
+
+\includegraphics{extfiles/not_normal.png}
+
+The interaction plot below illustrates the data of the flipper lenght as a function of sex and island. Looking at the dataset in question, explore the two way ANOVA as a linear model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(palmerpenguins)}
+\KeywordTok{data}\NormalTok{(penguins)}
+\KeywordTok{with}\NormalTok{(penguins,}\KeywordTok{interaction.plot}\NormalTok{(}\DataTypeTok{x.factor=}\NormalTok{species,}\DataTypeTok{trace.factor=}\NormalTok{sex,}\DataTypeTok{response=}\NormalTok{flipper_length_mm),}\DataTypeTok{ylab=}\StringTok{"Flipper length (mm)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-1-1.pdf}
+
 \hypertarget{aula9}{%
 \chapter{Class 9: 21 10 2020 - ANCOVA is (also) just a linear model}\label{aula9}}
 
@@ -2821,7 +2842,7 @@ and in particular that the factor covariate \texttt{type} has 4 levels
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-1-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-2-1.pdf}
 
 Before fitting a factor covariate, we need to replace it by dummy variables (\(k-1\) dummy variables, where \(k\) is the number of levels of the factor). Below we look at a set of data lines that allow us to see observations from the different \texttt{type}s considered
 
@@ -5421,7 +5442,7 @@ Note that, while the model is linear on the scale of the link function, the rela
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-2-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-3-1.pdf}
 
 Now, we can fit some models to data using the function \texttt{glm}. Note just as for the \texttt{lm} function we need to define the formula that represents the model, and we need to use the argumet \texttt{data} to let \texttt{lm} know where to find the variables. The novelty lies in the \texttt{family} argument, that sets the assumed distribution for the response.
 
@@ -5470,7 +5491,7 @@ So how could we have spotted the Gaussian was the wrong model? Well, typically w
 
 \includegraphics{ECOMODbook_files/figure-latex/glm6-1.pdf}
 
-On the other hadn, the diagnostics for the Poisson model do not show any reasons to worry.
+On the other hand, the diagnostics for the Poisson model do not show any reasons to worry.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5480,6 +5501,25 @@ On the other hadn, the diagnostics for the Poisson model do not show any reasons
 \end{Shaded}
 
 \includegraphics{ECOMODbook_files/figure-latex/glm7-1.pdf}
+
+A really nice and interesting evaluation of model adequacy, or in other words, a different way of looking that the plots produced by default by the \texttt{plot} of a model object, is in the package \texttt{performance}, part of the \texttt{easystats} family
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(performance)}
+\KeywordTok{check_model}\NormalTok{(glmPoi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Not enough model terms in the conditional part of the model to check for multicollinearity.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 100 rows containing missing values (geom_text_repel).
+\end{verbatim}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-4-1.pdf}
 
 Additionally, if we would evaluate the AIC for these contending models, the Poisson model would be by far the most parsimonious. We have not talked about model selection yet, but AIC is a model selection criteria that favours models that fit to the data while penalizing for the number of parameters in the model \citep[e.g.~][]{Aho2014}.
 
@@ -5543,7 +5583,7 @@ Look at the data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-6-1.pdf}
 
 Implement multiple regression
 
@@ -5816,6 +5856,8 @@ Interesting, with the Gaussian response (and I used the Gaussian response on the
 
 Any way, do not forget, these were just an example dataset to explore functions stepAIC and bestglm. If ecological inferences were the obnjective, the answer to our doubts would be: find a reasonable dataset, not one with 4 independent variables and 10 data points.
 
+Look at AICc?
+
 \hypertarget{aula16}{%
 \chapter{Class 16: 18 11 2020}\label{aula16}}
 
@@ -5885,7 +5927,7 @@ Any way, do not forget, these were just an example dataset to explore functions 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-13-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-15-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5926,12 +5968,12 @@ Any way, do not forget, these were just an example dataset to explore functions 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-13-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-15-2.pdf}
 
 \hypertarget{about-multicollinearity}{%
 \section{About multicollinearity}\label{about-multicollinearity}}
 
-(this is probably best way before, in the linear model stuff\ldots{} any way)
+(this is probably best way before, in the linear model stuff\ldots{} any way, I presented it here as this topic started from a student question)
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5999,7 +6041,7 @@ Any way, do not forget, these were just an example dataset to explore functions 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-14-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-16-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6036,7 +6078,7 @@ Any way, do not forget, these were just an example dataset to explore functions 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-14-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-16-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6344,18 +6386,491 @@ Any way, do not forget, these were just an example dataset to explore functions 
 ## lmX1X6  4 1332.765
 \end{verbatim}
 
+The fundamental idea is that most of these models are equally good for prediction. But they might give you the complete wrong picture for explanation. Never confuse the two. Optimal modelling strategies and choices might require know what is more important.
+
 \hypertarget{aula17}{%
 \chapter{Class 17: 24 11 2020}\label{aula17}}
+
+Presentations of trabalho 2
+
+\hypertarget{aula18}{%
+\chapter{Class 18: 25 11 2020}\label{aula18}}
+
+Special class: trabalho 2 presentation, continued
+
+Hands on GLM
 
 \hypertarget{presence-of-bats}{%
 \section{Presence of bats}\label{presence-of-bats}}
 
-about presence of bats
+Here we look at a dataset provided in
 
 \hypertarget{sponges}{%
 \section{Sponges}\label{sponges}}
 
-about sponge richness
+In this chapter we model data on species sponge richness (SSR) as a gunction of environmental covariates. This data set is distributed with the paper Li et al.~2017 Application of random forest, generalised linear model and their hybrid methods with geostatistical techniques to count data: Predicting sponge species richness \emph{Environmental Modelling \& Software} \textbf{97}: 112-129. The data set is in file ``1-s2.0-S1364815217301615-mmc2.csv''. The reader is directed to the paper for additional details on data collection and the methods Li et al.~2017 used for analysis. Here we concentrate on GLMs to explore the main drivers of sponge species richness (SSR) across the area studied.
+
+\hypertarget{reading-data-in}{%
+\subsection{Reading data in}\label{reading-data-in}}
+
+We read the data in
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sponges <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"extfiles/1-s2.0-S1364815217301615-mmc2.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We briefly look at the data to make sure that all was read properly. We have sites with Sponge Species Richness (SSR) going from 1 to 39, with a mean of 10.48 and variance 110.78. In total we have 77 observations and 80 potential explanatory variables. We note upfront the potential practical issue that having more explanatory variables than observations raises.
+
+\hypertarget{exploratory-data-analysis}{%
+\subsection{Exploratory Data Analysis}\label{exploratory-data-analysis}}
+
+Since we have the geographic coordinates of all the samples, we can look at the data in space.
+
+This lets us visualize that the data comes from 8 clusters of locations, in the actual paper referred as sites A to H.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{with}\NormalTok{(sponges,}\KeywordTok{plot}\NormalTok{(long.sample,lat.sample)) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{with}\NormalTok{(sponges,}\KeywordTok{plot}\NormalTok{(long.sample,lat.sample,}\DataTypeTok{cex=}\DecValTok{1}\OperatorTok{+}\NormalTok{species.richness}\OperatorTok{/}\KeywordTok{max}\NormalTok{(species.richness))) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-19-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{with}\NormalTok{(sponges,}\KeywordTok{plot}\NormalTok{(long.sample,lat.sample,}\DataTypeTok{col=}\KeywordTok{ifelse}\NormalTok{(}\DecValTok{1}\OperatorTok{+}\NormalTok{species.richness}\OperatorTok{/}\KeywordTok{max}\NormalTok{(species.richness)}\OperatorTok{<}\FloatTok{1.5}\NormalTok{,}\StringTok{"red"}\NormalTok{,}\StringTok{"green"}\NormalTok{))) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-19-3.pdf}
+
+Note that cluster would have been an obvious covariate to use, namely as a random effect. While we are not interested in cluster per se, we know that sites are more alike within clusters just due to spatial auto-correlation, and hence that would have been sensible to include in the modelling.
+
+Of course the other option might be to include latitude and longitude and explicitly consider to incorporate the spatiall auto-correlation structure. However, that is beyhond the objectives in this chapter, which are essentially to illustrate a GLM analysis over a real dataset.
+
+We will now investigate the data set in a bit more detail. We begin by looking at whether there are large correlations between the explanatory variables and SSR
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corsponges=}\KeywordTok{cor}\NormalTok{(sponges)}
+\NormalTok{corWithSSR=corsponges[,}\DecValTok{3}\NormalTok{]}
+\KeywordTok{hist}\NormalTok{(corWithSSR[corWithSSR}\OperatorTok{!=}\DecValTok{1}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Correlations between SSR and explanatory covariates"}\NormalTok{,}\DataTypeTok{breaks=}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.05}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+The largest positive correlation of a variable with the response SSR is 0.31, while the largest negative correlation is -0.35. Nonetheless, that is no reason to despair. Hopefully, when considering multiple variables we will be able to model SSR in a reasonable way.
+
+Since we have too many variables compared to observations any way, we can ask ourselves is if there are variables which are highly correlated, which could lead to unstable models and incorrect inferences about causality (which is, regardless, always hard in observational studies).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corsponges=}\KeywordTok{cor}\NormalTok{(sponges)}
+\NormalTok{covars=corsponges[,}\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{)]}
+\NormalTok{corcovars=}\KeywordTok{cor}\NormalTok{(covars)}
+\KeywordTok{hist}\NormalTok{(corcovars[corcovars}\OperatorTok{!=}\DecValTok{1}\NormalTok{],}\DataTypeTok{main=}\StringTok{"Correlations between explanatory covariates (lat,long excluded)"}\NormalTok{,}\DataTypeTok{breaks=}\KeywordTok{seq}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DataTypeTok{by=}\FloatTok{0.05}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+As we can see, there is a wide range of correlations, but in particular there is a peak at the 0.95-1 range, which we suspected might be due to the fact that some variables are actually obtained as a function of others. After a closer read at the original paper we come to realize these are highly correlated just by constriction. These correspond to echoes of radar on different frequency bands, and hence it is not surprising that they present incredibly high correlations across. It is somewhat surprising that the authors did not note this fact upfront on their paper. These are associated with backscatter variables, with code \texttt{bs}so we can use the function \texttt{grep} to look at these (note even so we divide these into several \texttt{pairs} plots otherwise the plots are too small for being useful).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pairs}\NormalTok{(sponges[,}\KeywordTok{grep}\NormalTok{(}\DataTypeTok{pattern=}\StringTok{"bs"}\NormalTok{, }\DataTypeTok{x=}\KeywordTok{names}\NormalTok{(sponges),}\DataTypeTok{value =} \OtherTok{TRUE}\NormalTok{)[}\DecValTok{1}\OperatorTok{:}\DecValTok{14}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pairs}\NormalTok{(sponges[,}\KeywordTok{grep}\NormalTok{(}\DataTypeTok{pattern=}\StringTok{"bs"}\NormalTok{, }\DataTypeTok{x=}\KeywordTok{names}\NormalTok{(sponges),}\DataTypeTok{value =} \OtherTok{TRUE}\NormalTok{)[}\DecValTok{15}\OperatorTok{:}\DecValTok{28}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-22-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pairs}\NormalTok{(sponges[,}\KeywordTok{grep}\NormalTok{(}\DataTypeTok{pattern=}\StringTok{"bs"}\NormalTok{, }\DataTypeTok{x=}\KeywordTok{names}\NormalTok{(sponges),}\DataTypeTok{value =} \OtherTok{TRUE}\NormalTok{)[}\DecValTok{29}\OperatorTok{:}\DecValTok{35}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-22-3.pdf}
+
+Including pairs of such highly correlated variables in the models could lead to problems nad makes interpretation harder, and hence we need to decide which to remove a priori. This should be driven by ecological knowledge, which in our case, for SSR, is close to inexistent!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sort}\NormalTok{(}\KeywordTok{abs}\NormalTok{(}\KeywordTok{round}\NormalTok{(corWithSSR,}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             bs22             bs23             bs24             bs29 
+##             0.00             0.00             0.00             0.00 
+##             bs35             bs_o       rugosity_o             bs25 
+##             0.00             0.00             0.00             0.01 
+##             bs26             bs27             bs28             bs33 
+##             0.01             0.01             0.01             0.01 
+##             bs34             bs36             bs21             bs30 
+##             0.01             0.01             0.02             0.02 
+##             bs31             bs32            tpi_o             bs20 
+##             0.02             0.02             0.02             0.03 
+##             var3             bs17             bs18             bs19 
+##             0.03             0.04             0.04             0.04 
+##          bathy_o        rugosity3       plan_curv5            bathy 
+##             0.04             0.04             0.04             0.05 
+##             bs10             bs11             bs12             bs13 
+##             0.06             0.06             0.06             0.06 
+##             bs16       bs_entro_o         bs_var_o             bs14 
+##             0.06             0.06             0.06             0.07 
+##             bs15       prof_cur_o            homo7       plan_cur_o 
+##             0.07             0.07             0.07             0.08 
+##            homo5             var7              mud             tpi7 
+##             0.08             0.08             0.09             0.09 
+##           entro5           entro7         bs_lmi_o         relief_o 
+##             0.09             0.09             0.10             0.10 
+##             var5          bs_lmi3          bs_lmi5          bs_lmi7 
+##             0.10             0.10             0.10             0.10 
+##        prof_cur3        rugosity5        bs_homo_o      bathy_lmi_o 
+##             0.12             0.13             0.14             0.14 
+##       bathy_lmi3       bathy_lmi5       bathy_lmi7       plan_curv7 
+##             0.14             0.14             0.14             0.14 
+##            homo3          slope_o        prof_cur5           entro3 
+##             0.14             0.15             0.15             0.15 
+##        rugosity7             tpi3        prof_cur7         relief_3 
+##             0.16             0.16             0.17             0.18 
+##           slope3             tpi5       plan_curv3           slope5 
+##             0.19             0.20             0.22             0.23 
+##           slope7         relief_5         relief_7      long.sample 
+##             0.25             0.28             0.28             0.30 
+##       lat.sample           gravel       dist.coast             sand 
+##             0.30             0.30             0.31             0.35 
+## species.richness 
+##             1.00
+\end{verbatim}
+
+What does the response variable itself look like? That is the key question to answer, as it will determine the distribution we use to model it. We already saw that the variance is considerably larger than the mean, and therefore, the default go-to distribution for counts, a Poisson, will probably not be the best choice here.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(sponges}\OperatorTok{$}\NormalTok{species.richness,}\DataTypeTok{xlab=}\StringTok{"Species Richness"}\NormalTok{,}\DataTypeTok{main=}\StringTok{""}\NormalTok{,}\DataTypeTok{breaks=}\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DataTypeTok{by=}\DecValTok{1}\NormalTok{))}
+\KeywordTok{text}\NormalTok{(}\DecValTok{30}\NormalTok{,}\DecValTok{7}\NormalTok{,}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Mean="}\NormalTok{,}\KeywordTok{round}\NormalTok{(}\KeywordTok{mean}\NormalTok{(sponges}\OperatorTok{$}\NormalTok{species.richness),}\DecValTok{1}\NormalTok{)))}
+\KeywordTok{text}\NormalTok{(}\DecValTok{30}\NormalTok{,}\DecValTok{5}\NormalTok{,}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Variance="}\NormalTok{,}\KeywordTok{round}\NormalTok{(}\KeywordTok{var}\NormalTok{(sponges}\OperatorTok{$}\NormalTok{species.richness),}\DecValTok{1}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-24-1.pdf}
+
+We can compare this with a poisson with the same mean, or a negative binomial with the same mean and variance. It should be obvious which provides a closer approximation, even before covariates get added to the mix.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{),}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.5}\NormalTok{))}
+\KeywordTok{hist}\NormalTok{(sponges}\OperatorTok{$}\NormalTok{species.richness,}\DataTypeTok{xlab=}\StringTok{"Species Richness"}\NormalTok{,}\DataTypeTok{main=}\StringTok{""}\NormalTok{,}\DataTypeTok{breaks=}\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DataTypeTok{by=}\DecValTok{5}\NormalTok{))}
+\KeywordTok{text}\NormalTok{(}\DecValTok{30}\NormalTok{,}\DecValTok{20}\NormalTok{,}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Mean="}\NormalTok{,}\KeywordTok{round}\NormalTok{(}\KeywordTok{mean}\NormalTok{(sponges}\OperatorTok{$}\NormalTok{species.richness),}\DecValTok{1}\NormalTok{)))}
+\KeywordTok{text}\NormalTok{(}\DecValTok{30}\NormalTok{,}\DecValTok{10}\NormalTok{,}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Variance="}\NormalTok{,}\KeywordTok{round}\NormalTok{(}\KeywordTok{var}\NormalTok{(sponges}\OperatorTok{$}\NormalTok{species.richness),}\DecValTok{1}\NormalTok{)))}
+\CommentTok{# Poisson}
+\NormalTok{mean=}\DecValTok{10}
+\KeywordTok{hist}\NormalTok{(}\KeywordTok{rpois}\NormalTok{(}\DecValTok{10000}\NormalTok{,mean),}\DataTypeTok{main=}\StringTok{""}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"Poisson, mean=10"}\NormalTok{,}\DataTypeTok{breaks=}\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DataTypeTok{by=}\DecValTok{5}\NormalTok{))}
+\CommentTok{#Neg Bin}
+\NormalTok{mean=}\DecValTok{10}
+\NormalTok{var=}\DecValTok{100}
+\NormalTok{dat=}\KeywordTok{rnbinom}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\DataTypeTok{size=}\NormalTok{mean}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\NormalTok{(var}\OperatorTok{-}\NormalTok{mean),}\DataTypeTok{mu=}\NormalTok{mean)}
+\KeywordTok{hist}\NormalTok{(dat[dat}\OperatorTok{<}\DecValTok{40}\NormalTok{],}\DataTypeTok{main=}\StringTok{""}\NormalTok{,}\DataTypeTok{xlab=}\StringTok{"Negative Binomial, mean=10, var=100"}\NormalTok{,}\DataTypeTok{breaks=}\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{40}\NormalTok{,}\DataTypeTok{by=}\DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+While there is never too much Exploratory Data Analysis (EDA), here we move on to do some modelling.
+
+\hypertarget{modelling}{%
+\subsection{Modelling}\label{modelling}}
+
+Just to begin, we take a peak at one of the variables that had a large positive correlation with SSR, in this case, \texttt{dist.coast}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#testing a random variable!!}
+\KeywordTok{with}\NormalTok{(sponges,}\KeywordTok{plot}\NormalTok{(dist.coast,species.richness))}
+\NormalTok{lm0<-}\KeywordTok{lm}\NormalTok{(species.richness}\OperatorTok{~}\NormalTok{dist.coast,}\DataTypeTok{data=}\NormalTok{sponges)}
+\KeywordTok{abline}\NormalTok{(lm0)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(lm0)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = species.richness ~ dist.coast, data = sponges)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -14.016  -6.986  -4.938   4.103  27.174 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)   
+## (Intercept) 5.705e+00  2.026e+00   2.816  0.00621 **
+## dist.coast  4.785e-05  1.673e-05   2.859  0.00549 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 10.06 on 75 degrees of freedom
+## Multiple R-squared:  0.09831,	Adjusted R-squared:  0.08628 
+## F-statistic: 8.177 on 1 and 75 DF,  p-value: 0.005492
+\end{verbatim}
+
+Apparently there is information to explain the species richness, and while the correlation is low, we can see that from a classical perspective, the coeficient associated with the variable would be considered significant at the usual significance levels, considering a simple linear model. However, we now that we are modelling counts,a nd hence, the Gaussian distribution is unlikely to be reasonable assumption. So, we move on to GLMs.
+
+Lets begin by comparing just how different the model using a Poisson or a NB becomes, in terms of AIC
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#testing a random variable!!}
+\NormalTok{glmP1=}\KeywordTok{glm}\NormalTok{(species.richness}\OperatorTok{~}\NormalTok{dist.coast,}\DataTypeTok{family=}\KeywordTok{poisson}\NormalTok{(}\DataTypeTok{link=}\StringTok{"log"}\NormalTok{),}\DataTypeTok{data=}\NormalTok{sponges)}
+\KeywordTok{library}\NormalTok{(MASS)}
+\NormalTok{glmNB1=}\KeywordTok{glm.nb}\NormalTok{(species.richness}\OperatorTok{~}\NormalTok{dist.coast,}\DataTypeTok{link=}\NormalTok{log,}\DataTypeTok{data=}\NormalTok{sponges)}
+\KeywordTok{AIC}\NormalTok{(glmP1,glmNB1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        df      AIC
+## glmP1   2 975.7237
+## glmNB1  3 522.3367
+\end{verbatim}
+
+There is absolutely no question about the fact that the NB is better here! Which does not necessarily mean it is the best model - remember AIC is a relative measure of fit.
+
+We can compare with the quasi-poisson
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glmQP1=}\KeywordTok{glm}\NormalTok{(species.richness}\OperatorTok{~}\NormalTok{dist.coast,}\DataTypeTok{family=}\NormalTok{quasipoisson,}\DataTypeTok{data=}\NormalTok{sponges)}
+\end{Highlighting}
+\end{Shaded}
+
+and now we compare the two
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(glmP1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = species.richness ~ dist.coast, family = poisson(link = "log"), 
+##     data = sponges)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -4.4753  -3.0008  -1.7069   0.9003   6.4290  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) 1.894e+00  6.702e-02  28.258   <2e-16 ***
+## dist.coast  4.135e-06  4.703e-07   8.792   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 768.25  on 76  degrees of freedom
+## Residual deviance: 694.62  on 75  degrees of freedom
+## AIC: 975.72
+## 
+## Number of Fisher Scoring iterations: 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(glmQP1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = species.richness ~ dist.coast, family = quasipoisson, 
+##     data = sponges)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -4.4753  -3.0008  -1.7069   0.9003   6.4290  
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 1.894e+00  2.152e-01   8.800 3.57e-13 ***
+## dist.coast  4.135e-06  1.510e-06   2.738  0.00772 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for quasipoisson family taken to be 10.31074)
+## 
+##     Null deviance: 768.25  on 76  degrees of freedom
+## Residual deviance: 694.62  on 75  degrees of freedom
+## AIC: NA
+## 
+## Number of Fisher Scoring iterations: 5
+\end{verbatim}
+
+as expected, the only difference is the increase of the standard errors associated with the parameters. Note also that in the Quasi-Poisson we get an estimate of the over-dispersion parameter, and, since we do not have a likelihood, we do not get an AIC. The parameter standard errors are bigger in the quasi case, given that the overdispersion parameter is larger than 1.
+
+Just for comparison, we look at the output from the negative binomial model
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(glmNB1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm.nb(formula = species.richness ~ dist.coast, data = sponges, 
+##     link = log, init.theta = 1.084393054)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.5856  -1.2639  -0.5590   0.2566   1.7763  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) 1.871e+00  2.052e-01   9.117  < 2e-16 ***
+## dist.coast  4.345e-06  1.669e-06   2.604  0.00923 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for Negative Binomial(1.0844) family taken to be 1)
+## 
+##     Null deviance: 89.908  on 76  degrees of freedom
+## Residual deviance: 83.032  on 75  degrees of freedom
+## AIC: 522.34
+## 
+## Number of Fisher Scoring iterations: 1
+## 
+## 
+##               Theta:  1.084 
+##           Std. Err.:  0.184 
+## 
+##  2 x log-likelihood:  -516.337
+\end{verbatim}
+
+Note that in practice all models would lead us to find the \texttt{dist.coast} to be considered relevant to model species richness.
+
+A bit on model selection, using \texttt{anova}, a Chi-squared test,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glmQP2=}\KeywordTok{glm}\NormalTok{(species.richness}\OperatorTok{~}\DecValTok{1}\NormalTok{,}\DataTypeTok{family=}\NormalTok{quasipoisson,}\DataTypeTok{data=}\NormalTok{sponges)}
+\KeywordTok{anova}\NormalTok{(glmQP1,glmQP2, }\DataTypeTok{test =} \StringTok{"Chi"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Deviance Table
+## 
+## Model 1: species.richness ~ dist.coast
+## Model 2: species.richness ~ 1
+##   Resid. Df Resid. Dev Df Deviance Pr(>Chi)   
+## 1        75     694.62                        
+## 2        76     768.25 -1  -73.628 0.007534 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+or using \texttt{drop1}, with an F-test
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{drop1}\NormalTok{(glmQP1,}\DataTypeTok{test=}\StringTok{"F"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Single term deletions
+## 
+## Model:
+## species.richness ~ dist.coast
+##            Df Deviance F value   Pr(>F)   
+## <none>          694.62                    
+## dist.coast  1   768.25  7.9498 0.006148 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+again, both tell us that \texttt{dist.coast} is a relevant covariate.
+
+We could look at the residuals for both models. First the Poisson
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.5}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(glmP1)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-33-1.pdf}
+
+and then the negative binomial
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{),}\DataTypeTok{mar=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.5}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(glmNB1)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-34-1.pdf}
+
+It is quite hard to choose between these based on the residuals, but remember that the AIC does not leave any room for doubts, the Negative Binomial is the most likely road to take here. So now it is time to investigate what might be the best model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{AIC}\NormalTok{(lm0,glmP1,glmNB1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        df      AIC
+## lm0     3 578.0226
+## glmP1   2 975.7237
+## glmNB1  3 522.3367
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glmNB.}\FloatTok{0.15}\NormalTok{=}\KeywordTok{glm.nb}\NormalTok{(species.richness}\OperatorTok{~}\NormalTok{slope_o}\OperatorTok{+}\NormalTok{prof_cur5}\OperatorTok{+}\NormalTok{entro3 }
+\OperatorTok{+}\NormalTok{rugosity7}\OperatorTok{+}\NormalTok{tpi3}\OperatorTok{+}\NormalTok{prof_cur7}\OperatorTok{+}\NormalTok{relief_}\DecValTok{3} 
+\OperatorTok{+}\NormalTok{slope3}\OperatorTok{+}\NormalTok{tpi5}\OperatorTok{+}\NormalTok{plan_curv3}\OperatorTok{+}\NormalTok{slope5 }
+\OperatorTok{+}\NormalTok{slope7}\OperatorTok{+}\NormalTok{relief_}\DecValTok{5}\OperatorTok{+}\NormalTok{relief_}\DecValTok{7}\OperatorTok{+}\NormalTok{long.sample }
+\OperatorTok{+}\NormalTok{lat.sample}\OperatorTok{+}\NormalTok{gravel}\OperatorTok{+}\NormalTok{dist.coast}\OperatorTok{+}\NormalTok{sand,}\DataTypeTok{link=}\NormalTok{log,}\DataTypeTok{data=}\NormalTok{sponges)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{extra-glm-stuff}{%
 \section{Extra GLM stuff}\label{extra-glm-stuff}}
@@ -6367,11 +6882,6 @@ Zero inflated models and other similar stuff!
 \item
   \citet{Martin2005}
 \end{itemize}
-
-\hypertarget{aula18}{%
-\chapter{Class 18: 25 11 2020}\label{aula18}}
-
-Special class: trabalho 2 presentation
 
 \hypertarget{aula19}{%
 \chapter{Class 19: 02 12 2020}\label{aula19}}
