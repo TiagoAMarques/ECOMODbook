@@ -363,20 +363,20 @@ I found out about this data in this twitter post by Trevor Branch (\@\ TrevorABr
 ![](extfiles/not_normal.png)
 Looking at the dataset in question, explore the two way ANOVA as a linear model, and then, we move way past beyhond that into a bit of how to interpret a multiple regression output.
 
-```{r}
+```{r a8.36}
 library(palmerpenguins)
 data(penguins)
 ```
 
 Just to make it easier, we remove some records of penguins for which there is no sex. Always think about what might be the impact of removing data, but here we assume these are missing at random and hence would not bias inferences.
 
-```{r}
+```{r a8.37}
 penguins<-penguins[!is.na(penguins$sex),]
 ```
 
 Lets check how many animals we have in each treatment (a treatment is jargon for the level of a factor covariate, or for a combination of levels in a factorial experiment).
 
-```{r}
+```{r a8.38}
 barplot(with(penguins,table(species,sex)))
 ```
 
@@ -385,7 +385,7 @@ Perhaps surprisingly given this is observational data, the number of animals per
 
 Imagine you are researcher wanting to explain how the flipper length depends on the animal's sex and species. Given that we have a response variable as a function of two factor covariates, an interaction plot comes in handy. This visualization, available through function `interaction.plot`, allows us to see how the data varies as a function of the level of multiple factors. The interaction plot below illustrates the data of the flipper length (in millimeters) as a function of sex and species. 
 
-```{itplot r}
+```{r a8.39}
 with(penguins,interaction.plot(x.factor=species,trace.factor=sex,response=flipper_length_mm,ylab="Flipper length (mm)"))
 ```
 
@@ -395,66 +395,66 @@ Note that strictly the interaction plot needs to be interpreted with care becaus
 
 We can actually look at the observation in each of the treatments (i.e. combinations of sex and island)
 
-```{r}
+```{r a8.40}
 par(mar=c(10,4,0,0))
 with(penguins,boxplot(flipper_length_mm ~ species + sex,las=2,xlab="",col=c(1,2,3,1,2,3)))
 ```
 
 This plot does allow us to see the variability of the data, and it is likely that several terms will be considered statistically significant. We can implement the linear model that corresponds to the two way ANOVA to formally test that
 
-```{r}
+```{r a8.41}
 lm2wayANOVA<-lm(flipper_length_mm~species+sex,data=penguins)
 summary(lm2wayANOVA)
 ```
 
 we can actually implement this same model as a standard ANOVA
 
-```{r}
+```{r a8.42}
 summary(aov(lm2wayANOVA))
 ```
 
 and even conduct post hoc comparisons
 
-```{r}
+```{r a8.43}
 TukeyHSD(aov(lm2wayANOVA))
 ```
 
 Everything is statistically significant from everything else, but what does it all mean? In fact, the two way ANOVA is just a really fancy way of estimating the mean in each one of the 6 treatments, while assuming a constant variance (since we are using a simple linear model). The coeficiet estimates are these
 
-```{r}
+```{r a8.44}
 coefs<-coef(lm2wayANOVA)
 coefs
 ```
 
 Therefore, the estimate of the mean of the flipper for a female penguin from Adelie island is (just the intercept!)
 
-```{r}
+```{r a8.45}
 as.numeric(coefs[1])
 ```
 
 for a male in Adelie you need to add the male coefficient
 
-```{r}
+```{r a8.46}
 as.numeric(coefs[1]+coefs[4])
 ```
 
 for a female in Chinstrap and in Gentoo their respective island parameters
 
-```{r}
+```{r a8.47}
 as.numeric(coefs[1]+coefs[2])
 as.numeric(coefs[1]+coefs[3])
 ```
 
 and for the males in these two islands just need to add the male effect, respectively
 
-```{r}
+```{r a8.48}
 as.numeric(coefs[1]+coefs[2]+coefs[4])
 as.numeric(coefs[1]+coefs[3]+coefs[4])
 ```
 
 We can contrast these with the empirical mean in each group. These are given by
 
-```{r}
+```{r a8.49}
 with(penguins,tapply(X=flipper_length_mm,INDEX=paste0(species,sex),mean))
 ```
 
@@ -462,7 +462,7 @@ The minor differences in the estimated values for the means arise given that the
 
 We could now formally assess whether the interaction term was required, in other words, if the influence of sex and species on the length of the flipper is independent or the effect of one variable depends on the level of the other. This is implemented as
 
-```{r}
+```{r a8.50}
 lm2wayANOVA.I<-lm(flipper_length_mm~species+sex+species:sex,data=penguins)
 summary(lm2wayANOVA.I)
 ```
@@ -471,7 +471,7 @@ Note that in an R model formula, `y~x*z` is a shortcut for `y~x+z+x:z`, i.e. a m
 
 Considering the usual significance levels, the interaction term is significant
 
-```{r}
+```{r a8.51}
 summary(aov(lm2wayANOVA.I))
 ```
 
@@ -479,17 +479,17 @@ The interpretation is as follows, and was naturally apparent in the interaction 
 
 And now we've done all this, let's jump a few steps forward and think about all this in an integrated way. This dataset contains also the weight of the penguins (`body_mass_g`). Let's see how all the other variables explain those weights
 
-```{r}
+```{r a8.52}
 summary(lm(body_mass_g~.,data=penguins))
 ```
 
 Interestingly, but not surprisingly, everything seems to be relevant to explain the weights of the animals, except, the islands they come from. It makes sense, given we know the species, sex and some measurements on beak and flippers, we can predict the weight really well. But now, the cautionary tale... what if we didn't record all this, and we only had measurements from  different islands
 
-```{r}
+```{r a8.53}
 summary(lm(body_mass_g~island,data=penguins))
 ```
 
-Wow!?! So actually, island is very important to explain the weights... or is it. It actually is not. The truth is probably above. Other things explain the weights, namely sex and species, as we saw above. 
+WoW!?! So actually, island is very important to explain the weights... or is it? It is actually probably not. The truth is probably already stated above. Other things explain the weights, namely sex and species, as we saw above. 
 
 But since different islands might have different compositions in terms of sex ratio and species, and hence, if we do not have those true drivers of weight variation, and only know the island form where each penguin came from, we might believe the differences are across islands. In some sence they are, but really mediated by the other covariates.
 

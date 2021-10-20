@@ -2624,15 +2624,19 @@ Lets check how many animals we have in each treatment (a treatment is jargon for
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-3-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a8.38-1.pdf}
 
 Perhaps surprisingly given this is observational data, the number of animals per island is balanced across sexes. On the other hane, more animals are coming from Adelie than from Gentoo, and Chinstrap presents overall a lower number of animals.
 
 Imagine you are researcher wanting to explain how the flipper length depends on the animal's sex and species. Given that we have a response variable as a function of two factor covariates, an interaction plot comes in handy. This visualization, available through function \texttt{interaction.plot}, allows us to see how the data varies as a function of the level of multiple factors. The interaction plot below illustrates the data of the flipper length (in millimeters) as a function of sex and species.
 
-\begin{verbatim}
-with(penguins,interaction.plot(x.factor=species,trace.factor=sex,response=flipper_length_mm,ylab="Flipper length (mm)"))
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{with}\NormalTok{(penguins,}\FunctionTok{interaction.plot}\NormalTok{(}\AttributeTok{x.factor=}\NormalTok{species,}\AttributeTok{trace.factor=}\NormalTok{sex,}\AttributeTok{response=}\NormalTok{flipper\_length\_mm,}\AttributeTok{ylab=}\StringTok{"Flipper length (mm)"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/a8.39-1.pdf}
 
 Looking at this plot tells us little about whether the two variables are significant or not, because we do not really have a notion of variability associated with it. But it does seem like size might be different by sex and by species, with males being apparently larger than females, and animals from Gentoo being considerably larger than those from Adelie and Chinstrap. There do not seem to be strong interactions, but whether possible interactions are present or not remains to be seen. If the lines are parallel then there are by definition no interactions, i.e., the effect of a variable does not depend on the effect of another, and vice versa. The problem is that looking at the plot alone tells us nothing about how much those lines deviate from being parallel or not.
 
@@ -2647,7 +2651,7 @@ We can actually look at the observation in each of the treatments (i.e.~combinat
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/a8.40-1.pdf}
 
 This plot does allow us to see the variability of the data, and it is likely that several terms will be considered statistically significant. We can implement the linear model that corresponds to the two way ANOVA to formally test that
 
@@ -2946,7 +2950,7 @@ Interestingly, but not surprisingly, everything seems to be relevant to explain 
 ## F-statistic: 105.1 on 2 and 330 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-Wow!?! So actually, island is very important to explain the weights\ldots{} or is it. It actually is not. The truth is probably above. Other things explain the weights, namely sex and species, as we saw above.
+WoW!?! So actually, island is very important to explain the weights\ldots{} or is it? It is actually probably not. The truth is probably already stated above. Other things explain the weights, namely sex and species, as we saw above.
 
 But since different islands might have different compositions in terms of sex ratio and species, and hence, if we do not have those true drivers of weight variation, and only know the island form where each penguin came from, we might believe the differences are across islands. In some sence they are, but really mediated by the other covariates.
 
@@ -3206,7 +3210,7 @@ and in particular that the factor covariate \texttt{type} has 4 levels
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-18-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-1-1.pdf}
 
 Before fitting a factor covariate, we need to replace it by dummy variables (\(k-1\) dummy variables, where \(k\) is the number of levels of the factor). Below we look at a set of data lines that allow us to see observations from the different \texttt{type}s considered
 
@@ -5806,7 +5810,7 @@ Note that, while the model is linear on the scale of the link function, the rela
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-19-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-2-1.pdf}
 
 Now, we can fit some models to data using the function \texttt{glm}. Note just as for the \texttt{lm} function we need to define the formula that represents the model, and we need to use the argumet \texttt{data} to let \texttt{lm} know where to find the variables. The novelty lies in the \texttt{family} argument, that sets the assumed distribution for the response.
 
@@ -5875,7 +5879,7 @@ A really nice and interesting evaluation of model adequacy, or in other words, a
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-20-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-3-1.pdf}
 
 Additionally, if we would evaluate the AIC for these contending models, the Poisson model would be by far the most parsimonious. We have not talked about model selection yet, but AIC is a model selection criteria that favours models that fit to the data while penalizing for the number of parameters in the model \citep[e.g.][]{Aho2014}.
 
@@ -5939,7 +5943,7 @@ Look at the data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-22-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-5-1.pdf}
 
 Implement multiple regression
 
@@ -6292,7 +6296,7 @@ Look at AICc?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-31-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-14-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6333,7 +6337,7 @@ Look at AICc?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-31-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-14-2.pdf}
 
 \hypertarget{about-multicollinearity}{%
 \section{About multicollinearity}\label{about-multicollinearity}}
@@ -6406,7 +6410,7 @@ Look at AICc?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-32-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-15-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6443,7 +6447,7 @@ Look at AICc?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-32-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-15-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6801,7 +6805,7 @@ This lets us visualize that the data comes from 8 clusters of locations, in the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-35-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-18-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6809,7 +6813,7 @@ This lets us visualize that the data comes from 8 clusters of locations, in the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-35-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-18-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6817,7 +6821,7 @@ This lets us visualize that the data comes from 8 clusters of locations, in the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-35-3.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-18-3.pdf}
 
 Note that cluster would have been an obvious covariate to use, namely as a random effect. While we are not interested in cluster per se, we know that sites are more alike within clusters just due to spatial auto-correlation, and hence that would have been sensible to include in the modelling.
 
@@ -6833,7 +6837,7 @@ We will now investigate the data set in a bit more detail. We begin by looking a
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-36-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-19-1.pdf}
 
 The largest positive correlation of a variable with the response SSR is 0.31, while the largest negative correlation is -0.35. Nonetheless, that is no reason to despair. Hopefully, when considering multiple variables we will be able to model SSR in a reasonable way.
 
@@ -6848,7 +6852,7 @@ Since we have too many variables compared to observations any way, we can ask ou
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-37-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-20-1.pdf}
 
 As we can see, there is a wide range of correlations, but in particular there is a peak at the 0.95-1 range, which we suspected might be due to the fact that some variables are actually obtained as a function of others. After a closer read at the original paper we come to realize these are highly correlated just by constriction. These correspond to echoes of radar on different frequency bands, and hence it is not surprising that they present incredibly high correlations across. It is somewhat surprising that the authors did not note this fact upfront on their paper. These are associated with backscatter variables, with code \texttt{bs}so we can use the function \texttt{grep} to look at these (note even so we divide these into several \texttt{pairs} plots otherwise the plots are too small for being useful).
 
@@ -6858,7 +6862,7 @@ As we can see, there is a wide range of correlations, but in particular there is
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-38-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-21-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6866,7 +6870,7 @@ As we can see, there is a wide range of correlations, but in particular there is
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-38-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-21-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6874,7 +6878,7 @@ As we can see, there is a wide range of correlations, but in particular there is
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-38-3.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-21-3.pdf}
 
 Including pairs of such highly correlated variables in the models could lead to problems nad makes interpretation harder, and hence we need to decide which to remove a priori. This should be driven by ecological knowledge, which in our case, for SSR, is close to inexistent!
 
@@ -6939,7 +6943,7 @@ What does the response variable itself look like? That is the key question to an
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-40-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-23-1.pdf}
 
 We can compare this with a poisson with the same mean, or a negative binomial with the same mean and variance. It should be obvious which provides a closer approximation, even before covariates get added to the mix.
 
@@ -6960,7 +6964,7 @@ We can compare this with a poisson with the same mean, or a negative binomial wi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-41-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-24-1.pdf}
 
 While there is never too much Exploratory Data Analysis (EDA), here we move on to do some modelling.
 
@@ -6978,7 +6982,7 @@ Just to begin, we take a peak at one of the variables that had a large positive 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-42-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-25-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7199,7 +7203,7 @@ We could look at the residuals for both models. First the Poisson
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-49-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-32-1.pdf}
 
 and then the negative binomial
 
@@ -7210,7 +7214,7 @@ and then the negative binomial
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-50-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-33-1.pdf}
 
 It is quite hard to choose between these based on the residuals, but remember that the AIC does not leave any room for doubts, the Negative Binomial is the most likely road to take here. So now it is time to investigate what might be the best model.
 
