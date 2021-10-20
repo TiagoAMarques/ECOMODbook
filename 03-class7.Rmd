@@ -250,7 +250,7 @@ So now we can add all these estimated regression lines to the plot
 
 ```{r a7.13}
 #plot all
-plot(y~x,col=z,data=data4lines)
+plot(y~x,col=as.numeric(as.factor(z)),data=data4lines)
 legend("topleft",inset=0.05,legend=c(LETTERS[1:4],"all"),col=c(1:4,1),lty=c(rep(1,4),2),lwd=c(rep(1,4),3))
 #these are the wrong lines... why?
 abline(lmlinesG,lwd=3,lty=2)
@@ -265,7 +265,7 @@ note that, not surprisingly, all these lines have the same slope. Or in other wo
 ```{r a7.14}
 
 #plot all
-plot(y~x,xlim=c(-10,700),ylim=c(0,450),col=z,data=data4lines)
+plot(y~x,xlim=c(-10,700),ylim=c(0,450),col=as.numeric(as.factor(z)),data=data4lines)
 legend("topleft",inset=0.05,legend=c(LETTERS[1:4],"all"),col=c(1:4,1),lty=c(rep(1,4),2),lwd=c(rep(1,4),3))
 #these are the wrong lines... why?
 abline(lmlinesG,lwd=3,lty=2)

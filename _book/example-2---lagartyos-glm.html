@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 20 Example 2 - lagartyos GLM | Notes for Ecological Modelling</title>
+  <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 20 Example 2 - lagartyos GLM | Notes for Ecological Modelling" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 20 Example 2 - lagartyos GLM | Notes for Ecological Modelling" />
+  
+  <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Tiago A. Marques" />
+
+
+<meta name="date" content="2021-10-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="example-1---deviance.html"/>
+<link rel="next" href="aula16.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
+<li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
+<li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
+<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a></li>
+<li class="chapter" data-level="6" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>6</b> About regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>6.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="6.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>6.2</b> The general linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>7</b> Hands On Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>8</b> Class 6 13 10 2020</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>8.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="8.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>8.2</b> Simulating regression data</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Class 7 14 10 2020</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>9.1</b> Task 1</a></li>
+<li class="chapter" data-level="9.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>9.2</b> Task 2</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.1</b> The t-test</a></li>
+<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.2</b> ANOVA</a></li>
+<li class="chapter" data-level="10.3" data-path="aula8.html"><a href="aula8.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>10.3</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>11</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>11.1</b> Common slope, different intercepts per treatment</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>12</b> Class 10: 27 10 2020</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>12.1</b> Same story, another spin</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>13</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>13.1</b> About interactions</a></li>
+<li class="chapter" data-level="13.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>13.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="13.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>13.3</b> Task 2 Modeling a data set</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>14</b> Class 12: 04 11 2020 Interactions between continous covariates</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>14.1</b> Larger order interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conlusion on linear regression</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>16</b> Class 13: 10 11 2020 Maximum likelihood and all that</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="aula12.html"><a href="aula12.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>16.1</b> Maximizing a likelihood algebraically</a></li>
+<li class="chapter" data-level="16.2" data-path="aula12.html"><a href="aula12.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>16.2</b> Numerically Maximizing a likelihood</a></li>
+<li class="chapter" data-level="16.3" data-path="aula12.html"><a href="aula12.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>16.3</b> The case of a Gaussian</a></li>
+<li class="chapter" data-level="16.4" data-path="aula12.html"><a href="aula12.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>16.4</b> The case of a linear model</a></li>
+<li class="chapter" data-level="16.5" data-path="aula12.html"><a href="aula12.html#the-really-interesting-case"><i class="fa fa-check"></i><b>16.5</b> The really interesting case</a></li>
+<li class="chapter" data-level="16.6" data-path="aula12.html"><a href="aula12.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>16.6</b> Likelihood, above and beyond</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>17</b> Class 14: 11 11 2020 GLMs</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="aula14.html"><a href="aula14.html#what-are-glms"><i class="fa fa-check"></i><b>17.1</b> What are GLMs</a></li>
+<li class="chapter" data-level="17.2" data-path="aula14.html"><a href="aula14.html#the-link-function"><i class="fa fa-check"></i><b>17.2</b> The link function</a></li>
+<li class="chapter" data-level="17.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>17.3</b> Most useful GLM Families</a></li>
+<li class="chapter" data-level="17.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>17.4</b> An example analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a></li>
+<li class="chapter" data-level="19" data-path="example-1---deviance.html"><a href="example-1---deviance.html"><i class="fa fa-check"></i><b>19</b> Example 1 - deviance</a></li>
+<li class="chapter" data-level="20" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html"><i class="fa fa-check"></i><b>20</b> Example 2 - lagartyos GLM</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html#example-2"><i class="fa fa-check"></i><b>20.1</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>21</b> Class 16: 18 11 2020</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>21.1</b> A logistic regression example</a></li>
+<li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.2</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Class 17: 24 11 2020</a></li>
+<li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>23.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="23.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>23.2</b> Sponges</a>
+<ul>
+<li class="chapter" data-level="23.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>23.2.1</b> Reading data in</a></li>
+<li class="chapter" data-level="23.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>23.2.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="23.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>23.2.3</b> Modelling</a></li>
+</ul></li>
+<li class="chapter" data-level="23.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>23.3</b> Extra GLM stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>24</b> Class 19: 02 12 2020</a></li>
+<li class="chapter" data-level="25" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>25</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes for Ecological Modelling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="example-2---lagartyos-glm" class="section level1" number="20">
+<h1><span class="header-section-number">Chapter 20</span> Example 2 - lagartyos GLM</h1>
+<p>A15 ME 17 11 2019.pptx
+slides 26-33</p>
+<div id="example-2" class="section level2" number="20.1">
+<h2><span class="header-section-number">20.1</span> Example 2</h2>
+<p>Use the aerogeradores example to see how AIC and significance tests on the parameters can tell you different things</p>
+<p>Read in the data</p>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="example-2---lagartyos-glm.html#cb395-1" aria-hidden="true" tabindex="-1"></a>peol <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;extfiles/parqueseolicos.csv&quot;</span>, <span class="at">sep=</span><span class="st">&quot;;&quot;</span>)</span></code></pre></div>
+<p>Look at the data</p>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="example-2---lagartyos-glm.html#cb396-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(peol)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>Implement multiple regression</p>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="example-2---lagartyos-glm.html#cb397-1" aria-hidden="true" tabindex="-1"></a>regmul<span class="ot">=</span><span class="fu">lm</span>(mortalidade<span class="sc">~</span>.,<span class="at">data=</span>peol)</span>
+<span id="cb397-2"><a href="example-2---lagartyos-glm.html#cb397-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regmul)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mortalidade ~ ., data = peol)
+## 
+## Residuals:
+##      1      2      3      4      5      6      7      8      9     10 
+## -2.146  1.872 -2.155  3.056 -1.753 -1.536  7.734 -2.491 -4.593  2.010 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       7.418208  10.009923   0.741 0.491957    
+## densidade.aero   -0.394911   0.303776  -1.300 0.250299    
+## altitude          0.018310   0.004458   4.108 0.009286 ** 
+## proximidade.aero  0.252193   0.029437   8.567 0.000357 ***
+## estradas         -0.228630   0.446504  -0.512 0.630427    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.872 on 5 degrees of freedom
+## Multiple R-squared:  0.9908, Adjusted R-squared:  0.9835 
+## F-statistic:   135 on 4 and 5 DF,  p-value: 2.804e-05</code></pre>
+<p>Implement poisson GLM with all variables</p>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="example-2---lagartyos-glm.html#cb399-1" aria-hidden="true" tabindex="-1"></a>glmALL<span class="ot">=</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>.,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb399-2"><a href="example-2---lagartyos-glm.html#cb399-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmALL)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = mortalidade ~ ., family = poisson(link = &quot;log&quot;), 
+##     data = peol)
+## 
+## Deviance Residuals: 
+##       1        2        3        4        5        6        7        8  
+## -1.5764   0.6427  -0.2479   0.4979   0.1835   0.1391   0.5995  -0.2857  
+##       9       10  
+## -0.3613   0.1187  
+## 
+## Coefficients:
+##                   Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)      0.8938290  0.5247871   1.703   0.0885 .  
+## densidade.aero   0.0011541  0.0110039   0.105   0.9165    
+## altitude         0.0015897  0.0002014   7.892 2.97e-15 ***
+## proximidade.aero 0.0019413  0.0009432   2.058   0.0396 *  
+## estradas         0.0233376  0.0218112   1.070   0.2846    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 346.4722  on 9  degrees of freedom
+## Residual deviance:   3.8462  on 5  degrees of freedom
+## AIC: 59.934
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Run a few other models</p>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="example-2---lagartyos-glm.html#cb401-1" aria-hidden="true" tabindex="-1"></a>glmda<span class="ot">&lt;-</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>densidade.aero,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb401-2"><a href="example-2---lagartyos-glm.html#cb401-2" aria-hidden="true" tabindex="-1"></a>glma<span class="ot">&lt;-</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>altitude,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb401-3"><a href="example-2---lagartyos-glm.html#cb401-3" aria-hidden="true" tabindex="-1"></a>glmpa<span class="ot">&lt;-</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>proximidade.aero,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb401-4"><a href="example-2---lagartyos-glm.html#cb401-4" aria-hidden="true" tabindex="-1"></a>glmapa<span class="ot">&lt;-</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>altitude<span class="sc">+</span>proximidade.aero,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb401-5"><a href="example-2---lagartyos-glm.html#cb401-5" aria-hidden="true" tabindex="-1"></a>glmdaapa<span class="ot">=</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>densidade.aero<span class="sc">+</span>altitude<span class="sc">+</span>proximidade.aero,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span></code></pre></div>
+<p>Check that best model by AIC inclues non significant variables</p>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="example-2---lagartyos-glm.html#cb402-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(glmda,glma,glmpa,glmapa,glmdaapa,glmALL)</span></code></pre></div>
+<pre><code>##          df       AIC
+## glmda     2 361.92796
+## glma      2  60.98652
+## glmpa     2 132.81772
+## glmapa    3  60.25713
+## glmdaapa  4  59.09642
+## glmALL    5  59.93416</code></pre>
+<p>Check best AIC model</p>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="example-2---lagartyos-glm.html#cb404-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmdaapa)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = mortalidade ~ densidade.aero + altitude + proximidade.aero, 
+##     family = poisson(link = &quot;log&quot;), data = peol)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.4932  -0.2742   0.1354   0.2605   1.2303  
+## 
+## Coefficients:
+##                    Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)       1.3918252  0.2273578   6.122 9.26e-10 ***
+## densidade.aero   -0.0091456  0.0052161  -1.753   0.0795 .  
+## altitude          0.0016117  0.0001954   8.249  &lt; 2e-16 ***
+## proximidade.aero  0.0012598  0.0006861   1.836   0.0663 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 346.4722  on 9  degrees of freedom
+## Residual deviance:   5.0085  on 6  degrees of freedom
+## AIC: 59.096
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Use <code>stepAIC</code></p>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="example-2---lagartyos-glm.html#cb406-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb406-2"><a href="example-2---lagartyos-glm.html#cb406-2" aria-hidden="true" tabindex="-1"></a>fullmodel<span class="ot">=</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>.,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb406-3"><a href="example-2---lagartyos-glm.html#cb406-3" aria-hidden="true" tabindex="-1"></a>best.model<span class="ot">=</span><span class="fu">stepAIC</span>(fullmodel,<span class="at">direction=</span><span class="st">&quot;backward&quot;</span>)</span></code></pre></div>
+<pre><code>## Start:  AIC=59.93
+## mortalidade ~ densidade.aero + altitude + proximidade.aero + 
+##     estradas
+## 
+##                    Df Deviance     AIC
+## - densidade.aero    1    3.857  57.945
+## - estradas          1    5.008  59.096
+## &lt;none&gt;                   3.846  59.934
+## - proximidade.aero  1    8.203  62.291
+## - altitude          1   69.894 123.982
+## 
+## Step:  AIC=57.95
+## mortalidade ~ altitude + proximidade.aero + estradas
+## 
+##                    Df Deviance     AIC
+## &lt;none&gt;                   3.857  57.945
+## - estradas          1    8.169  60.257
+## - proximidade.aero  1    9.737  61.825
+## - altitude          1   79.310 131.398</code></pre>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="example-2---lagartyos-glm.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(best.model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = mortalidade ~ altitude + proximidade.aero + estradas, 
+##     family = poisson(link = &quot;log&quot;), data = peol)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.5713  -0.3002   0.1356   0.4154   0.6395  
+## 
+## Coefficients:
+##                   Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)      0.9387314  0.3025495   3.103  0.00192 ** 
+## altitude         0.0015937  0.0001975   8.070 7.05e-16 ***
+## proximidade.aero 0.0018862  0.0007823   2.411  0.01590 *  
+## estradas         0.0213310  0.0104688   2.038  0.04159 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 346.4722  on 9  degrees of freedom
+## Residual deviance:   3.8572  on 6  degrees of freedom
+## AIC: 57.945
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Use function <code>bestglm</code>, confirm you get the best above and also the same as from stepAIC</p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="example-2---lagartyos-glm.html#cb410-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bestglm)</span></code></pre></div>
+<pre><code>## Loading required package: leaps</code></pre>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="example-2---lagartyos-glm.html#cb412-1" aria-hidden="true" tabindex="-1"></a>bestGLM<span class="ot">=</span><span class="fu">bestglm</span>(<span class="at">Xy=</span>peol[,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span>)],<span class="at">family=</span><span class="fu">poisson</span>(),<span class="at">IC=</span><span class="st">&quot;AIC&quot;</span>,<span class="at">RequireFullEnumeration=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Morgan-Tatar search since family is non-gaussian.</code></pre>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="example-2---lagartyos-glm.html#cb414-1" aria-hidden="true" tabindex="-1"></a>bestGLM<span class="sc">$</span>BestModel</span></code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = y ~ ., family = family, data = Xi, weights = weights)
+## 
+## Coefficients:
+##      (Intercept)          altitude  proximidade.aero          estradas  
+##         0.938731          0.001594          0.001886          0.021331  
+## 
+## Degrees of Freedom: 9 Total (i.e. Null);  6 Residual
+## Null Deviance:       346.5 
+## Residual Deviance: 3.857     AIC: 57.95</code></pre>
+<p>Interesting, with the Gaussian response (and I used the Gaussian response on the slides in class!) one would get a different answer… explore?</p>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="example-2---lagartyos-glm.html#cb416-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bestglm)</span>
+<span id="cb416-2"><a href="example-2---lagartyos-glm.html#cb416-2" aria-hidden="true" tabindex="-1"></a>bestGLM<span class="ot">=</span><span class="fu">bestglm</span>(<span class="at">Xy=</span>peol[,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span>)],<span class="at">family=</span><span class="fu">gaussian</span>(),<span class="at">IC=</span><span class="st">&quot;AIC&quot;</span>,<span class="at">RequireFullEnumeration=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Morgan-Tatar search since family is non-gaussian.</code></pre>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="example-2---lagartyos-glm.html#cb418-1" aria-hidden="true" tabindex="-1"></a>bestGLM<span class="sc">$</span>BestModel</span></code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = y ~ ., family = family, data = Xi, weights = weights)
+## 
+## Coefficients:
+##      (Intercept)    densidade.aero          altitude  proximidade.aero  
+##          2.66555          -0.25551           0.01736           0.25974  
+## 
+## Degrees of Freedom: 9 Total (i.e. Null);  6 Residual
+## Null Deviance:       12930 
+## Residual Deviance: 124.9     AIC: 63.63</code></pre>
+<p>Any way, do not forget, these were just an example dataset to explore functions stepAIC and bestglm. If ecological inferences were the obnjective, the answer to our doubts would be: find a reasonable dataset, not one with 4 independent variables and 10 data points.</p>
+<p>Look at AICc?</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="example-1---deviance.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="aula16.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ECOMODbook.pdf", "ECOMODbook.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

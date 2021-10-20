@@ -1,13 +1,11 @@
 
 # Class 9: 21 10 2020 - ANCOVA is (also) just a linear model {#aula9}
 
-
-We move on to Analysis of Covariance, a.k.a. ANCOVA, which is essentially like an ANOVA to which we add a continuous explanatory covariate. The ANCOVA was traditionally used to compare means of an outcome variable between two or more groups taking into account (or to correct for) variability of other variables, called covariates. In other words, ANCOVA allows to compare the adjusted means of two or more independent groups. It’s just… another linear model with a fancy name! Words adapted from this (looooooooooong!) link https://www.datanovia.com/en/lessons/ancova-in-r/!
-
+We move on to Analysis of Covariance, a.k.a. ANCOVA, which is essentially like an ANOVA to which we add a continuous explanatory covariate. The ANCOVA was traditionally used to compare means of an outcome variable between two or more groups taking into account (or to correct for) variability of other variables, called covariates. In other words, ANCOVA allows to compare the adjusted means of two or more independent groups. It is just… another linear model with a fancy name! Words adapted from this link https://www.datanovia.com/en/lessons/ancova-in-r/!
 
 This is an extremely common situation in biology/ecology data. Consider, as an example, you are trying to explain how the weight of a fish depends on its length, but you want to see if that relationship changes per year or site.
 
-Also, remember the dataset we considered in class 7. The data was simulated via this website: https://drawdata.xyz/ and was named `data4lines.csv`. Those had (about) the same slope in 3 groups, and a different slope in a forth group. That could be analysed as an ANCOVA, and we will look at it that way at the end.
+Also, remember the dataset we considered in class 7. The data was simulated via this website: https://drawdata.xyz/ and was named `data4lines.csv`. Those had (about) the same slope in 3 groups, and a different slope in a forth group. That could be analyzed as an ANCOVA, and we will look at it that way at the end.
 
 Lets simulate some relevant data and fit the models
 
@@ -20,7 +18,7 @@ To make it interesting, assume that we are simulating weights for 4 different sp
 This would be interesting and could be some real data if say  one wanted to compare the weights of the fishes of 4 different species, we had captured 50 animals from each species. But we know that the fish lengths across species might be different to begin with, and yet our key interest would be say the weight by species, and in that sense the length was essentially a confounding factor. 
 
 ```{r a9.1}
-#all slopes the same, diferent intercepts - no interactions
+#all slopes the same, different intercepts - no interactions
 set.seed(1234)
 n<-200
 nbygroup<-50
@@ -121,15 +119,15 @@ abline(a+5,b,lwd=2,col=1)
 abline(a+8,b,lwd=2,col=2)
 abline(a+10,b,lwd=2,col=3)
 abline(a+12,b,lwd=2,col=4)
-#gupo a
+#group a
 abline(lm.ancova1$coefficients[1],lm.ancova1$coefficients[2],lwd=1,col=1,lty=2)
-#grupo b
-# intercept+slope*xs+intercept especifico do grupo b
+#group b
+# intercept+slope*xs+intercept especifico do group b
 # (intercept+intercept especifico do grupo b)+ slope
 abline(lm.ancova1$coefficients[1]+lm.ancova1$coefficients[3],lm.ancova1$coefficients[2],lwd=1,col=2,lty=2)
-#grupo c
+#group c
 abline(lm.ancova1$coefficients[1]+lm.ancova1$coefficients[4],lm.ancova1$coefficients[2],lwd=1,col=3,lty=2)
-#grupo d
+#group d
 abline(lm.ancova1$coefficients[1]+lm.ancova1$coefficients[5],lm.ancova1$coefficients[2],lwd=1,col=4,lty=2)
 ```
 
@@ -166,11 +164,11 @@ So R first builds what is known as the design matrix. Notation wise Y= parameter
 head(data.frame(xs=xs,typeb=ifelse(type=="b",1,0),typec=ifelse(type=="c",1,0),typed=ifelse(type=="d",1,0)))
 ```
 
-and that is what is used for the fitting. Therefore, if we want to know the intercept of say `type` c, we need to sum the common intercept with the parameter associates with the dummy variable `typec`. The overall model formula becomes 
+and that is what is used for the fitting. Therefore, if we want to know the intercept of say `type` c, we need to sum the common intercept with the parameter associated with the dummy variable `typec`. The overall model formula becomes 
 
 $$Y= \alpha + \gamma_b × typeb + \gamma_c × typec + \gamma_d × typed +  \beta × xs
 $$
 
-This would be an ANCOVA, and here we would conclude that the mean of the response was different for the different levels of $z$ , once accounting for the fact that the $xs$ varied. this is evident since all the coefficients estimates and associated precisions in the summary of the model above would lead to rejecting the null hypothesis that their value was 0, as can be seen by the corresponding very small p-values. Not a surprise, since we simulated them as different and the errors were small.
+This would be an ANCOVA, and here we would conclude that the mean of the response was different for the different levels of $z$ , once accounting for the fact that the $xs$ varied. this is evident since all the coefficients estimates and associated precision in the summary of the model above would lead to rejecting the null hypothesis that their value was 0, as can be seen by the corresponding very small p-values. Not a surprise, since we simulated them as different and the errors were small.
 
-Taks: Increase the simulated error or lower the coefficients until you get type II errors. Change also sample sizes and effect sizes to see the impacts on the model performance!
+Task: Increase the simulated error or lower the coefficients until you get type II errors. Change also sample sizes and effect sizes to see the impacts on the model performance!

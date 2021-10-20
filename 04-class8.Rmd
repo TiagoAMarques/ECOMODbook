@@ -354,18 +354,143 @@ lm.anova$coefficients[1]+lm.anova$coefficients[4]
 
 and we can see these are exactly the same values.
 
-## Task: do it yourself
+## A two way ANOVA, and beyhond (ex Task: do it yourself!)
 
-The dataset `penguins` in the package `` is very useful to illustrate ANOVA's . It includes body size measurements (bill length and depth, flipper length and body mass) by sex for adult foraging penguins near Palmer Station, Antarctica, for 3 islands. I found out about this data in this twitter post by Trevor Branch (\@\ TrevorABranch, https://twitter.com/TrevorABranch/status/1333844966632607745). This dataset was made as an R package by Allison Horst (yes, the same person that makes the amazing R abd RStudio related artwork that we used before, https://www.allisonhorst.com/). Here we brighten up our book with Allison's artwork again, for a reminder that the residuals of the ANOVA should be approximately Gaussian, with constant variance! If they are not Gaussian, you might more elaborate models, like a GLM, say.
+The dataset `penguins` in the package `palmerpenguins` is very useful to illustrate ANOVA's. It includes body size measurements (bill length and depth, flipper length and body mass) by sex for adult foraging penguins near Palmer Station, Antarctica, for 3 different islands. 
+
+I found out about this data in this twitter post by Trevor Branch (\@\ TrevorABranch, https://twitter.com/TrevorABranch/status/1333844966632607745). This dataset was made as an R package by Allison Horst (yes, the same person that makes the amazing R abd RStudio related artwork that we used before, https://www.allisonhorst.com/). Here we brighten up our book with Allison's artwork again, for a reminder that the residuals of the ANOVA should be approximately Gaussian, with constant variance! If they are not Gaussian, you might more elaborate models, like a GLM, say.
 
 ![](extfiles/not_normal.png)
-
-
-The interaction plot below illustrates the data of the flipper lenght as a function of sex and island. Looking at the dataset in question, explore the two way ANOVA as a linear model. 
+Looking at the dataset in question, explore the two way ANOVA as a linear model, and then, we move way past beyhond that into a bit of how to interpret a multiple regression output.
 
 ```{r}
 library(palmerpenguins)
 data(penguins)
+```
+
+Just to make it easier, we remove some records of penguins for which there is no sex. Always think about what might be the impact of removing data, but here we assume these are missing at random and hence would not bias inferences.
+
+```{r}
+penguins<-penguins[!is.na(penguins$sex),]
+```
+
+Lets check how many animals we have in each treatment (a treatment is jargon for the level of a factor covariate, or for a combination of levels in a factorial experiment).
+
+```{r}
+barplot(with(penguins,table(species,sex)))
+```
+
+
+Perhaps surprisingly given this is observational data, the number of animals per island is balanced across sexes. On the other hane, more animals are coming from Adelie than from Gentoo, and Chinstrap presents overall a lower number of animals.
+
+Imagine you are researcher wanting to explain how the flipper length depends on the animal's sex and species. Given that we have a response variable as a function of two factor covariates, an interaction plot comes in handy. This visualization, available through function `interaction.plot`, allows us to see how the data varies as a function of the level of multiple factors. The interaction plot below illustrates the data of the flipper length (in millimeters) as a function of sex and species. 
+
+```{r}
 with(penguins,interaction.plot(x.factor=species,trace.factor=sex,response=flipper_length_mm),ylab="Flipper length (mm)")
 ```
 
+Looking at this plot tells us little about whether the two variables are significant or not, because we do not really have a notion of variability associated with it. But it does seem like size might be different by sex and by species, with males being apparently larger than females, and animals from Gentoo being considerably larger than those from Adelie and Chinstrap. There do not seem to be strong interactions, but whether possible interactions are present or not remains to be seen. If the lines are parallel then there are by definition no interactions, i.e., the effect of a variable does not depend on the effect of another, and vice versa. The problem is that looking at the plot alone tells us nothing about how much those lines deviate from being parallel or not.
+
+Note that strictly the interaction plot needs to be interpreted with care because the lines are not in any way supposed to be taken as if the relationship is continous. The slope of the lines dows give us however an idea about the differences between the different treatments.
+
+We can actually look at the observation in each of the treatments (i.e. combinations of sex and island)
+
+```{r}
+par(mar=c(10,4,0,0))
+with(penguins,boxplot(flipper_length_mm ~ species + sex,las=2,xlab="",col=c(1,2,3,1,2,3)))
+```
+
+This plt does allow us to see the variability of the data, and it's likely that several terms will be considered statistically significant. We can implement the linear model that corresponds to the two way ANOVA to formally test that
+
+```{r}
+lm2wayANOVA<-lm(flipper_length_mm~species+sex,data=penguins)
+summary(lm2wayANOVA)
+```
+
+we can actually implement this same model as a standard ANOVA
+
+```{r}
+summary(aov(lm2wayANOVA))
+```
+
+and even conduct post hoc comparisons
+
+```{r}
+TukeyHSD(aov(lm2wayANOVA))
+```
+
+Everything is statistically significant from everything else, but what does it all mean? In fact, the two way ANOVA is just a really fancy way of estimating the mean in each one of the 6 treatments, while assuming a constant variance (since we are using a simple linear model). The coeficiet estimates are these
+
+```{r}
+coefs<-coef(lm2wayANOVA)
+coefs
+```
+
+Therefore, the estimate of the mean of the flipper for a female penguin from Adelie island is (just the intercept!)
+
+```{r}
+as.numeric(coefs[1])
+```
+
+for a male in Adelie you need to add the male coefficient
+
+```{r}
+as.numeric(coefs[1]+coefs[4])
+```
+
+for a female in Chinstrap and in Gentoo their respective island parameters
+
+```{r}
+as.numeric(coefs[1]+coefs[2])
+as.numeric(coefs[1]+coefs[3])
+```
+
+and for the males in these two islands just need to add the male effect, respectively
+
+```{r}
+as.numeric(coefs[1]+coefs[2]+coefs[4])
+as.numeric(coefs[1]+coefs[3]+coefs[4])
+```
+
+We can contrast these with the empirical mean in each group. These are given by
+
+```{r}
+with(penguins,tapply(X=flipper_length_mm,INDEX=paste0(species,sex),mean))
+```
+
+The minor differences in the estimated values for the means arise given that the number of animals per group are not perfectly balanced. Hence these are simply slightly different estimators of the same quantities, the treatment means. If the sample size per group were exactly the same these would coincide exactly (challenge: show that with a simulation!).
+
+We could now formally assess whether the interaction term was required, in other words, if the influence of sex and species on the length of the flipper is independent or the effect of one variable depends on the level of the other. This is implemented as
+
+```{r}
+lm2wayANOVA.I<-lm(flipper_length_mm~species+sex+species:sex,data=penguins)
+summary(lm2wayANOVA.I)
+```
+
+Note that in an R model formula, `y~x*z` is a shortcut for `y~x+z+x:z`, i.e. a model with both main effects, `x` and `z`, and the interaction term between `x` and `z`.
+
+Considering the usual significance levels, the interaction term is significant
+
+```{r}
+summary(aov(lm2wayANOVA.I))
+```
+
+The interpretation is as follows, and was naturally apparent in the interaction plot above. The length of the flipper depends on sex (males are larger) and species (Gentoo larger than Chinstrap larger than Adelie), but the interaction means that the difference between males and females in Adelie is actually smaller than that in Chinstrap and Gentoo.
+
+And now we've done all this, let's jump a few steps forward and think about all this in an integrated way. This dataset contains also the weight of the penguins (`body_mass_g`). Let's see how all the other variables explain those weights
+
+```{r}
+summary(lm(body_mass_g~.,data=penguins))
+```
+
+Interestingly, but not surprisingly, everything seems to be relevant to explain the weights of the animals, except, the islands they come from. It makes sense, given we know the species, sex and some measurements on beak and flippers, we can predict the weight really well. But now, the cautionary tale... what if we didn't record all this, and we only had measurements from  different islands
+
+```{r}
+summary(lm(body_mass_g~island,data=penguins))
+```
+
+Wow!?! So actually, island is very important to explain the weights... or is it. It actually is not. The truth is probably above. Other things explain the weights, namely sex and species, as we saw above. 
+
+But since different islands might have different compositions in terms of sex ratio and species, and hence, if we do not have those true drivers of weight variation, and only know the island form where each penguin came from, we might believe the differences are across islands. In some sence they are, but really mediated by the other covariates.
+
+This is a cautionary tale about interpreting data from ecological studies, typically observational studies, where the balance across unmeasured variables might induce patterns that do not exist.
