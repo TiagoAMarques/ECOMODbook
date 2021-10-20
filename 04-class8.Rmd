@@ -400,7 +400,7 @@ par(mar=c(10,4,0,0))
 with(penguins,boxplot(flipper_length_mm ~ species + sex,las=2,xlab="",col=c(1,2,3,1,2,3)))
 ```
 
-This plt does allow us to see the variability of the data, and it's likely that several terms will be considered statistically significant. We can implement the linear model that corresponds to the two way ANOVA to formally test that
+This plot does allow us to see the variability of the data, and it is likely that several terms will be considered statistically significant. We can implement the linear model that corresponds to the two way ANOVA to formally test that
 
 ```{r}
 lm2wayANOVA<-lm(flipper_length_mm~species+sex,data=penguins)
