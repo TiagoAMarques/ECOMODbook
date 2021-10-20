@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2020.7.22)  20 OCT 2021 18:51
+This is XeTeX, Version 3.14159265-2.6-0.999991 (MiKTeX 2.9.7250 64-bit) (preloaded format=xelatex 2020.7.22)  20 OCT 2021 19:18
 entering extended mode
 **./ECOMODbook.tex
 (ECOMODbook.tex
@@ -1366,6 +1366,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 Chapter 10.
+
+Overfull \vbox (0.75838pt too high) detected at line 1921
+ []
+
 [71]
 File: ECOMODbook_files/figure-latex/a8.7-1.pdf Graphic file (type pdf)
 <use ECOMODbook_files/figure-latex/a8.7-1.pdf>
