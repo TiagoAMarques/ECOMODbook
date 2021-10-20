@@ -329,7 +329,7 @@ div.csl-indent {
 <span id="cb422-5"><a href="aula16.html#cb422-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</span>
 <span id="cb422-6"><a href="aula16.html#cb422-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
 <span id="cb422-7"><a href="aula16.html#cb422-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xs4pred,predglmLR1,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="aula16.html#cb423-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmLR1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -356,7 +356,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="aula16.html#cb425-1" aria-hidden="true" tabindex="-1"></a><span class="co">#check model fit</span></span>
 <span id="cb425-2"><a href="aula16.html#cb425-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="fl">0.2</span>))</span>
 <span id="cb425-3"><a href="aula16.html#cb425-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glmLR1)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-32-2.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-31-2.png" width="672" /></p>
 </div>
 <div id="about-multicollinearity" class="section level2" number="21.2">
 <h2><span class="header-section-number">21.2</span> About multicollinearity</h2>
@@ -406,7 +406,7 @@ div.csl-indent {
 <span id="cb430-3"><a href="aula16.html#cb430-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1)</span>
 <span id="cb430-4"><a href="aula16.html#cb430-4" aria-hidden="true" tabindex="-1"></a>lmX1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1)</span>
 <span id="cb430-5"><a href="aula16.html#cb430-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lmX1)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
 <div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="aula16.html#cb431-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -429,7 +429,7 @@ div.csl-indent {
 <div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="aula16.html#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X2)</span>
 <span id="cb433-2"><a href="aula16.html#cb433-2" aria-hidden="true" tabindex="-1"></a>lmX2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X2)</span>
 <span id="cb433-3"><a href="aula16.html#cb433-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lmX2)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-33-2.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-32-2.png" width="672" /></p>
 <div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="aula16.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX2)</span></code></pre></div>
 <pre><code>## 
 ## Call:

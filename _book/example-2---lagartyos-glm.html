@@ -286,7 +286,7 @@ slides 26-33</p>
 <div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="example-2---lagartyos-glm.html#cb395-1" aria-hidden="true" tabindex="-1"></a>peol <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;extfiles/parqueseolicos.csv&quot;</span>, <span class="at">sep=</span><span class="st">&quot;;&quot;</span>)</span></code></pre></div>
 <p>Look at the data</p>
 <div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="example-2---lagartyos-glm.html#cb396-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(peol)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Implement multiple regression</p>
 <div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="example-2---lagartyos-glm.html#cb397-1" aria-hidden="true" tabindex="-1"></a>regmul<span class="ot">=</span><span class="fu">lm</span>(mortalidade<span class="sc">~</span>.,<span class="at">data=</span>peol)</span>
 <span id="cb397-2"><a href="example-2---lagartyos-glm.html#cb397-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regmul)</span></code></pre></div>
