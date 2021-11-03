@@ -19,15 +19,15 @@ She sets out to find a random sample of blue jay nests, and defines a random var
 * the value 1 if eggs are present, which she will call a success, and she assumes that happens with probability $\theta$, 
 * the value 0, which she calls a failure, representing no eggs present, with probability 1-$\theta$. 
 
-Assuming that the probability of different nests having eggs is independent, each of these is a Bernoulli trial, and there are $N$ trials, of which we could say $n$ will be successes, and $n-n$ will be failures. The Bernoulli distribution is a special case of a Binomial random variable, with a single trial and probability of success $\theta$. In fact, you you consider all the nests together that is indeed a Binomial with parameters $N$ and $p$. A small detour to justify this statement: there is a theoretical result that demonstrates that the sum of $K$ independent Binomials $X_k$, each with $N_k$ trials, with constant probability of success $p$, is a Binomial($N,p$), where $N=\sum_{k=1}^K N_k$. Therefore, the sum of $k$ Bernoulli trials, i.e. $k$ Binomial(1,p) independent random variables, is a Binomial($K,p$).
+Assuming that the probability of different nests having eggs is independent, each of these is a Bernoulli trial, and there are $N$ trials, of which we could say $n$ will be successes, and $N-n$ will be failures. The Bernoulli distribution is a special case of a Binomial random variable, with a single trial and probability of success $\theta$. In fact, you you consider all the nests together that is indeed a Binomial with parameters $N$ and $p$. A small detour to justify this statement: there is a theoretical result that demonstrates that the sum of $K$ independent Binomials $X_k$, each with $N_k$ trials, with constant probability of success $p$, is a Binomial($N,p$), where $N=\sum_{k=1}^K N_k$. Therefore, the sum of $k$ Bernoulli trials, i.e. $k$ Binomial(1,p) independent random variables, is a Binomial($K,p$).
 
 So this is a model with a single parameter, $\theta$. (since we know $N$, the number of trials!) 
 
-Andreia goes out and about in the field and finds 5 nests. The first has eggs, the second and third do not, the forth does, and the fifth does not. By this time Andreia is tired and decides to call it a day, with her sample $x$ collected:  $x=c(1,0,0,1,0)$.
+Andreia goes out and about in the field and finds 5 nests. The first has eggs, the second and third do not, the forth does, and the fifth does not. By this time Andreia is tired and decides to call it a day, with her sample $x$ collected:  $x=c(1,0,1,0,0)$.
 
 ```{r ch13.1}
 #a 1 is a nest with eggs, a 0 is a nest without eggs
-nests=c(1,0,0,1,0)
+nests=c(1,0,1,0,0)
 ```
 
 Note that in this case the number of successes n is `r sum(nests==1)` and the number of failures `N-n` is `r sum(nests==0)`.
@@ -70,7 +70,7 @@ Andreia asks her friend what was the point. If the MLE was just the empirical pr
     - consider several parameters at once; as an example, we could be considering instead of a Bernoulli a complex model that describes how a whale dives, with 17 parameters that we want to maximize at once. Rarely closed form estimators will be available then;
     - make the parameters a function of observed covariates. In the case of our nests, the height of the nest could be a relevant covariate to model the probability of success of a nest, say. In such a case, we could have an estimate for $\theta$ that would be dependent of the height `h`, e.g by defining that $\theta_h=f(h)$. Naturally we would choose the link function f such that theta would be constrained to be between 0 and 1, the possible values for a probability. The logit link function comes to mind here. But that will be a story for another day.
 
-To illustrate the point above regarding being able to estimate the precision around the parameter estimate from the likelihood function, lets consider that we had not 5 samples, but man more. In the figure below we contrast the small sample size to a set of increasing sample sizes: 50, 100 or 200.
+To illustrate the point above regarding being able to estimate the precision around the parameter estimate from the likelihood function, lets consider that we had not 5 samples, but many more. In the figure below we contrast the small sample size to a set of increasing sample sizes: 50, 100 or 200.
 
 ```{r ch13.4,fig.height=8}
 par(mfrow=c(4,1),mar=c(4,4,0.5,0.5))
@@ -96,7 +96,7 @@ As we increase the sample size, and hence we increase the amount of information 
 
 ## Maximizing a likelihood algebraically
 
-While above we were able to maximize the likelihood function via a "grid" search. We divided the possible range of values that the parameter could take, also know as the parameter space, into a large number of candidate values. Then we evaluated the likelihood at each one of these, and picked the value of the parameter for which the function was maximum: the maximum likelihood estimate.
+Above we were able to maximize the likelihood function via a "grid" search. We divided the possible range of values that the parameter could take, also know as the parameter space, into a large number of candidate values. Then we evaluated the likelihood at each one of these, and picked the value of the parameter for which the function was maximum: the maximum likelihood estimate.
 
 Grid search can become very inefficient very fast, and hence there are other ways to maximize a likelihood. One is to analytically find what is the maximum of that function. How can we do that. Straightforwardly for our example. You differentiate the function, find the point at which the first derivative is 0, and by definition that point is a maximum or a minimum. If you are unsure the second derivative would tell you which. Considering the above
 
@@ -283,7 +283,7 @@ So, now we know all about likelihoods, but Andreia wonders. Why all the trouble,
 Lets now look at situation where Andreia is interested in characterizing how far away from the nearest river, in a straight line, are the nests from water. She assumes that these might be hypothetically described by a Gaussian random variable. That will be the basis for constructing a likelihood. For her 5 nests, those distances in kilometers are
 
 ```{r ch13.18}
-dists<-c(0.78,1.73,1.32,0.54,2.12)
+dists<-c(0.78,1.73,0.54,1.32,2.12)
 ```
 
 Then she thinks about what might the likelihood look like for a Gaussian. She knows R can calculate the density of a Gaussian via `rnorm`, and so she suggests the following minus log likelihood function:
@@ -319,7 +319,7 @@ Note she now has more than 1 parameter, so `optimize` was not an option, and had
 #to implement later
 ```
 
-Notice that this image reminds us of Boredomnesia! Now, we know how to do this for more than one parameter, but why would we. After all, if I wanted to estimate the MLE of a Gaussian, actually, the sample mean `mean(xs)`=`r mean(xs)` and the sample standard deviation `sd(xs)`=`r sd(xs)` are what I want. So the above values obtained by `optim` for $\mu$ and $\sigma$, the MLEs, `r MLEGau$par[1]` and `r MLEGau$par[1]` respectively, are really just numerical approximations of the real analytically obtainable MLE's `r mean(xs)` and `r sd(xs)`, respectively (note: need, strictly, to refer to minor detail regarding denominator of the standard deviation, considering n, the MLE, or n-1, not MLE but unbiased; ME students can ignore detail for now!). These are themselves, in this case where we know reality, estimates of the true simulated values generating our data, `r mG` and `r sdG`, respectively. So all quite reasonable and close, really, what is not surprising given a sample size of `r n`!
+Notice that this image reminds us of Boredomnesia! Now, we know how to do this for more than one parameter, but why would we. After all, if I wanted to estimate the MLE of a Gaussian, actually, the sample mean `mean(xs)`=`r mean(xs)` and the sample standard deviation `sd(xs)`=`r sd(xs)` are what I want. So the above values obtained by `optim` for $\mu$ and $\sigma$, the MLEs, `r MLEGau$par[1]` and `r MLEGau$par[2]` respectively, are really just numerical approximations of the real analytically obtainable MLE's `r mean(xs)` and `r sd(xs)`, respectively (note: need, strictly, to refer to minor detail regarding denominator of the standard deviation, considering n, the MLE, or n-1, not MLE but unbiased; ME students can ignore detail for now!). These are themselves, in this case where we know reality, estimates of the true simulated values generating our data, `r mG` and `r sdG`, respectively. So all quite reasonable and close, really, what is not surprising given a sample size of `r n`!
 
 
 
@@ -340,6 +340,12 @@ Note that, as it might be interesting for later, that nests with eggs were close
 plot(dists,nests,ylab="nest with eggs",xlab="Distance to water (km)")
 ```
 
+```{r}
+dists
+nests
+```
+
+
 
 We get some estimates, despite the fact that it is yet unclear why we should do it this way and not just use `mean` and `sd`. To see why, we continue our story, and the plot thickens...
 
@@ -350,7 +356,7 @@ We started by talking about `lm`, so, what is happening behind `lm`.
 Let's us imagine that for each nest, Andreia also related the size of the nest with the distance to the water. The size of the nest, diameter, in cm, was as below, She is interested in describing, modeling, explaining how nest size changes as a function of distance to the water.
 
 ```{r ch13.25}
-size<-c(17,19.3,21.2,13.2,25)
+size<-c(17,19.3,13.2,21.2,25)
 ```
 
 We can visualize the relationship between the distance to the water and the nest diameter
@@ -456,7 +462,7 @@ alldists<-seq(0,5,by=0.1)
 plot(alldists,thetafd(alpha,beta,alldists),ylab="P(nest with eggs)",xlab="Distance from water (km)")
 ```
 
-Having done this, then it is relatively simple to modify the likelihood for theta that we used for $\theta$, to replace the $\theta$ by a function of the relevant covariate $d$
+Having done this, then it is relatively simple to modify the likelihood that we used for $\theta$ before, by replacing the $\theta$ by a function of the relevant covariate $d$
 
 ```{r ch13.34}
 loglikthetad=function(pars,data){
@@ -473,11 +479,19 @@ loglikthetad=function(pars,data){
 and so we could maximize this likelihood based on the data, both the successes and the distances to the water observed above
 
 ```{r ch13.35}
-thetadMLE<-optim(par=c(1,1),fn=loglikthetad,data=data.frame(nests=nests,dists=dists))
+data4thetadMLE<-data.frame(nests=nests,dists=dists)
+thetadMLE<-optim(par=c(1,1),fn=loglikthetad,data=data4thetadMLE)
 thetadMLE
 ```
 
-Now, this provides an interesting ecological insight. Unlike the `naive` estimator for the probability of a nest having eggs we obtained above, of 0.4, we now can relate that probability to the distance from the water. And what we see is that the probability of a random nest having nests might be well below that. We just happened to consider a small sample for which two out of five nests were near the water. While the `naive` estimate might change considerably depending on the relative amount of nests near the water versus nests away from the water, if the main determinant of nest success was the distance from the water, our final model would allow a better estimate of the true probability of success of a nest.
+Now, this provides an interesting ecological insight. Unlike the `naive` estimator for the probability of a nest having eggs we obtained above, of 0.4, we now can relate that probability to the distance from the water. And what we see is that the probability of a random nest having eggs might be well below that. We just happened to consider a small sample for which two out of five nests were near the water. While the `naive` estimate might change considerably depending on the relative amount of nests near the water versus nests away from the water in a sample, if the main determinant of nest success was the distance from the water, our final model would allow a better estimate of the true probability of success of a nest, given its distance from the water.
+
+LOL - or not LOL, given I have to go to class like now, but... I fucked up, something is wrong in the code, these estimates can't be right. The data below looks about right. Did I forget to account for the link function?
+
+```{r}
+data4thetadMLE
+```
+
 
 ```{r ch13.36}
 alldists<-seq(0,5,by=0.1)

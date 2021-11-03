@@ -1,6 +1,6 @@
 # Class 12: 04 11 2020 Interactions between continous covariates {#aula13}
 
-The examples above were interactions with factors, but interactions can occur also across strictly continous variables. An example follows. Imagine it corresponds to the length of fishes as a function of water temperature `temp` and `pH` (if those were real values of some water pH... all the fish would be dissolved, but any way!). We make up some example data below.
+The examples above were interactions with factors, but interactions can occur also across strictly continous variables. An example follows. Imagine it corresponds to the length of fishes as a function of water temperature `temp` and `pH`. We make up some example data below. Note in passing if those were real values of some water pH... all the fish would be dissolved, but any way!
 
 ```{r a12.1}
 #--------------------------------------------------------
@@ -83,7 +83,7 @@ Note that if we ignore the interaction, we make the wrong conclusion, we conclud
 summary(mx1x2)
 ```
 
-When we look at the model that really makes sense here, given the true model, we get the right decisions for all the terms in the model: xs1 has a positive effect and xs2 has a negative effect in the response, with a significant positive effect on the interation between the two.
+When we look at the model that really makes sense here, given the true model, we get the right decisions for all the terms in the model: xs1 has a positive effect and xs2 has a negative effect in the response, with a significant positive effect on the interaction between the two.
 
 ```{r a12.7}
 summary(mx1x2I)
@@ -97,7 +97,8 @@ Note that, reassuringly, this would be the model preferred by AIC, by a long sho
 #compare models using say AIC
 AIC(mx1,mx2,mI,mx1x2,mx1x2I)
 ```
-Therefore, exploring important interactions is important, and failing to include relevant ones might cause errors (while including spurious ones might also mask some real effects, see next slides!).
+
+Therefore, exploring important interactions is important, and failing to include relevant ones might cause errors (while including spurious ones might also mask some real effects, see the example in the next session).
 
 This was a 2-way interaction. 
 
@@ -107,7 +108,7 @@ One can think about 3-way interactions or even higher order interactions, but no
 
 Just for fun (yeah.. fun !) we look at a model where we have more variables available to fit. In fact, we have 4 covariates, meaning we could even fit a 4th order interaction. Don't try that at hope folks, only trained professionals should (and to so so with a 4th order interaction, probably trained profesionals that went a bit crazy at some point!).
 
-Our true model wll be of the form
+Our true model will be of the form
 
 $ys=20+2*xs1-4*xs2+3*xs1*xs2+xs3+xs4$
 
@@ -179,4 +180,4 @@ library(knitr)
 kable(AIC(modW,modW1,modW2,modW3,modW4,modW5,modW6,modW7,modW8,modW9,modW10,modR))
 ```
 
-If we had all variables, we would always get the correct model apparently (even if I did not a full search over the possible model space - a task for you !) but if some of the variables were not recorded, some errors might occur. Your task is to find them, just for fun... have fun!
+If we had all variables, we would always get the correct model apparently (even if I did not implement a full search over the possible model space - a task for you !) but if some of the variables were not recorded, some errors might occur. Your task is to find them, just for fun... have fun!
