@@ -240,7 +240,7 @@
   timestamp = {2011.03.07},
 }
 
-@Article{O’Hara2010,
+@Article{OHara2010,
   author    = {O'Hara, Robert B. and Kotze, D. Johan},
   journal   = {Methods in Ecology and Evolution},
   title     = {Do not log-transform count data},

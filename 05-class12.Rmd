@@ -1,6 +1,8 @@
 # Class 12: 04 11 2020 Interactions between continous covariates {#aula13}
 
-The examples above were interactions with factors, but interactions can occur also across strictly continous variables. An example follows. Imagine it corresponds to the length of fishes as a function of water temperature `temp` and `pH`. We make up some example data below. Note in passing if those were real values of some water pH... all the fish would be dissolved, but any way!
+The examples in previous chapters considered interactions between variables, where at least one of the variables was a factor. This was for convenience, not for necessity, and  interactions can occur also across strictly continuous variables. An example follows. Imagine we are interested in modelling the length of a fish species as a function of water temperature `temp` and `pH`. 
+
+We make up some example data below. Note in passing if those were real values of some water pH... all the fish would probably be dissolved!
 
 ```{r a12.1}
 #--------------------------------------------------------
@@ -26,19 +28,13 @@ plot(xs2,ys,ylab="Length (mm)",xlab="pH")
 plot(xs12,ys,ylab="Length (mm)",xlab="Temperature * pH")
 ```
 
-We can fit different models to such data, namely those that consider just the `xs1` (temperature), just the `xs2` (pH), or even just a new variable called `xs1xs2` (temperature $\times$ pH), and those with both variables and the interaction. Note `xs1xs2` variable is just the product of the other two, and in fact that fitting that product alone is equivalent to fitting the interaction alone!
+We can fit different models to such data, namely those that consider just the `xs1` (temperature), just the `xs2` (pH), or even just a new variable called `xs1xs2`, the product between `pH` and temperature (temperature $\times$ pH), and those with both variables with and without the interaction. 
+
+Note that the variable `xs1xs2`  is just the product of the main effects, and as we will exemplify below, fitting that product alone is equivalent to fitting the interaction term alone.
+
+Models without the interaction term
 
 ```{r a12.2}
-#-----------------------------------
-#models with interaction
-#model with interaction
-mx1x2I=lm(ys~xs1+xs2+xs1:xs2)
-#just the interaction term
-mI=lm(ys~xs1:xs2)
-#same as mx1x2I
-mx1x2I.b=lm(ys~xs1*xs2)
-#same as just the interaction term
-mI.b=lm(ys~xs12)
 #-----------------------------------
 #models without the interaction term
 mx1x2=lm(ys~xs1+xs2)
@@ -46,6 +42,20 @@ mx1=lm(ys~xs1)
 mx2=lm(ys~xs2)
 ```
 
+Models with the interaction term
+
+```{r a12.22}
+#-----------------------------------
+#models with interaction
+#just the interaction term
+mI=lm(ys~xs1:xs2)
+#same as just the interaction term
+mI.b=lm(ys~xs12)
+#model with main effects and interaction
+mx1x2I=lm(ys~xs1+xs2+xs1:xs2)
+#same as mx1x2I
+mx1x2I.b=lm(ys~xs1*xs2)
+```
 
 To begin with, check what we commented above is true. Models `mx1x2I` and `mx1x2I.b` are equivalent, 
 
@@ -74,43 +84,47 @@ abline(mx1,lty=2)
 plot(xs2,ys)
 abline(mx2,lty=2)
 plot(xs12,ys)
-abline(lm(mI),lty=2)
+abline(mI,lty=2)
 ```
 
-Note that if we ignore the interaction, we make the wrong conclusion, we conclude that `xs2` has the wrong effect compared to reality: it seems to have a positive influence, when we know that influence is negative!
+Note that if we ignore the interaction, we make the wrong conclusion, we conclude that `xs2` has the wrong effect compared to reality: it seems to have a positive influence, when we know that influence is negative! This happens if we ignore the relevant interaction term, irrespective of wether we consider the `xs2` as the single predictor or jointly with `xs1`
 
 ```{r a12.6}
 summary(mx1x2)
 ```
 
-When we look at the model that really makes sense here, given the true model, we get the right decisions for all the terms in the model: xs1 has a positive effect and xs2 has a negative effect in the response, with a significant positive effect on the interaction between the two.
+```{r a12.61}
+summary(mx2)
+```
+
+When we look at the model that really makes sense here - i.e. the true model that we know generated the data - we get the right decisions for all the terms in the model: `xs1` has a positive effect and `xs2` has a negative effect in the response, with a significant positive effect on the interaction between the two.
 
 ```{r a12.7}
 summary(mx1x2I)
 ```
 
-Failing to include significant interactions could lead one to wrongly conclude that a variable that in reality has a negative effect on the response happens to have a significant positive impact on the response!
+The cautionary tale's moral follows: failing to include significant interactions could lead one to wrongly conclude the influence of the main effects on a response. Here, `xs2`, a variable that in reality has a negative effect on the response, happens to be seens as having a significant positive impact on the response. This is induced by the effect of the ignored interaction.
 
-Note that, reassuringly, this would be the model preferred by AIC, by a long shot. All is good when all ends well, which if we have lots of data and low error,  is not unexpected. But the real danger lies in real life data, where we do not know what reality is.
+Note that, reassuringly, even if we had no idea about the true model, as would happen in any real life scenario, it would be the model preferred by AIC, by a long shot. All is good when all ends well, which if we have lots of useful data and low error,  is not unexpected. 
+
+The real danger lies in real life data, where by definition we do not know what reality actually is, so we cannot contrast our predictions to it. In particular, the real danger lies in situations were we have failed to collect the relevant variables that explain a response - like `xs1` here - and then we have no way to tell whether the effects we are finding are really about the variables measured or just the consequence of us having missed the right variables to explain the response. This is where notions about causal inference come into play. All these models, based on observations, are just correlation stories. And correlation does not imply causation. To tell stories about causation is a story for another book. As a taster, a good introduction to causal inference can be found in @Hernan2020. But reading that book might come to you as a shock. Most of what we do in ecology, fitting models to observational data, seems rather far from what causal inference advocates defend. 
 
 ```{r a12.8}
 #compare models using say AIC
 AIC(mx1,mx2,mI,mx1x2,mx1x2I)
 ```
 
-Therefore, exploring important interactions is important, and failing to include relevant ones might cause errors (while including spurious ones might also mask some real effects, see the example in the next session).
-
-This was a 2-way interaction. 
-
-One can think about 3-way interactions or even higher order interactions, but no one can interpret those models anymore!
+The previous example was a 2-way interaction. It showed us that exploring important interactions is important, and failing to include relevant ones might cause errors. On the other hand, including interactions in models when those are not real, might also mask some real effects, as illustrated in the next session's example. One can think about 3-way interactions, or even higher order interactions. While these might still be useful for predictions, interpreting those models will become extremely challenging. I have never seen anyone trying to interpret more than a 3 way interaction, and even then, it becomes rather confusing to do so.
 
 ## Larger order interactions
 
-Just for fun (yeah.. fun !) we look at a model where we have more variables available to fit. In fact, we have 4 covariates, meaning we could even fit a 4th order interaction. Don't try that at hope folks, only trained professionals should (and to so so with a 4th order interaction, probably trained profesionals that went a bit crazy at some point!).
+Just for fun (yeah.. fun !) we look at an example where we have more than just 2 variables available to fit. In fact, we have 4 covariates, meaning we could fit up to a 4th order interaction. Do not try that at home alone folks, only trained professionals should. To do so with a 4th order interaction, and to try to interpret it, probably only trained professionals that went a bit crazy at some point!
 
 Our true model will be of the form
 
 $ys=20+2*xs1-4*xs2+3*xs1*xs2+xs3+xs4$
+
+implying that all four variables have an influence in the response, but only the 2nd order interaction between `xs1` and `xs2` is relevant. Nonetheless, as usual, to begin with we put ourselves in the position of a researcher that does not know the true model.
 
 ```{r a12.9}
 
@@ -131,7 +145,7 @@ xs4=rgamma(n,4,4)
 ys=20+2*xs1-4*xs2+3*xs1*xs2+xs3+xs4+rnorm(n,2)
 ```
 
-After having created the data, we can fit a couple of models to it. One with all the interactions, one with just the correct (=true, since we know the data generating model) 2 way interaction between `xs1` and `xs2`.
+After having created the data, we can fit a couple of models to it. Here we restrict ourselves to a wrong model with all the interactions possible, and one with just the correct (=true, since we know the data generating model) 2 way interaction between `xs1` and `xs2`.
 
 ```{r a12.10}
 modW=lm(ys~xs1*xs2*xs3*xs4)
@@ -144,15 +158,15 @@ If we look at the 4 way interaction model
 summary(modW)
 ```
 
-we see several errors, namely type II errors associated with `xs2`, `xs3` and `xs4`! In other words, including interactions which are not real can mask the true influence of relevant variables!
+we see several errors, namely type II errors associated with `xs2`, `xs3` and `xs4`! In other words, including interactions which are not real masked the true influence of relevant variables. It seems like the information available in the data is being spread too thin, with a fierce competition between multiple useless parameters, trying to explain the data and hence remain in the final model. Once the dust settles parameters that would not be different from 0 (and hence truly not relevant to explain the response) managed to capture some of the variability in the data and seem apparently useful to explain it.
 
-When we look at the right model, these go away, and all variables and the correct second order variable are considered significant (at the usual significance levels)
+When we look at the right model, these spurious relations go away, and all the main effects as well as the correct second order interaction are considered significant at the usual significance levels.
 
 ```{r a12.12}
 summary(modR)
 ```
 
-Reassuringly, the right model is preferred in terms of AIC
+Reassuringly, when these two models are compared, the right model is preferred in terms of AIC
 
 ```{r a12.13}
 AIC(modW,modR)
@@ -171,7 +185,6 @@ modW7=lm(ys~xs2+xs3+xs4)
 modW8=lm(ys~xs1*xs2)
 modW9=lm(ys~xs1*xs3)
 modW10=lm(ys~xs1*xs4)
-
 ```
 
 
@@ -180,4 +193,4 @@ library(knitr)
 kable(AIC(modW,modW1,modW2,modW3,modW4,modW5,modW6,modW7,modW8,modW9,modW10,modR))
 ```
 
-If we had all variables, we would always get the correct model apparently (even if I did not implement a full search over the possible model space - a task for you !) but if some of the variables were not recorded, some errors might occur. Your task is to find them, just for fun... have fun!
+If we had all the 4 relevant variables available, we would possibly most of the time - here, considering just a random selection of 10 models - get the correct model. Nonetheless, this was just a single example, and I did not implement a full search over the possible model space. I leave it as a task for the reader. If some of the truly relevant variables were not recorded, or if some new variables not relevant to explain the response were collected instead, some errors might occur. Your task now is to create a few additional variables, not related to the response, and explore how often you make mistakes, and what do these mistakes tend to depend on, when you have available a partial subset of the variables that explain the response, plus a subset of variables that do not. Have fun!

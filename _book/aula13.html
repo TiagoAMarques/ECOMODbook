@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2021-11-02" />
+<meta name="date" content="2021-11-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -275,7 +275,8 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="aula13" class="section level1" number="14">
 <h1><span class="header-section-number">Chapter 14</span> Class 12: 04 11 2020 Interactions between continous covariates</h1>
-<p>The examples above were interactions with factors, but interactions can occur also across strictly continous variables. An example follows. Imagine it corresponds to the length of fishes as a function of water temperature <code>temp</code> and <code>pH</code>. We make up some example data below. Note in passing if those were real values of some water pH… all the fish would be dissolved, but any way!</p>
+<p>The examples in previous chapters considered interactions between variables, where at least one of the variables was a factor. This was for convenience, not for necessity, and interactions can occur also across strictly continuous variables. An example follows. Imagine we are interested in modelling the length of a fish species as a function of water temperature <code>temp</code> and <code>pH</code>.</p>
+<p>We make up some example data below. Note in passing if those were real values of some water pH… all the fish would probably be dissolved!</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="aula13.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------------------</span></span>
 <span id="cb1-2"><a href="aula13.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Interactions</span></span>
 <span id="cb1-3"><a href="aula13.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">#### With continous covariates</span></span>
@@ -298,24 +299,27 @@ div.csl-indent {
 <span id="cb1-20"><a href="aula13.html#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs2,ys,<span class="at">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;pH&quot;</span>)</span>
 <span id="cb1-21"><a href="aula13.html#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs12,ys,<span class="at">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Temperature * pH&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a12.1-1.png" width="672" /></p>
-<p>We can fit different models to such data, namely those that consider just the <code>xs1</code> (temperature), just the <code>xs2</code> (pH), or even just a new variable called <code>xs1xs2</code> (temperature <span class="math inline">\(\times\)</span> pH), and those with both variables and the interaction. Note <code>xs1xs2</code> variable is just the product of the other two, and in fact that fitting that product alone is equivalent to fitting the interaction alone!</p>
+<p>We can fit different models to such data, namely those that consider just the <code>xs1</code> (temperature), just the <code>xs2</code> (pH), or even just a new variable called <code>xs1xs2</code>, the product between <code>pH</code> and temperature (temperature <span class="math inline">\(\times\)</span> pH), and those with both variables with and without the interaction.</p>
+<p>Note that the variable <code>xs1xs2</code> is just the product of the main effects, and as we will exemplify below, fitting that product alone is equivalent to fitting the interaction term alone.</p>
+<p>Models without the interaction term</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="aula13.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#-----------------------------------</span></span>
-<span id="cb2-2"><a href="aula13.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#models with interaction</span></span>
-<span id="cb2-3"><a href="aula13.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#model with interaction</span></span>
-<span id="cb2-4"><a href="aula13.html#cb2-4" aria-hidden="true" tabindex="-1"></a>mx1x2I<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2<span class="sc">+</span>xs1<span class="sc">:</span>xs2)</span>
-<span id="cb2-5"><a href="aula13.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#just the interaction term</span></span>
-<span id="cb2-6"><a href="aula13.html#cb2-6" aria-hidden="true" tabindex="-1"></a>mI<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">:</span>xs2)</span>
-<span id="cb2-7"><a href="aula13.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#same as mx1x2I</span></span>
-<span id="cb2-8"><a href="aula13.html#cb2-8" aria-hidden="true" tabindex="-1"></a>mx1x2I.b<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs2)</span>
-<span id="cb2-9"><a href="aula13.html#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#same as just the interaction term</span></span>
-<span id="cb2-10"><a href="aula13.html#cb2-10" aria-hidden="true" tabindex="-1"></a>mI.b<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs12)</span>
-<span id="cb2-11"><a href="aula13.html#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#-----------------------------------</span></span>
-<span id="cb2-12"><a href="aula13.html#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#models without the interaction term</span></span>
-<span id="cb2-13"><a href="aula13.html#cb2-13" aria-hidden="true" tabindex="-1"></a>mx1x2<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2)</span>
-<span id="cb2-14"><a href="aula13.html#cb2-14" aria-hidden="true" tabindex="-1"></a>mx1<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1)</span>
-<span id="cb2-15"><a href="aula13.html#cb2-15" aria-hidden="true" tabindex="-1"></a>mx2<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs2)</span></code></pre></div>
+<span id="cb2-2"><a href="aula13.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#models without the interaction term</span></span>
+<span id="cb2-3"><a href="aula13.html#cb2-3" aria-hidden="true" tabindex="-1"></a>mx1x2<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2)</span>
+<span id="cb2-4"><a href="aula13.html#cb2-4" aria-hidden="true" tabindex="-1"></a>mx1<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1)</span>
+<span id="cb2-5"><a href="aula13.html#cb2-5" aria-hidden="true" tabindex="-1"></a>mx2<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs2)</span></code></pre></div>
+<p>Models with the interaction term</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="aula13.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#-----------------------------------</span></span>
+<span id="cb3-2"><a href="aula13.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#models with interaction</span></span>
+<span id="cb3-3"><a href="aula13.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#just the interaction term</span></span>
+<span id="cb3-4"><a href="aula13.html#cb3-4" aria-hidden="true" tabindex="-1"></a>mI<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">:</span>xs2)</span>
+<span id="cb3-5"><a href="aula13.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#same as just the interaction term</span></span>
+<span id="cb3-6"><a href="aula13.html#cb3-6" aria-hidden="true" tabindex="-1"></a>mI.b<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs12)</span>
+<span id="cb3-7"><a href="aula13.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#model with main effects and interaction</span></span>
+<span id="cb3-8"><a href="aula13.html#cb3-8" aria-hidden="true" tabindex="-1"></a>mx1x2I<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2<span class="sc">+</span>xs1<span class="sc">:</span>xs2)</span>
+<span id="cb3-9"><a href="aula13.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#same as mx1x2I</span></span>
+<span id="cb3-10"><a href="aula13.html#cb3-10" aria-hidden="true" tabindex="-1"></a>mx1x2I.b<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs2)</span></code></pre></div>
 <p>To begin with, check what we commented above is true. Models <code>mx1x2I</code> and <code>mx1x2I.b</code> are equivalent,</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="aula13.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mx1x2I)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="aula13.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mx1x2I)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1 + xs2 + xs1:xs2)
@@ -336,7 +340,7 @@ div.csl-indent {
 ## Residual standard error: 0.9462 on 96 degrees of freedom
 ## Multiple R-squared:  0.9999, Adjusted R-squared:  0.9999 
 ## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="aula13.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mx1x2I.b)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="aula13.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mx1x2I.b)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1 * xs2)
@@ -358,7 +362,7 @@ div.csl-indent {
 ## Multiple R-squared:  0.9999, Adjusted R-squared:  0.9999 
 ## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>and <code>mI</code> and <code>mI.b</code> are equivalent.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="aula13.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mI)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="aula13.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mI)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1:xs2)
@@ -377,7 +381,7 @@ div.csl-indent {
 ## Residual standard error: 27.28 on 98 degrees of freedom
 ## Multiple R-squared:  0.917,  Adjusted R-squared:  0.9161 
 ## F-statistic:  1083 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="aula13.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mI.b)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="aula13.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mI.b)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs12)
@@ -397,17 +401,17 @@ div.csl-indent {
 ## Multiple R-squared:  0.917,  Adjusted R-squared:  0.9161 
 ## F-statistic:  1083 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Now, we plot the single variable models</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="aula13.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ploting the data and (single variable) models</span></span>
-<span id="cb11-2"><a href="aula13.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</span>
-<span id="cb11-3"><a href="aula13.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs1,ys)</span>
-<span id="cb11-4"><a href="aula13.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mx1,<span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb11-5"><a href="aula13.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs2,ys)</span>
-<span id="cb11-6"><a href="aula13.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mx2,<span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb11-7"><a href="aula13.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs12,ys)</span>
-<span id="cb11-8"><a href="aula13.html#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(mI),<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="aula13.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ploting the data and (single variable) models</span></span>
+<span id="cb12-2"><a href="aula13.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</span>
+<span id="cb12-3"><a href="aula13.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs1,ys)</span>
+<span id="cb12-4"><a href="aula13.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mx1,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb12-5"><a href="aula13.html#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs2,ys)</span>
+<span id="cb12-6"><a href="aula13.html#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mx2,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb12-7"><a href="aula13.html#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs12,ys)</span>
+<span id="cb12-8"><a href="aula13.html#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mI,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a12.5-1.png" width="672" /></p>
-<p>Note that if we ignore the interaction, we make the wrong conclusion, we conclude that <code>xs2</code> has the wrong effect compared to reality: it seems to have a positive influence, when we know that influence is negative!</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="aula13.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mx1x2)</span></code></pre></div>
+<p>Note that if we ignore the interaction, we make the wrong conclusion, we conclude that <code>xs2</code> has the wrong effect compared to reality: it seems to have a positive influence, when we know that influence is negative! This happens if we ignore the relevant interaction term, irrespective of wether we consider the <code>xs2</code> as the single predictor or jointly with <code>xs1</code></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="aula13.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mx1x2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1 + xs2)
@@ -427,8 +431,27 @@ div.csl-indent {
 ## Residual standard error: 15.49 on 97 degrees of freedom
 ## Multiple R-squared:  0.9735, Adjusted R-squared:  0.973 
 ## F-statistic:  1782 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>When we look at the model that really makes sense here, given the true model, we get the right decisions for all the terms in the model: xs1 has a positive effect and xs2 has a negative effect in the response, with a significant positive effect on the interaction between the two.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="aula13.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mx1x2I)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="aula13.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mx2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -161.03  -80.04   11.24   63.49  221.62 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   201.58      30.27   6.659 1.61e-09 ***
+## xs2           111.57      29.18   3.824 0.000231 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 88.34 on 98 degrees of freedom
+## Multiple R-squared:  0.1299, Adjusted R-squared:  0.121 
+## F-statistic: 14.62 on 1 and 98 DF,  p-value: 0.0002307</code></pre>
+<p>When we look at the model that really makes sense here - i.e. the true model that we know generated the data - we get the right decisions for all the terms in the model: <code>xs1</code> has a positive effect and <code>xs2</code> has a negative effect in the response, with a significant positive effect on the interaction between the two.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="aula13.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mx1x2I)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1 + xs2 + xs1:xs2)
@@ -449,44 +472,44 @@ div.csl-indent {
 ## Residual standard error: 0.9462 on 96 degrees of freedom
 ## Multiple R-squared:  0.9999, Adjusted R-squared:  0.9999 
 ## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>Failing to include significant interactions could lead one to wrongly conclude that a variable that in reality has a negative effect on the response happens to have a significant positive impact on the response!</p>
-<p>Note that, reassuringly, this would be the model preferred by AIC, by a long shot. All is good when all ends well, which if we have lots of data and low error, is not unexpected. But the real danger lies in real life data, where we do not know what reality is.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="aula13.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#compare models using say AIC</span></span>
-<span id="cb16-2"><a href="aula13.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mx1,mx2,mI,mx1x2,mx1x2I)</span></code></pre></div>
+<p>The cautionary tale’s moral follows: failing to include significant interactions could lead one to wrongly conclude the influence of the main effects on a response. Here, <code>xs2</code>, a variable that in reality has a negative effect on the response, happens to be seens as having a significant positive impact on the response. This is induced by the effect of the ignored interaction.</p>
+<p>Note that, reassuringly, even if we had no idea about the true model, as would happen in any real life scenario, it would be the model preferred by AIC, by a long shot. All is good when all ends well, which if we have lots of useful data and low error, is not unexpected.</p>
+<p>The real danger lies in real life data, where by definition we do not know what reality actually is, so we cannot contrast our predictions to it. In particular, the real danger lies in situations were we have failed to collect the relevant variables that explain a response - like <code>xs1</code> here - and then we have no way to tell whether the effects we are finding are really about the variables measured or just the consequence of us having missed the right variables to explain the response. This is where notions about causal inference come into play. All these models, based on observations, are just correlation stories. And correlation does not imply causation. To tell stories about causation is a story for another book. As a taster, a good introduction to causal inference can be found in <span class="citation"><a href="#ref-Hernan2020" role="doc-biblioref">Hernán and Robins</a> (<a href="#ref-Hernan2020" role="doc-biblioref">2020</a>)</span>. But reading that book might come to you as a shock. Most of what we do in ecology, fitting models to observational data, seems rather far from what causal inference advocates defend.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="aula13.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#compare models using say AIC</span></span>
+<span id="cb19-2"><a href="aula13.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mx1,mx2,mI,mx1x2,mx1x2I)</span></code></pre></div>
 <pre><code>##        df       AIC
 ## mx1     3 1076.8927
 ## mx2     3 1183.9971
 ## mI      3  949.0211
 ## mx1x2   4  836.8333
 ## mx1x2I  5  278.6349</code></pre>
-<p>Therefore, exploring important interactions is important, and failing to include relevant ones might cause errors (while including spurious ones might also mask some real effects, see the example in the next session).</p>
-<p>This was a 2-way interaction.</p>
-<p>One can think about 3-way interactions or even higher order interactions, but no one can interpret those models anymore!</p>
+<p>The previous example was a 2-way interaction. It showed us that exploring important interactions is important, and failing to include relevant ones might cause errors. On the other hand, including interactions in models when those are not real, might also mask some real effects, as illustrated in the next session’s example. One can think about 3-way interactions, or even higher order interactions. While these might still be useful for predictions, interpreting those models will become extremely challenging. I have never seen anyone trying to interpret more than a 3 way interaction, and even then, it becomes rather confusing to do so.</p>
 <div id="larger-order-interactions" class="section level2" number="14.1">
 <h2><span class="header-section-number">14.1</span> Larger order interactions</h2>
-<p>Just for fun (yeah.. fun !) we look at a model where we have more variables available to fit. In fact, we have 4 covariates, meaning we could even fit a 4th order interaction. Don’t try that at hope folks, only trained professionals should (and to so so with a 4th order interaction, probably trained profesionals that went a bit crazy at some point!).</p>
+<p>Just for fun (yeah.. fun !) we look at an example where we have more than just 2 variables available to fit. In fact, we have 4 covariates, meaning we could fit up to a 4th order interaction. Do not try that at home alone folks, only trained professionals should. To do so with a 4th order interaction, and to try to interpret it, probably only trained professionals that went a bit crazy at some point!</p>
 <p>Our true model will be of the form</p>
 <p><span class="math inline">\(ys=20+2*xs1-4*xs2+3*xs1*xs2+xs3+xs4\)</span></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="aula13.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------</span></span>
-<span id="cb18-2"><a href="aula13.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A 4 way interaction model</span></span>
-<span id="cb18-3"><a href="aula13.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#but in reality there is only 1 second order interaction</span></span>
-<span id="cb18-4"><a href="aula13.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------</span></span>
-<span id="cb18-5"><a href="aula13.html#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb18-6"><a href="aula13.html#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#get a response variable</span></span>
-<span id="cb18-7"><a href="aula13.html#cb18-7" aria-hidden="true" tabindex="-1"></a>xs1<span class="ot">=</span><span class="fu">runif</span>(n,<span class="dv">30</span>,<span class="dv">90</span>)</span>
-<span id="cb18-8"><a href="aula13.html#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#get a second variable</span></span>
-<span id="cb18-9"><a href="aula13.html#cb18-9" aria-hidden="true" tabindex="-1"></a>xs2<span class="ot">=</span><span class="fu">rgamma</span>(n,<span class="dv">10</span>,<span class="dv">10</span>)</span>
-<span id="cb18-10"><a href="aula13.html#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">#get a response variable</span></span>
-<span id="cb18-11"><a href="aula13.html#cb18-11" aria-hidden="true" tabindex="-1"></a>xs3<span class="ot">=</span><span class="fu">runif</span>(n,<span class="dv">3</span>,<span class="dv">6</span>)</span>
-<span id="cb18-12"><a href="aula13.html#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">#get a second variable</span></span>
-<span id="cb18-13"><a href="aula13.html#cb18-13" aria-hidden="true" tabindex="-1"></a>xs4<span class="ot">=</span><span class="fu">rgamma</span>(n,<span class="dv">4</span>,<span class="dv">4</span>)</span>
-<span id="cb18-14"><a href="aula13.html#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">#define the linear predictor</span></span>
-<span id="cb18-15"><a href="aula13.html#cb18-15" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span><span class="dv">20</span><span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>xs1<span class="dv">-4</span><span class="sc">*</span>xs2<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span>xs1<span class="sc">*</span>xs2<span class="sc">+</span>xs3<span class="sc">+</span>xs4<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">2</span>)</span></code></pre></div>
-<p>After having created the data, we can fit a couple of models to it. One with all the interactions, one with just the correct (=true, since we know the data generating model) 2 way interaction between <code>xs1</code> and <code>xs2</code>.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="aula13.html#cb19-1" aria-hidden="true" tabindex="-1"></a>modW<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs2<span class="sc">*</span>xs3<span class="sc">*</span>xs4)</span>
-<span id="cb19-2"><a href="aula13.html#cb19-2" aria-hidden="true" tabindex="-1"></a>modR<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2<span class="sc">+</span>xs3<span class="sc">+</span>xs4<span class="sc">+</span>xs1<span class="sc">:</span>xs2)</span></code></pre></div>
+<p>implying that all four variables have an influence in the response, but only the 2nd order interaction between <code>xs1</code> and <code>xs2</code> is relevant. Nonetheless, as usual, to begin with we put ourselves in the position of a researcher that does not know the true model.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="aula13.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------</span></span>
+<span id="cb21-2"><a href="aula13.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A 4 way interaction model</span></span>
+<span id="cb21-3"><a href="aula13.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#but in reality there is only 1 second order interaction</span></span>
+<span id="cb21-4"><a href="aula13.html#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------</span></span>
+<span id="cb21-5"><a href="aula13.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb21-6"><a href="aula13.html#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#get a response variable</span></span>
+<span id="cb21-7"><a href="aula13.html#cb21-7" aria-hidden="true" tabindex="-1"></a>xs1<span class="ot">=</span><span class="fu">runif</span>(n,<span class="dv">30</span>,<span class="dv">90</span>)</span>
+<span id="cb21-8"><a href="aula13.html#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#get a second variable</span></span>
+<span id="cb21-9"><a href="aula13.html#cb21-9" aria-hidden="true" tabindex="-1"></a>xs2<span class="ot">=</span><span class="fu">rgamma</span>(n,<span class="dv">10</span>,<span class="dv">10</span>)</span>
+<span id="cb21-10"><a href="aula13.html#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#get a response variable</span></span>
+<span id="cb21-11"><a href="aula13.html#cb21-11" aria-hidden="true" tabindex="-1"></a>xs3<span class="ot">=</span><span class="fu">runif</span>(n,<span class="dv">3</span>,<span class="dv">6</span>)</span>
+<span id="cb21-12"><a href="aula13.html#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#get a second variable</span></span>
+<span id="cb21-13"><a href="aula13.html#cb21-13" aria-hidden="true" tabindex="-1"></a>xs4<span class="ot">=</span><span class="fu">rgamma</span>(n,<span class="dv">4</span>,<span class="dv">4</span>)</span>
+<span id="cb21-14"><a href="aula13.html#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">#define the linear predictor</span></span>
+<span id="cb21-15"><a href="aula13.html#cb21-15" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span><span class="dv">20</span><span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>xs1<span class="dv">-4</span><span class="sc">*</span>xs2<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span>xs1<span class="sc">*</span>xs2<span class="sc">+</span>xs3<span class="sc">+</span>xs4<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">2</span>)</span></code></pre></div>
+<p>After having created the data, we can fit a couple of models to it. Here we restrict ourselves to a wrong model with all the interactions possible, and one with just the correct (=true, since we know the data generating model) 2 way interaction between <code>xs1</code> and <code>xs2</code>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="aula13.html#cb22-1" aria-hidden="true" tabindex="-1"></a>modW<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs2<span class="sc">*</span>xs3<span class="sc">*</span>xs4)</span>
+<span id="cb22-2"><a href="aula13.html#cb22-2" aria-hidden="true" tabindex="-1"></a>modR<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2<span class="sc">+</span>xs3<span class="sc">+</span>xs4<span class="sc">+</span>xs1<span class="sc">:</span>xs2)</span></code></pre></div>
 <p>If we look at the 4 way interaction model</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="aula13.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modW)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="aula13.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modW)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1 * xs2 * xs3 * xs4)
@@ -519,9 +542,9 @@ div.csl-indent {
 ## Residual standard error: 1.053 on 84 degrees of freedom
 ## Multiple R-squared:  0.9999, Adjusted R-squared:  0.9999 
 ## F-statistic: 6.03e+04 on 15 and 84 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>we see several errors, namely type II errors associated with <code>xs2</code>, <code>xs3</code> and <code>xs4</code>! In other words, including interactions which are not real can mask the true influence of relevant variables!</p>
-<p>When we look at the right model, these go away, and all variables and the correct second order variable are considered significant (at the usual significance levels)</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="aula13.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modR)</span></code></pre></div>
+<p>we see several errors, namely type II errors associated with <code>xs2</code>, <code>xs3</code> and <code>xs4</code>! In other words, including interactions which are not real masked the true influence of relevant variables. It seems like the information available in the data is being spread too thin, with a fierce competition between multiple useless parameters, trying to explain the data and hence remain in the final model. Once the dust settles parameters that would not be different from 0 (and hence truly not relevant to explain the response) managed to capture some of the variability in the data and seem apparently useful to explain it.</p>
+<p>When we look at the right model, these spurious relations go away, and all the main effects as well as the correct second order interaction are considered significant at the usual significance levels.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="aula13.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modR)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs1 + xs2 + xs3 + xs4 + xs1:xs2)
@@ -544,24 +567,24 @@ div.csl-indent {
 ## Residual standard error: 1.054 on 94 degrees of freedom
 ## Multiple R-squared:  0.9999, Adjusted R-squared:  0.9999 
 ## F-statistic: 1.806e+05 on 5 and 94 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>Reassuringly, the right model is preferred in terms of AIC</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="aula13.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modW,modR)</span></code></pre></div>
+<p>Reassuringly, when these two models are compared, the right model is preferred in terms of AIC</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="aula13.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modW,modR)</span></code></pre></div>
 <pre><code>##      df      AIC
 ## modW 17 310.6238
 ## modR  7 302.0554</code></pre>
 <p>What would happen if we had not recorded some of the variables? Or if we considered different second order or even 3 order interactions? I experiment below just as an example creating additional 10 wrong models.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="aula13.html#cb26-1" aria-hidden="true" tabindex="-1"></a>modW1<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2<span class="sc">*</span>xs3)</span>
-<span id="cb26-2"><a href="aula13.html#cb26-2" aria-hidden="true" tabindex="-1"></a>modW2<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs2<span class="sc">+</span>xs3<span class="sc">*</span>xs4)</span>
-<span id="cb26-3"><a href="aula13.html#cb26-3" aria-hidden="true" tabindex="-1"></a>modW3<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs2<span class="sc">*</span>xs3)</span>
-<span id="cb26-4"><a href="aula13.html#cb26-4" aria-hidden="true" tabindex="-1"></a>modW4<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs3<span class="sc">*</span>xs4)</span>
-<span id="cb26-5"><a href="aula13.html#cb26-5" aria-hidden="true" tabindex="-1"></a>modW5<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2<span class="sc">+</span>xs3)</span>
-<span id="cb26-6"><a href="aula13.html#cb26-6" aria-hidden="true" tabindex="-1"></a>modW6<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs3<span class="sc">+</span>xs4)</span>
-<span id="cb26-7"><a href="aula13.html#cb26-7" aria-hidden="true" tabindex="-1"></a>modW7<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs2<span class="sc">+</span>xs3<span class="sc">+</span>xs4)</span>
-<span id="cb26-8"><a href="aula13.html#cb26-8" aria-hidden="true" tabindex="-1"></a>modW8<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs2)</span>
-<span id="cb26-9"><a href="aula13.html#cb26-9" aria-hidden="true" tabindex="-1"></a>modW9<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs3)</span>
-<span id="cb26-10"><a href="aula13.html#cb26-10" aria-hidden="true" tabindex="-1"></a>modW10<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs4)</span></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="aula13.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb27-2"><a href="aula13.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">AIC</span>(modW,modW1,modW2,modW3,modW4,modW5,modW6,modW7,modW8,modW9,modW10,modR))</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="aula13.html#cb29-1" aria-hidden="true" tabindex="-1"></a>modW1<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2<span class="sc">*</span>xs3)</span>
+<span id="cb29-2"><a href="aula13.html#cb29-2" aria-hidden="true" tabindex="-1"></a>modW2<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs2<span class="sc">+</span>xs3<span class="sc">*</span>xs4)</span>
+<span id="cb29-3"><a href="aula13.html#cb29-3" aria-hidden="true" tabindex="-1"></a>modW3<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs2<span class="sc">*</span>xs3)</span>
+<span id="cb29-4"><a href="aula13.html#cb29-4" aria-hidden="true" tabindex="-1"></a>modW4<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs3<span class="sc">*</span>xs4)</span>
+<span id="cb29-5"><a href="aula13.html#cb29-5" aria-hidden="true" tabindex="-1"></a>modW5<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2<span class="sc">+</span>xs3)</span>
+<span id="cb29-6"><a href="aula13.html#cb29-6" aria-hidden="true" tabindex="-1"></a>modW6<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs3<span class="sc">+</span>xs4)</span>
+<span id="cb29-7"><a href="aula13.html#cb29-7" aria-hidden="true" tabindex="-1"></a>modW7<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs2<span class="sc">+</span>xs3<span class="sc">+</span>xs4)</span>
+<span id="cb29-8"><a href="aula13.html#cb29-8" aria-hidden="true" tabindex="-1"></a>modW8<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs2)</span>
+<span id="cb29-9"><a href="aula13.html#cb29-9" aria-hidden="true" tabindex="-1"></a>modW9<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs3)</span>
+<span id="cb29-10"><a href="aula13.html#cb29-10" aria-hidden="true" tabindex="-1"></a>modW10<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs4)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="aula13.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb30-2"><a href="aula13.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">AIC</span>(modW,modW1,modW2,modW3,modW4,modW5,modW6,modW7,modW8,modW9,modW10,modR))</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -633,8 +656,14 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>If we had all variables, we would always get the correct model apparently (even if I did not implement a full search over the possible model space - a task for you !) but if some of the variables were not recorded, some errors might occur. Your task is to find them, just for fun… have fun!</p>
+<p>If we had all the 4 relevant variables available, we would possibly most of the time - here, considering just a random selection of 10 models - get the correct model. Nonetheless, this was just a single example, and I did not implement a full search over the possible model space. I leave it as a task for the reader. If some of the truly relevant variables were not recorded, or if some new variables not relevant to explain the response were collected instead, some errors might occur. Your task now is to create a few additional variables, not related to the response, and explore how often you make mistakes, and what do these mistakes tend to depend on, when you have available a partial subset of the variables that explain the response, plus a subset of variables that do not. Have fun!</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Hernan2020" class="csl-entry">
+Hernán, M. A., and J. M. Robins. 2020. <em>Causal Inference: What If</em>. Boca Raton: Chapman &amp; Hall/CRC.
 </div>
 </div>
             </section>
