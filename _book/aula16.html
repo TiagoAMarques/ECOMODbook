@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2021-10-20" />
+<meta name="date" content="2021-11-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -279,27 +279,27 @@ div.csl-indent {
 <h1><span class="header-section-number">Chapter 21</span> Class 16: 18 11 2020</h1>
 <div id="a-logistic-regression-example" class="section level2" number="21.1">
 <h2><span class="header-section-number">21.1</span> A logistic regression example</h2>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="aula16.html#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb420-2"><a href="aula16.html#cb420-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb420-3"><a href="aula16.html#cb420-3" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">200</span></span>
-<span id="cb420-4"><a href="aula16.html#cb420-4" aria-hidden="true" tabindex="-1"></a><span class="co">#a covariate</span></span>
-<span id="cb420-5"><a href="aula16.html#cb420-5" aria-hidden="true" tabindex="-1"></a>xs<span class="ot">=</span><span class="fu">runif</span>(n,<span class="sc">-</span><span class="dv">20</span>,<span class="dv">20</span>)</span>
-<span id="cb420-6"><a href="aula16.html#cb420-6" aria-hidden="true" tabindex="-1"></a><span class="co">#get the mean value</span></span>
-<span id="cb420-7"><a href="aula16.html#cb420-7" aria-hidden="true" tabindex="-1"></a>ilogit<span class="ot">=</span><span class="cf">function</span>(x){</span>
-<span id="cb420-8"><a href="aula16.html#cb420-8" aria-hidden="true" tabindex="-1"></a>  il<span class="ot">=</span><span class="fu">exp</span>(x)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(x))</span>
-<span id="cb420-9"><a href="aula16.html#cb420-9" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(il)</span>
-<span id="cb420-10"><a href="aula16.html#cb420-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb420-11"><a href="aula16.html#cb420-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb420-12"><a href="aula16.html#cb420-12" aria-hidden="true" tabindex="-1"></a>Ey<span class="ot">=</span><span class="fu">ilogit</span>(<span class="dv">2</span><span class="fl">+0.4</span><span class="sc">*</span>xs)</span>
-<span id="cb420-13"><a href="aula16.html#cb420-13" aria-hidden="true" tabindex="-1"></a><span class="co">#generate data</span></span>
-<span id="cb420-14"><a href="aula16.html#cb420-14" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span><span class="fu">rbinom</span>(n,<span class="at">size =</span> <span class="fu">rep</span>(<span class="dv">1</span>,n),<span class="at">prob =</span> Ey)</span>
-<span id="cb420-15"><a href="aula16.html#cb420-15" aria-hidden="true" tabindex="-1"></a><span class="co">#plot data</span></span>
-<span id="cb420-16"><a href="aula16.html#cb420-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
-<span id="cb420-17"><a href="aula16.html#cb420-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb420-18"><a href="aula16.html#cb420-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb420-19"><a href="aula16.html#cb420-19" aria-hidden="true" tabindex="-1"></a><span class="co">#run a glm</span></span>
-<span id="cb420-20"><a href="aula16.html#cb420-20" aria-hidden="true" tabindex="-1"></a>glmLR1<span class="ot">=</span><span class="fu">glm</span>(ys<span class="sc">~</span>xs,<span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb420-21"><a href="aula16.html#cb420-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmLR1)</span></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="aula16.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb432-2"><a href="aula16.html#cb432-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb432-3"><a href="aula16.html#cb432-3" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">200</span></span>
+<span id="cb432-4"><a href="aula16.html#cb432-4" aria-hidden="true" tabindex="-1"></a><span class="co">#a covariate</span></span>
+<span id="cb432-5"><a href="aula16.html#cb432-5" aria-hidden="true" tabindex="-1"></a>xs<span class="ot">=</span><span class="fu">runif</span>(n,<span class="sc">-</span><span class="dv">20</span>,<span class="dv">20</span>)</span>
+<span id="cb432-6"><a href="aula16.html#cb432-6" aria-hidden="true" tabindex="-1"></a><span class="co">#get the mean value</span></span>
+<span id="cb432-7"><a href="aula16.html#cb432-7" aria-hidden="true" tabindex="-1"></a>ilogit<span class="ot">=</span><span class="cf">function</span>(x){</span>
+<span id="cb432-8"><a href="aula16.html#cb432-8" aria-hidden="true" tabindex="-1"></a>  il<span class="ot">=</span><span class="fu">exp</span>(x)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(x))</span>
+<span id="cb432-9"><a href="aula16.html#cb432-9" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(il)</span>
+<span id="cb432-10"><a href="aula16.html#cb432-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb432-11"><a href="aula16.html#cb432-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb432-12"><a href="aula16.html#cb432-12" aria-hidden="true" tabindex="-1"></a>Ey<span class="ot">=</span><span class="fu">ilogit</span>(<span class="dv">2</span><span class="fl">+0.4</span><span class="sc">*</span>xs)</span>
+<span id="cb432-13"><a href="aula16.html#cb432-13" aria-hidden="true" tabindex="-1"></a><span class="co">#generate data</span></span>
+<span id="cb432-14"><a href="aula16.html#cb432-14" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span><span class="fu">rbinom</span>(n,<span class="at">size =</span> <span class="fu">rep</span>(<span class="dv">1</span>,n),<span class="at">prob =</span> Ey)</span>
+<span id="cb432-15"><a href="aula16.html#cb432-15" aria-hidden="true" tabindex="-1"></a><span class="co">#plot data</span></span>
+<span id="cb432-16"><a href="aula16.html#cb432-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
+<span id="cb432-17"><a href="aula16.html#cb432-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb432-18"><a href="aula16.html#cb432-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb432-19"><a href="aula16.html#cb432-19" aria-hidden="true" tabindex="-1"></a><span class="co">#run a glm</span></span>
+<span id="cb432-20"><a href="aula16.html#cb432-20" aria-hidden="true" tabindex="-1"></a>glmLR1<span class="ot">=</span><span class="fu">glm</span>(ys<span class="sc">~</span>xs,<span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb432-21"><a href="aula16.html#cb432-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmLR1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = ys ~ xs, family = binomial(link = &quot;logit&quot;))
@@ -322,15 +322,15 @@ div.csl-indent {
 ## AIC: 106.7
 ## 
 ## Number of Fisher Scoring iterations: 7</code></pre>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="aula16.html#cb422-1" aria-hidden="true" tabindex="-1"></a>xs4pred<span class="ot">=</span><span class="fu">seq</span>(<span class="fu">min</span>(xs),<span class="fu">max</span>(xs),<span class="at">length=</span><span class="dv">100</span>)</span>
-<span id="cb422-2"><a href="aula16.html#cb422-2" aria-hidden="true" tabindex="-1"></a>predglmLR1<span class="ot">=</span><span class="fu">predict</span>(glmLR1,<span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">xs=</span>xs4pred),</span>
-<span id="cb422-3"><a href="aula16.html#cb422-3" aria-hidden="true" tabindex="-1"></a><span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
-<span id="cb422-4"><a href="aula16.html#cb422-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb422-5"><a href="aula16.html#cb422-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</span>
-<span id="cb422-6"><a href="aula16.html#cb422-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
-<span id="cb422-7"><a href="aula16.html#cb422-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xs4pred,predglmLR1,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="aula16.html#cb423-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmLR1)</span></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="aula16.html#cb434-1" aria-hidden="true" tabindex="-1"></a>xs4pred<span class="ot">=</span><span class="fu">seq</span>(<span class="fu">min</span>(xs),<span class="fu">max</span>(xs),<span class="at">length=</span><span class="dv">100</span>)</span>
+<span id="cb434-2"><a href="aula16.html#cb434-2" aria-hidden="true" tabindex="-1"></a>predglmLR1<span class="ot">=</span><span class="fu">predict</span>(glmLR1,<span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">xs=</span>xs4pred),</span>
+<span id="cb434-3"><a href="aula16.html#cb434-3" aria-hidden="true" tabindex="-1"></a><span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb434-4"><a href="aula16.html#cb434-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb434-5"><a href="aula16.html#cb434-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</span>
+<span id="cb434-6"><a href="aula16.html#cb434-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
+<span id="cb434-7"><a href="aula16.html#cb434-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xs4pred,predglmLR1,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="aula16.html#cb435-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmLR1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = ys ~ xs, family = binomial(link = &quot;logit&quot;))
@@ -353,39 +353,39 @@ div.csl-indent {
 ## AIC: 106.7
 ## 
 ## Number of Fisher Scoring iterations: 7</code></pre>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="aula16.html#cb425-1" aria-hidden="true" tabindex="-1"></a><span class="co">#check model fit</span></span>
-<span id="cb425-2"><a href="aula16.html#cb425-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="fl">0.2</span>))</span>
-<span id="cb425-3"><a href="aula16.html#cb425-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glmLR1)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="aula16.html#cb437-1" aria-hidden="true" tabindex="-1"></a><span class="co">#check model fit</span></span>
+<span id="cb437-2"><a href="aula16.html#cb437-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="fl">0.2</span>))</span>
+<span id="cb437-3"><a href="aula16.html#cb437-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(glmLR1)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
 </div>
 <div id="about-multicollinearity" class="section level2" number="21.2">
 <h2><span class="header-section-number">21.2</span> About multicollinearity</h2>
 <p>(this is probably best way before, in the linear model stuff… any way, I presented it here as this topic started from a student question)</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="aula16.html#cb426-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Código da aula 11</span></span>
-<span id="cb426-2"><a href="aula16.html#cb426-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb426-3"><a href="aula16.html#cb426-3" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------------------</span></span>
-<span id="cb426-4"><a href="aula16.html#cb426-4" aria-hidden="true" tabindex="-1"></a><span class="co"># When good models go wrong as </span></span>
-<span id="cb426-5"><a href="aula16.html#cb426-5" aria-hidden="true" tabindex="-1"></a><span class="co"># multicollinearity kicks in</span></span>
-<span id="cb426-6"><a href="aula16.html#cb426-6" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------------------</span></span>
-<span id="cb426-7"><a href="aula16.html#cb426-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb426-8"><a href="aula16.html#cb426-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb426-9"><a href="aula16.html#cb426-9" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">100</span></span>
-<span id="cb426-10"><a href="aula16.html#cb426-10" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>)</span>
-<span id="cb426-11"><a href="aula16.html#cb426-11" aria-hidden="true" tabindex="-1"></a>ncovs<span class="ot">=</span>(<span class="dv">36-6</span>)<span class="sc">/</span><span class="dv">2</span></span>
-<span id="cb426-12"><a href="aula16.html#cb426-12" aria-hidden="true" tabindex="-1"></a>covs<span class="ot">&lt;-</span> <span class="fu">rnorm</span>(ncovs,<span class="at">mean=</span><span class="dv">10</span>,<span class="at">sd=</span><span class="dv">2</span>)</span>
-<span id="cb426-13"><a href="aula16.html#cb426-13" aria-hidden="true" tabindex="-1"></a>varcovars<span class="ot">=</span><span class="fu">matrix</span>(<span class="cn">NA</span>,<span class="dv">6</span>,<span class="dv">6</span>)</span>
-<span id="cb426-14"><a href="aula16.html#cb426-14" aria-hidden="true" tabindex="-1"></a>varcovars[<span class="fu">lower.tri</span>(varcovars)]<span class="ot">=</span>covs</span>
-<span id="cb426-15"><a href="aula16.html#cb426-15" aria-hidden="true" tabindex="-1"></a>varcovars<span class="ot">=</span><span class="fu">t</span>(varcovars)</span>
-<span id="cb426-16"><a href="aula16.html#cb426-16" aria-hidden="true" tabindex="-1"></a>varcovars[<span class="fu">lower.tri</span>(varcovars)]<span class="ot">=</span>covs</span>
-<span id="cb426-17"><a href="aula16.html#cb426-17" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(varcovars)<span class="ot">=</span>means</span>
-<span id="cb426-18"><a href="aula16.html#cb426-18" aria-hidden="true" tabindex="-1"></a>varcovars<span class="ot">=</span><span class="fu">t</span>(varcovars) <span class="sc">%*%</span> varcovars</span>
-<span id="cb426-19"><a href="aula16.html#cb426-19" aria-hidden="true" tabindex="-1"></a>indvars <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="at">n =</span> n, <span class="at">mu=</span>means, <span class="at">Sigma=</span>varcovars)</span>
-<span id="cb426-20"><a href="aula16.html#cb426-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb426-21"><a href="aula16.html#cb426-21" aria-hidden="true" tabindex="-1"></a><span class="co"># we can see that we have high correlations </span></span>
-<span id="cb426-22"><a href="aula16.html#cb426-22" aria-hidden="true" tabindex="-1"></a><span class="co">#across the board in explanatory variables</span></span>
-<span id="cb426-23"><a href="aula16.html#cb426-23" aria-hidden="true" tabindex="-1"></a>indvars<span class="ot">=</span><span class="fu">as.data.frame</span>(indvars)</span>
-<span id="cb426-24"><a href="aula16.html#cb426-24" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(indvars)<span class="ot">=</span><span class="fu">paste0</span>(<span class="st">&quot;X&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb426-25"><a href="aula16.html#cb426-25" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(indvars)</span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="aula16.html#cb438-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Código da aula 11</span></span>
+<span id="cb438-2"><a href="aula16.html#cb438-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb438-3"><a href="aula16.html#cb438-3" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------------------</span></span>
+<span id="cb438-4"><a href="aula16.html#cb438-4" aria-hidden="true" tabindex="-1"></a><span class="co"># When good models go wrong as </span></span>
+<span id="cb438-5"><a href="aula16.html#cb438-5" aria-hidden="true" tabindex="-1"></a><span class="co"># multicollinearity kicks in</span></span>
+<span id="cb438-6"><a href="aula16.html#cb438-6" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------------------</span></span>
+<span id="cb438-7"><a href="aula16.html#cb438-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb438-8"><a href="aula16.html#cb438-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb438-9"><a href="aula16.html#cb438-9" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">100</span></span>
+<span id="cb438-10"><a href="aula16.html#cb438-10" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>)</span>
+<span id="cb438-11"><a href="aula16.html#cb438-11" aria-hidden="true" tabindex="-1"></a>ncovs<span class="ot">=</span>(<span class="dv">36-6</span>)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb438-12"><a href="aula16.html#cb438-12" aria-hidden="true" tabindex="-1"></a>covs<span class="ot">&lt;-</span> <span class="fu">rnorm</span>(ncovs,<span class="at">mean=</span><span class="dv">10</span>,<span class="at">sd=</span><span class="dv">2</span>)</span>
+<span id="cb438-13"><a href="aula16.html#cb438-13" aria-hidden="true" tabindex="-1"></a>varcovars<span class="ot">=</span><span class="fu">matrix</span>(<span class="cn">NA</span>,<span class="dv">6</span>,<span class="dv">6</span>)</span>
+<span id="cb438-14"><a href="aula16.html#cb438-14" aria-hidden="true" tabindex="-1"></a>varcovars[<span class="fu">lower.tri</span>(varcovars)]<span class="ot">=</span>covs</span>
+<span id="cb438-15"><a href="aula16.html#cb438-15" aria-hidden="true" tabindex="-1"></a>varcovars<span class="ot">=</span><span class="fu">t</span>(varcovars)</span>
+<span id="cb438-16"><a href="aula16.html#cb438-16" aria-hidden="true" tabindex="-1"></a>varcovars[<span class="fu">lower.tri</span>(varcovars)]<span class="ot">=</span>covs</span>
+<span id="cb438-17"><a href="aula16.html#cb438-17" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(varcovars)<span class="ot">=</span>means</span>
+<span id="cb438-18"><a href="aula16.html#cb438-18" aria-hidden="true" tabindex="-1"></a>varcovars<span class="ot">=</span><span class="fu">t</span>(varcovars) <span class="sc">%*%</span> varcovars</span>
+<span id="cb438-19"><a href="aula16.html#cb438-19" aria-hidden="true" tabindex="-1"></a>indvars <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="at">n =</span> n, <span class="at">mu=</span>means, <span class="at">Sigma=</span>varcovars)</span>
+<span id="cb438-20"><a href="aula16.html#cb438-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb438-21"><a href="aula16.html#cb438-21" aria-hidden="true" tabindex="-1"></a><span class="co"># we can see that we have high correlations </span></span>
+<span id="cb438-22"><a href="aula16.html#cb438-22" aria-hidden="true" tabindex="-1"></a><span class="co">#across the board in explanatory variables</span></span>
+<span id="cb438-23"><a href="aula16.html#cb438-23" aria-hidden="true" tabindex="-1"></a>indvars<span class="ot">=</span><span class="fu">as.data.frame</span>(indvars)</span>
+<span id="cb438-24"><a href="aula16.html#cb438-24" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(indvars)<span class="ot">=</span><span class="fu">paste0</span>(<span class="st">&quot;X&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb438-25"><a href="aula16.html#cb438-25" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(indvars)</span></code></pre></div>
 <pre><code>##           X1         X2         X3         X4         X5         X6
 ## 1   9.541304   4.656261   3.519952   6.511551  17.806161  14.773197
 ## 2   3.994445  11.434166  20.327380  24.241666  15.890631  31.525666
@@ -393,7 +393,7 @@ div.csl-indent {
 ## 4  24.192031  24.081062  21.521784  24.605110  27.886290  31.084587
 ## 5 -45.216392 -46.471634 -42.049067 -46.874143 -43.935034 -51.421911
 ## 6  -1.530172  -2.414988   6.496899   5.861754   9.758315   6.201106</code></pre>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="aula16.html#cb428-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(indvars),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="aula16.html#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(indvars),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##      X1   X2   X3   X4   X5   X6
 ## X1 1.00 0.91 0.83 0.84 0.95 0.88
 ## X2 0.91 1.00 0.91 0.95 0.96 0.97
@@ -401,13 +401,13 @@ div.csl-indent {
 ## X4 0.84 0.95 0.98 1.00 0.93 0.98
 ## X5 0.95 0.96 0.92 0.93 1.00 0.96
 ## X6 0.88 0.97 0.98 0.98 0.96 1.00</code></pre>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="aula16.html#cb430-1" aria-hidden="true" tabindex="-1"></a>ys <span class="ot">&lt;-</span><span class="dv">510</span><span class="sc">+</span><span class="dv">4</span><span class="sc">*</span>indvars<span class="sc">$</span>X1<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="at">mean=</span><span class="dv">0</span>,<span class="at">sd=</span><span class="dv">200</span>)</span>
-<span id="cb430-2"><a href="aula16.html#cb430-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
-<span id="cb430-3"><a href="aula16.html#cb430-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1)</span>
-<span id="cb430-4"><a href="aula16.html#cb430-4" aria-hidden="true" tabindex="-1"></a>lmX1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1)</span>
-<span id="cb430-5"><a href="aula16.html#cb430-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lmX1)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="aula16.html#cb431-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1)</span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="aula16.html#cb442-1" aria-hidden="true" tabindex="-1"></a>ys <span class="ot">&lt;-</span><span class="dv">510</span><span class="sc">+</span><span class="dv">4</span><span class="sc">*</span>indvars<span class="sc">$</span>X1<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="at">mean=</span><span class="dv">0</span>,<span class="at">sd=</span><span class="dv">200</span>)</span>
+<span id="cb442-2"><a href="aula16.html#cb442-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb442-3"><a href="aula16.html#cb442-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1)</span>
+<span id="cb442-4"><a href="aula16.html#cb442-4" aria-hidden="true" tabindex="-1"></a>lmX1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1)</span>
+<span id="cb442-5"><a href="aula16.html#cb442-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lmX1)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="aula16.html#cb443-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X1)
@@ -426,11 +426,11 @@ div.csl-indent {
 ## Residual standard error: 184.1 on 98 degrees of freedom
 ## Multiple R-squared:  0.1324, Adjusted R-squared:  0.1235 
 ## F-statistic: 14.95 on 1 and 98 DF,  p-value: 0.0001984</code></pre>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="aula16.html#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X2)</span>
-<span id="cb433-2"><a href="aula16.html#cb433-2" aria-hidden="true" tabindex="-1"></a>lmX2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X2)</span>
-<span id="cb433-3"><a href="aula16.html#cb433-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lmX2)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="aula16.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX2)</span></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="aula16.html#cb445-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X2)</span>
+<span id="cb445-2"><a href="aula16.html#cb445-2" aria-hidden="true" tabindex="-1"></a>lmX2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X2)</span>
+<span id="cb445-3"><a href="aula16.html#cb445-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lmX2)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="aula16.html#cb446-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X2)
@@ -449,9 +449,9 @@ div.csl-indent {
 ## Residual standard error: 185.5 on 98 degrees of freedom
 ## Multiple R-squared:  0.1194, Adjusted R-squared:  0.1104 
 ## F-statistic: 13.29 on 1 and 98 DF,  p-value: 0.00043</code></pre>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="aula16.html#cb436-1" aria-hidden="true" tabindex="-1"></a><span class="co">#one error type I + 1 error type 2</span></span>
-<span id="cb436-2"><a href="aula16.html#cb436-2" aria-hidden="true" tabindex="-1"></a>lmX1X2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X2)</span>
-<span id="cb436-3"><a href="aula16.html#cb436-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X2)</span></code></pre></div>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="aula16.html#cb448-1" aria-hidden="true" tabindex="-1"></a><span class="co">#one error type I + 1 error type 2</span></span>
+<span id="cb448-2"><a href="aula16.html#cb448-2" aria-hidden="true" tabindex="-1"></a>lmX1X2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X2)</span>
+<span id="cb448-3"><a href="aula16.html#cb448-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X1 + indvars$X2)
@@ -471,8 +471,8 @@ div.csl-indent {
 ## Residual standard error: 184.9 on 97 degrees of freedom
 ## Multiple R-squared:  0.1334, Adjusted R-squared:  0.1155 
 ## F-statistic: 7.466 on 2 and 97 DF,  p-value: 0.000964</code></pre>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="aula16.html#cb438-1" aria-hidden="true" tabindex="-1"></a>lmX3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X3)</span>
-<span id="cb438-2"><a href="aula16.html#cb438-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX3)</span></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="aula16.html#cb450-1" aria-hidden="true" tabindex="-1"></a>lmX3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X3)</span>
+<span id="cb450-2"><a href="aula16.html#cb450-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX3)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X3)
@@ -491,8 +491,8 @@ div.csl-indent {
 ## Residual standard error: 190.8 on 98 degrees of freedom
 ## Multiple R-squared:  0.06829,    Adjusted R-squared:  0.05878 
 ## F-statistic: 7.183 on 1 and 98 DF,  p-value: 0.008637</code></pre>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="aula16.html#cb440-1" aria-hidden="true" tabindex="-1"></a>lmX1X3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X3)</span>
-<span id="cb440-2"><a href="aula16.html#cb440-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X3)</span></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="aula16.html#cb452-1" aria-hidden="true" tabindex="-1"></a>lmX1X3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X3)</span>
+<span id="cb452-2"><a href="aula16.html#cb452-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X3)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X1 + indvars$X3)
@@ -512,8 +512,8 @@ div.csl-indent {
 ## Residual standard error: 184.5 on 97 degrees of freedom
 ## Multiple R-squared:  0.1377, Adjusted R-squared:  0.1199 
 ## F-statistic: 7.745 on 2 and 97 DF,  p-value: 0.0007572</code></pre>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="aula16.html#cb442-1" aria-hidden="true" tabindex="-1"></a>lmX4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X4)</span>
-<span id="cb442-2"><a href="aula16.html#cb442-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX4)</span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="aula16.html#cb454-1" aria-hidden="true" tabindex="-1"></a>lmX4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X4)</span>
+<span id="cb454-2"><a href="aula16.html#cb454-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX4)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X4)
@@ -532,8 +532,8 @@ div.csl-indent {
 ## Residual standard error: 188.9 on 98 degrees of freedom
 ## Multiple R-squared:  0.08658,    Adjusted R-squared:  0.07726 
 ## F-statistic: 9.289 on 1 and 98 DF,  p-value: 0.002964</code></pre>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="aula16.html#cb444-1" aria-hidden="true" tabindex="-1"></a>lmX1X4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X4)</span>
-<span id="cb444-2"><a href="aula16.html#cb444-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X4)</span></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="aula16.html#cb456-1" aria-hidden="true" tabindex="-1"></a>lmX1X4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X4)</span>
+<span id="cb456-2"><a href="aula16.html#cb456-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X4)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X1 + indvars$X4)
@@ -553,8 +553,8 @@ div.csl-indent {
 ## Residual standard error: 185 on 97 degrees of freedom
 ## Multiple R-squared:  0.1328, Adjusted R-squared:  0.1149 
 ## F-statistic: 7.428 on 2 and 97 DF,  p-value: 0.0009964</code></pre>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="aula16.html#cb446-1" aria-hidden="true" tabindex="-1"></a>lmX5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X5)</span>
-<span id="cb446-2"><a href="aula16.html#cb446-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX5)</span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="aula16.html#cb458-1" aria-hidden="true" tabindex="-1"></a>lmX5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X5)</span>
+<span id="cb458-2"><a href="aula16.html#cb458-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX5)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X5)
@@ -573,8 +573,8 @@ div.csl-indent {
 ## Residual standard error: 186.2 on 98 degrees of freedom
 ## Multiple R-squared:  0.1122, Adjusted R-squared:  0.1032 
 ## F-statistic: 12.39 on 1 and 98 DF,  p-value: 0.0006565</code></pre>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="aula16.html#cb448-1" aria-hidden="true" tabindex="-1"></a>lmX1X5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X5)</span>
-<span id="cb448-2"><a href="aula16.html#cb448-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X5)</span></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="aula16.html#cb460-1" aria-hidden="true" tabindex="-1"></a>lmX1X5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X5)</span>
+<span id="cb460-2"><a href="aula16.html#cb460-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X5)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X1 + indvars$X5)
@@ -594,8 +594,8 @@ div.csl-indent {
 ## Residual standard error: 184.9 on 97 degrees of freedom
 ## Multiple R-squared:  0.1335, Adjusted R-squared:  0.1157 
 ## F-statistic: 7.474 on 2 and 97 DF,  p-value: 0.0009573</code></pre>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="aula16.html#cb450-1" aria-hidden="true" tabindex="-1"></a>lmX6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X6)</span>
-<span id="cb450-2"><a href="aula16.html#cb450-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX6)</span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="aula16.html#cb462-1" aria-hidden="true" tabindex="-1"></a>lmX6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X6)</span>
+<span id="cb462-2"><a href="aula16.html#cb462-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX6)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X6)
@@ -614,8 +614,8 @@ div.csl-indent {
 ## Residual standard error: 188.1 on 98 degrees of freedom
 ## Multiple R-squared:  0.09443,    Adjusted R-squared:  0.08519 
 ## F-statistic: 10.22 on 1 and 98 DF,  p-value: 0.001871</code></pre>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="aula16.html#cb452-1" aria-hidden="true" tabindex="-1"></a>lmX1X6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X6)</span>
-<span id="cb452-2"><a href="aula16.html#cb452-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X6)</span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="aula16.html#cb464-1" aria-hidden="true" tabindex="-1"></a>lmX1X6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X6)</span>
+<span id="cb464-2"><a href="aula16.html#cb464-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X6)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ indvars$X1 + indvars$X6)
@@ -635,7 +635,7 @@ div.csl-indent {
 ## Residual standard error: 185 on 97 degrees of freedom
 ## Multiple R-squared:  0.1332, Adjusted R-squared:  0.1154 
 ## F-statistic: 7.455 on 2 and 97 DF,  p-value: 0.0009738</code></pre>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="aula16.html#cb454-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(lmX1,lmX2,lmX3,lmX4,lmX5,lmX6,lmX1X2,lmX1X3,lmX1X4,lmX1X5,lmX1X6)</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="aula16.html#cb466-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(lmX1,lmX2,lmX3,lmX4,lmX5,lmX6,lmX1X2,lmX1X3,lmX1X4,lmX1X5,lmX1X6)</span></code></pre></div>
 <pre><code>##        df      AIC
 ## lmX1    3 1330.863
 ## lmX2    3 1332.348

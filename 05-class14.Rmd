@@ -78,6 +78,45 @@ plot(xs,ilogi(lp(0.9,12,xs)),ylim=c(0,1))
 abline(h=0:1,lty=1)
 ```
 
+In the following, I deal with the following task. Make up a predictor with  2 variables, create the inverse functions for the
+1. log link function 
+2. logistic link function
+and convince yourself that, irrespective of what the parameter values might be for the covariates, or the value of the covariates used for that matter, the predictions are always bounded to be, respectively
+1. Positive, or 
+2. between 0 and 1
+This illustrates the power of a link function to constrain the predictions to an admissiblke range, a strong advantage of the GLM framework when compared to the LM framework.
+
+
+```{r}
+# make up a linear predictor
+set.seed(6)
+#intercept
+beta0 <- -2
+#the coeficint for x1
+beta1 <- -0.023
+# the coefficeint for x2
+beta2 <- +0.04
+
+n<-100
+x1s<-runif(n,10,30)
+x2s<-runif(n,1,2)
+
+par(mfrow=c(1,3),mar=c(4,4,3,0))
+#LINEAR PREDICTOR
+lp<-beta0+beta1*x1s+beta2*x2s
+boxplot(lp,main="Linear predictor")
+# RESPONSE: but we know, that there's a log link involved
+Ey<-exp(lp)
+boxplot(Ey,main="Log link")
+#rESPONSE: but we know, that there's a logit link involved
+Ey<-1/(1+exp(lp))
+boxplot(Ey,main="Logit link")
+
+
+```
+
+
+
 ## Most useful GLM Families 
 
 These are arguably
@@ -121,33 +160,29 @@ Eys1<-exp(lp1)
 ys1<-rpois(n,Eys1)
 ```
 
-and then we plot the data
+We can plot side by side the linear predictor, hence in the scale of the link function, the mean value of the response, and then a realization of the process, that is, the actual data
 
 ```{r glm2}
-par(mfrow=c(1,1))
-plot(ys1~xs1,xlab="Lizard length (mm)",ylab="Lizard weight (g)")
-#plot(ys1~xs2)
+par(mfrow=c(1,3),mar=c(4,4,3,0.1))
+plot(xs1,lp1,main="Linear predictor",xlab="Lizard length (mm)",ylab="lp1")
+plot(xs1,Eys1,main="Response mean value",xlab="Lizard length (mm)",ylab="Eys1")
+plot(xs1,ys1,main="The observed data",xlab="Lizard length (mm)",ylab="Lizard weight (g)")
 ```
 
-Note that, while the model is linear on the scale of the link function, the relationship is not linear on the scale of the response. This illustrates some additional flexibility compared to the Gaussian linear model. The fact that the model is linear on the link scale is easily perceived from the code, and illustrated below:
+Note that, while the model is linear on the scale of the link function, the relationship is not linear on the scale of the response. This illustrates some additional flexibility compared to the Gaussian linear model. The fact that the model is linear on the link scale is easily perceived from the code, and transparent in the plot above, left panel.
 
-```{r}
-plot(lp1~xs1,xlab="Lizard length (mm)",ylab="Mean lizard weight in the scale of the link function")
-```
+Now, we can fit some models to the simulated data using the function `glm`. Note just as for the `lm` function we need to define the formula that represents the model, and we need to use the argument `data` to let `lm` know where to find the variables. The novelty lies in the `family` argument, that sets the assumed distribution for the response, and eventually also allows you to specify a link function.
 
-
-Now, we can fit some models to data using the function `glm`. Note just as for the `lm` function we need to define the formula that represents the model, and we need to use the argumet `data` to let `lm` know where to find the variables. The novelty lies in the `family` argument, that sets the assumed distribution for the response.
-
-Here we fit 3 models, the real model, a Poisson response with a log link, and 2 wrong models, the standard linear model (both with `lm` and `glm` with Gaussian response, to illustrate once again these are one and the same), and the Gaussian model with a log link function. The latter assumes Gaussian errors, but forcing predictions to be strictly positive.
+Here we fit 3 models, the real model, a Poisson response with a log link, and 2 wrong models, the standard linear model, which assumes a Gaussian response and the identity link, and the Gaussian model with a log link function. The latter assumes Gaussian errors, but forcing predictions to be strictly positive. Note that we implement the Gaussian identity link model both using `lm` and `glm`, to illustrate once again these are one and the same (and to remind you that if you forget to define the family in `glm`, you're just fitting the standard linear model by default).
 
 ```{r glm3}
 lm1A<-lm(ys1~xs1)
-lm1B<-glm(ys1~xs1)
+lm1B<-glm(ys1~xs1) #just the same same as glm(ys1~xs1,family=gaussian(link="identity"))
 glmPoi<-glm(ys1~xs1,family=poisson(link="log"))
 glmGau<-glm(ys1~xs1,family=gaussian(link="log"))
 ```
 
-We can look at the outcome of these overlaid on the data. The fundamental aspect when predicting from a `glm` model is that we need to be careful with the `type` argument. By default the predictions are on the scale of the link function, hardly helpful for you as a practicioner. Hence, you need to set `type="response"`. I can't say I'd be a millionaire if I had a penny every time a student could not understand the predictions of a `glm` model because they are looking at predictions on the link scale, but I would nonethelss probably be able to buy a decent meal!
+We can look at the outcome of these overlaid on the data. The fundamental aspect when predicting from a `glm` model is that we need to be careful with the `type` argument. By default the predictions are on the scale of the link function, hardly helpful for you as a practitioner. Hence, you need to set `type="response"`. I can't say I'd be a millionaire if I had a penny every time a student could not understand the predictions of a `glm` model because they are looking at predictions on the link scale, but I would nonetheless probably be able to buy a decent meal!
 
 ```{r glm4}
 plot(ys1~xs1)
@@ -164,36 +199,37 @@ lines(xs,predsglmGau,col=5,lty=2,lwd=2)
 legend("topleft",legend=c("Linear model via lm","linear model via glm","Poisson GLM","Gaussian GLM"),lwd==c(3,3,2,2),col=c(2,3,4,5),lty=c(2,3,1,2),inset=0.05)
 ```
 
-As expected, the linear model does the wrong thing. it was the wrong model, and it even produces inadmissible values. As an exemple, a lizzard with 30mm length would be estimated to have `r round(predict(lm1A,newdata=data.frame(xs1=30)),2)` grams, and I guess you have never seen a lizard of negative weight! Both the Poisson and the Gaussian with the log link provide the same predictions. So are they equivalent? Not really, bacause the different response assumptions imply that the variances around predictions will be different too.
+As expected, the linear model does the wrong thing. It was the wrong model, and it even produces inadmissible values. As an example, a lizard with 30mm length would be estimated to have `r round(predict(lm1A,newdata=data.frame(xs1=30)),2)` grams, and I guess you have never seen a lizard of negative weight! Both the Poisson and the Gaussian with the log link provide equivalent point predictions. So are they equivalent? Not really, because the different response assumptions imply that the variances around predictions will be different too.
 
-So how could we have spotted the Gaussian was the wrong model? Well, typically we evaluate the goodness of fit of a model by a variety of ways, but visual diagnostics based on the model residuals can be especially revealing. Clearly, the Gaussian model is incorrect as the variance is increasing with the mean. This should not come to you as a surprise, since the true model was Poisson and in the Poisson the variance is equal to the mean.
+The usual question arises. Here we know what the generating model was, so we can tell which one is best. But how could we have spotted the Gaussian with the log link was the wrong model? Typically we evaluate the goodness of fit of a model by a variety of ways, but visual diagnostics based on the model residuals can be especially revealing. Clearly, the Gaussian model is incorrect, as the variance of the residuals is increasing with the mean, and the qqplot of the residuals indicates considerable lack of fit. This should not come to you as a surprise, since the true model was Poisson and in the Poisson the variance is equal to the mean.
 
 ```{r glm6}
-par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))
+par(mfrow=c(2,2),mar=c(4,4,2.5,0.5))
 plot(glmGau)
 ```
 
-On the other hand, the diagnostics for the Poisson model do not show any reasons to worry.
+On the other hand, the diagnostics for the Poisson model do not show any reasons to worry. (Something not adding up here re the explanation. How to answer the question: if predictions are the same with both models and the observations are the same by definition, how is it that the residuals differ?).
 
 ```{r glm7}
-par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))
+par(mfrow=c(2,2),mar=c(4,4,2.5,0.5))
 plot(glmPoi)
 ```
 
-A really nice and interesting evaluation of model adequacy, or in other words, a different way of looking that the plots produced by default by the `plot` of a model object, is in the package `performance`, part of the `easystats` family
+A really nice and interesting evaluation of model adequacy, or in other words, a different way of looking at the information on the plots produced by default by the `plot` over a `glm` model object, is in the package `performance`, part of the `easystats` family
 
 ```{r,warning=~FALSE,message=FALSE}
 library(performance)
 check_model(glmPoi)
 ```
 
-
-Additionally, if we would evaluate the AIC for these contending models, the Poisson model would be by far the most parsimonious. We have not talked about model selection yet, but AIC is a model selection criteria that favours models that fit to the data while penalizing for the number of parameters in the model [e.g. @Aho2014].
+Additionally, if we would evaluate the AIC for these contending models, the Poisson model would be by far the most parsimonious. We have not talked about model selection yet, but AIC is a model selection criteria that favours models that fit to the data while penalizing for the number of parameters in the model [e.g. @Aho2014]. The lowest AIC represents the most parsimonious model, hence the optimal fit given the amount of data and the number of parameters in the model.
 
 ```{r glm5}
 library(knitr)
 kable(AIC(lm1A,lm1B,glmGau,glmPoi))
 ```
 
+## An example of a GLM as a detail within a conceptualization framework
 
+Present the example of @Filipe2004 here? How we had a question to address, data that contained information about it, and the conceptualization that went on to make the link between the data and the answer. Or as a separate chapter that ronds things up? Might make sense in this class, but somewhere else in a book?
 

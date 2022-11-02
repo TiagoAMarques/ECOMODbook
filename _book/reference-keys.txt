@@ -1,9 +1,3 @@
-tab:Ttab1
-fig:Freg
-fig:figrodents
-fig:FCR
-fig:wod
-fig:country
 introduction
 mainintro
 aknowledgments
@@ -50,8 +44,6 @@ the-link-function
 most-useful-glm-families
 an-example-analysis
 aula15
-example-1---deviance
-example-2---lagartyos-glm
 example-2
 aula16
 a-logistic-regression-example
@@ -66,3 +58,8 @@ modelling
 extra-glm-stuff
 aula19
 final-words
+fig:country
+a-glm-as-a-piece-within-a-higher-conceptualization-framework
+an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework
+lbtb
+ftpt

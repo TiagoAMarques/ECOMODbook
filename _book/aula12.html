@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2021-11-07" />
+<meta name="date" content="2021-11-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -604,10 +604,10 @@ The two components of this object are the MLE of the parameter, in this case 0.3
 <span id="cb34-10"><a href="aula12.html#cb34-10" aria-hidden="true" tabindex="-1"></a>MLEGau<span class="ot">&lt;-</span><span class="fu">optim</span>(<span class="at">par=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">fn=</span>minuslogliknorm,<span class="at">data=</span>xs)</span>
 <span id="cb34-11"><a href="aula12.html#cb34-11" aria-hidden="true" tabindex="-1"></a>MLEGau</span></code></pre></div>
 <pre><code>## $par
-## [1] 1.9932114 0.7067623
+## [1] 1.9931825 0.7062561
 ## 
 ## $value
-## [1] 10719.46
+## [1] 10711.12
 ## 
 ## $counts
 ## function gradient 
@@ -631,7 +631,7 @@ The two components of this object are the MLE of the parameter, in this case 0.3
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="aula12.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to implement later</span></span>
 <span id="cb36-2"><a href="aula12.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># students: you are challenged to do this for me :)</span></span>
 <span id="cb36-3"><a href="aula12.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># note the expand.grid function might com in handy</span></span></code></pre></div>
-<p>Notice how the above image reminds us of Boredomnesia! Now, we know how to do this for more than one parameter, but why would we? After all, if I wanted to estimate the MLE of a Gaussian, actually, these are also algebraically available, since these correspond to the sample mean <code>mean(xs)</code>=1.9932898 and the sample standard deviation <code>sd(xs)</code>=0.7068459, respectively. So the above values obtained by <code>optim</code> for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, the MLEs, 1.9932114 and 0.7067623 respectively, are really just numerical approximations of the real analytically obtainable MLE’s 1.9932898 and 0.7068459, respectively (note: need, strictly, to refer to minor detail regarding denominator of the standard deviation, considering n, the MLE, or n-1, not MLE but unbiased; ME students can ignore detail for now!). These are themselves, in this case where we know reality, estimates of the true simulated values generating our data, 2 and 0.7, respectively. So all quite reasonable and close to the know truth, really, what is not surprising given the large sample size.</p>
+<p>Notice how the above image reminds us of Boredomnesia! Now, we know how to do this for more than one parameter, but why would we? After all, if I wanted to estimate the MLE of a Gaussian, actually, these are also algebraically available, since these correspond to the sample mean <code>mean(xs)</code>=1.993123 and the sample standard deviation <code>sd(xs)</code>=0.7062565, respectively. So the above values obtained by <code>optim</code> for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, the MLEs, 1.9931825 and 0.7062561 respectively, are really just numerical approximations of the real analytically obtainable MLE’s 1.993123 and 0.7062565, respectively (note: need, strictly, to refer to minor detail regarding denominator of the standard deviation, considering n, the MLE, or n-1, not MLE but unbiased; ME students can ignore detail for now!). These are themselves, in this case where we know reality, estimates of the true simulated values generating our data, 2 and 0.7, respectively. So all quite reasonable and close to the know truth, really, what is not surprising given the large sample size.</p>
 <p>Now, what about based on the distances Andreia had for the 5 nests</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="aula12.html#cb37-1" aria-hidden="true" tabindex="-1"></a>dists</span></code></pre></div>
 <pre><code>## [1] 0.78 1.73 0.54 1.32 2.12</code></pre>
@@ -810,14 +810,14 @@ where, remember, by the assumptions of the linear model, the <span class="math i
 <span id="cb63-2"><a href="aula12.html#cb63-2" aria-hidden="true" tabindex="-1"></a>thetadMLE2<span class="ot">&lt;-</span><span class="fu">optim</span>(<span class="at">par=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">fn=</span>loglikthetad,<span class="at">data=</span>data4thetadMLE2)</span>
 <span id="cb63-3"><a href="aula12.html#cb63-3" aria-hidden="true" tabindex="-1"></a>thetadMLE2</span></code></pre></div>
 <pre><code>## $par
-## [1] 11.676218 -8.334724
+## [1]  8.494824 -6.197146
 ## 
 ## $value
-## [1] 24.66332
+## [1] 40.85216
 ## 
 ## $counts
 ## function gradient 
-##       69       NA 
+##       73       NA 
 ## 
 ## $convergence
 ## [1] 0

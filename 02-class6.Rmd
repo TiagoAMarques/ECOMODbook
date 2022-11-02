@@ -1,4 +1,4 @@
-# Class 6 13 10 2020 {#aula6}
+# Regression inside out {#aula6}
 
 ## Implementing a regression
 

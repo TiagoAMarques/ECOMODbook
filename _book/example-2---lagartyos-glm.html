@@ -24,7 +24,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2021-10-20" />
+<meta name="date" content="2021-11-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -283,13 +283,13 @@ slides 26-33</p>
 <h2><span class="header-section-number">20.1</span> Example 2</h2>
 <p>Use the aerogeradores example to see how AIC and significance tests on the parameters can tell you different things</p>
 <p>Read in the data</p>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="example-2---lagartyos-glm.html#cb395-1" aria-hidden="true" tabindex="-1"></a>peol <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;extfiles/parqueseolicos.csv&quot;</span>, <span class="at">sep=</span><span class="st">&quot;;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="example-2---lagartyos-glm.html#cb407-1" aria-hidden="true" tabindex="-1"></a>peol <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;extfiles/parqueseolicos.csv&quot;</span>, <span class="at">sep=</span><span class="st">&quot;;&quot;</span>)</span></code></pre></div>
 <p>Look at the data</p>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="example-2---lagartyos-glm.html#cb396-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(peol)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="example-2---lagartyos-glm.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(peol)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Implement multiple regression</p>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="example-2---lagartyos-glm.html#cb397-1" aria-hidden="true" tabindex="-1"></a>regmul<span class="ot">=</span><span class="fu">lm</span>(mortalidade<span class="sc">~</span>.,<span class="at">data=</span>peol)</span>
-<span id="cb397-2"><a href="example-2---lagartyos-glm.html#cb397-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regmul)</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="example-2---lagartyos-glm.html#cb409-1" aria-hidden="true" tabindex="-1"></a>regmul<span class="ot">=</span><span class="fu">lm</span>(mortalidade<span class="sc">~</span>.,<span class="at">data=</span>peol)</span>
+<span id="cb409-2"><a href="example-2---lagartyos-glm.html#cb409-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regmul)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = mortalidade ~ ., data = peol)
@@ -312,8 +312,8 @@ slides 26-33</p>
 ## Multiple R-squared:  0.9908, Adjusted R-squared:  0.9835 
 ## F-statistic:   135 on 4 and 5 DF,  p-value: 2.804e-05</code></pre>
 <p>Implement poisson GLM with all variables</p>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="example-2---lagartyos-glm.html#cb399-1" aria-hidden="true" tabindex="-1"></a>glmALL<span class="ot">=</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>.,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
-<span id="cb399-2"><a href="example-2---lagartyos-glm.html#cb399-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmALL)</span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="example-2---lagartyos-glm.html#cb411-1" aria-hidden="true" tabindex="-1"></a>glmALL<span class="ot">=</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>.,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb411-2"><a href="example-2---lagartyos-glm.html#cb411-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmALL)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = mortalidade ~ ., family = poisson(link = &quot;log&quot;), 
@@ -343,13 +343,13 @@ slides 26-33</p>
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
 <p>Run a few other models</p>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="example-2---lagartyos-glm.html#cb401-1" aria-hidden="true" tabindex="-1"></a>glmda<span class="ot">&lt;-</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>densidade.aero,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
-<span id="cb401-2"><a href="example-2---lagartyos-glm.html#cb401-2" aria-hidden="true" tabindex="-1"></a>glma<span class="ot">&lt;-</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>altitude,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
-<span id="cb401-3"><a href="example-2---lagartyos-glm.html#cb401-3" aria-hidden="true" tabindex="-1"></a>glmpa<span class="ot">&lt;-</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>proximidade.aero,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
-<span id="cb401-4"><a href="example-2---lagartyos-glm.html#cb401-4" aria-hidden="true" tabindex="-1"></a>glmapa<span class="ot">&lt;-</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>altitude<span class="sc">+</span>proximidade.aero,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
-<span id="cb401-5"><a href="example-2---lagartyos-glm.html#cb401-5" aria-hidden="true" tabindex="-1"></a>glmdaapa<span class="ot">=</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>densidade.aero<span class="sc">+</span>altitude<span class="sc">+</span>proximidade.aero,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="example-2---lagartyos-glm.html#cb413-1" aria-hidden="true" tabindex="-1"></a>glmda<span class="ot">&lt;-</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>densidade.aero,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb413-2"><a href="example-2---lagartyos-glm.html#cb413-2" aria-hidden="true" tabindex="-1"></a>glma<span class="ot">&lt;-</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>altitude,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb413-3"><a href="example-2---lagartyos-glm.html#cb413-3" aria-hidden="true" tabindex="-1"></a>glmpa<span class="ot">&lt;-</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>proximidade.aero,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb413-4"><a href="example-2---lagartyos-glm.html#cb413-4" aria-hidden="true" tabindex="-1"></a>glmapa<span class="ot">&lt;-</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>altitude<span class="sc">+</span>proximidade.aero,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb413-5"><a href="example-2---lagartyos-glm.html#cb413-5" aria-hidden="true" tabindex="-1"></a>glmdaapa<span class="ot">=</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>densidade.aero<span class="sc">+</span>altitude<span class="sc">+</span>proximidade.aero,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span></code></pre></div>
 <p>Check that best model by AIC inclues non significant variables</p>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="example-2---lagartyos-glm.html#cb402-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(glmda,glma,glmpa,glmapa,glmdaapa,glmALL)</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="example-2---lagartyos-glm.html#cb414-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(glmda,glma,glmpa,glmapa,glmdaapa,glmALL)</span></code></pre></div>
 <pre><code>##          df       AIC
 ## glmda     2 361.92796
 ## glma      2  60.98652
@@ -358,7 +358,7 @@ slides 26-33</p>
 ## glmdaapa  4  59.09642
 ## glmALL    5  59.93416</code></pre>
 <p>Check best AIC model</p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="example-2---lagartyos-glm.html#cb404-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmdaapa)</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="example-2---lagartyos-glm.html#cb416-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmdaapa)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = mortalidade ~ densidade.aero + altitude + proximidade.aero, 
@@ -385,9 +385,9 @@ slides 26-33</p>
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
 <p>Use <code>stepAIC</code></p>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="example-2---lagartyos-glm.html#cb406-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb406-2"><a href="example-2---lagartyos-glm.html#cb406-2" aria-hidden="true" tabindex="-1"></a>fullmodel<span class="ot">=</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>.,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
-<span id="cb406-3"><a href="example-2---lagartyos-glm.html#cb406-3" aria-hidden="true" tabindex="-1"></a>best.model<span class="ot">=</span><span class="fu">stepAIC</span>(fullmodel,<span class="at">direction=</span><span class="st">&quot;backward&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="example-2---lagartyos-glm.html#cb418-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb418-2"><a href="example-2---lagartyos-glm.html#cb418-2" aria-hidden="true" tabindex="-1"></a>fullmodel<span class="ot">=</span><span class="fu">glm</span>(mortalidade<span class="sc">~</span>.,<span class="at">data=</span>peol,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb418-3"><a href="example-2---lagartyos-glm.html#cb418-3" aria-hidden="true" tabindex="-1"></a>best.model<span class="ot">=</span><span class="fu">stepAIC</span>(fullmodel,<span class="at">direction=</span><span class="st">&quot;backward&quot;</span>)</span></code></pre></div>
 <pre><code>## Start:  AIC=59.93
 ## mortalidade ~ densidade.aero + altitude + proximidade.aero + 
 ##     estradas
@@ -407,7 +407,7 @@ slides 26-33</p>
 ## - estradas          1    8.169  60.257
 ## - proximidade.aero  1    9.737  61.825
 ## - altitude          1   79.310 131.398</code></pre>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="example-2---lagartyos-glm.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(best.model)</span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="example-2---lagartyos-glm.html#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(best.model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = mortalidade ~ altitude + proximidade.aero + estradas, 
@@ -434,11 +434,11 @@ slides 26-33</p>
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
 <p>Use function <code>bestglm</code>, confirm you get the best above and also the same as from stepAIC</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="example-2---lagartyos-glm.html#cb410-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bestglm)</span></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="example-2---lagartyos-glm.html#cb422-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bestglm)</span></code></pre></div>
 <pre><code>## Loading required package: leaps</code></pre>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="example-2---lagartyos-glm.html#cb412-1" aria-hidden="true" tabindex="-1"></a>bestGLM<span class="ot">=</span><span class="fu">bestglm</span>(<span class="at">Xy=</span>peol[,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span>)],<span class="at">family=</span><span class="fu">poisson</span>(),<span class="at">IC=</span><span class="st">&quot;AIC&quot;</span>,<span class="at">RequireFullEnumeration=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="example-2---lagartyos-glm.html#cb424-1" aria-hidden="true" tabindex="-1"></a>bestGLM<span class="ot">=</span><span class="fu">bestglm</span>(<span class="at">Xy=</span>peol[,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span>)],<span class="at">family=</span><span class="fu">poisson</span>(),<span class="at">IC=</span><span class="st">&quot;AIC&quot;</span>,<span class="at">RequireFullEnumeration=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Morgan-Tatar search since family is non-gaussian.</code></pre>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="example-2---lagartyos-glm.html#cb414-1" aria-hidden="true" tabindex="-1"></a>bestGLM<span class="sc">$</span>BestModel</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="example-2---lagartyos-glm.html#cb426-1" aria-hidden="true" tabindex="-1"></a>bestGLM<span class="sc">$</span>BestModel</span></code></pre></div>
 <pre><code>## 
 ## Call:  glm(formula = y ~ ., family = family, data = Xi, weights = weights)
 ## 
@@ -450,10 +450,10 @@ slides 26-33</p>
 ## Null Deviance:       346.5 
 ## Residual Deviance: 3.857     AIC: 57.95</code></pre>
 <p>Interesting, with the Gaussian response (and I used the Gaussian response on the slides in class!) one would get a different answer… explore?</p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="example-2---lagartyos-glm.html#cb416-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bestglm)</span>
-<span id="cb416-2"><a href="example-2---lagartyos-glm.html#cb416-2" aria-hidden="true" tabindex="-1"></a>bestGLM<span class="ot">=</span><span class="fu">bestglm</span>(<span class="at">Xy=</span>peol[,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span>)],<span class="at">family=</span><span class="fu">gaussian</span>(),<span class="at">IC=</span><span class="st">&quot;AIC&quot;</span>,<span class="at">RequireFullEnumeration=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="example-2---lagartyos-glm.html#cb428-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bestglm)</span>
+<span id="cb428-2"><a href="example-2---lagartyos-glm.html#cb428-2" aria-hidden="true" tabindex="-1"></a>bestGLM<span class="ot">=</span><span class="fu">bestglm</span>(<span class="at">Xy=</span>peol[,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span>)],<span class="at">family=</span><span class="fu">gaussian</span>(),<span class="at">IC=</span><span class="st">&quot;AIC&quot;</span>,<span class="at">RequireFullEnumeration=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Morgan-Tatar search since family is non-gaussian.</code></pre>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="example-2---lagartyos-glm.html#cb418-1" aria-hidden="true" tabindex="-1"></a>bestGLM<span class="sc">$</span>BestModel</span></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="example-2---lagartyos-glm.html#cb430-1" aria-hidden="true" tabindex="-1"></a>bestGLM<span class="sc">$</span>BestModel</span></code></pre></div>
 <pre><code>## 
 ## Call:  glm(formula = y ~ ., family = family, data = Xi, weights = weights)
 ## 

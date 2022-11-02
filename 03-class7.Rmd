@@ -229,9 +229,9 @@ lmlines<-lm(y~x+z,data=data4lines)
 summary(lmlines)
 ```
 
-The output shows that the length is relevant, but the museum is relevant too. The relationship might be different per museum! In the output we see the `x`, the length, but not the `z`, it has been transformed into `zb`, `zc` and `zd`. Why is that? That is a mistery that we shall unfold now!
+The output shows that the length is relevant, but the museum is relevant too. The relationship might be different per museum! In the output we see the `x`, the length, but not the `z`, it has been transformed into `zb`, `zc` and `zd`. Why is that? That is a mystery that we shall unfold now!
 
-While the model we are fitting might be represented by `weight~length+museum`, th edesign matrix being fitted replaces the `museum` (a factor with 4 levels) with 3 dummy variables (a factor with k levels required k-1 dummy variables). So the real model being fitted is really
+While the model we are fitting might be represented by `weight~length+museum`, the design matrix being fitted replaces the `museum` (a factor with 4 levels) with 3 dummy variables (a factor with k levels required k-1 dummy variables). So the real model being fitted is really
 
 $$y=\beta_0+\beta_1 \times length + \beta_{2b} \times zb + \beta_{2c} \times zc + \beta_{2d} \times zd$$
 
