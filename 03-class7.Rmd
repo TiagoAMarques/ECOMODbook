@@ -1,11 +1,15 @@
 
-# Class 7 14 10 2020 {#aula7}
+# Two tasks to further understand regression {#aula7}
 
-In this class we continue exploring regression models, but we are going to increase their complexity. No longer just `a+bx`, but we add more explanatory variables. In particular, we will also add a factor covariate. And then we look under the hood to what that means.
+In this class we continue exploring regression models, but we are going to increase their complexity. We are no longer just thinking about the simple linear model `a+bx`, but we add more explanatory variables. In particular, we will also add a factor covariate. And then we look under the hood to understand what that means in practice and how to interpret the regression coefficients.
+
+We do this based on a couple of tasks. Implementing the tasks allows the students to see hands on what is behind the regression model.
 
 ## Task 1
 
-The first task the students were faced was to use some code to explore, by simulation, the impact of having variables in the model that are not relevant to explain the response. In particular, we wanted to identify when there would be no errors, or when there would be type I (a variable not relevant to explain the response is found relevant) and type II (a relevant variable to explain the response is not considered relevant) errors. For the sake of this example we consider a significance level of 5%, but remember there is nothing sacred about it.
+The first task the students were faced was to use some code to explore, by simulation, the impact of having variables in the model that are not relevant to explain the response. In particular, we wanted to identify when there would be no errors, or when there would be type I (a variable not relevant to explain the response is found relevant) and type II (a relevant variable to explain the response is not considered relevant) errors. 
+
+For the sake of this example we consider a significance level of 5%, but remember there is nothing sacred about $\alpha=0.05$. The significance level should be chosen by a researcher given proper consideration of the implications of a type I error in the considered setting.
 
 The guidelines provided were: "Using the code below, and while changing the `seed` (`******` to begin with, so the code does not run as is!), explore how changing the parameters and the error leads to different amounts of type I and type II errors."
 
@@ -32,9 +36,9 @@ plot(xs1,ys)
 summary(lm(ys~xs1+xs2+xs3+xs4))
 ```
 
-The first thing to notice is that the model we simulate from only includes `xs1` and `xs2`. So, `xs3` and `xs4` do not have any impact on the response `y`
+The first thing to notice is that the model we simulate from only includes `xs1` and `xs2`. So, `xs3` and `xs4` do not have any impact on the response `y`. In other words, if we find that `xs3` and/or `xs4` are relevant to explain the response we have a type I error, as we have identified an effect where there was none. On the other hand, if we do not find `xs1` and `xs2` to be relevant to explain the response, we have a type II error, as we failed to identify a real effect.
 
-So we try different values for the seed and check what happens, Try `seed<-1`
+So we try different values for the seed and check what happens. Let's just try `seed<-1`
 
 
 ```{r a7.2,eval=FALSE}

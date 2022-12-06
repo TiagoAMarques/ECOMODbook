@@ -1,3 +1,214 @@
-# Class 17: 24 11 2020 {#aula17}
+# Random effects and mixed Models {#aula17}
 
-Presentations of trabalho 2
+In this chapter we investigate the use of random effects.
+
+We describe the analysis of the RIKZ dataset, a traditional dataset used to illustrate mixed models, a companion to the book by Zuur et al. (). 
+
+We read in the data
+
+```{r}
+RIKZ <- read.delim("extfiles/RIKZ.txt")
+#recoding exposure so that 8 and 10 become 0's and 11's become 1
+RIKZ$Exposure=ifelse(RIKZ$Exposure==11,1,0)
+```
+
+we look at the data structure
+
+```{r}
+str(RIKZ)
+```
+
+```{r}
+head(RIKZ)
+```
+
+
+We can look at the response variable, species richness, as a function of NA 
+
+```{r}
+plot(Richness~NAP,data=RIKZ)
+```
+
+When we see it like this, there is no notion about the structure of the data, in particular that there are 5 measurements in each beach
+
+```{r}
+plot(Richness~NAP,data=RIKZ)
+abline(lm(Richness~NAP,data=RIKZ),lwd=2,lty=2)
+```
+
+but we could make it a bit more explicit by having different symbols for each beach (say the beach number) and coloring each beach symbol with a diferent color
+
+```{r}
+par(mfwor=c(1,1))
+plot(Richness~NAP,pch=as.character(Beach),col= terrain.colors(10)[as.numeric(Beach)],data=RIKZ)
+abline(lm(Richness~NAP,data=RIKZ),lwd=2,lty=2)
+```
+
+Now the two stage approach: (1) we consider the relation between R and NAP, for each beach, and (2) we model the estimated coefficients per beach as a function of exposure
+
+
+```{r}
+plot(Richness~NAP,pch=as.character(Beach),col= terrain.colors(10)[as.numeric(Beach)],data=RIKZ)
+as=numeric(9);bs=numeric(9);exp=numeric(9)
+for(i in 1:9){
+  m=lm(Richness~NAP,data=RIKZ[RIKZ$Beach==i,])
+  cs=coef(m)
+  as[i]=cs[1]
+  bs[i]=cs[2]
+  exp[i]=RIKZ$Exposure[i*5]
+  abline(cs,lty=exp[i]+1,col=terrain.colors(10)[i])
+}
+legend("topright",lty=c(1,2),legend=c("Exposure 0","Exposure 1"),inset=0.05)
+```
+
+Now the second stage
+
+```{r}
+par(mfrow=c(1,2))
+boxplot(as~exp,ylab="intercept",xlab="Exposure")
+boxplot(bs~exp,ylab="slope",xlab="Exposure")
+```
+
+The way to do all this in one go is to consider a mixed model, where exposure is a fixed effect, but beach is considered a random effect.
+
+Implementing the mixed model, with just random intercepts
+
+Using `lme` from `nlme`
+
+```{r}
+library(nlme)
+RIKZ$fbeach=as.factor(RIKZ$Beach)
+lme1=lme(Richness~NAP,random=~1|fbeach,data=RIKZ)
+summary(lme1)
+```
+
+Using `lmer` from `lme4`
+
+```{r,warning=FALSE,message=FALSE}
+library(lme4)
+lme2=lmer(Richness~NAP+(1|fbeach),data=RIKZ)
+summary(lme2)
+```
+
+Make predictions from lme
+
+```{r}
+Level0=fitted(lme1,level=0)
+Level1=fitted(lme1,level=1)
+```
+
+Look at the fitted model predictions over the data (note the use of function `ranef` to extract the estimated random effects from the fitted model)
+
+```{r}
+plot(Richness~NAP,pch=as.character(Beach),col= terrain.colors(10)[as.numeric(Beach)],data=RIKZ)
+#the pooled line 
+intercept<-lme1$coefficients$fixed[1]
+slope<-lme1$coefficients$fixed[2]
+abline(intercept,slope,lwd=3)
+#lines(NAPs,Level0[I],lwd=3)
+for(j in 1:9){
+abline(a=intercept+ranef(lme1)[j,1],b=slope,col=terrain.colors(10)[j])
+}
+```
+
+
+Implementing the mixed model, with random intercepts and slopes
+
+Using `lme` from `nlme`
+
+```{r}
+lme3=lme(Richness~NAP,random=~NAP|fbeach,data=RIKZ)
+summary(lme3)
+```
+
+Using `lmer` from `lme4`
+
+```{r,warning=FALSE,message=FALSE}
+lme5=lmer(Richness~NAP+(NAP|fbeach),data=RIKZ)
+summary(lme5)
+```
+
+
+Make predictions from lme
+
+```{r}
+Level0.3=fitted(lme3,level=0)
+Level1.3=fitted(lme3,level=1)
+```
+
+and ploting the model
+
+```{r,echo=FALSE,eval=FALSE}
+#the order of the values of NAP
+I=order(RIKZ$NAP)
+#the values of NAP sorted
+NAPs=sort(RIKZ$NAP)
+plot(Richness~NAP,pch=as.character(Beach),col=Beach,data=RIKZ)
+lines(NAPs,Level0.3[I],lwd=3)
+for(j in 1:9){
+  #index for beach
+  bi=RIKZ$Beach==j
+  xs=RIKZ$NAP[bi]
+  ys=Level1.3[bi]
+  Oxs=order(xs)
+  lines(sort(xs),ys[Oxs],col=j)
+}
+```
+
+
+```{r}
+plot(Richness~NAP,pch=as.character(Beach),col= terrain.colors(10)[as.numeric(Beach)],data=RIKZ)
+#the pooled line 
+intercept<-lme3$coefficients$fixed[1]
+slope<-lme3$coefficients$fixed[2]
+abline(intercept,slope,lwd=3)
+#lines(NAPs,Level0[I],lwd=3)
+for(j in 1:9){
+abline(a=intercept+ranef(lme3)[j,1],b=slope+ranef(lme3)[j,2],col=terrain.colors(10)[j])
+}
+```
+
+Zuur says in page 110 we could compare the models by AIC, but that is just nonsense. Having been fitted by REML, no AIC is available
+
+```{r}
+AIC(lme1)
+AIC(lme3)
+```
+
+Just for comparison, we could try to see if a random effect model would be a better model. In other words, was NAP required at all or a different mean by beach would suffice?
+
+```{r}
+lme6=lme(Richness~1,random=~1|fbeach,data=RIKZ)
+```
+
+We can look at the summary of such a model
+
+```{r}
+summary(lme6)
+```
+
+Comparing the 3 models regarding AIC
+
+```{r}
+AIC(lme1,lme3,lme6)
+```
+
+we can see that the most parsimonious model is in fact the one with random intercepts and random slopes.
+
+Just checking the correlation between the parameters in the random intercept and slope model, as they seem higly correlated.
+
+Looking at the coefficients
+
+```{r}
+coef(lme3)
+```
+
+making a model
+
+```{r}
+plot(coef(lme3)[,1],coef(lme3)[,2],xlab="Intercepts",ylab="Slopes")
+abline(lm(coef(lme3)[,2]~coef(lme3)[,1]))
+text(10,-3,paste("Correlation is",round(cor(coef(lme3)[,1],coef(lme3)[,2]),5)))
+```
+
+the correlation is in fact very large! Note this correlation is actually an output of the lme function. A very detailed description of what these correlations are when we have more than 1 of them can be found here: https://rpubs.com/yjunechoe/correlationsLMEM. That is a quite advanced topic though.

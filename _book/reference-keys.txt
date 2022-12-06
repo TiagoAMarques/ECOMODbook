@@ -3,6 +3,8 @@ mainintro
 aknowledgments
 usingRintro
 prelim
+lbtb
+ftpt
 about-regression
 what-is-a-regression
 the-general-linear-model
@@ -16,6 +18,7 @@ aula7
 task-1
 task-2
 aula8
+a-one-sample-t-test-is-the-simplest-possible-linear-model
 the-t-test
 anova
 a-two-way-anova-and-beyhond-ex-task-do-it-yourself
@@ -43,6 +46,7 @@ what-are-glms
 the-link-function
 most-useful-glm-families
 an-example-analysis
+an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework
 aula15
 example-2
 aula16
@@ -58,8 +62,4 @@ modelling
 extra-glm-stuff
 aula19
 final-words
-fig:country
-a-glm-as-a-piece-within-a-higher-conceptualization-framework
-an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework
-lbtb
-ftpt
+introduction-1
