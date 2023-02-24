@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 21 Modelação | Notes for Ecological Modelling</title>
+  <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 21 Modelação | Notes for Ecological Modelling" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 21 Modelação | Notes for Ecological Modelling" />
+  
+  <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Tiago A. Marques" />
+
+
+<meta name="date" content="2023-02-24" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análise-exploratoria-de-dados.html"/>
+<link rel="next" href="aula17.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
+<li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
+<li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
+<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="prelim.html"><a href="prelim.html#lbtb"><i class="fa fa-check"></i><b>5.1</b> Learning by the book</a></li>
+<li class="chapter" data-level="5.2" data-path="prelim.html"><a href="prelim.html#ftpt"><i class="fa fa-check"></i><b>5.2</b> Following the paper trail</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>6</b> About regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>6.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="6.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>6.2</b> The general linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>7</b> Hands On Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>8</b> Regression inside out</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>8.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="8.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>8.2</b> Simulating regression data</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Two tasks to further understand regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>9.1</b> Task 1</a></li>
+<li class="chapter" data-level="9.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>9.2</b> Task 2</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> t-tests and ANOVAs are just linear models</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#a-one-sample-t-test-is-the-simplest-possible-linear-model"><i class="fa fa-check"></i><b>10.1</b> A one sample t-test is the simplest possible linear model</a></li>
+<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.2</b> The t-test</a></li>
+<li class="chapter" data-level="10.3" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.3</b> ANOVA</a></li>
+<li class="chapter" data-level="10.4" data-path="aula8.html"><a href="aula8.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>10.4</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>11</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="aula9.html"><a href="aula9.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>11.1</b> Common slope, different intercepts per treatment</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="aula10.html"><a href="aula10.html"><i class="fa fa-check"></i><b>12</b> Class 10: 27 10 2020</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="aula10.html"><a href="aula10.html#same-story-another-spin"><i class="fa fa-check"></i><b>12.1</b> Same story, another spin</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="aula11.html"><a href="aula11.html"><i class="fa fa-check"></i><b>13</b> Class 11: 03 11 2020 ANCOVA with different slopes: interactions</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="aula11.html"><a href="aula11.html#about-interactions"><i class="fa fa-check"></i><b>13.1</b> About interactions</a></li>
+<li class="chapter" data-level="13.2" data-path="aula11.html"><a href="aula11.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>13.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="13.3" data-path="aula11.html"><a href="aula11.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>13.3</b> Task 2 Modeling a data set</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="aula13.html"><a href="aula13.html"><i class="fa fa-check"></i><b>14</b> Class 12: 04 11 2020 Interactions between continous covariates</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>14.1</b> Larger order interactions</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conlusion on linear regression</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>16</b> Class 13: 10 11 2020 Maximum likelihood and all that</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="aula12.html"><a href="aula12.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>16.1</b> Maximizing a likelihood algebraically</a></li>
+<li class="chapter" data-level="16.2" data-path="aula12.html"><a href="aula12.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>16.2</b> Numerically Maximizing a likelihood</a></li>
+<li class="chapter" data-level="16.3" data-path="aula12.html"><a href="aula12.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>16.3</b> The case of a Gaussian</a></li>
+<li class="chapter" data-level="16.4" data-path="aula12.html"><a href="aula12.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>16.4</b> The case of a linear model</a></li>
+<li class="chapter" data-level="16.5" data-path="aula12.html"><a href="aula12.html#the-really-interesting-case"><i class="fa fa-check"></i><b>16.5</b> The really interesting case</a></li>
+<li class="chapter" data-level="16.6" data-path="aula12.html"><a href="aula12.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>16.6</b> Likelihood, above and beyond</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="aula14.html"><a href="aula14.html"><i class="fa fa-check"></i><b>17</b> Class 14: 11 11 2020 GLMs</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="aula14.html"><a href="aula14.html#what-are-glms"><i class="fa fa-check"></i><b>17.1</b> What are GLMs</a></li>
+<li class="chapter" data-level="17.2" data-path="aula14.html"><a href="aula14.html#the-link-function"><i class="fa fa-check"></i><b>17.2</b> The link function</a></li>
+<li class="chapter" data-level="17.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>17.3</b> Most useful GLM Families</a></li>
+<li class="chapter" data-level="17.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>17.4</b> An example analysis</a></li>
+<li class="chapter" data-level="17.5" data-path="aula14.html"><a href="aula14.html#an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework"><i class="fa fa-check"></i><b>17.5</b> An example of a GLM as a detail within a conceptualization framework</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="aula15.html"><a href="aula15.html#example-2"><i class="fa fa-check"></i><b>18.1</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>19</b> Class 16: 18 11 2020</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>19.1</b> A logistic regression example</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="análise-exploratoria-de-dados.html"><a href="análise-exploratoria-de-dados.html"><i class="fa fa-check"></i><b>20</b> Análise Exploratoria de Dados</a></li>
+<li class="chapter" data-level="21" data-path="modelação.html"><a href="modelação.html"><i class="fa fa-check"></i><b>21</b> Modelação</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="modelação.html"><a href="modelação.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.1</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Random effects and mixed Models</a></li>
+<li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>23.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="23.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>23.2</b> Sponges</a>
+<ul>
+<li class="chapter" data-level="23.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>23.2.1</b> Reading data in</a></li>
+<li class="chapter" data-level="23.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>23.2.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="23.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>23.2.3</b> Modelling</a></li>
+</ul></li>
+<li class="chapter" data-level="23.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>23.3</b> Extra GLM stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>24</b> Class 19: 02 12 2020</a></li>
+<li class="chapter" data-level="25" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>25</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes for Ecological Modelling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modelação" class="section level1 hasAnchor" number="21">
+<h1><span class="header-section-number">Chapter 21</span> Modelação<a href="modelação.html#modelação" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Testar um modelo linear</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="modelação.html#cb14-1" aria-hidden="true" tabindex="-1"></a>lm1<span class="ot">&lt;-</span><span class="fu">lm</span>(Survived<span class="sc">~</span>Age,<span class="at">data=</span>titanic_train)</span>
+<span id="cb14-2"><a href="modelação.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(titanic_train,<span class="fu">plot</span>(Survived<span class="sc">~</span>Age))</span>
+<span id="cb14-3"><a href="modelação.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm1)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>tentar com um GLM</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="modelação.html#cb15-1" aria-hidden="true" tabindex="-1"></a>glm1<span class="ot">&lt;-</span><span class="fu">glm</span>(Survived<span class="sc">~</span>Age,<span class="at">data=</span>titanic_train,<span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb15-2"><a href="modelação.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(titanic_train,<span class="fu">plot</span>(Survived<span class="sc">~</span>Age))</span>
+<span id="cb15-3"><a href="modelação.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm1)</span>
+<span id="cb15-4"><a href="modelação.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># isto não funciona</span></span>
+<span id="cb15-5"><a href="modelação.html#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#abline(glm1,col=&quot;blue&quot;)</span></span>
+<span id="cb15-6"><a href="modelação.html#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="modelação.html#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#primeiro faço a predição</span></span>
+<span id="cb15-8"><a href="modelação.html#cb15-8" aria-hidden="true" tabindex="-1"></a>newages <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">90</span>,<span class="at">length=</span><span class="dv">300</span>)</span>
+<span id="cb15-9"><a href="modelação.html#cb15-9" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm1,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">Age=</span>newages),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb15-10"><a href="modelação.html#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#e agora adiciono ao plot</span></span>
+<span id="cb15-11"><a href="modelação.html#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(newages,preds,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>o que diz o meu modelo</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="modelação.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Survived ~ Age, family = binomial(link = &quot;logit&quot;), 
+##     data = titanic_train)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.1488  -1.0361  -0.9544   1.3159   1.5908  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept) -0.05672    0.17358  -0.327   0.7438  
+## Age         -0.01096    0.00533  -2.057   0.0397 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 964.52  on 713  degrees of freedom
+## Residual deviance: 960.23  on 712  degrees of freedom
+##   (177 observations deleted due to missingness)
+## AIC: 964.23
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>ok, idade influencia, negativamente, a sobrevivencia, e o sexo?</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="modelação.html#cb18-1" aria-hidden="true" tabindex="-1"></a>glm2<span class="ot">&lt;-</span><span class="fu">glm</span>(Survived<span class="sc">~</span>Age<span class="sc">+</span>Sex,<span class="at">data=</span>titanic_train,<span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb18-2"><a href="modelação.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(titanic_train,<span class="fu">plot</span>(Survived<span class="sc">~</span>Age))</span>
+<span id="cb18-3"><a href="modelação.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm1)</span>
+<span id="cb18-4"><a href="modelação.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># isto não funciona</span></span>
+<span id="cb18-5"><a href="modelação.html#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#abline(glm1,col=&quot;blue&quot;)</span></span>
+<span id="cb18-6"><a href="modelação.html#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="modelação.html#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#primeiro faço a predição</span></span>
+<span id="cb18-8"><a href="modelação.html#cb18-8" aria-hidden="true" tabindex="-1"></a>newages <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">90</span>,<span class="at">length=</span><span class="dv">300</span>)</span>
+<span id="cb18-9"><a href="modelação.html#cb18-9" aria-hidden="true" tabindex="-1"></a>predsM <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm2,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">Age=</span>newages,<span class="at">Sex=</span><span class="st">&quot;male&quot;</span>),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb18-10"><a href="modelação.html#cb18-10" aria-hidden="true" tabindex="-1"></a>predsF <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm2,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">Age=</span>newages,<span class="at">Sex=</span><span class="st">&quot;female&quot;</span>),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb18-11"><a href="modelação.html#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">#e agora adiciono ao plot</span></span>
+<span id="cb18-12"><a href="modelação.html#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(newages,preds,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb18-13"><a href="modelação.html#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(newages,predsM,<span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb18-14"><a href="modelação.html#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(newages,predsF,<span class="at">col=</span><span class="st">&quot;pink&quot;</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>ver o model</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="modelação.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Survived ~ Age + Sex, family = binomial(link = &quot;logit&quot;), 
+##     data = titanic_train)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.7405  -0.6885  -0.6558   0.7533   1.8989  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  1.277273   0.230169   5.549 2.87e-08 ***
+## Age         -0.005426   0.006310  -0.860     0.39    
+## Sexmale     -2.465920   0.185384 -13.302  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 964.52  on 713  degrees of freedom
+## Residual deviance: 749.96  on 711  degrees of freedom
+##   (177 observations deleted due to missingness)
+## AIC: 755.96
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>e a classe3 do bilhete?</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="modelação.html#cb21-1" aria-hidden="true" tabindex="-1"></a>glm3<span class="ot">&lt;-</span><span class="fu">glm</span>(Survived<span class="sc">~</span>Age<span class="sc">+</span>Sex<span class="sc">+</span>Pclass,<span class="at">data=</span>titanic_train,<span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb21-2"><a href="modelação.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(titanic_train,<span class="fu">plot</span>(Survived<span class="sc">~</span>Age))</span>
+<span id="cb21-3"><a href="modelação.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm1)</span>
+<span id="cb21-4"><a href="modelação.html#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># isto não funciona</span></span>
+<span id="cb21-5"><a href="modelação.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#abline(glm1,col=&quot;blue&quot;)</span></span>
+<span id="cb21-6"><a href="modelação.html#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="modelação.html#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">#primeiro faço a predição</span></span>
+<span id="cb21-8"><a href="modelação.html#cb21-8" aria-hidden="true" tabindex="-1"></a>newages <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">90</span>,<span class="at">length=</span><span class="dv">300</span>)</span>
+<span id="cb21-9"><a href="modelação.html#cb21-9" aria-hidden="true" tabindex="-1"></a>predsMC1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm3,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">Age=</span>newages,<span class="at">Sex=</span><span class="st">&quot;male&quot;</span>,<span class="at">Pclass=</span><span class="dv">1</span>),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb21-10"><a href="modelação.html#cb21-10" aria-hidden="true" tabindex="-1"></a>predsMC2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm3,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">Age=</span>newages,<span class="at">Sex=</span><span class="st">&quot;male&quot;</span>,<span class="at">Pclass=</span><span class="dv">2</span>),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb21-11"><a href="modelação.html#cb21-11" aria-hidden="true" tabindex="-1"></a>predsMC3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm3,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">Age=</span>newages,<span class="at">Sex=</span><span class="st">&quot;male&quot;</span>,<span class="at">Pclass=</span><span class="dv">3</span>),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb21-12"><a href="modelação.html#cb21-12" aria-hidden="true" tabindex="-1"></a>predsFC1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm3,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">Age=</span>newages,<span class="at">Sex=</span><span class="st">&quot;female&quot;</span>,<span class="at">Pclass=</span><span class="dv">1</span>),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb21-13"><a href="modelação.html#cb21-13" aria-hidden="true" tabindex="-1"></a>predsFC2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm3,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">Age=</span>newages,<span class="at">Sex=</span><span class="st">&quot;female&quot;</span>,<span class="at">Pclass=</span><span class="dv">2</span>),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb21-14"><a href="modelação.html#cb21-14" aria-hidden="true" tabindex="-1"></a>predsFC3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(glm3,<span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">Age=</span>newages,<span class="at">Sex=</span><span class="st">&quot;female&quot;</span>,<span class="at">Pclass=</span><span class="dv">3</span>),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb21-15"><a href="modelação.html#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co">#e agora adiciono ao plot</span></span>
+<span id="cb21-16"><a href="modelação.html#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(newages,preds,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb21-17"><a href="modelação.html#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(newages,predsMC1,<span class="at">col=</span><span class="st">&quot;blue&quot;</span>,<span class="at">lwd=</span><span class="dv">1</span>)</span>
+<span id="cb21-18"><a href="modelação.html#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(newages,predsFC1,<span class="at">col=</span><span class="st">&quot;pink&quot;</span>,<span class="at">lwd=</span><span class="dv">1</span>)</span>
+<span id="cb21-19"><a href="modelação.html#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(newages,predsMC2,<span class="at">col=</span><span class="st">&quot;blue&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb21-20"><a href="modelação.html#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(newages,predsFC2,<span class="at">col=</span><span class="st">&quot;pink&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb21-21"><a href="modelação.html#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(newages,predsMC3,<span class="at">col=</span><span class="st">&quot;blue&quot;</span>,<span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb21-22"><a href="modelação.html#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(newages,predsFC3,<span class="at">col=</span><span class="st">&quot;pink&quot;</span>,<span class="at">lwd=</span><span class="dv">3</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>o modelo</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="modelação.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Survived ~ Age + Sex + Pclass, family = binomial(link = &quot;logit&quot;), 
+##     data = titanic_train)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.7270  -0.6799  -0.3947   0.6483   2.4668  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  5.056006   0.502128  10.069  &lt; 2e-16 ***
+## Age         -0.036929   0.007628  -4.841 1.29e-06 ***
+## Sexmale     -2.522131   0.207283 -12.168  &lt; 2e-16 ***
+## Pclass      -1.288545   0.139259  -9.253  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 964.52  on 713  degrees of freedom
+## Residual deviance: 647.29  on 710  degrees of freedom
+##   (177 observations deleted due to missingness)
+## AIC: 655.29
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<div id="about-multicollinearity" class="section level2 hasAnchor" number="21.1">
+<h2><span class="header-section-number">21.1</span> About multicollinearity<a href="modelação.html#about-multicollinearity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>(this is probably best way before, in the linear model stuff… any way, I presented it here as this topic started from a student question)</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="modelação.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Código da aula 11</span></span>
+<span id="cb24-2"><a href="modelação.html#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="modelação.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------------------</span></span>
+<span id="cb24-4"><a href="modelação.html#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># When good models go wrong as </span></span>
+<span id="cb24-5"><a href="modelação.html#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># multicollinearity kicks in</span></span>
+<span id="cb24-6"><a href="modelação.html#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------------------</span></span>
+<span id="cb24-7"><a href="modelação.html#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb24-8"><a href="modelação.html#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb24-9"><a href="modelação.html#cb24-9" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">100</span></span>
+<span id="cb24-10"><a href="modelação.html#cb24-10" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>)</span>
+<span id="cb24-11"><a href="modelação.html#cb24-11" aria-hidden="true" tabindex="-1"></a>ncovs<span class="ot">=</span>(<span class="dv">36-6</span>)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb24-12"><a href="modelação.html#cb24-12" aria-hidden="true" tabindex="-1"></a>covs<span class="ot">&lt;-</span> <span class="fu">rnorm</span>(ncovs,<span class="at">mean=</span><span class="dv">10</span>,<span class="at">sd=</span><span class="dv">2</span>)</span>
+<span id="cb24-13"><a href="modelação.html#cb24-13" aria-hidden="true" tabindex="-1"></a>varcovars<span class="ot">=</span><span class="fu">matrix</span>(<span class="cn">NA</span>,<span class="dv">6</span>,<span class="dv">6</span>)</span>
+<span id="cb24-14"><a href="modelação.html#cb24-14" aria-hidden="true" tabindex="-1"></a>varcovars[<span class="fu">lower.tri</span>(varcovars)]<span class="ot">=</span>covs</span>
+<span id="cb24-15"><a href="modelação.html#cb24-15" aria-hidden="true" tabindex="-1"></a>varcovars<span class="ot">=</span><span class="fu">t</span>(varcovars)</span>
+<span id="cb24-16"><a href="modelação.html#cb24-16" aria-hidden="true" tabindex="-1"></a>varcovars[<span class="fu">lower.tri</span>(varcovars)]<span class="ot">=</span>covs</span>
+<span id="cb24-17"><a href="modelação.html#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(varcovars)<span class="ot">=</span>means</span>
+<span id="cb24-18"><a href="modelação.html#cb24-18" aria-hidden="true" tabindex="-1"></a>varcovars<span class="ot">=</span><span class="fu">t</span>(varcovars) <span class="sc">%*%</span> varcovars</span>
+<span id="cb24-19"><a href="modelação.html#cb24-19" aria-hidden="true" tabindex="-1"></a>indvars <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="at">n =</span> n, <span class="at">mu=</span>means, <span class="at">Sigma=</span>varcovars)</span>
+<span id="cb24-20"><a href="modelação.html#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-21"><a href="modelação.html#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="co"># we can see that we have high correlations </span></span>
+<span id="cb24-22"><a href="modelação.html#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="co">#across the board in explanatory variables</span></span>
+<span id="cb24-23"><a href="modelação.html#cb24-23" aria-hidden="true" tabindex="-1"></a>indvars<span class="ot">=</span><span class="fu">as.data.frame</span>(indvars)</span>
+<span id="cb24-24"><a href="modelação.html#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(indvars)<span class="ot">=</span><span class="fu">paste0</span>(<span class="st">&quot;X&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb24-25"><a href="modelação.html#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(indvars)</span></code></pre></div>
+<pre><code>##           X1         X2         X3         X4         X5         X6
+## 1   9.541304   4.656261   3.519952   6.511551  17.806161  14.773197
+## 2   3.994445  11.434166  20.327380  24.241666  15.890631  31.525666
+## 3  18.024736  24.941978  21.872642  26.629010  34.570050  35.874779
+## 4  24.192031  24.081062  21.521784  24.605110  27.886290  31.084587
+## 5 -45.216392 -46.471634 -42.049067 -46.874143 -43.935034 -51.421911
+## 6  -1.530172  -2.414988   6.496899   5.861754   9.758315   6.201106</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="modelação.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(indvars),<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##      X1   X2   X3   X4   X5   X6
+## X1 1.00 0.91 0.83 0.84 0.95 0.88
+## X2 0.91 1.00 0.91 0.95 0.96 0.97
+## X3 0.83 0.91 1.00 0.98 0.92 0.98
+## X4 0.84 0.95 0.98 1.00 0.93 0.98
+## X5 0.95 0.96 0.92 0.93 1.00 0.96
+## X6 0.88 0.97 0.98 0.98 0.96 1.00</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="modelação.html#cb28-1" aria-hidden="true" tabindex="-1"></a>ys <span class="ot">&lt;-</span><span class="dv">510</span><span class="sc">+</span><span class="dv">4</span><span class="sc">*</span>indvars<span class="sc">$</span>X1<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="at">mean=</span><span class="dv">0</span>,<span class="at">sd=</span><span class="dv">200</span>)</span>
+<span id="cb28-2"><a href="modelação.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb28-3"><a href="modelação.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1)</span>
+<span id="cb28-4"><a href="modelação.html#cb28-4" aria-hidden="true" tabindex="-1"></a>lmX1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1)</span>
+<span id="cb28-5"><a href="modelação.html#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lmX1)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="modelação.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -413.08 -127.50   -7.59  125.10  463.84 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 496.7416    19.0775  26.038  &lt; 2e-16 ***
+## indvars$X1    3.2745     0.8468   3.867 0.000198 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 184.1 on 98 degrees of freedom
+## Multiple R-squared:  0.1324, Adjusted R-squared:  0.1235 
+## F-statistic: 14.95 on 1 and 98 DF,  p-value: 0.0001984</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="modelação.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X2)</span>
+<span id="cb31-2"><a href="modelação.html#cb31-2" aria-hidden="true" tabindex="-1"></a>lmX2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X2)</span>
+<span id="cb31-3"><a href="modelação.html#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lmX2)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="modelação.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -407.70 -108.41  -21.64  115.86  444.46 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 495.2459    19.4084  25.517  &lt; 2e-16 ***
+## indvars$X2    3.2979     0.9047   3.645  0.00043 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 185.5 on 98 degrees of freedom
+## Multiple R-squared:  0.1194, Adjusted R-squared:  0.1104 
+## F-statistic: 13.29 on 1 and 98 DF,  p-value: 0.00043</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="modelação.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#one error type I + 1 error type 2</span></span>
+<span id="cb34-2"><a href="modelação.html#cb34-2" aria-hidden="true" tabindex="-1"></a>lmX1X2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X2)</span>
+<span id="cb34-3"><a href="modelação.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X1 + indvars$X2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -412.18 -127.02   -9.52  122.55  457.28 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 495.8151    19.3577  25.613   &lt;2e-16 ***
+## indvars$X1    2.6245     2.0955   1.252    0.213    
+## indvars$X2    0.7542     2.2222   0.339    0.735    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 184.9 on 97 degrees of freedom
+## Multiple R-squared:  0.1334, Adjusted R-squared:  0.1155 
+## F-statistic: 7.466 on 2 and 97 DF,  p-value: 0.000964</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="modelação.html#cb36-1" aria-hidden="true" tabindex="-1"></a>lmX3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X3)</span>
+<span id="cb36-2"><a href="modelação.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X3)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -411.08 -117.64  -20.46  118.95  492.16 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 494.6520    20.6863   23.91  &lt; 2e-16 ***
+## indvars$X3    2.4810     0.9257    2.68  0.00864 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 190.8 on 98 degrees of freedom
+## Multiple R-squared:  0.06829,    Adjusted R-squared:  0.05878 
+## F-statistic: 7.183 on 1 and 98 DF,  p-value: 0.008637</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="modelação.html#cb38-1" aria-hidden="true" tabindex="-1"></a>lmX1X3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X3)</span>
+<span id="cb38-2"><a href="modelação.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X1 + indvars$X3)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -411.85 -132.49   -3.33  114.58  463.85 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  501.703     20.162  24.884  &lt; 2e-16 ***
+## indvars$X1     4.253      1.522   2.795  0.00626 ** 
+## indvars$X3    -1.243      1.605  -0.774  0.44056    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 184.5 on 97 degrees of freedom
+## Multiple R-squared:  0.1377, Adjusted R-squared:  0.1199 
+## F-statistic: 7.745 on 2 and 97 DF,  p-value: 0.0007572</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="modelação.html#cb40-1" aria-hidden="true" tabindex="-1"></a>lmX4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X4)</span>
+<span id="cb40-2"><a href="modelação.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX4)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X4)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -420.10 -113.31  -25.54  127.44  487.20 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 488.3939    20.9613  23.300  &lt; 2e-16 ***
+## indvars$X4    2.5972     0.8522   3.048  0.00296 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 188.9 on 98 degrees of freedom
+## Multiple R-squared:  0.08658,    Adjusted R-squared:  0.07726 
+## F-statistic: 9.289 on 1 and 98 DF,  p-value: 0.002964</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="modelação.html#cb42-1" aria-hidden="true" tabindex="-1"></a>lmX1X4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X4)</span>
+<span id="cb42-2"><a href="modelação.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X4)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X1 + indvars$X4)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -411.69 -130.48   -4.08  126.22  463.73 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 498.6500    21.0183  23.725   &lt;2e-16 ***
+## indvars$X1    3.5662     1.5681   2.274   0.0252 *  
+## indvars$X4   -0.3406     1.5379  -0.221   0.8252    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 185 on 97 degrees of freedom
+## Multiple R-squared:  0.1328, Adjusted R-squared:  0.1149 
+## F-statistic: 7.428 on 2 and 97 DF,  p-value: 0.0009964</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="modelação.html#cb44-1" aria-hidden="true" tabindex="-1"></a>lmX5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X5)</span>
+<span id="cb44-2"><a href="modelação.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX5)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X5)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -414.19 -123.28  -16.99  109.47  468.13 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  475.939     21.837   21.80  &lt; 2e-16 ***
+## indvars$X5     3.094      0.879    3.52 0.000657 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 186.2 on 98 degrees of freedom
+## Multiple R-squared:  0.1122, Adjusted R-squared:  0.1032 
+## F-statistic: 12.39 on 1 and 98 DF,  p-value: 0.0006565</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="modelação.html#cb46-1" aria-hidden="true" tabindex="-1"></a>lmX1X5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X5)</span>
+<span id="cb46-2"><a href="modelação.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X5)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X1 + indvars$X5)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -412.27 -126.69   -8.23  126.84  465.30 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  504.280     28.412  17.749   &lt;2e-16 ***
+## indvars$X1     4.204      2.723   1.544    0.126    
+## indvars$X5    -1.004      2.794  -0.359    0.720    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 184.9 on 97 degrees of freedom
+## Multiple R-squared:  0.1335, Adjusted R-squared:  0.1157 
+## F-statistic: 7.474 on 2 and 97 DF,  p-value: 0.0009573</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="modelação.html#cb48-1" aria-hidden="true" tabindex="-1"></a>lmX6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X6)</span>
+<span id="cb48-2"><a href="modelação.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX6)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X6)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -413.01 -113.67  -18.88  118.72  465.72 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 478.6605    22.1541  21.606  &lt; 2e-16 ***
+## indvars$X6    2.4758     0.7745   3.197  0.00187 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 188.1 on 98 degrees of freedom
+## Multiple R-squared:  0.09443,    Adjusted R-squared:  0.08519 
+## F-statistic: 10.22 on 1 and 98 DF,  p-value: 0.001871</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="modelação.html#cb50-1" aria-hidden="true" tabindex="-1"></a>lmX1X6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ys<span class="sc">~</span>indvars<span class="sc">$</span>X1<span class="sc">+</span>indvars<span class="sc">$</span>X6)</span>
+<span id="cb50-2"><a href="modelação.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmX1X6)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ indvars$X1 + indvars$X6)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -412.53 -130.17   -3.85  125.12  467.06 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 501.3742    24.3612  20.581   &lt;2e-16 ***
+## indvars$X1    3.7658     1.8074   2.084   0.0398 *  
+## indvars$X6   -0.4985     1.6180  -0.308   0.7587    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 185 on 97 degrees of freedom
+## Multiple R-squared:  0.1332, Adjusted R-squared:  0.1154 
+## F-statistic: 7.455 on 2 and 97 DF,  p-value: 0.0009738</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="modelação.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(lmX1,lmX2,lmX3,lmX4,lmX5,lmX6,lmX1X2,lmX1X3,lmX1X4,lmX1X5,lmX1X6)</span></code></pre></div>
+<pre><code>##        df      AIC
+## lmX1    3 1330.863
+## lmX2    3 1332.348
+## lmX3    3 1337.989
+## lmX4    3 1336.007
+## lmX5    3 1333.157
+## lmX6    3 1335.143
+## lmX1X2  4 1332.744
+## lmX1X3  4 1332.246
+## lmX1X4  4 1332.812
+## lmX1X5  4 1332.729
+## lmX1X6  4 1332.765</code></pre>
+<p>The fundamental idea is that most of these models are equally good for prediction. But they might give you the complete wrong picture for explanation. Never confuse the two. Optimal modelling strategies and choices might require know what is more important.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análise-exploratoria-de-dados.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="aula17.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ECOMODbook.pdf", "ECOMODbook.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

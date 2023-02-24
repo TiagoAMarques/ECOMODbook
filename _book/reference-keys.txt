@@ -63,3 +63,6 @@ extra-glm-stuff
 aula19
 final-words
 introduction-1
+análise-exploratoria-de-dados
+modelação
+titanic-example

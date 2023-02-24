@@ -211,4 +211,48 @@ abline(lm(coef(lme3)[,2]~coef(lme3)[,1]))
 text(10,-3,paste("Correlation is",round(cor(coef(lme3)[,1],coef(lme3)[,2]),5)))
 ```
 
-the correlation is in fact very large! Note this correlation is actually an output of the lme function. A very detailed description of what these correlations are when we have more than 1 of them can be found here: https://rpubs.com/yjunechoe/correlationsLMEM. That is a quite advanced topic though.
+the correlation is in fact very large! Note this correlation is actually an output present in the `lme` and `lmer`  fitted objects. A very detailed description of what these correlations are when we have more than 1 of them can be found here: https://rpubs.com/yjunechoe/correlationsLMEM. That is a quite advanced topic though.
+
+Note that we could have considered a standard model where beach might be a factor and we would include an interaction between beach and NAP to allow for both different intercepts and slopes across beaches.
+
+```{r}
+lmALL=lm(Richness~NAP+fbeach+NAP:fbeach,data=RIKZ)
+summary(lmALL)
+```
+
+We can represent the models fitted independently beach by beach we had above with this full model with the interaction term side by side:
+
+```{r}
+par(mfrow=c(1,2))
+plot(Richness~NAP,pch=as.character(Beach),col= terrain.colors(10)[as.numeric(Beach)],data=RIKZ)
+as=numeric(9);bs=numeric(9);exp=numeric(9)
+for(i in 1:9){
+  m=lm(Richness~NAP,data=RIKZ[RIKZ$Beach==i,])
+  cs=coef(m)
+  as[i]=cs[1]
+  bs[i]=cs[2]
+  exp[i]=RIKZ$Exposure[i*5]
+  abline(cs,lty=exp[i]+1,col=terrain.colors(10)[i])
+}
+legend("topright",lty=c(1,2),legend=c("Exposure 0","Exposure 1"),inset=0.05)
+#a single model
+plot(Richness~NAP,pch=as.character(Beach),col= terrain.colors(10)[as.numeric(Beach)],data=RIKZ)
+#beach 1
+abline(a=coef(lmALL)[1],b=coef(lmALL)[2],col= terrain.colors(10)[1],lty=exp[1]+1)
+for(i in 2:9){
+  abline(a=coef(lmALL)[1]+coef(lmALL)[i+1],b=coef(lmALL)[2]+coef(lmALL)[i+9],col= terrain.colors(10)[i],lty=exp[i]+1)
+  legend("topright",lty=c(1,2),legend=c("Exposure 0","Exposure 1"),inset=0.05)
+}
+```
+
+and we can add the AIC of this model to the above comparison
+
+```{r}
+AIC(lme1,lme3,lme6,lmALL)
+```
+
+interestingly, the model without mixed effects is strongly favored as the most parsimonious model. This is perhaps not surprising given the clearly unrealistic model fits given the data for the model with both random intercepts and slopes for beach and NAP within beach. It seems as if the mixed model was not able to truly capture the range of slopes and intercepts required - I suspect this is due to the strong correlation between intercepts ans slopes note above. But then, pragmatically, what would you go about modelling this data?
+
+This is not really the outcome I was looking for here, even if the decision to use beach as random effect or as a fixed effect is a philosophical one.
+
+

@@ -43,6 +43,135 @@ plot(glmLR1)
 
 ```
 
+## Titanic example
+
+here's an interesting logistic regression example, one can tell a good story around it
+
+Vamos ler os dados do package `titanic`.
+
+```{r}
+library(titanic)
+```
+
+Vamos ver os dados
+
+```{r}
+head(titanic_train)
+```
+
+### Análise Exploratoria de Dados
+
+```{r}
+barplot(table(titanic_train$Survived))
+```
+
+
+```{r}
+with(titanic_train,plot(Survived~Age))
+```
+
+
+```{r}
+with(titanic_train,boxplot(Survived~Sex))
+```
+
+
+
+```{r}
+with(titanic_train,boxplot(Age~Sex))
+```
+
+### Modelação
+
+Testar um modelo linear
+
+```{r}
+lm1<-lm(Survived~Age,data=titanic_train)
+with(titanic_train,plot(Survived~Age))
+abline(lm1)
+```
+
+tentar com um GLM
+
+```{r}
+glm1<-glm(Survived~Age,data=titanic_train,family=binomial(link="logit"))
+with(titanic_train,plot(Survived~Age))
+abline(lm1)
+# isto não funciona
+#abline(glm1,col="blue")
+
+#primeiro faço a predição
+newages <- seq(0,90,length=300)
+preds <- predict(glm1,newdata=data.frame(Age=newages),type="response")
+#e agora adiciono ao plot
+lines(newages,preds,col="green")
+```
+
+o que diz o meu modelo
+
+```{r}
+summary(glm1)
+```
+
+ok, idade influencia, negativamente, a sobrevivencia, e o sexo?
+
+```{r}
+glm2<-glm(Survived~Age+Sex,data=titanic_train,family=binomial(link="logit"))
+with(titanic_train,plot(Survived~Age))
+abline(lm1)
+# isto não funciona
+#abline(glm1,col="blue")
+
+#primeiro faço a predição
+newages <- seq(0,90,length=300)
+predsM <- predict(glm2,newdata=data.frame(Age=newages,Sex="male"),type="response")
+predsF <- predict(glm2,newdata=data.frame(Age=newages,Sex="female"),type="response")
+#e agora adiciono ao plot
+lines(newages,preds,col="green")
+lines(newages,predsM,col="blue")
+lines(newages,predsF,col="pink")
+```
+
+ver o model
+
+```{r}
+summary(glm2)
+```
+
+e a classe3 do bilhete?
+
+```{r}
+glm3<-glm(Survived~Age+Sex+Pclass,data=titanic_train,family=binomial(link="logit"))
+with(titanic_train,plot(Survived~Age))
+abline(lm1)
+# isto não funciona
+#abline(glm1,col="blue")
+
+#primeiro faço a predição
+newages <- seq(0,90,length=300)
+predsMC1 <- predict(glm3,newdata=data.frame(Age=newages,Sex="male",Pclass=1),type="response")
+predsMC2 <- predict(glm3,newdata=data.frame(Age=newages,Sex="male",Pclass=2),type="response")
+predsMC3 <- predict(glm3,newdata=data.frame(Age=newages,Sex="male",Pclass=3),type="response")
+predsFC1 <- predict(glm3,newdata=data.frame(Age=newages,Sex="female",Pclass=1),type="response")
+predsFC2 <- predict(glm3,newdata=data.frame(Age=newages,Sex="female",Pclass=2),type="response")
+predsFC3 <- predict(glm3,newdata=data.frame(Age=newages,Sex="female",Pclass=3),type="response")
+#e agora adiciono ao plot
+lines(newages,preds,col="green")
+lines(newages,predsMC1,col="blue",lwd=1)
+lines(newages,predsFC1,col="pink",lwd=1)
+lines(newages,predsMC2,col="blue",lwd=2)
+lines(newages,predsFC2,col="pink",lwd=2)
+lines(newages,predsMC3,col="blue",lwd=3)
+lines(newages,predsFC3,col="pink",lwd=3)
+```
+
+o modelo
+
+```{r}
+summary(glm3)
+```
+
+
 ## About multicollinearity
 
 (this is probably best way before, in the linear model stuff... any way, I presented it here as this topic started from a student question)

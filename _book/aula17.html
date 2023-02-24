@@ -23,7 +23,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2022-12-06" />
+<meta name="date" content="2022-12-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -516,7 +516,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb37-2"><a href="aula17.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(<span class="fu">coef</span>(lme3)[,<span class="dv">2</span>]<span class="sc">~</span><span class="fu">coef</span>(lme3)[,<span class="dv">1</span>]))</span>
 <span id="cb37-3"><a href="aula17.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">10</span>,<span class="sc">-</span><span class="dv">3</span>,<span class="fu">paste</span>(<span class="st">&quot;Correlation is&quot;</span>,<span class="fu">round</span>(<span class="fu">cor</span>(<span class="fu">coef</span>(lme3)[,<span class="dv">1</span>],<span class="fu">coef</span>(lme3)[,<span class="dv">2</span>]),<span class="dv">5</span>)))</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-<p>the correlation is in fact very large! Note this correlation is actually an output of the lme function. A very detailed description of what these correlations are when we have more than 1 of them can be found here: <a href="https://rpubs.com/yjunechoe/correlationsLMEM" class="uri">https://rpubs.com/yjunechoe/correlationsLMEM</a>. That is a quite advanced topic though.</p>
+<p>the correlation is in fact very large! Note this correlation is actually an output present in the <code>lme</code> and <code>lmer</code> fitted objects. A very detailed description of what these correlations are when we have more than 1 of them can be found here: <a href="https://rpubs.com/yjunechoe/correlationsLMEM" class="uri">https://rpubs.com/yjunechoe/correlationsLMEM</a>. That is a quite advanced topic though.</p>
+<p>Note that we could have considered a standard model where beach might be a factor and we would include an interaction between beach and NAP to allow for both different intercepts and slopes across beaches.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="aula17.html#cb38-1" aria-hidden="true" tabindex="-1"></a>lmALL<span class="ot">=</span><span class="fu">lm</span>(Richness<span class="sc">~</span>NAP<span class="sc">+</span>fbeach<span class="sc">+</span>NAP<span class="sc">:</span>fbeach,<span class="at">data=</span>RIKZ)</span>
+<span id="cb38-2"><a href="aula17.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmALL)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Richness ~ NAP + fbeach + NAP:fbeach, data = RIKZ)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.3022 -0.6614 -0.1076  0.4072  5.9090 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  10.8219     1.3341   8.112 1.03e-08 ***
+## NAP          -0.3718     1.5493  -0.240 0.812140    
+## fbeach2       2.5238     1.7685   1.427 0.165013    
+## fbeach3      -7.4212     1.7346  -4.278 0.000211 ***
+## fbeach4      -7.7342     1.8541  -4.171 0.000281 ***
+## fbeach5       1.9609     1.9485   1.006 0.323166    
+## fbeach6      -6.4973     1.7494  -3.714 0.000938 ***
+## fbeach7      -7.3013     2.2611  -3.229 0.003253 ** 
+## fbeach8      -5.8704     1.7981  -3.265 0.002974 ** 
+## fbeach9      -4.5268     1.8631  -2.430 0.022036 *  
+## NAP:fbeach2  -3.8034     1.9941  -1.907 0.067169 .  
+## NAP:fbeach3  -1.3835     2.0405  -0.678 0.503511    
+## NAP:fbeach4  -0.8767     1.9528  -0.449 0.657044    
+## NAP:fbeach5  -8.5283     2.1340  -3.996 0.000447 ***
+## NAP:fbeach6  -1.0167     1.8290  -0.556 0.582872    
+## NAP:fbeach7  -1.1458     2.2756  -0.504 0.618683    
+## NAP:fbeach8  -1.5212     1.8134  -0.839 0.408891    
+## NAP:fbeach9  -2.5957     1.9537  -1.329 0.195100    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.479 on 27 degrees of freedom
+## Multiple R-squared:  0.8494, Adjusted R-squared:  0.7546 
+## F-statistic: 8.957 on 17 and 27 DF,  p-value: 4.056e-07</code></pre>
+<p>We can represent the models fitted independently beach by beach we had above with this full model with the interaction term side by side:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="aula17.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb40-2"><a href="aula17.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
+<span id="cb40-3"><a href="aula17.html#cb40-3" aria-hidden="true" tabindex="-1"></a>as<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>);bs<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>);exp<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>)</span>
+<span id="cb40-4"><a href="aula17.html#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>){</span>
+<span id="cb40-5"><a href="aula17.html#cb40-5" aria-hidden="true" tabindex="-1"></a>  m<span class="ot">=</span><span class="fu">lm</span>(Richness<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ[RIKZ<span class="sc">$</span>Beach<span class="sc">==</span>i,])</span>
+<span id="cb40-6"><a href="aula17.html#cb40-6" aria-hidden="true" tabindex="-1"></a>  cs<span class="ot">=</span><span class="fu">coef</span>(m)</span>
+<span id="cb40-7"><a href="aula17.html#cb40-7" aria-hidden="true" tabindex="-1"></a>  as[i]<span class="ot">=</span>cs[<span class="dv">1</span>]</span>
+<span id="cb40-8"><a href="aula17.html#cb40-8" aria-hidden="true" tabindex="-1"></a>  bs[i]<span class="ot">=</span>cs[<span class="dv">2</span>]</span>
+<span id="cb40-9"><a href="aula17.html#cb40-9" aria-hidden="true" tabindex="-1"></a>  exp[i]<span class="ot">=</span>RIKZ<span class="sc">$</span>Exposure[i<span class="sc">*</span><span class="dv">5</span>]</span>
+<span id="cb40-10"><a href="aula17.html#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(cs,<span class="at">lty=</span>exp[i]<span class="sc">+</span><span class="dv">1</span>,<span class="at">col=</span><span class="fu">terrain.colors</span>(<span class="dv">10</span>)[i])</span>
+<span id="cb40-11"><a href="aula17.html#cb40-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-12"><a href="aula17.html#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Exposure 0&quot;</span>,<span class="st">&quot;Exposure 1&quot;</span>),<span class="at">inset=</span><span class="fl">0.05</span>)</span>
+<span id="cb40-13"><a href="aula17.html#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="co">#a single model</span></span>
+<span id="cb40-14"><a href="aula17.html#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
+<span id="cb40-15"><a href="aula17.html#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="co">#beach 1</span></span>
+<span id="cb40-16"><a href="aula17.html#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span><span class="fu">coef</span>(lmALL)[<span class="dv">1</span>],<span class="at">b=</span><span class="fu">coef</span>(lmALL)[<span class="dv">2</span>],<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="dv">1</span>],<span class="at">lty=</span>exp[<span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb40-17"><a href="aula17.html#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">9</span>){</span>
+<span id="cb40-18"><a href="aula17.html#cb40-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a=</span><span class="fu">coef</span>(lmALL)[<span class="dv">1</span>]<span class="sc">+</span><span class="fu">coef</span>(lmALL)[i<span class="sc">+</span><span class="dv">1</span>],<span class="at">b=</span><span class="fu">coef</span>(lmALL)[<span class="dv">2</span>]<span class="sc">+</span><span class="fu">coef</span>(lmALL)[i<span class="sc">+</span><span class="dv">9</span>],<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[i],<span class="at">lty=</span>exp[i]<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb40-19"><a href="aula17.html#cb40-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Exposure 0&quot;</span>,<span class="st">&quot;Exposure 1&quot;</span>),<span class="at">inset=</span><span class="fl">0.05</span>)</span>
+<span id="cb40-20"><a href="aula17.html#cb40-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>and we can add the AIC of this model to the above comparison</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="aula17.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(lme1,lme3,lme6,lmALL)</span></code></pre></div>
+<pre><code>## Warning in AIC.default(lme1, lme3, lme6, lmALL): models are not all fitted to
+## the same number of observations</code></pre>
+<pre><code>##       df      AIC
+## lme1   4 247.4802
+## lme3   6 244.3839
+## lme6   3 267.1142
+## lmALL 19 224.4232</code></pre>
+<p>interestingly, the model without mixed effects is strongly favored as the most parsimonious model. This is perhaps not surprising given the clearly unrealistic model fits given the data for the model with both random intercepts and slopes for beach and NAP within beach. It seems as if the mixed model was not able to truly capture the range of slopes and intercepts required - I suspect this is due to the strong correlation between intercepts ans slopes note above. But then, pragmatically, what would you go about modelling this data?</p>
+<p>This is not really the outcome I was looking for here, even if the decision to use beach as random effect or as a fixed effect is a philosophical one.</p>
 
 </div>
             </section>
