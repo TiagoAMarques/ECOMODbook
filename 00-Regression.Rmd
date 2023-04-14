@@ -1,6 +1,6 @@
 # About regression
 
-Some references woth looking into.
+Some references worth looking into.
 
 An intro to R: [@Zuur2009a]
 

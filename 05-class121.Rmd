@@ -1,5 +1,5 @@
 
-# Conlusion on linear regression
+# Conclusion on linear regression
 
 ## Conclusion
 

@@ -1,6 +1,8 @@
 # Hands On Regression {#handson}
 
-Here we come up wit a story... an example about regression.
+Here we come up with a story... an example about regression.
+
+I would love to weave in an example that could also be used to illustrate simpsons paradox, as in https://twitter.com/TivadarDanka/status/1646101110065856512
 
 A simple regression is just the situation where we want to model a response variable as a function of a single explanatory variable. As an examples, say, the time a fish takes to react to a predator introduced in an aquarium by getting into shelter, as a function of the water temperature. Let's simulate some data that would represent this scenario, but I am not showing you the way the data was simulated just yet.
 
