@@ -12,7 +12,17 @@ More on regression and extending the linear model (just an example): [@Faraway20
 
 Where does the word come from? Gauss and regression towards the mean.
 
-A regression is a model that allows us to predict a response variable $y$ (a.k.a the dependent variable, because it depends on the other variables) as a function of the values ofindependent variables (a.k.a. covariates, predictors or explanatory).
+A regression is a model that allows us to predict a response variable, often referred to as $y$ (a.k.a the dependent variable, because it depends on the other variables) as a function of the values of one or several independent variables (a.k.a. covariates, predictors or explanatory). 
+
+While in general we are interested in modelling the mean value of a single response variable, conditional on the values of the covariates, and that is the setting we concentrate on this book, one could extend such basic regression concepts in a couple of useful ways:
+
+1. we could model not the mean of the response but some quantile of interest, leading to quantile regression, or we could model more than just the mean, say the mean and the variance (or some other moments) of the response. For details about the former the reader can check @Cade2003, while for details about the latter the reader can explore GAMLSS models @Stasinopoulos2017. A good interface to material on such models can be found at https://www.gamlss.com/
+
+2. we could model more than a single response variable at the same time, and there are a wide variety of examples of such models, like joint models in survival analysis, or multivariate analysis of variance (a.k.a MANOVA).
+
+
+
+
 
 ## The general linear model
 

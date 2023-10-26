@@ -23,7 +23,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2023-10-25" />
+<meta name="date" content="2023-10-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -299,7 +299,12 @@ div.csl-indent {
 <div id="what-is-a-regression" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> What is a regression?<a href="about-regression.html#what-is-a-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Where does the word come from? Gauss and regression towards the mean.</p>
-<p>A regression is a model that allows us to predict a response variable <span class="math inline">\(y\)</span> (a.k.a the dependent variable, because it depends on the other variables) as a function of the values ofindependent variables (a.k.a. covariates, predictors or explanatory).</p>
+<p>A regression is a model that allows us to predict a response variable, often referred to as <span class="math inline">\(y\)</span> (a.k.a the dependent variable, because it depends on the other variables) as a function of the values of one or several independent variables (a.k.a. covariates, predictors or explanatory).</p>
+<p>While in general we are interested in modelling the mean value of a single response variable, conditional on the values of the covariates, and that is the setting we concentrate on this book, one could extend such basic regression concepts in a couple of useful ways:</p>
+<ol style="list-style-type: decimal">
+<li><p>we could model not the mean of the response but some quantile of interest, leading to quantile regression, or we could model more than just the mean, say the mean and the variance (or some other moments) of the response. For details about the former the reader can check <span class="citation">Cade and Noon (<a href="#ref-Cade2003">2003</a>)</span>, while for details about the latter the reader can explore GAMLSS models <span class="citation">Stasinopoulos (<a href="#ref-Stasinopoulos2017">2017</a>)</span>. A good interface to material on such models can be found at <a href="https://www.gamlss.com/" class="uri">https://www.gamlss.com/</a></p></li>
+<li><p>we could model more than a single response variable at the same time, and there are a wide variety of examples of such models, like joint models in survival analysis, or multivariate analysis of variance (a.k.a MANOVA).</p></li>
+</ol>
 </div>
 <div id="the-general-linear-model" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> The general linear model<a href="about-regression.html#the-general-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -325,8 +330,14 @@ with residuals</p>
 </div>
 <h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Cade2003" class="csl-entry">
+Cade, Brian S., and Barry R. Noon. 2003. <span>“A Gentle Introduction to Quantile Regression for Ecologists.”</span> <em>Frontiers in Ecology and the Environment</em> 1 (8): 412–20. <a href="https://doi.org/10.1890/1540-9295(2003)001[0412:agitqr]2.0.co;2">https://doi.org/10.1890/1540-9295(2003)001[0412:agitqr]2.0.co;2</a>.
+</div>
 <div id="ref-Faraway2006" class="csl-entry">
 Faraway, J. J. 2006. <em>Extending the Linear Model with r</em>. Chapman; Hall / CRC. <a href="http://www.maths.bath.ac.uk/%7Ejjf23/ELM/">http://www.maths.bath.ac.uk/%7Ejjf23/ELM/</a>.
+</div>
+<div id="ref-Stasinopoulos2017" class="csl-entry">
+Stasinopoulos, Mikis D. 2017. <em>Flexible Regression and Smoothing: Using GAMLSS in r</em>. Edited by Robert A. Rigby, Gillian Z. Heller, Vlasios Voudouris, Fernanda De Bastiani, and Fernanda Bastiani. A Chapman &amp; Hall Book. Boca Raton: CRC Press, Taylor &amp; Francis Group, a Chapman &amp; Hall book.
 </div>
 <div id="ref-Zuur2009a" class="csl-entry">
 Zuur, Alain F., Elena N. Ieno, and Erik H. W. G. Meesters. 2009. <em>A Beginner’s Guide to r</em>. Edited by Robert Gentleman, Kurt Hornik, and Giovanni G. Parmigiani. Springer.
