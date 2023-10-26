@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Hands On Regression | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Hands On Regression | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2021-11-07" />
+<meta name="date" content="2023-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="about-regression.html"/>
 <link rel="next" href="aula6.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,14 +49,16 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -162,7 +166,11 @@ div.csl-indent {
 <li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
 <li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
 <li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
-<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a></li>
+<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="prelim.html"><a href="prelim.html#lbtb"><i class="fa fa-check"></i><b>5.1</b> Learning by the book</a></li>
+<li class="chapter" data-level="5.2" data-path="prelim.html"><a href="prelim.html#ftpt"><i class="fa fa-check"></i><b>5.2</b> Following the paper trail</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>6</b> About regression</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>6.1</b> What is a regression?</a></li>
@@ -172,7 +180,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>8</b> Class 6 13 10 2020</a>
+<li class="chapter" data-level="8" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>8</b> Regression inside out</a>
 <ul>
 <li class="chapter" data-level="8.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>8.1</b> Implementing a regression</a></li>
 <li class="chapter" data-level="8.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>8.2</b> Simulating regression data</a>
@@ -180,16 +188,17 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Class 7 14 10 2020</a>
+<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Two tasks to further understand regression</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>9.1</b> Task 1</a></li>
 <li class="chapter" data-level="9.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>9.2</b> Task 2</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a>
+<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> t-tests and ANOVAs are just linear models</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.1</b> The t-test</a></li>
-<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.2</b> ANOVA</a></li>
-<li class="chapter" data-level="10.3" data-path="aula8.html"><a href="aula8.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>10.3</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
+<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#a-one-sample-t-test-is-the-simplest-possible-linear-model"><i class="fa fa-check"></i><b>10.1</b> A one sample t-test is the simplest possible linear model</a></li>
+<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.2</b> The t-test</a></li>
+<li class="chapter" data-level="10.3" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.3</b> ANOVA</a></li>
+<li class="chapter" data-level="10.4" data-path="aula8.html"><a href="aula8.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>10.4</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>11</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a>
 <ul>
@@ -209,9 +218,9 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="14.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>14.1</b> Larger order interactions</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conlusion on linear regression</a>
+<li class="chapter" data-level="15" data-path="conclusion-on-linear-regression.html"><a href="conclusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conclusion on linear regression</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
+<li class="chapter" data-level="15.1" data-path="conclusion-on-linear-regression.html"><a href="conclusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>16</b> Class 13: 10 11 2020 Maximum likelihood and all that</a>
 <ul>
@@ -228,6 +237,7 @@ div.csl-indent {
 <li class="chapter" data-level="17.2" data-path="aula14.html"><a href="aula14.html#the-link-function"><i class="fa fa-check"></i><b>17.2</b> The link function</a></li>
 <li class="chapter" data-level="17.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>17.3</b> Most useful GLM Families</a></li>
 <li class="chapter" data-level="17.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>17.4</b> An example analysis</a></li>
+<li class="chapter" data-level="17.5" data-path="aula14.html"><a href="aula14.html#an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework"><i class="fa fa-check"></i><b>17.5</b> An example of a GLM as a detail within a conceptualization framework</a></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a></li>
 <li class="chapter" data-level="19" data-path="example-1---deviance.html"><a href="example-1---deviance.html"><i class="fa fa-check"></i><b>19</b> Example 1 - deviance</a></li>
@@ -238,9 +248,14 @@ div.csl-indent {
 <li class="chapter" data-level="21" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>21</b> Class 16: 18 11 2020</a>
 <ul>
 <li class="chapter" data-level="21.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>21.1</b> A logistic regression example</a></li>
-<li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.2</b> About multicollinearity</a></li>
+<li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#titanic-example"><i class="fa fa-check"></i><b>21.2</b> Titanic example</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="aula16.html"><a href="aula16.html#análise-exploratoria-de-dados"><i class="fa fa-check"></i><b>21.2.1</b> Análise Exploratoria de Dados</a></li>
+<li class="chapter" data-level="21.2.2" data-path="aula16.html"><a href="aula16.html#modelação"><i class="fa fa-check"></i><b>21.2.2</b> Modelação</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Class 17: 24 11 2020</a></li>
+<li class="chapter" data-level="21.3" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.3</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Random effects and mixed Models</a></li>
 <li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a>
 <ul>
 <li class="chapter" data-level="23.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>23.1</b> Presence of bats</a></li>
@@ -275,16 +290,17 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="handson" class="section level1" number="7">
-<h1><span class="header-section-number">Chapter 7</span> Hands On Regression</h1>
-<p>Here we come up wit a story… an example about regression.</p>
+<div id="handson" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Hands On Regression<a href="handson.html#handson" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Here we come up with a story… an example about regression.</p>
+<p>I would love to weave in an example that could also be used to illustrate Simpsons paradox, as in <a href="https://twitter.com/TivadarDanka/status/1646101110065856512" class="uri">https://twitter.com/TivadarDanka/status/1646101110065856512</a></p>
 <p>A simple regression is just the situation where we want to model a response variable as a function of a single explanatory variable. As an examples, say, the time a fish takes to react to a predator introduced in an aquarium by getting into shelter, as a function of the water temperature. Let’s simulate some data that would represent this scenario, but I am not showing you the way the data was simulated just yet.</p>
 <p>Nonetheless, let me tell you that the reaction times were created in object <code>react</code>, the temperatures in object <code>temp</code>, and these were then packed as a <code>data.frame</code> called <code>reaction</code>.</p>
 <p>The first few lines of the simulated data are shown in Table <a href="handson.html#tab:Ttab1">7.1</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="handson.html#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb1-2"><a href="handson.html#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(reaction, <span class="dv">5</span>), <span class="at">caption =</span> <span class="st">&#39;The simulated dataset&#39;</span>,</span>
-<span id="cb1-3"><a href="handson.html#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
-<span id="cb1-4"><a href="handson.html#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="handson.html#cb1-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb1-2"><a href="handson.html#cb1-2" tabindex="-1"></a>  <span class="fu">head</span>(reaction, <span class="dv">5</span>), <span class="at">caption =</span> <span class="st">&#39;The simulated dataset&#39;</span>,</span>
+<span id="cb1-3"><a href="handson.html#cb1-3" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-4"><a href="handson.html#cb1-4" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:Ttab1">Table 7.1: </span>The simulated dataset</caption>
 <thead>
@@ -317,8 +333,8 @@ div.csl-indent {
 </tbody>
 </table>
 <p>The data is shown in figure <a href="handson.html#fig:Freg">7.1</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="handson.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))</span>
-<span id="cb2-2"><a href="handson.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(react<span class="sc">~</span>temp,<span class="at">xlab=</span><span class="st">&quot;Temperature (degrees, Celcius)&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Reaction time (seconds)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="handson.html#cb2-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))</span>
+<span id="cb2-2"><a href="handson.html#cb2-2" tabindex="-1"></a><span class="fu">plot</span>(react<span class="sc">~</span>temp,<span class="at">xlab=</span><span class="st">&quot;Temperature (degrees, Celcius)&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Reaction time (seconds)&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:Freg"></span>
 <img src="ECOMODbook_files/figure-html/Freg-1.png" alt="An example regression data set that could be eplained by a linear regression" width="80%" />
 <p class="caption">
@@ -326,15 +342,15 @@ Figure 7.1: An example regression data set that could be eplained by a linear re
 </p>
 </div>
 <p>It seems like there is a linear relationship between the predictor (temperature) and the response (the reaction time). We could therepore model it with a simple linear regression. We can do that using R´s function <code>lm</code>. We do so here and then look at the summary of the object produced.</p>
-<p>The required argument for <code>lm</code> is the <code>formula</code> that defines the regression model. The symbol <code>~</code>is used to represent “as a function of.” So here we will want something like “reaction time ~ water temperature.”</p>
+<p>The required argument for <code>lm</code> is the <code>formula</code> that defines the regression model. The symbol <code>~</code>is used to represent “as a function of”. So here we will want something like “reaction time ~ water temperature”.</p>
 <p>While this might seem like a detail, it is a good policy to always fit models using explicitly the <code>data</code> argument, instead of fitting the model to objects hanging around the workspace. Learn how to be tidy!</p>
 <p>Therefore, while the imideate result would be the same, we suggest that you do not do this</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="handson.html#cb3-1" aria-hidden="true" tabindex="-1"></a>mod0<span class="ot">&lt;-</span><span class="fu">lm</span>(react<span class="sc">~</span>temp)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="handson.html#cb3-1" tabindex="-1"></a>mod0<span class="ot">&lt;-</span><span class="fu">lm</span>(react<span class="sc">~</span>temp)</span></code></pre></div>
 <p>nor this</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="handson.html#cb4-1" aria-hidden="true" tabindex="-1"></a>mod0<span class="ot">&lt;-</span><span class="fu">lm</span>(reaction<span class="sc">$</span>react<span class="sc">~</span>reaction<span class="sc">$</span>temp)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="handson.html#cb4-1" tabindex="-1"></a>mod0<span class="ot">&lt;-</span><span class="fu">lm</span>(reaction<span class="sc">$</span>react<span class="sc">~</span>reaction<span class="sc">$</span>temp)</span></code></pre></div>
 <p>but always consider this</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="handson.html#cb5-1" aria-hidden="true" tabindex="-1"></a>mod0<span class="ot">&lt;-</span><span class="fu">lm</span>(react<span class="sc">~</span>temp,<span class="at">data=</span>reaction)</span>
-<span id="cb5-2"><a href="handson.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod0)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="handson.html#cb5-1" tabindex="-1"></a>mod0<span class="ot">&lt;-</span><span class="fu">lm</span>(react<span class="sc">~</span>temp,<span class="at">data=</span>reaction)</span>
+<span id="cb5-2"><a href="handson.html#cb5-2" tabindex="-1"></a><span class="fu">summary</span>(mod0)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = react ~ temp, data = reaction)
@@ -355,29 +371,30 @@ Figure 7.1: An example regression data set that could be eplained by a linear re
 ## F-statistic: 960.2 on 1 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>This will be easier to read for others, makes you tidy, and will save you headaches when using functions like <code>predict</code> over the resulting fitted model.</p>
 <p>We can the estimated regression line to the above plot. I color it red to remind us of the fact that this is an estimated line, not the true line that generated the data. While in general we do not know this with real data, here I know the model that was used to simulate the data. Just for comparison I can add it to the plot to compare with the estimated regression line.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="handson.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(react<span class="sc">~</span>temp,<span class="at">xlab=</span><span class="st">&quot;Temperature (degrees, Celcius)&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Reaction time (seconds)&quot;</span>)</span>
-<span id="cb7-2"><a href="handson.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod0,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb7-3"><a href="handson.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(beta0,beta1,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
-<span id="cb7-4"><a href="handson.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Real model&quot;</span>,<span class="st">&quot;Estimated Regression Line&quot;</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;green&quot;</span>,<span class="st">&quot;red&quot;</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">inset=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="handson.html#cb7-1" tabindex="-1"></a><span class="fu">plot</span>(react<span class="sc">~</span>temp,<span class="at">xlab=</span><span class="st">&quot;Temperature (degrees, Celcius)&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Reaction time (seconds)&quot;</span>)</span>
+<span id="cb7-2"><a href="handson.html#cb7-2" tabindex="-1"></a><span class="fu">abline</span>(mod0,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb7-3"><a href="handson.html#cb7-3" tabindex="-1"></a><span class="fu">abline</span>(beta0,beta1,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb7-4"><a href="handson.html#cb7-4" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Real model&quot;</span>,<span class="st">&quot;Estimated Regression Line&quot;</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;green&quot;</span>,<span class="st">&quot;red&quot;</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">inset=</span><span class="fl">0.05</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/reg9-1.png" width="672" /></p>
 <p>The estimated line and the true line are very similar, as expected since we have a reasonable sample size, a small error, and a model that is the reality. With real data, this will be the exception, not the rule. All models are wrong, but some are useful. The linear regression model is perhaps one of the simplest, but also one of the most widely used, and hence, one of those that has been extremely useful. But of course, its simplicity is also its major disadvantage, as we shall see.</p>
-<div id="the-assumptions-are-on-the-residuals-not-the-data" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> The assumptions are on the residuals, not the data</h2>
-<p>Imagine that you have a single variable that you are interested in modelling. This is the concentration of an enzime in the blood of small rodents, from 4 diffferent species. This is represented in the image below <a href="handson.html#fig:figrodents">7.2</a>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="handson.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ys,<span class="at">breaks=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">40</span>,<span class="at">xlab=</span><span class="st">&quot;Concentration of enzime (mg/L)&quot;</span>)</span></code></pre></div>
+<div id="the-assumptions-are-on-the-residuals-not-the-data" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> The assumptions are on the residuals, not the data<a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Imagine that you have a single variable that you are interested in modelling. This is the concentration of an enzyme in the blood of small rodents, from 4 different species. The data is created and saved as file <code>enzimes.txt</code>, but I do not show here how it is generated for dramatic effects!</p>
+<p>This is represented in the image below <a href="handson.html#fig:figrodents">7.2</a>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="handson.html#cb8-1" tabindex="-1"></a><span class="fu">hist</span>(ys,<span class="at">breaks=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">40</span>,<span class="at">xlab=</span><span class="st">&quot;Concentration of enzime (mg/L)&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:figrodents"></span>
 <img src="ECOMODbook_files/figure-html/figrodents-1.png" alt="Concentration of an enzime (mg/L) in the blood of small rodents, from 4 diffferent species" width="80%" />
 <p class="caption">
 Figure 7.2: Concentration of an enzime (mg/L) in the blood of small rodents, from 4 diffferent species
 </p>
 </div>
-<p>A poor (conventional and traditional) biologist would die if shown this dataset, but the truth is there would be no reason for it. If one accounts for the different species, this is what we see. Clear differences between two groups of species.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="handson.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ys<span class="sc">~</span>type,<span class="at">ylab=</span><span class="st">&quot;Concentration of enzime (mg/L)&quot;</span>)</span></code></pre></div>
+<p>A poor (conventional and traditional) biologist would die if shown this dataset - it looks nothing like Gaussian, what shall he do? - but the truth is there would be no reason for it. If one accounts for the different species, this is what we see. Clear differences between two groups of species.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="handson.html#cb9-1" tabindex="-1"></a><span class="fu">boxplot</span>(ys<span class="sc">~</span>type,<span class="at">ylab=</span><span class="st">&quot;Concentration of enzime (mg/L)&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/reg11-1.png" width="672" /></p>
 <p>And further, we can see that the remaining residuals are a beautiful Gaussian. Not a surprise, since this was simulated data, from a Gaussian model :) !</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="handson.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">residuals</span>(<span class="fu">lm</span>(ys<span class="sc">~</span>type)),<span class="at">main=</span><span class="st">&quot;&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="handson.html#cb10-1" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">residuals</span>(<span class="fu">lm</span>(ys<span class="sc">~</span>type)),<span class="at">main=</span><span class="st">&quot;&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Residuals&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/reg12-1.png" width="672" /></p>
-<p>The take home message from the story: what the data looks like might be irrelevant. The patterns that remain in the residuals, if any, those are the ones we might need to worry about. So do not transform data just becasue the data looks odd. It might just be Gaussian data in disguise!</p>
+<p>The take home message from the story: what the data looks like might be irrelevant. The patterns that remain in the residuals, if any, those are the ones we might need to worry about. So do not transform data just because the data looks odd. It might just be Gaussian data in disguise!</p>
 
 </div>
 </div>
@@ -447,7 +464,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

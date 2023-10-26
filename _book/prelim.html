@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Preliminaries | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Preliminaries | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2021-11-16" />
+<meta name="date" content="2023-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="usingRintro.html"/>
 <link rel="next" href="about-regression.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,11 +49,80 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -113,7 +180,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>8</b> Class 6 13 10 2020</a>
+<li class="chapter" data-level="8" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>8</b> Regression inside out</a>
 <ul>
 <li class="chapter" data-level="8.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>8.1</b> Implementing a regression</a></li>
 <li class="chapter" data-level="8.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>8.2</b> Simulating regression data</a>
@@ -121,16 +188,17 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Class 7 14 10 2020</a>
+<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Two tasks to further understand regression</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>9.1</b> Task 1</a></li>
 <li class="chapter" data-level="9.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>9.2</b> Task 2</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a>
+<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> t-tests and ANOVAs are just linear models</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.1</b> The t-test</a></li>
-<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.2</b> ANOVA</a></li>
-<li class="chapter" data-level="10.3" data-path="aula8.html"><a href="aula8.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>10.3</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
+<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#a-one-sample-t-test-is-the-simplest-possible-linear-model"><i class="fa fa-check"></i><b>10.1</b> A one sample t-test is the simplest possible linear model</a></li>
+<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.2</b> The t-test</a></li>
+<li class="chapter" data-level="10.3" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.3</b> ANOVA</a></li>
+<li class="chapter" data-level="10.4" data-path="aula8.html"><a href="aula8.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>10.4</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>11</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a>
 <ul>
@@ -150,9 +218,9 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="14.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>14.1</b> Larger order interactions</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conlusion on linear regression</a>
+<li class="chapter" data-level="15" data-path="conclusion-on-linear-regression.html"><a href="conclusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conclusion on linear regression</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
+<li class="chapter" data-level="15.1" data-path="conclusion-on-linear-regression.html"><a href="conclusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>16</b> Class 13: 10 11 2020 Maximum likelihood and all that</a>
 <ul>
@@ -171,29 +239,36 @@ div.csl-indent {
 <li class="chapter" data-level="17.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>17.4</b> An example analysis</a></li>
 <li class="chapter" data-level="17.5" data-path="aula14.html"><a href="aula14.html#an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework"><i class="fa fa-check"></i><b>17.5</b> An example of a GLM as a detail within a conceptualization framework</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a>
+<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a></li>
+<li class="chapter" data-level="19" data-path="example-1---deviance.html"><a href="example-1---deviance.html"><i class="fa fa-check"></i><b>19</b> Example 1 - deviance</a></li>
+<li class="chapter" data-level="20" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html"><i class="fa fa-check"></i><b>20</b> Example 2 - lagartyos GLM</a>
 <ul>
-<li class="chapter" data-level="18.1" data-path="aula15.html"><a href="aula15.html#example-2"><i class="fa fa-check"></i><b>18.1</b> Example 2</a></li>
+<li class="chapter" data-level="20.1" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html#example-2"><i class="fa fa-check"></i><b>20.1</b> Example 2</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>19</b> Class 16: 18 11 2020</a>
+<li class="chapter" data-level="21" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>21</b> Class 16: 18 11 2020</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>19.1</b> A logistic regression example</a></li>
-<li class="chapter" data-level="19.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>19.2</b> About multicollinearity</a></li>
-</ul></li>
-<li class="chapter" data-level="20" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>20</b> Class 17: 24 11 2020</a></li>
-<li class="chapter" data-level="21" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>21</b> Class 18: 25 11 2020</a>
+<li class="chapter" data-level="21.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>21.1</b> A logistic regression example</a></li>
+<li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#titanic-example"><i class="fa fa-check"></i><b>21.2</b> Titanic example</a>
 <ul>
-<li class="chapter" data-level="21.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>21.1</b> Presence of bats</a></li>
-<li class="chapter" data-level="21.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>21.2</b> Sponges</a>
+<li class="chapter" data-level="21.2.1" data-path="aula16.html"><a href="aula16.html#análise-exploratoria-de-dados"><i class="fa fa-check"></i><b>21.2.1</b> Análise Exploratoria de Dados</a></li>
+<li class="chapter" data-level="21.2.2" data-path="aula16.html"><a href="aula16.html#modelação"><i class="fa fa-check"></i><b>21.2.2</b> Modelação</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.3</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Random effects and mixed Models</a></li>
+<li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a>
 <ul>
-<li class="chapter" data-level="21.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>21.2.1</b> Reading data in</a></li>
-<li class="chapter" data-level="21.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>21.2.2</b> Exploratory Data Analysis</a></li>
-<li class="chapter" data-level="21.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>21.2.3</b> Modelling</a></li>
+<li class="chapter" data-level="23.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>23.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="23.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>23.2</b> Sponges</a>
+<ul>
+<li class="chapter" data-level="23.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>23.2.1</b> Reading data in</a></li>
+<li class="chapter" data-level="23.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>23.2.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="23.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>23.2.3</b> Modelling</a></li>
 </ul></li>
-<li class="chapter" data-level="21.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>21.3</b> Extra GLM stuff</a></li>
+<li class="chapter" data-level="23.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>23.3</b> Extra GLM stuff</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>22</b> Class 19: 02 12 2020</a></li>
-<li class="chapter" data-level="23" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>23</b> Final Words</a></li>
+<li class="chapter" data-level="24" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>24</b> Class 19: 02 12 2020</a></li>
+<li class="chapter" data-level="25" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>25</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -215,45 +290,45 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="prelim" class="section level1" number="5">
-<h1><span class="header-section-number">Chapter 5</span> Preliminaries</h1>
+<div id="prelim" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Preliminaries<a href="prelim.html#prelim" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This book is written as a wya to help biologists become more quantitative, and who know one day ending up working primarily as ecological statitsicians. In this chapter I provide a number of resources that could be used as a reading list to become an ecological statitsician on your own.</p>
 <p>These are fundamental references that I think any candidate to become an ecological statistician, even before being an ecological modeller, should know about. These are useful either for someone that develops methods to be used by practicioners, as well as for practitioners wanting to use and understand the methods. Many of these are actually useful for both sets of people.</p>
-<p>One might prefer to read directly from the source, and in that case, the list of papers provided in section <span class="citation">(<a href="#ref-lbtb" role="doc-biblioref"><strong>lbtb?</strong></a>)</span> is a good way to do so. Warning, it will take a while to digest and red all these. In case you prefer comprehensive treatments of broad range of topics in a single source, hopefully with some ecological flavor to them, the subsequent section <span class="citation">(<a href="#ref-ftpt" role="doc-biblioref"><strong>ftpt?</strong></a>)</span> with relevant books might be relevant.</p>
-<div id="lbtb" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Learning by the book</h2>
-<p><span class="citation"><a href="#ref-Zuur2009a" role="doc-biblioref">Zuur, Ieno, and Meesters</a> (<a href="#ref-Zuur2009a" role="doc-biblioref">2009</a>)</span></p>
-<p><span class="citation"><a href="#ref-Zuur2007" role="doc-biblioref">Zuur, Ieno, and Smith</a> (<a href="#ref-Zuur2007" role="doc-biblioref">2007</a>)</span></p>
-<p><span class="citation"><a href="#ref-Zuur2009b" role="doc-biblioref">Zuur et al.</a> (<a href="#ref-Zuur2009b" role="doc-biblioref">2009</a>)</span></p>
-<p><span class="citation"><a href="#ref-Faraway2006" role="doc-biblioref">Faraway</a> (<a href="#ref-Faraway2006" role="doc-biblioref">2006</a>)</span></p>
+<p>One might prefer to read directly from the source, and in that case, the list of papers provided in section <span class="citation">(<a href="#ref-lbtb"><strong>lbtb?</strong></a>)</span> is a good way to do so. Warning, it will take a while to digest and red all these. In case you prefer comprehensive treatments of broad range of topics in a single source, hopefully with some ecological flavor to them, the subsequent section <span class="citation">(<a href="#ref-ftpt"><strong>ftpt?</strong></a>)</span> with relevant books might be relevant.</p>
+<div id="lbtb" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Learning by the book<a href="prelim.html#lbtb" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="citation">Zuur, Ieno, and Meesters (<a href="#ref-Zuur2009a">2009</a>)</span></p>
+<p><span class="citation">Zuur, Ieno, and Smith (<a href="#ref-Zuur2007">2007</a>)</span></p>
+<p><span class="citation">Zuur et al. (<a href="#ref-Zuur2009b">2009</a>)</span></p>
+<p><span class="citation">Faraway (<a href="#ref-Faraway2006">2006</a>)</span></p>
 </div>
-<div id="ftpt" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Following the paper trail</h2>
+<div id="ftpt" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Following the paper trail<a href="prelim.html#ftpt" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><p><span class="citation"><a href="#ref-Hurlbert1984" role="doc-biblioref">Hurlbert</a> (<a href="#ref-Hurlbert1984" role="doc-biblioref">1984</a>)</span> introduces the concept of pseudoreplication in the context of ecological field experiments. This is an ecology classic and a fundamental paper because I suspect many of th emisconceptions around the use of statistics in ecology stem from the fact that researchers try to apply methods that were developed in a context of designed experiments but in fact most ecological studies are observational in nature. Therefore, to soem degree, there is always a degree of pseudo-replication in field observations. Understanding when we can ignore these and treat observations as independent, versus when must account for that correlation in the analysis, is a fundamental ability. Unfortunately, I would say this is much easier said than done, and the ability to do so does not come in books. It is fundamentally obtained through experience.</p></li>
-<li><p><span class="citation"><a href="#ref-AND2001" role="doc-biblioref">Anderson</a> (<a href="#ref-AND2001" role="doc-biblioref">2001</a>)</span> discuss the need to avoid index values, or in other words, that we must account for detectability when interpreting coundsof detected animals, and the fundamental avoiding convenience sampling when sampling wildlife. What you learn from sampling animals from a road in not something about the animals, but about what the animals do near roads. Understanding when the two might be, and even more important, when they might not be, the same thing, is fundamental.</p></li>
-<li><p><span class="citation"><a href="#ref-Kass2016" role="doc-biblioref">Kass</a> (<a href="#ref-Kass2016" role="doc-biblioref">2016</a>)</span> present 10 principles for effective statistical analysis, and while they are all important, I think that the plea for being careful about the data (after all, garbage in. garbage out) and also for aiming to have reproducible analysis are key, often overlooked, messages for all researchers, and that includes those hoping to strive in ecological modelling.</p></li>
-<li><p><span class="citation"><a href="#ref-King2014" role="doc-biblioref">King</a> (<a href="#ref-King2014" role="doc-biblioref">2014</a>)</span> reviews what is modern statitical ecology.</p></li>
-<li><p><span class="citation"><a href="#ref-Gimenez2014" role="doc-biblioref">Gimenez et al.</a> (<a href="#ref-Gimenez2014" role="doc-biblioref">2014</a>)</span>, along similar lines of <span class="citation"><a href="#ref-King2014" role="doc-biblioref">King</a> (<a href="#ref-King2014" role="doc-biblioref">2014</a>)</span>, put forward the idea that ecological statistics is finally a ripe research field and describe the key topics and methods involved at the interface between ecology and statistics.</p></li>
+<li><p><span class="citation">Hurlbert (<a href="#ref-Hurlbert1984">1984</a>)</span> introduces the concept of pseudoreplication in the context of ecological field experiments. This is an ecology classic and a fundamental paper because I suspect many of th emisconceptions around the use of statistics in ecology stem from the fact that researchers try to apply methods that were developed in a context of designed experiments but in fact most ecological studies are observational in nature. Therefore, to soem degree, there is always a degree of pseudo-replication in field observations. Understanding when we can ignore these and treat observations as independent, versus when must account for that correlation in the analysis, is a fundamental ability. Unfortunately, I would say this is much easier said than done, and the ability to do so does not come in books. It is fundamentally obtained through experience.</p></li>
+<li><p><span class="citation">Anderson (<a href="#ref-AND2001">2001</a>)</span> discuss the need to avoid index values, or in other words, that we must account for detectability when interpreting coundsof detected animals, and the fundamental avoiding convenience sampling when sampling wildlife. What you learn from sampling animals from a road in not something about the animals, but about what the animals do near roads. Understanding when the two might be, and even more important, when they might not be, the same thing, is fundamental.</p></li>
+<li><p><span class="citation">Kass (<a href="#ref-Kass2016">2016</a>)</span> present 10 principles for effective statistical analysis, and while they are all important, I think that the plea for being careful about the data (after all, garbage in. garbage out) and also for aiming to have reproducible analysis are key, often overlooked, messages for all researchers, and that includes those hoping to strive in ecological modelling.</p></li>
+<li><p><span class="citation">King (<a href="#ref-King2014">2014</a>)</span> reviews what is modern statitical ecology.</p></li>
+<li><p><span class="citation">Gimenez et al. (<a href="#ref-Gimenez2014">2014</a>)</span>, along similar lines of <span class="citation">King (<a href="#ref-King2014">2014</a>)</span>, put forward the idea that ecological statistics is finally a ripe research field and describe the key topics and methods involved at the interface between ecology and statistics.</p></li>
 <li><p>Martinez-Abrain2007 reminds us of how many questions about whether differences exist between two populations are non-sensical. Of course there are, and the only uqestion then becoames if we manage to gather a large enough sample size to establish them statistically. Of course, that in itself migh not mean much.</p></li>
-<li><p><span class="citation"><a href="#ref-Martinez-Abrain2008" role="doc-biblioref">Martínez-Abraín</a> (<a href="#ref-Martinez-Abrain2008" role="doc-biblioref">2008</a>)</span> goes on and therefore discusses a fundamental aspect that we must never forget, statistical significance does not imply biological relevance.</p></li>
-<li><p><span class="citation"><a href="#ref-Nakagawa2007" role="doc-biblioref">Nakagawa and Cuthill</a> (<a href="#ref-Nakagawa2007" role="doc-biblioref">2007</a>)</span> provide an excelent review of the concepts around effect size, confidence interval and statistical significance. These represent cornerstones of statistics that must be mastered by the ecological statistician.</p></li>
-<li><p><span class="citation"><a href="#ref-OHara2010" role="doc-biblioref">O’Hara and Kotze</a> (<a href="#ref-OHara2010" role="doc-biblioref">2010</a>)</span> and why you should avoid using the log of count data (which is not the same as not using log transformations, these might be useful under many contexts)</p></li>
-<li><p><span class="citation"><a href="#ref-Zuur2009" role="doc-biblioref">Zuur, Ieno, and Elphick</a> (<a href="#ref-Zuur2009" role="doc-biblioref">2009</a>)</span> is a good read about startegies to avoid the most common statistical problems (this paper was a guest paper for the first issue of the Methods in ecology and Evolution journal)</p></li>
-<li><p><span class="citation"><a href="#ref-Zuur2016" role="doc-biblioref">Zuur and Ieno</a> (<a href="#ref-Zuur2016" role="doc-biblioref">2016</a>)</span> a follow up paper about what to present as outputs in a regression analysis</p></li>
-<li><p><span class="citation"><a href="#ref-Fourcade2017" role="doc-biblioref">Fourcade, Besnard, and Secondi</a> (<a href="#ref-Fourcade2017" role="doc-biblioref">2017</a>)</span> is a cautionary tale about how using variables that are unrelated to a given spatila phenomena can induce us to think that they are causing the phenomena; in fact association might be induced by spatial autocorrelation patterns present in predictors that a (too much) efficient method might pick up.</p></li>
-<li><p><span class="citation"><a href="#ref-Steel2013" role="doc-biblioref">Steel et al.</a> (<a href="#ref-Steel2013" role="doc-biblioref">2013</a>)</span> presents 18 pitfalls, and ways to avoid them, when using statistics in ecology, in other words, when doing ecological statistics.</p></li>
+<li><p><span class="citation">Martínez-Abraín (<a href="#ref-Martinez-Abrain2008">2008</a>)</span> goes on and therefore discusses a fundamental aspect that we must never forget, statistical significance does not imply biological relevance.</p></li>
+<li><p><span class="citation">Nakagawa and Cuthill (<a href="#ref-Nakagawa2007">2007</a>)</span> provide an excelent review of the concepts around effect size, confidence interval and statistical significance. These represent cornerstones of statistics that must be mastered by the ecological statistician.</p></li>
+<li><p><span class="citation">O’Hara and Kotze (<a href="#ref-OHara2010">2010</a>)</span> and why you should avoid using the log of count data (which is not the same as not using log transformations, these might be useful under many contexts)</p></li>
+<li><p><span class="citation">Zuur, Ieno, and Elphick (<a href="#ref-Zuur2009">2009</a>)</span> is a good read about startegies to avoid the most common statistical problems (this paper was a guest paper for the first issue of the Methods in ecology and Evolution journal)</p></li>
+<li><p><span class="citation">Zuur and Ieno (<a href="#ref-Zuur2016">2016</a>)</span> a follow up paper about what to present as outputs in a regression analysis</p></li>
+<li><p><span class="citation">Fourcade, Besnard, and Secondi (<a href="#ref-Fourcade2017">2017</a>)</span> is a cautionary tale about how using variables that are unrelated to a given spatila phenomena can induce us to think that they are causing the phenomena; in fact association might be induced by spatial autocorrelation patterns present in predictors that a (too much) efficient method might pick up.</p></li>
+<li><p><span class="citation">Steel et al. (<a href="#ref-Steel2013">2013</a>)</span> presents 18 pitfalls, and ways to avoid them, when using statistics in ecology, in other words, when doing ecological statistics.</p></li>
 </ul>
 
 </div>
 </div>
-<h3>References</h3>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-AND2001" class="csl-entry">
 Anderson, D. R. 2001. <span>“The Need to Get the Basics Right in Wildlife Field Studies.”</span> <em>Wildlife Society Bulletin</em> 29: 1294–97. <a href="http://welcome.warnercnr.colostate.edu/~anderson/PDF_files/Opinion.pdf">http://welcome.warnercnr.colostate.edu/~anderson/PDF_files/Opinion.pdf</a>.
 </div>
 <div id="ref-Faraway2006" class="csl-entry">
-Faraway, J. J. 2006. <em>Extending the Linear Model with r</em>. Chapman &amp; Hall / CRC. <a href="http://www.maths.bath.ac.uk/">http://www.maths.bath.ac.uk/</a>.
+Faraway, J. J. 2006. <em>Extending the Linear Model with r</em>. Chapman; Hall / CRC. <a href="http://www.maths.bath.ac.uk/%7Ejjf23/ELM/">http://www.maths.bath.ac.uk/%7Ejjf23/ELM/</a>.
 </div>
 <div id="ref-Fourcade2017" class="csl-entry">
 Fourcade, Yoan, Aurélien G. Besnard, and Jean Secondi. 2017. <span>“Paintings Predict the Distribution of Species, or the Challenge of Selecting Environmental Predictors and Evaluation Statistics.”</span> <em>Global Ecology and Biogeography</em> 27 (2): 245–56. <a href="https://doi.org/10.1111/geb.12684">https://doi.org/10.1111/geb.12684</a>.
@@ -358,6 +433,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

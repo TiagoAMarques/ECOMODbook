@@ -186,7 +186,6 @@ We begin by reading the data in and plot it
 
 ```{r a7.9}
 #read the data
-#folder<-"../Aula7 14 10 2020/"
 folder<-"extfiles/"
 data4lines <- read.csv(file=paste0(folder,"data4lines.csv"))
 #plot all the data
@@ -195,7 +194,7 @@ plot(y~x,data=data4lines)
 
 Now, to turn this a bit more interesting, we come up with a narrative. 
 
-These correspond to observations from weights and lenghts of a sample of animals, fish from the species *Fishus inventadicus*. We could fit a regression line to this data and see if we can predict weight from length
+These correspond to observations from weights and lengths of a sample of animals, fish from the species *Fishus inventadicus*. We could fit a regression line to this data and see if we can predict weight from length
 
 ```{r a7.10}
 #plot all the data
@@ -206,9 +205,9 @@ abline(lmlinesG,lwd=3,lty=2)
 summary(lmlinesG)
 ```
 
-and it looks like we can indeed predict the weight of the species from its length. The length is higly statistically significant. Not surprisingly, the longer the fish the heavier it is.
+and it looks like we can indeed predict the weight of the species from its length. The length is highly statistically significant. Not surprisingly, the longer the fish the heavier it is.
 
-Now, the plot thickens. These animals actually came from 4 different museums, and are assumed to be the same species. However, a scientis decides to look at wether there are differences in the data from the 4 museums. So he colours the data by museum
+Now, the plot thickens. These animals actually came from 4 different museums, and are assumed to be the same species. However, a scientist decides to look at whether there are differences in the data from the 4 museums. So he colors the data by museum
 
 ```{r a7.11}
 #plot all the data
@@ -216,7 +215,7 @@ plot(y~x,col=as.numeric(as.factor(z)),data=data4lines,pch=1)
 legend("topleft",inset=0.05,legend=letters[1:4],col=1:4,pch=1)
 ```
 
-We see a patter in the data, the data from the different museums tend to cluster. He decides to investigate. Note folks providing names to museum in this country are a bit borring, and the museums are called "a", "b", "c" and "d".
+We see a pattern in the data, the data from the different museums tend to cluster. He decides to investigate. Note folks providing names to museum in this country are a bit boring, and the museums are called "a", "b", "c" and "d".
 
 
 Our smart researcher says: "well, it seems like the relationship might be different in each museum". Then, maybe I should fit a model that includes museum as a covariate `weight~length+museum`. 

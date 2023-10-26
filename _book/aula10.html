@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 12 Class 10: 27 10 2020 | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 12 Class 10: 27 10 2020 | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2021-11-07" />
+<meta name="date" content="2023-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="aula9.html"/>
 <link rel="next" href="aula11.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,14 +49,16 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -162,7 +166,11 @@ div.csl-indent {
 <li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
 <li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
 <li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
-<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a></li>
+<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="prelim.html"><a href="prelim.html#lbtb"><i class="fa fa-check"></i><b>5.1</b> Learning by the book</a></li>
+<li class="chapter" data-level="5.2" data-path="prelim.html"><a href="prelim.html#ftpt"><i class="fa fa-check"></i><b>5.2</b> Following the paper trail</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>6</b> About regression</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>6.1</b> What is a regression?</a></li>
@@ -172,7 +180,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>8</b> Class 6 13 10 2020</a>
+<li class="chapter" data-level="8" data-path="aula6.html"><a href="aula6.html"><i class="fa fa-check"></i><b>8</b> Regression inside out</a>
 <ul>
 <li class="chapter" data-level="8.1" data-path="aula6.html"><a href="aula6.html#implementing-a-regression"><i class="fa fa-check"></i><b>8.1</b> Implementing a regression</a></li>
 <li class="chapter" data-level="8.2" data-path="aula6.html"><a href="aula6.html#simulating-regression-data"><i class="fa fa-check"></i><b>8.2</b> Simulating regression data</a>
@@ -180,16 +188,17 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Class 7 14 10 2020</a>
+<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Two tasks to further understand regression</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>9.1</b> Task 1</a></li>
 <li class="chapter" data-level="9.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>9.2</b> Task 2</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a>
+<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> t-tests and ANOVAs are just linear models</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.1</b> The t-test</a></li>
-<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.2</b> ANOVA</a></li>
-<li class="chapter" data-level="10.3" data-path="aula8.html"><a href="aula8.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>10.3</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
+<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#a-one-sample-t-test-is-the-simplest-possible-linear-model"><i class="fa fa-check"></i><b>10.1</b> A one sample t-test is the simplest possible linear model</a></li>
+<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.2</b> The t-test</a></li>
+<li class="chapter" data-level="10.3" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.3</b> ANOVA</a></li>
+<li class="chapter" data-level="10.4" data-path="aula8.html"><a href="aula8.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>10.4</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>11</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a>
 <ul>
@@ -209,9 +218,9 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="14.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>14.1</b> Larger order interactions</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conlusion on linear regression</a>
+<li class="chapter" data-level="15" data-path="conclusion-on-linear-regression.html"><a href="conclusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conclusion on linear regression</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
+<li class="chapter" data-level="15.1" data-path="conclusion-on-linear-regression.html"><a href="conclusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>16</b> Class 13: 10 11 2020 Maximum likelihood and all that</a>
 <ul>
@@ -228,6 +237,7 @@ div.csl-indent {
 <li class="chapter" data-level="17.2" data-path="aula14.html"><a href="aula14.html#the-link-function"><i class="fa fa-check"></i><b>17.2</b> The link function</a></li>
 <li class="chapter" data-level="17.3" data-path="aula14.html"><a href="aula14.html#most-useful-glm-families"><i class="fa fa-check"></i><b>17.3</b> Most useful GLM Families</a></li>
 <li class="chapter" data-level="17.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>17.4</b> An example analysis</a></li>
+<li class="chapter" data-level="17.5" data-path="aula14.html"><a href="aula14.html#an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework"><i class="fa fa-check"></i><b>17.5</b> An example of a GLM as a detail within a conceptualization framework</a></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a></li>
 <li class="chapter" data-level="19" data-path="example-1---deviance.html"><a href="example-1---deviance.html"><i class="fa fa-check"></i><b>19</b> Example 1 - deviance</a></li>
@@ -238,9 +248,14 @@ div.csl-indent {
 <li class="chapter" data-level="21" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>21</b> Class 16: 18 11 2020</a>
 <ul>
 <li class="chapter" data-level="21.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>21.1</b> A logistic regression example</a></li>
-<li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.2</b> About multicollinearity</a></li>
+<li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#titanic-example"><i class="fa fa-check"></i><b>21.2</b> Titanic example</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="aula16.html"><a href="aula16.html#análise-exploratoria-de-dados"><i class="fa fa-check"></i><b>21.2.1</b> Análise Exploratoria de Dados</a></li>
+<li class="chapter" data-level="21.2.2" data-path="aula16.html"><a href="aula16.html#modelação"><i class="fa fa-check"></i><b>21.2.2</b> Modelação</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Class 17: 24 11 2020</a></li>
+<li class="chapter" data-level="21.3" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.3</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Random effects and mixed Models</a></li>
 <li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a>
 <ul>
 <li class="chapter" data-level="23.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>23.1</b> Presence of bats</a></li>
@@ -275,13 +290,13 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="aula10" class="section level1" number="12">
-<h1><span class="header-section-number">Chapter 12</span> Class 10: 27 10 2020</h1>
+<div id="aula10" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Class 10: 27 10 2020<a href="aula10.html#aula10" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In class 10 we actually had Miguel Pais talking about Individual Based Models.</p>
 <p>In this chapter we look again at the ANCOVA model presented in chapter <a href="aula9.html#aula9">11</a>, but under a different perspective. I decided to create this material as a bonus for students, to understand why the ANCOVA is what it is. As a bonus, this also provides a cautionary tale about the dangers of non-random sampling, or more generally, confounding due to unmeasured factors that might affect our response variable.</p>
 <p>Therefore,</p>
-<div id="same-story-another-spin" class="section level2" number="12.1">
-<h2><span class="header-section-number">12.1</span> Same story, another spin</h2>
+<div id="same-story-another-spin" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Same story, another spin<a href="aula10.html#same-story-another-spin" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>As we noted above, the ANCOVA would be an useful model to compare means of an outcome variable between two or more groups taking into account (or to correct for) variability of other variables, often called covariates. In other words, ANCOVA allows to compare the adjusted means of two or more independent groups.</p>
 <p>Here we tell the same story from chapter <a href="aula9.html#aula9">11</a> under said perspective. We will do so with the help of two unlikely caracters. This is the story of two friends: a biologist that is exploring the weights of lizards, and his friend, a former biology that decided to take an MSc in Ecological Statistics!</p>
 <p>The biologist will be the hero of our story. He has a great name. George Ramsey Ernest Armitage Turner. Note that he has 5 names, unusal in the Anglosaxonic world, but not that uncommon is say Portugal. To make it easier, we’ll call him just by his initials. So… let’s call him Great :) Great’s fried, who’s a great friend, is simply called John. Boring, but hey, names aren’t something you can choose are they, and when you are just the sidekick on the story, you can’t complain!</p>
@@ -289,13 +304,13 @@ div.csl-indent {
 <p>Imagine Great wanted to compare the weights of lizard specimens he collected in each of the 4 islands. He happen to capture a number of animals in each island, and we will label them as A to D, as per the islands.</p>
 <p>(note, since this is a story, this time I am not showing you how the data was created (=simulated), for narrative reasons!)</p>
 <p>Great ploted the weights, in grams (g), of the captured lizards. These look like this:</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="aula10.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ys,<span class="at">main=</span><span class="st">&quot;Lizards pooled across 4 islands&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Weight (g)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="aula10.html#cb245-1" tabindex="-1"></a><span class="fu">hist</span>(ys,<span class="at">main=</span><span class="st">&quot;Lizards pooled across 4 islands&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Weight (g)&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a10.2-1.png" width="672" /></p>
 <p>The distribution is unimodal and about simetrical. When lizards are separated by island, they look like this</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="aula10.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ys<span class="sc">~</span>type,<span class="at">ylab=</span><span class="st">&quot;Weight (g)&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Island&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="aula10.html#cb246-1" tabindex="-1"></a><span class="fu">boxplot</span>(ys<span class="sc">~</span>type,<span class="at">ylab=</span><span class="st">&quot;Weight (g)&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Island&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a10.3-1.png" width="672" /></p>
 <p>There seem to be clear differences in the weights per species, as a standard linear model (e.g. an ANOVA, see <a href="aula8.html#aula8">10</a>) will show:</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="aula10.html#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys<span class="sc">~</span>type))</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="aula10.html#cb247-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys<span class="sc">~</span>type))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ type)
@@ -317,17 +332,17 @@ div.csl-indent {
 ## Multiple R-squared:  0.652,  Adjusted R-squared:  0.6467 
 ## F-statistic: 122.4 on 3 and 196 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Great is happy, he had seen differents amounts of insects in each island and so he is already thinking about a paper he will write about how the size of the lizards depends on food availability.</p>
-<p>Further, he just had a great thought. He calls these GGTs: Great great thoughts. He is thinking about proposing that these correspond to different species in each island, and he is already dreaming about the names of his new species: he is considering naming them “slimus,” “normalis,” “fatis,” “fattissimus,” for animals in islands A, B, C and D, respectively. The plot would then read just like this, which looks… you guessed it… great.</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="aula10.html#cb238-1" aria-hidden="true" tabindex="-1"></a>spnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;slimus&quot;</span>, <span class="st">&quot;normalis&quot;</span>, <span class="st">&quot;fatis&quot;</span>, <span class="st">&quot;fattissimus&quot;</span>)</span>
-<span id="cb238-2"><a href="aula10.html#cb238-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ys<span class="sc">~</span>type,<span class="at">ylab=</span><span class="st">&quot;Weight (g)&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Island&quot;</span>,</span>
-<span id="cb238-3"><a href="aula10.html#cb238-3" aria-hidden="true" tabindex="-1"></a><span class="at">names=</span>spnames)</span></code></pre></div>
+<p>Further, he just had a great thought. He calls these GGTs: Great great thoughts. He is thinking about proposing that these correspond to different species in each island, and he is already dreaming about the names of his new species: he is considering naming them “slimus”, “normalis”, “fatis”, “fattissimus”, for animals in islands A, B, C and D, respectively. The plot would then read just like this, which looks… you guessed it… great.</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="aula10.html#cb249-1" tabindex="-1"></a>spnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;slimus&quot;</span>, <span class="st">&quot;normalis&quot;</span>, <span class="st">&quot;fatis&quot;</span>, <span class="st">&quot;fattissimus&quot;</span>)</span>
+<span id="cb249-2"><a href="aula10.html#cb249-2" tabindex="-1"></a><span class="fu">boxplot</span>(ys<span class="sc">~</span>type,<span class="at">ylab=</span><span class="st">&quot;Weight (g)&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Island&quot;</span>,</span>
+<span id="cb249-3"><a href="aula10.html#cb249-3" tabindex="-1"></a><span class="at">names=</span>spnames)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a10.5-1.png" width="672" /></p>
 <p>Unfortunately, he goes to the pub and tells John about his findings. John has been doing some modelling courses at the Univeristy and is very interested about sampling.
 John asks Great a great set of questions: “How did you selected the lizards you captured? What about the lengths of the lizards? Were the animals from each island of about the same length? In other words, did you control the weights for length? Because longer animals will generaly heavier, you know?”</p>
 <p>Great had not thought about that yet, indeed. He’s feeling dizzy, might be the beers he had, might be the questions he was just asked! He rushes home and looks at the data. And in fact, the different lizards from the different islands have very different lengths to begin with, as we can see in the plot below.</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="aula10.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(xs<span class="sc">~</span>type,<span class="at">ylab=</span><span class="st">&quot;Length&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Species&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="aula10.html#cb250-1" tabindex="-1"></a><span class="fu">boxplot</span>(xs<span class="sc">~</span>type,<span class="at">ylab=</span><span class="st">&quot;Length&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Species&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a10.6-1.png" width="672" /></p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="aula10.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(xs<span class="sc">~</span>type))</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="aula10.html#cb251-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(xs<span class="sc">~</span>type))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = xs ~ type)
@@ -348,10 +363,10 @@ John asks Great a great set of questions: “How did you selected the lizards yo
 ## Residual standard error: 0.7315 on 196 degrees of freedom
 ## Multiple R-squared:  0.9368, Adjusted R-squared:  0.9358 
 ## F-statistic: 968.6 on 3 and 196 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>In his mind Great has a vague memory of a teacher in Numerical Ecology that one should explore the data before modelling. He would have avoided this embarassement if he only had done that. Before leaving the pub he heard John saying he should look into ANCOVA’s. Something about “you need to test for the weights, accounting for differences in lengths!”</p>
+<p>In his mind Great has a vague memory of a teacher in Numerical Ecology that one should explore the data before modelling. He would have avoided this embarassement if he only had done that. Before leaving the pub he heard John saying he should look into ANCOVA’s. Something about “you need to test for the weights, accounting for differences in lengths!”.</p>
 <p>He goes into his books and finds that ANCOVA is just a linear model, where you model a response (weight, he realizes) with a factor (island) and a continous variable (lenght).</p>
 <p>He implements the models and, much to his despair, realizes that, once he you accounts for the length, the weights are not different per island. The damn lizards are exactly the same weight in the different islands once you account for their length… :(</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="aula10.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys<span class="sc">~</span>xs<span class="sc">+</span>type))</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="aula10.html#cb253-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys<span class="sc">~</span>xs<span class="sc">+</span>type))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs + type)
@@ -374,61 +389,61 @@ John asks Great a great set of questions: “How did you selected the lizards yo
 ## Multiple R-squared:  0.6896, Adjusted R-squared:  0.6832 
 ## F-statistic: 108.3 on 4 and 195 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>He sees his paper further and further farther away. This is what we saw: the same line explains all the data, irrespectively of group. In other words, there is not a different relationship per species between weight and length! His great ecologycal theory goes to the bin!</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="aula10.html#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>xs,<span class="at">col=</span>cores)</span>
-<span id="cb244-2"><a href="aula10.html#cb244-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="aula10.html#cb255-1" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>xs,<span class="at">col=</span>cores)</span>
+<span id="cb255-2"><a href="aula10.html#cb255-2" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a10.8-1.png" width="672" /></p>
-<p>Now, that is dismaying, but interesting. So Great returns to the pub and he asks John: “Would the oposite be possible? Say things looked just the same, yet they were different after accounting for a confounding factor?”</p>
-<p>“Yes,” John replied: “I have heard about that situation, but have never seen it in a real data set before. Of course that is hard to happen, because <em>the stars need to align</em>. But it can happen in theory. Imagine the situation where the relationship between length and weight is different per group. However, out of a strange confounding circumstance, the observed weights happen to be similar, because we sampled (just the right, in this case, wrong!) different lengthts in each species.”</p>
-<p>By now Great has a great headache, but he wants to see this with his own eyes, so he goes back home, sits in front of the computer, opens R and decides: “I will simulate this example.” That is what we will do here.</p>
+<p>Now, that is dismaying, but interesting. So Great returns to the pub and he asks John: “Would the oposite be possible? Say things looked just the same, yet they were different after accounting for a confounding factor?”.</p>
+<p>“Yes”, John replied: “I have heard about that situation, but have never seen it in a real data set before. Of course that is hard to happen, because <em>the stars need to align</em>. But it can happen in theory. Imagine the situation where the relationship between length and weight is different per group. However, out of a strange confounding circumstance, the observed weights happen to be similar, because we sampled (just the right, in this case, wrong!) different lengthts in each species.”</p>
+<p>By now Great has a great headache, but he wants to see this with his own eyes, so he goes back home, sits in front of the computer, opens R and decides: “I will simulate this example”. That is what we will do here.</p>
 <p>Imagine the following example:</p>
 <p>The lizards relationship between weight and length is different per island. Say, akin to what we saw before. Just by magin, we have access to all the lizards in the island.</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="aula10.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="co">#all slopes the same, diferent intercepts - no interactions</span></span>
-<span id="cb245-2"><a href="aula10.html#cb245-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb245-3"><a href="aula10.html#cb245-3" aria-hidden="true" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">2000</span></span>
-<span id="cb245-4"><a href="aula10.html#cb245-4" aria-hidden="true" tabindex="-1"></a>nbygroup<span class="ot">&lt;-</span><span class="dv">500</span></span>
-<span id="cb245-5"><a href="aula10.html#cb245-5" aria-hidden="true" tabindex="-1"></a>xs <span class="ot">&lt;-</span> <span class="fu">runif</span>(n,<span class="dv">10</span>,<span class="dv">20</span>)</span>
-<span id="cb245-6"><a href="aula10.html#cb245-6" aria-hidden="true" tabindex="-1"></a>island <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>)</span>
-<span id="cb245-7"><a href="aula10.html#cb245-7" aria-hidden="true" tabindex="-1"></a>type <span class="ot">&lt;-</span> <span class="fu">rep</span>(island,<span class="at">each=</span>nbygroup)</span>
-<span id="cb245-8"><a href="aula10.html#cb245-8" aria-hidden="true" tabindex="-1"></a>cores <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">each=</span>nbygroup)</span>
-<span id="cb245-9"><a href="aula10.html#cb245-9" aria-hidden="true" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="dv">12</span></span>
-<span id="cb245-10"><a href="aula10.html#cb245-10" aria-hidden="true" tabindex="-1"></a>b<span class="ot">&lt;-</span><span class="dv">4</span></span>
-<span id="cb245-11"><a href="aula10.html#cb245-11" aria-hidden="true" tabindex="-1"></a>error<span class="ot">&lt;-</span><span class="dv">4</span></span>
-<span id="cb245-12"><a href="aula10.html#cb245-12" aria-hidden="true" tabindex="-1"></a>ys <span class="ot">&lt;-</span> a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span></span>
-<span id="cb245-13"><a href="aula10.html#cb245-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;A&quot;</span>,<span class="dv">5</span>,<span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;B&quot;</span>,<span class="dv">12</span>,<span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;C&quot;</span>,<span class="dv">18</span>,<span class="dv">22</span>)))<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">4</span>)</span>
-<span id="cb245-14"><a href="aula10.html#cb245-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">col=</span>cores)</span>
-<span id="cb245-15"><a href="aula10.html#cb245-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
-<span id="cb245-16"><a href="aula10.html#cb245-16" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
-<span id="cb245-17"><a href="aula10.html#cb245-17" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">18</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
-<span id="cb245-18"><a href="aula10.html#cb245-18" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">22</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="aula10.html#cb256-1" tabindex="-1"></a><span class="co">#all slopes the same, diferent intercepts - no interactions</span></span>
+<span id="cb256-2"><a href="aula10.html#cb256-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb256-3"><a href="aula10.html#cb256-3" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">2000</span></span>
+<span id="cb256-4"><a href="aula10.html#cb256-4" tabindex="-1"></a>nbygroup<span class="ot">&lt;-</span><span class="dv">500</span></span>
+<span id="cb256-5"><a href="aula10.html#cb256-5" tabindex="-1"></a>xs <span class="ot">&lt;-</span> <span class="fu">runif</span>(n,<span class="dv">10</span>,<span class="dv">20</span>)</span>
+<span id="cb256-6"><a href="aula10.html#cb256-6" tabindex="-1"></a>island <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>)</span>
+<span id="cb256-7"><a href="aula10.html#cb256-7" tabindex="-1"></a>type <span class="ot">&lt;-</span> <span class="fu">rep</span>(island,<span class="at">each=</span>nbygroup)</span>
+<span id="cb256-8"><a href="aula10.html#cb256-8" tabindex="-1"></a>cores <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">each=</span>nbygroup)</span>
+<span id="cb256-9"><a href="aula10.html#cb256-9" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="dv">12</span></span>
+<span id="cb256-10"><a href="aula10.html#cb256-10" tabindex="-1"></a>b<span class="ot">&lt;-</span><span class="dv">4</span></span>
+<span id="cb256-11"><a href="aula10.html#cb256-11" tabindex="-1"></a>error<span class="ot">&lt;-</span><span class="dv">4</span></span>
+<span id="cb256-12"><a href="aula10.html#cb256-12" tabindex="-1"></a>ys <span class="ot">&lt;-</span> a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span></span>
+<span id="cb256-13"><a href="aula10.html#cb256-13" tabindex="-1"></a><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;A&quot;</span>,<span class="dv">5</span>,<span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;B&quot;</span>,<span class="dv">12</span>,<span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;C&quot;</span>,<span class="dv">18</span>,<span class="dv">22</span>)))<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">4</span>)</span>
+<span id="cb256-14"><a href="aula10.html#cb256-14" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">col=</span>cores)</span>
+<span id="cb256-15"><a href="aula10.html#cb256-15" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
+<span id="cb256-16"><a href="aula10.html#cb256-16" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb256-17"><a href="aula10.html#cb256-17" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">18</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
+<span id="cb256-18"><a href="aula10.html#cb256-18" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">22</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">4</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a10.9-1.png" width="672" /></p>
 <p>Now imagine, for the sake of argument, that in all islands we captured lizards with lengths spanning about 2 cm, but in island A we caught animals with about 18 cm, in B with about 16 cm, in c with about 15 cm and in D with about 14 cm, on average. We can simulate that non-random sampling process with respect to lenghth.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="aula10.html#cb246-1" aria-hidden="true" tabindex="-1"></a>sampled.a<span class="ot">&lt;-</span><span class="fu">which</span>(xs<span class="sc">&gt;</span><span class="dv">17</span> <span class="sc">&amp;</span> xs<span class="sc">&lt;</span><span class="dv">19</span> <span class="sc">&amp;</span> type<span class="sc">==</span><span class="st">&quot;A&quot;</span>)</span>
-<span id="cb246-2"><a href="aula10.html#cb246-2" aria-hidden="true" tabindex="-1"></a>sampled.b<span class="ot">&lt;-</span><span class="fu">which</span>(xs<span class="sc">&gt;</span><span class="dv">15</span> <span class="sc">&amp;</span> xs<span class="sc">&lt;</span><span class="dv">17</span> <span class="sc">&amp;</span> type<span class="sc">==</span><span class="st">&quot;B&quot;</span>)</span>
-<span id="cb246-3"><a href="aula10.html#cb246-3" aria-hidden="true" tabindex="-1"></a>sampled.c<span class="ot">&lt;-</span><span class="fu">which</span>(xs<span class="sc">&gt;</span><span class="dv">14</span> <span class="sc">&amp;</span> xs<span class="sc">&lt;</span><span class="dv">16</span> <span class="sc">&amp;</span> type<span class="sc">==</span><span class="st">&quot;C&quot;</span>)</span>
-<span id="cb246-4"><a href="aula10.html#cb246-4" aria-hidden="true" tabindex="-1"></a>sampled.d<span class="ot">&lt;-</span><span class="fu">which</span>(xs<span class="sc">&gt;</span><span class="dv">13</span> <span class="sc">&amp;</span> xs<span class="sc">&lt;</span><span class="dv">15</span> <span class="sc">&amp;</span> type<span class="sc">==</span><span class="st">&quot;D&quot;</span>)</span>
-<span id="cb246-5"><a href="aula10.html#cb246-5" aria-hidden="true" tabindex="-1"></a>sample.all<span class="ot">&lt;-</span><span class="fu">c</span>(sampled.a,sampled.b,sampled.c,sampled.d)</span>
-<span id="cb246-6"><a href="aula10.html#cb246-6" aria-hidden="true" tabindex="-1"></a><span class="co">#select a biased sample!</span></span>
-<span id="cb246-7"><a href="aula10.html#cb246-7" aria-hidden="true" tabindex="-1"></a>xs2<span class="ot">&lt;-</span>xs[sample.all]</span>
-<span id="cb246-8"><a href="aula10.html#cb246-8" aria-hidden="true" tabindex="-1"></a>ys2<span class="ot">&lt;-</span>ys[sample.all]</span>
-<span id="cb246-9"><a href="aula10.html#cb246-9" aria-hidden="true" tabindex="-1"></a>type2<span class="ot">&lt;-</span>type[sample.all]</span>
-<span id="cb246-10"><a href="aula10.html#cb246-10" aria-hidden="true" tabindex="-1"></a>cores2<span class="ot">&lt;-</span>cores[sample.all]</span>
-<span id="cb246-11"><a href="aula10.html#cb246-11" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(type2)</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="aula10.html#cb257-1" tabindex="-1"></a>sampled.a<span class="ot">&lt;-</span><span class="fu">which</span>(xs<span class="sc">&gt;</span><span class="dv">17</span> <span class="sc">&amp;</span> xs<span class="sc">&lt;</span><span class="dv">19</span> <span class="sc">&amp;</span> type<span class="sc">==</span><span class="st">&quot;A&quot;</span>)</span>
+<span id="cb257-2"><a href="aula10.html#cb257-2" tabindex="-1"></a>sampled.b<span class="ot">&lt;-</span><span class="fu">which</span>(xs<span class="sc">&gt;</span><span class="dv">15</span> <span class="sc">&amp;</span> xs<span class="sc">&lt;</span><span class="dv">17</span> <span class="sc">&amp;</span> type<span class="sc">==</span><span class="st">&quot;B&quot;</span>)</span>
+<span id="cb257-3"><a href="aula10.html#cb257-3" tabindex="-1"></a>sampled.c<span class="ot">&lt;-</span><span class="fu">which</span>(xs<span class="sc">&gt;</span><span class="dv">14</span> <span class="sc">&amp;</span> xs<span class="sc">&lt;</span><span class="dv">16</span> <span class="sc">&amp;</span> type<span class="sc">==</span><span class="st">&quot;C&quot;</span>)</span>
+<span id="cb257-4"><a href="aula10.html#cb257-4" tabindex="-1"></a>sampled.d<span class="ot">&lt;-</span><span class="fu">which</span>(xs<span class="sc">&gt;</span><span class="dv">13</span> <span class="sc">&amp;</span> xs<span class="sc">&lt;</span><span class="dv">15</span> <span class="sc">&amp;</span> type<span class="sc">==</span><span class="st">&quot;D&quot;</span>)</span>
+<span id="cb257-5"><a href="aula10.html#cb257-5" tabindex="-1"></a>sample.all<span class="ot">&lt;-</span><span class="fu">c</span>(sampled.a,sampled.b,sampled.c,sampled.d)</span>
+<span id="cb257-6"><a href="aula10.html#cb257-6" tabindex="-1"></a><span class="co">#select a biased sample!</span></span>
+<span id="cb257-7"><a href="aula10.html#cb257-7" tabindex="-1"></a>xs2<span class="ot">&lt;-</span>xs[sample.all]</span>
+<span id="cb257-8"><a href="aula10.html#cb257-8" tabindex="-1"></a>ys2<span class="ot">&lt;-</span>ys[sample.all]</span>
+<span id="cb257-9"><a href="aula10.html#cb257-9" tabindex="-1"></a>type2<span class="ot">&lt;-</span>type[sample.all]</span>
+<span id="cb257-10"><a href="aula10.html#cb257-10" tabindex="-1"></a>cores2<span class="ot">&lt;-</span>cores[sample.all]</span>
+<span id="cb257-11"><a href="aula10.html#cb257-11" tabindex="-1"></a><span class="fu">table</span>(type2)</span></code></pre></div>
 <pre><code>## type2
 ##   A   B   C   D 
 ## 119 116 108 100</code></pre>
 <p>Now, if this is our sample, what happens when we look at the weights alone? First, let’s look at the previous plot with the sampled data highlighted in colors and the non sampled data greyed out.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="aula10.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">pch=</span><span class="st">&quot;.&quot;</span>,<span class="at">col=</span><span class="st">&quot;grey&quot;</span>)</span>
-<span id="cb248-2"><a href="aula10.html#cb248-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(xs2,ys2,<span class="at">col=</span>cores2,<span class="at">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="aula10.html#cb259-1" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">pch=</span><span class="st">&quot;.&quot;</span>,<span class="at">col=</span><span class="st">&quot;grey&quot;</span>)</span>
+<span id="cb259-2"><a href="aula10.html#cb259-2" tabindex="-1"></a><span class="fu">points</span>(xs2,ys2,<span class="at">col=</span>cores2,<span class="at">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a10.11-1.png" width="672" /></p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="aula10.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="co">#abline(12+5,4,lwd=3,col=1)</span></span>
-<span id="cb249-2"><a href="aula10.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="co">#abline(12+12,4,lwd=3,col=2)</span></span>
-<span id="cb249-3"><a href="aula10.html#cb249-3" aria-hidden="true" tabindex="-1"></a><span class="co">#abline(12+18,4,lwd=3,col=3)</span></span>
-<span id="cb249-4"><a href="aula10.html#cb249-4" aria-hidden="true" tabindex="-1"></a><span class="co">#abline(12+22,4,lwd=3,col=4)</span></span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="aula10.html#cb260-1" tabindex="-1"></a><span class="co">#abline(12+5,4,lwd=3,col=1)</span></span>
+<span id="cb260-2"><a href="aula10.html#cb260-2" tabindex="-1"></a><span class="co">#abline(12+12,4,lwd=3,col=2)</span></span>
+<span id="cb260-3"><a href="aula10.html#cb260-3" tabindex="-1"></a><span class="co">#abline(12+18,4,lwd=3,col=3)</span></span>
+<span id="cb260-4"><a href="aula10.html#cb260-4" tabindex="-1"></a><span class="co">#abline(12+22,4,lwd=3,col=4)</span></span></code></pre></div>
 <p>That was really not a random sample. And non-random samples always ask for trouble. Lets see what happens here. If we look at weights per island, there seems to be no effect:</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="aula10.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ys2<span class="sc">~</span>type2)</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="aula10.html#cb261-1" tabindex="-1"></a><span class="fu">boxplot</span>(ys2<span class="sc">~</span>type2)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a10.12-1.png" width="672" /></p>
 <p>If we test formally for it with an ANOVA, it seems like there is absolutely no effect of weight:</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="aula10.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys2<span class="sc">~</span>type2))</span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="aula10.html#cb262-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys2<span class="sc">~</span>type2))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys2 ~ type2)
@@ -450,7 +465,7 @@ John asks Great a great set of questions: “How did you selected the lizards yo
 ## Multiple R-squared:  0.009992,   Adjusted R-squared:  0.003227 
 ## F-statistic: 1.477 on 3 and 439 DF,  p-value: 0.2201</code></pre>
 <p>This is where we need to be smart. If we conducts the correct analysis, one that includes and adjusts for the effect of length, the differences in length to weight relationship are clear. The intercepts of the different lines are all different from each other.</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="aula10.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys2<span class="sc">~</span>type2<span class="sc">+</span>xs2))</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="aula10.html#cb264-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys2<span class="sc">~</span>type2<span class="sc">+</span>xs2))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys2 ~ type2 + xs2)
@@ -473,13 +488,13 @@ John asks Great a great set of questions: “How did you selected the lizards yo
 ## Multiple R-squared:  0.2447, Adjusted R-squared:  0.2378 
 ## F-statistic: 35.47 on 4 and 438 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Note this corresponds to comparing weights while not accounting for differences (in lengths), and comparing weights while accounting for those differences. In other words, we are interested in different intercepts in the left plot below, not in the boxplots of the right plot, that ignore the effect of length.</p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="aula10.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb255-2"><a href="aula10.html#cb255-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs2,ys2,<span class="at">col=</span>cores2)</span>
-<span id="cb255-3"><a href="aula10.html#cb255-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
-<span id="cb255-4"><a href="aula10.html#cb255-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
-<span id="cb255-5"><a href="aula10.html#cb255-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">18</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
-<span id="cb255-6"><a href="aula10.html#cb255-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">22</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
-<span id="cb255-7"><a href="aula10.html#cb255-7" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ys2<span class="sc">~</span>type2)</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="aula10.html#cb266-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb266-2"><a href="aula10.html#cb266-2" tabindex="-1"></a><span class="fu">plot</span>(xs2,ys2,<span class="at">col=</span>cores2)</span>
+<span id="cb266-3"><a href="aula10.html#cb266-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
+<span id="cb266-4"><a href="aula10.html#cb266-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb266-5"><a href="aula10.html#cb266-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">18</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
+<span id="cb266-6"><a href="aula10.html#cb266-6" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">22</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
+<span id="cb266-7"><a href="aula10.html#cb266-7" tabindex="-1"></a><span class="fu">boxplot</span>(ys2<span class="sc">~</span>type2)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a10.15-1.png" width="672" /></p>
 <p>Actually, what the ANCOVA model does is equivalent to looking at the data by rotating the left plot above and see it in the “axis” we care about. That corresponds to the axis such that the slope of the regression lines are aligned with the x-axis of the Cartesian referential.</p>
 <p>I want to do this by implementing angular rotation but running out of time. That will involve implementing these transformations:</p>
@@ -560,7 +575,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

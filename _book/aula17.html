@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 20 Random effects and mixed Models | Notes for Ecological Modelling</title>
+  <title>Chapter 22 Random effects and mixed Models | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 20 Random effects and mixed Models | Notes for Ecological Modelling" />
+  <meta property="og:title" content="Chapter 22 Random effects and mixed Models | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 20 Random effects and mixed Models | Notes for Ecological Modelling" />
+  <meta name="twitter:title" content="Chapter 22 Random effects and mixed Models | Notes for Ecological Modelling" />
   
   <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2022-12-07" />
+<meta name="date" content="2023-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -119,6 +119,32 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -192,9 +218,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="14.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>14.1</b> Larger order interactions</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conlusion on linear regression</a>
+<li class="chapter" data-level="15" data-path="conclusion-on-linear-regression.html"><a href="conclusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conclusion on linear regression</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
+<li class="chapter" data-level="15.1" data-path="conclusion-on-linear-regression.html"><a href="conclusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>16</b> Class 13: 10 11 2020 Maximum likelihood and all that</a>
 <ul>
@@ -213,29 +239,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="17.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>17.4</b> An example analysis</a></li>
 <li class="chapter" data-level="17.5" data-path="aula14.html"><a href="aula14.html#an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework"><i class="fa fa-check"></i><b>17.5</b> An example of a GLM as a detail within a conceptualization framework</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a>
+<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a></li>
+<li class="chapter" data-level="19" data-path="example-1---deviance.html"><a href="example-1---deviance.html"><i class="fa fa-check"></i><b>19</b> Example 1 - deviance</a></li>
+<li class="chapter" data-level="20" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html"><i class="fa fa-check"></i><b>20</b> Example 2 - lagartyos GLM</a>
 <ul>
-<li class="chapter" data-level="18.1" data-path="aula15.html"><a href="aula15.html#example-2"><i class="fa fa-check"></i><b>18.1</b> Example 2</a></li>
+<li class="chapter" data-level="20.1" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html#example-2"><i class="fa fa-check"></i><b>20.1</b> Example 2</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>19</b> Class 16: 18 11 2020</a>
+<li class="chapter" data-level="21" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>21</b> Class 16: 18 11 2020</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>19.1</b> A logistic regression example</a></li>
-<li class="chapter" data-level="19.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>19.2</b> About multicollinearity</a></li>
-</ul></li>
-<li class="chapter" data-level="20" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>20</b> Random effects and mixed Models</a></li>
-<li class="chapter" data-level="21" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>21</b> Class 18: 25 11 2020</a>
+<li class="chapter" data-level="21.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>21.1</b> A logistic regression example</a></li>
+<li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#titanic-example"><i class="fa fa-check"></i><b>21.2</b> Titanic example</a>
 <ul>
-<li class="chapter" data-level="21.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>21.1</b> Presence of bats</a></li>
-<li class="chapter" data-level="21.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>21.2</b> Sponges</a>
+<li class="chapter" data-level="21.2.1" data-path="aula16.html"><a href="aula16.html#análise-exploratoria-de-dados"><i class="fa fa-check"></i><b>21.2.1</b> Análise Exploratoria de Dados</a></li>
+<li class="chapter" data-level="21.2.2" data-path="aula16.html"><a href="aula16.html#modelação"><i class="fa fa-check"></i><b>21.2.2</b> Modelação</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.3</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Random effects and mixed Models</a></li>
+<li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a>
 <ul>
-<li class="chapter" data-level="21.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>21.2.1</b> Reading data in</a></li>
-<li class="chapter" data-level="21.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>21.2.2</b> Exploratory Data Analysis</a></li>
-<li class="chapter" data-level="21.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>21.2.3</b> Modelling</a></li>
+<li class="chapter" data-level="23.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>23.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="23.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>23.2</b> Sponges</a>
+<ul>
+<li class="chapter" data-level="23.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>23.2.1</b> Reading data in</a></li>
+<li class="chapter" data-level="23.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>23.2.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="23.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>23.2.3</b> Modelling</a></li>
 </ul></li>
-<li class="chapter" data-level="21.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>21.3</b> Extra GLM stuff</a></li>
+<li class="chapter" data-level="23.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>23.3</b> Extra GLM stuff</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>22</b> Class 19: 02 12 2020</a></li>
-<li class="chapter" data-level="23" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>23</b> Final Words</a></li>
+<li class="chapter" data-level="24" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>24</b> Class 19: 02 12 2020</a></li>
+<li class="chapter" data-level="25" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>25</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -257,23 +290,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="aula17" class="section level1 hasAnchor" number="20">
-<h1><span class="header-section-number">Chapter 20</span> Random effects and mixed Models<a href="aula17.html#aula17" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="aula17" class="section level1 hasAnchor" number="22">
+<h1><span class="header-section-number">Chapter 22</span> Random effects and mixed Models<a href="aula17.html#aula17" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this chapter we investigate the use of random effects.</p>
 <p>We describe the analysis of the RIKZ dataset, a traditional dataset used to illustrate mixed models, a companion to the book by Zuur et al. ().</p>
 <p>We read in the data</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="aula17.html#cb1-1" aria-hidden="true" tabindex="-1"></a>RIKZ <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">&quot;extfiles/RIKZ.txt&quot;</span>)</span>
-<span id="cb1-2"><a href="aula17.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#recoding exposure so that 8 and 10 become 0&#39;s and 11&#39;s become 1</span></span>
-<span id="cb1-3"><a href="aula17.html#cb1-3" aria-hidden="true" tabindex="-1"></a>RIKZ<span class="sc">$</span>Exposure<span class="ot">=</span><span class="fu">ifelse</span>(RIKZ<span class="sc">$</span>Exposure<span class="sc">==</span><span class="dv">11</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="aula17.html#cb498-1" tabindex="-1"></a>RIKZ <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">&quot;extfiles/RIKZ.txt&quot;</span>)</span>
+<span id="cb498-2"><a href="aula17.html#cb498-2" tabindex="-1"></a><span class="co">#recoding exposure so that 8 and 10 become 0&#39;s and 11&#39;s become 1</span></span>
+<span id="cb498-3"><a href="aula17.html#cb498-3" tabindex="-1"></a>RIKZ<span class="sc">$</span>Exposure<span class="ot">=</span><span class="fu">ifelse</span>(RIKZ<span class="sc">$</span>Exposure<span class="sc">==</span><span class="dv">11</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span></code></pre></div>
 <p>we look at the data structure</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="aula17.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(RIKZ)</span></code></pre></div>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="aula17.html#cb499-1" tabindex="-1"></a><span class="fu">str</span>(RIKZ)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    45 obs. of  5 variables:
 ##  $ Sample  : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ Richness: int  11 10 13 11 10 8 9 8 19 17 ...
 ##  $ Exposure: num  0 0 0 0 0 0 0 0 0 0 ...
 ##  $ NAP     : num  0.045 -1.036 -1.336 0.616 -0.684 ...
 ##  $ Beach   : int  1 1 1 1 1 2 2 2 2 2 ...</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="aula17.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(RIKZ)</span></code></pre></div>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="aula17.html#cb501-1" tabindex="-1"></a><span class="fu">head</span>(RIKZ)</span></code></pre></div>
 <pre><code>##   Sample Richness Exposure    NAP Beach
 ## 1      1       11        0  0.045     1
 ## 2      2       10        0 -1.036     1
@@ -282,43 +315,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5      5       10        0 -0.684     1
 ## 6      6        8        0  1.190     2</code></pre>
 <p>We can look at the response variable, species richness, as a function of NA</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="aula17.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="aula17.html#cb503-1" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <p>When we see it like this, there is no notion about the structure of the data, in particular that there are 5 measurements in each beach</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="aula17.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ)</span>
-<span id="cb7-2"><a href="aula17.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Richness<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ),<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="aula17.html#cb504-1" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ)</span>
+<span id="cb504-2"><a href="aula17.html#cb504-2" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Richness<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ),<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <p>but we could make it a bit more explicit by having different symbols for each beach (say the beach number) and coloring each beach symbol with a diferent color</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="aula17.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfwor=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="aula17.html#cb505-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfwor=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## Warning in par(mfwor = c(1, 1)): &quot;mfwor&quot; is not a graphical parameter</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="aula17.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
-<span id="cb10-2"><a href="aula17.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Richness<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ),<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="aula17.html#cb507-1" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
+<span id="cb507-2"><a href="aula17.html#cb507-2" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Richness<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ),<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 <p>Now the two stage approach: (1) we consider the relation between R and NAP, for each beach, and (2) we model the estimated coefficients per beach as a function of exposure</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="aula17.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
-<span id="cb11-2"><a href="aula17.html#cb11-2" aria-hidden="true" tabindex="-1"></a>as<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>);bs<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>);exp<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>)</span>
-<span id="cb11-3"><a href="aula17.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>){</span>
-<span id="cb11-4"><a href="aula17.html#cb11-4" aria-hidden="true" tabindex="-1"></a>  m<span class="ot">=</span><span class="fu">lm</span>(Richness<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ[RIKZ<span class="sc">$</span>Beach<span class="sc">==</span>i,])</span>
-<span id="cb11-5"><a href="aula17.html#cb11-5" aria-hidden="true" tabindex="-1"></a>  cs<span class="ot">=</span><span class="fu">coef</span>(m)</span>
-<span id="cb11-6"><a href="aula17.html#cb11-6" aria-hidden="true" tabindex="-1"></a>  as[i]<span class="ot">=</span>cs[<span class="dv">1</span>]</span>
-<span id="cb11-7"><a href="aula17.html#cb11-7" aria-hidden="true" tabindex="-1"></a>  bs[i]<span class="ot">=</span>cs[<span class="dv">2</span>]</span>
-<span id="cb11-8"><a href="aula17.html#cb11-8" aria-hidden="true" tabindex="-1"></a>  exp[i]<span class="ot">=</span>RIKZ<span class="sc">$</span>Exposure[i<span class="sc">*</span><span class="dv">5</span>]</span>
-<span id="cb11-9"><a href="aula17.html#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(cs,<span class="at">lty=</span>exp[i]<span class="sc">+</span><span class="dv">1</span>,<span class="at">col=</span><span class="fu">terrain.colors</span>(<span class="dv">10</span>)[i])</span>
-<span id="cb11-10"><a href="aula17.html#cb11-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-11"><a href="aula17.html#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Exposure 0&quot;</span>,<span class="st">&quot;Exposure 1&quot;</span>),<span class="at">inset=</span><span class="fl">0.05</span>)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="aula17.html#cb508-1" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
+<span id="cb508-2"><a href="aula17.html#cb508-2" tabindex="-1"></a>as<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>);bs<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>);exp<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>)</span>
+<span id="cb508-3"><a href="aula17.html#cb508-3" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>){</span>
+<span id="cb508-4"><a href="aula17.html#cb508-4" tabindex="-1"></a>  m<span class="ot">=</span><span class="fu">lm</span>(Richness<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ[RIKZ<span class="sc">$</span>Beach<span class="sc">==</span>i,])</span>
+<span id="cb508-5"><a href="aula17.html#cb508-5" tabindex="-1"></a>  cs<span class="ot">=</span><span class="fu">coef</span>(m)</span>
+<span id="cb508-6"><a href="aula17.html#cb508-6" tabindex="-1"></a>  as[i]<span class="ot">=</span>cs[<span class="dv">1</span>]</span>
+<span id="cb508-7"><a href="aula17.html#cb508-7" tabindex="-1"></a>  bs[i]<span class="ot">=</span>cs[<span class="dv">2</span>]</span>
+<span id="cb508-8"><a href="aula17.html#cb508-8" tabindex="-1"></a>  exp[i]<span class="ot">=</span>RIKZ<span class="sc">$</span>Exposure[i<span class="sc">*</span><span class="dv">5</span>]</span>
+<span id="cb508-9"><a href="aula17.html#cb508-9" tabindex="-1"></a>  <span class="fu">abline</span>(cs,<span class="at">lty=</span>exp[i]<span class="sc">+</span><span class="dv">1</span>,<span class="at">col=</span><span class="fu">terrain.colors</span>(<span class="dv">10</span>)[i])</span>
+<span id="cb508-10"><a href="aula17.html#cb508-10" tabindex="-1"></a>}</span>
+<span id="cb508-11"><a href="aula17.html#cb508-11" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Exposure 0&quot;</span>,<span class="st">&quot;Exposure 1&quot;</span>),<span class="at">inset=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <p>Now the second stage</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="aula17.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb12-2"><a href="aula17.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(as<span class="sc">~</span>exp,<span class="at">ylab=</span><span class="st">&quot;intercept&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Exposure&quot;</span>)</span>
-<span id="cb12-3"><a href="aula17.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(bs<span class="sc">~</span>exp,<span class="at">ylab=</span><span class="st">&quot;slope&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Exposure&quot;</span>)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="aula17.html#cb509-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb509-2"><a href="aula17.html#cb509-2" tabindex="-1"></a><span class="fu">boxplot</span>(as<span class="sc">~</span>exp,<span class="at">ylab=</span><span class="st">&quot;intercept&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Exposure&quot;</span>)</span>
+<span id="cb509-3"><a href="aula17.html#cb509-3" tabindex="-1"></a><span class="fu">boxplot</span>(bs<span class="sc">~</span>exp,<span class="at">ylab=</span><span class="st">&quot;slope&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Exposure&quot;</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
 <p>The way to do all this in one go is to consider a mixed model, where exposure is a fixed effect, but beach is considered a random effect.</p>
 <p>Implementing the mixed model, with just random intercepts</p>
 <p>Using <code>lme</code> from <code>nlme</code></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="aula17.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
-<span id="cb13-2"><a href="aula17.html#cb13-2" aria-hidden="true" tabindex="-1"></a>RIKZ<span class="sc">$</span>fbeach<span class="ot">=</span><span class="fu">as.factor</span>(RIKZ<span class="sc">$</span>Beach)</span>
-<span id="cb13-3"><a href="aula17.html#cb13-3" aria-hidden="true" tabindex="-1"></a>lme1<span class="ot">=</span><span class="fu">lme</span>(Richness<span class="sc">~</span>NAP,<span class="at">random=</span><span class="sc">~</span><span class="dv">1</span><span class="sc">|</span>fbeach,<span class="at">data=</span>RIKZ)</span>
-<span id="cb13-4"><a href="aula17.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lme1)</span></code></pre></div>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="aula17.html#cb510-1" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
+<span id="cb510-2"><a href="aula17.html#cb510-2" tabindex="-1"></a>RIKZ<span class="sc">$</span>fbeach<span class="ot">=</span><span class="fu">as.factor</span>(RIKZ<span class="sc">$</span>Beach)</span>
+<span id="cb510-3"><a href="aula17.html#cb510-3" tabindex="-1"></a>lme1<span class="ot">=</span><span class="fu">lme</span>(Richness<span class="sc">~</span>NAP,<span class="at">random=</span><span class="sc">~</span><span class="dv">1</span><span class="sc">|</span>fbeach,<span class="at">data=</span>RIKZ)</span>
+<span id="cb510-4"><a href="aula17.html#cb510-4" tabindex="-1"></a><span class="fu">summary</span>(lme1)</span></code></pre></div>
 <pre><code>## Linear mixed-effects model fit by REML
 ##   Data: RIKZ 
 ##        AIC     BIC    logLik
@@ -344,9 +377,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Number of Observations: 45
 ## Number of Groups: 9</code></pre>
 <p>Using <code>lmer</code> from <code>lme4</code></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="aula17.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb15-2"><a href="aula17.html#cb15-2" aria-hidden="true" tabindex="-1"></a>lme2<span class="ot">=</span><span class="fu">lmer</span>(Richness<span class="sc">~</span>NAP<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>fbeach),<span class="at">data=</span>RIKZ)</span>
-<span id="cb15-3"><a href="aula17.html#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lme2)</span></code></pre></div>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="aula17.html#cb512-1" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb512-2"><a href="aula17.html#cb512-2" tabindex="-1"></a>lme2<span class="ot">=</span><span class="fu">lmer</span>(Richness<span class="sc">~</span>NAP<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>fbeach),<span class="at">data=</span>RIKZ)</span>
+<span id="cb512-3"><a href="aula17.html#cb512-3" tabindex="-1"></a><span class="fu">summary</span>(lme2)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: Richness ~ NAP + (1 | fbeach)
 ##    Data: RIKZ
@@ -372,23 +405,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##     (Intr)
 ## NAP -0.157</code></pre>
 <p>Make predictions from lme</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="aula17.html#cb17-1" aria-hidden="true" tabindex="-1"></a>Level0<span class="ot">=</span><span class="fu">fitted</span>(lme1,<span class="at">level=</span><span class="dv">0</span>)</span>
-<span id="cb17-2"><a href="aula17.html#cb17-2" aria-hidden="true" tabindex="-1"></a>Level1<span class="ot">=</span><span class="fu">fitted</span>(lme1,<span class="at">level=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="aula17.html#cb514-1" tabindex="-1"></a>Level0<span class="ot">=</span><span class="fu">fitted</span>(lme1,<span class="at">level=</span><span class="dv">0</span>)</span>
+<span id="cb514-2"><a href="aula17.html#cb514-2" tabindex="-1"></a>Level1<span class="ot">=</span><span class="fu">fitted</span>(lme1,<span class="at">level=</span><span class="dv">1</span>)</span></code></pre></div>
 <p>Look at the fitted model predictions over the data (note the use of function <code>ranef</code> to extract the estimated random effects from the fitted model)</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="aula17.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
-<span id="cb18-2"><a href="aula17.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#the pooled line </span></span>
-<span id="cb18-3"><a href="aula17.html#cb18-3" aria-hidden="true" tabindex="-1"></a>intercept<span class="ot">&lt;-</span>lme1<span class="sc">$</span>coefficients<span class="sc">$</span>fixed[<span class="dv">1</span>]</span>
-<span id="cb18-4"><a href="aula17.html#cb18-4" aria-hidden="true" tabindex="-1"></a>slope<span class="ot">&lt;-</span>lme1<span class="sc">$</span>coefficients<span class="sc">$</span>fixed[<span class="dv">2</span>]</span>
-<span id="cb18-5"><a href="aula17.html#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(intercept,slope,<span class="at">lwd=</span><span class="dv">3</span>)</span>
-<span id="cb18-6"><a href="aula17.html#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#lines(NAPs,Level0[I],lwd=3)</span></span>
-<span id="cb18-7"><a href="aula17.html#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>){</span>
-<span id="cb18-8"><a href="aula17.html#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span>intercept<span class="sc">+</span><span class="fu">ranef</span>(lme1)[j,<span class="dv">1</span>],<span class="at">b=</span>slope,<span class="at">col=</span><span class="fu">terrain.colors</span>(<span class="dv">10</span>)[j])</span>
-<span id="cb18-9"><a href="aula17.html#cb18-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="aula17.html#cb515-1" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
+<span id="cb515-2"><a href="aula17.html#cb515-2" tabindex="-1"></a><span class="co">#the pooled line </span></span>
+<span id="cb515-3"><a href="aula17.html#cb515-3" tabindex="-1"></a>intercept<span class="ot">&lt;-</span>lme1<span class="sc">$</span>coefficients<span class="sc">$</span>fixed[<span class="dv">1</span>]</span>
+<span id="cb515-4"><a href="aula17.html#cb515-4" tabindex="-1"></a>slope<span class="ot">&lt;-</span>lme1<span class="sc">$</span>coefficients<span class="sc">$</span>fixed[<span class="dv">2</span>]</span>
+<span id="cb515-5"><a href="aula17.html#cb515-5" tabindex="-1"></a><span class="fu">abline</span>(intercept,slope,<span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb515-6"><a href="aula17.html#cb515-6" tabindex="-1"></a><span class="co">#lines(NAPs,Level0[I],lwd=3)</span></span>
+<span id="cb515-7"><a href="aula17.html#cb515-7" tabindex="-1"></a><span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>){</span>
+<span id="cb515-8"><a href="aula17.html#cb515-8" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span>intercept<span class="sc">+</span><span class="fu">ranef</span>(lme1)[j,<span class="dv">1</span>],<span class="at">b=</span>slope,<span class="at">col=</span><span class="fu">terrain.colors</span>(<span class="dv">10</span>)[j])</span>
+<span id="cb515-9"><a href="aula17.html#cb515-9" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 <p>Implementing the mixed model, with random intercepts and slopes</p>
 <p>Using <code>lme</code> from <code>nlme</code></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="aula17.html#cb19-1" aria-hidden="true" tabindex="-1"></a>lme3<span class="ot">=</span><span class="fu">lme</span>(Richness<span class="sc">~</span>NAP,<span class="at">random=</span><span class="sc">~</span>NAP<span class="sc">|</span>fbeach,<span class="at">data=</span>RIKZ)</span>
-<span id="cb19-2"><a href="aula17.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lme3)</span></code></pre></div>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="aula17.html#cb516-1" tabindex="-1"></a>lme3<span class="ot">=</span><span class="fu">lme</span>(Richness<span class="sc">~</span>NAP,<span class="at">random=</span><span class="sc">~</span>NAP<span class="sc">|</span>fbeach,<span class="at">data=</span>RIKZ)</span>
+<span id="cb516-2"><a href="aula17.html#cb516-2" tabindex="-1"></a><span class="fu">summary</span>(lme3)</span></code></pre></div>
 <pre><code>## Linear mixed-effects model fit by REML
 ##   Data: RIKZ 
 ##        AIC      BIC    logLik
@@ -398,27 +431,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Formula: ~NAP | fbeach
 ##  Structure: General positive-definite, Log-Cholesky parametrization
 ##             StdDev   Corr  
-## (Intercept) 3.549064 (Intr)
-## NAP         1.714963 -0.99 
-## Residual    2.702820       
+## (Intercept) 3.549051 (Intr)
+## NAP         1.714968 -0.99 
+## Residual    2.702819       
 ## 
 ## Fixed effects:  Richness ~ NAP 
 ##                 Value Std.Error DF   t-value p-value
-## (Intercept)  6.588706  1.264761 35  5.209448   0e+00
-## NAP         -2.830028  0.722940 35 -3.914610   4e-04
+## (Intercept)  6.588709 1.2647569 35  5.209467   0e+00
+## NAP         -2.830029 0.7229413 35 -3.914605   4e-04
 ##  Correlation: 
 ##     (Intr)
 ## NAP -0.819
 ## 
 ## Standardized Within-Group Residuals:
 ##        Min         Q1        Med         Q3        Max 
-## -1.8213326 -0.3411043 -0.1674617  0.1921216  3.0397049 
+## -1.8213363 -0.3411033 -0.1674617  0.1921147  3.0396952 
 ## 
 ## Number of Observations: 45
 ## Number of Groups: 9</code></pre>
 <p>Using <code>lmer</code> from <code>lme4</code></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="aula17.html#cb21-1" aria-hidden="true" tabindex="-1"></a>lme5<span class="ot">=</span><span class="fu">lmer</span>(Richness<span class="sc">~</span>NAP<span class="sc">+</span>(NAP<span class="sc">|</span>fbeach),<span class="at">data=</span>RIKZ)</span>
-<span id="cb21-2"><a href="aula17.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lme5)</span></code></pre></div>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="aula17.html#cb518-1" tabindex="-1"></a>lme5<span class="ot">=</span><span class="fu">lmer</span>(Richness<span class="sc">~</span>NAP<span class="sc">+</span>(NAP<span class="sc">|</span>fbeach),<span class="at">data=</span>RIKZ)</span>
+<span id="cb518-2"><a href="aula17.html#cb518-2" tabindex="-1"></a><span class="fu">summary</span>(lme5)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: Richness ~ NAP + (NAP | fbeach)
 ##    Data: RIKZ
@@ -447,28 +480,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## optimizer (nloptwrap) convergence code: 0 (OK)
 ## Model failed to converge with max|grad| = 0.00267151 (tol = 0.002, component 1)</code></pre>
 <p>Make predictions from lme</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="aula17.html#cb23-1" aria-hidden="true" tabindex="-1"></a>Level0<span class="fl">.3</span><span class="ot">=</span><span class="fu">fitted</span>(lme3,<span class="at">level=</span><span class="dv">0</span>)</span>
-<span id="cb23-2"><a href="aula17.html#cb23-2" aria-hidden="true" tabindex="-1"></a>Level1<span class="fl">.3</span><span class="ot">=</span><span class="fu">fitted</span>(lme3,<span class="at">level=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="aula17.html#cb520-1" tabindex="-1"></a>Level0<span class="fl">.3</span><span class="ot">=</span><span class="fu">fitted</span>(lme3,<span class="at">level=</span><span class="dv">0</span>)</span>
+<span id="cb520-2"><a href="aula17.html#cb520-2" tabindex="-1"></a>Level1<span class="fl">.3</span><span class="ot">=</span><span class="fu">fitted</span>(lme3,<span class="at">level=</span><span class="dv">1</span>)</span></code></pre></div>
 <p>and ploting the model</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="aula17.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
-<span id="cb24-2"><a href="aula17.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#the pooled line </span></span>
-<span id="cb24-3"><a href="aula17.html#cb24-3" aria-hidden="true" tabindex="-1"></a>intercept<span class="ot">&lt;-</span>lme3<span class="sc">$</span>coefficients<span class="sc">$</span>fixed[<span class="dv">1</span>]</span>
-<span id="cb24-4"><a href="aula17.html#cb24-4" aria-hidden="true" tabindex="-1"></a>slope<span class="ot">&lt;-</span>lme3<span class="sc">$</span>coefficients<span class="sc">$</span>fixed[<span class="dv">2</span>]</span>
-<span id="cb24-5"><a href="aula17.html#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(intercept,slope,<span class="at">lwd=</span><span class="dv">3</span>)</span>
-<span id="cb24-6"><a href="aula17.html#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#lines(NAPs,Level0[I],lwd=3)</span></span>
-<span id="cb24-7"><a href="aula17.html#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>){</span>
-<span id="cb24-8"><a href="aula17.html#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span>intercept<span class="sc">+</span><span class="fu">ranef</span>(lme3)[j,<span class="dv">1</span>],<span class="at">b=</span>slope<span class="sc">+</span><span class="fu">ranef</span>(lme3)[j,<span class="dv">2</span>],<span class="at">col=</span><span class="fu">terrain.colors</span>(<span class="dv">10</span>)[j])</span>
-<span id="cb24-9"><a href="aula17.html#cb24-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="aula17.html#cb521-1" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
+<span id="cb521-2"><a href="aula17.html#cb521-2" tabindex="-1"></a><span class="co">#the pooled line </span></span>
+<span id="cb521-3"><a href="aula17.html#cb521-3" tabindex="-1"></a>intercept<span class="ot">&lt;-</span>lme3<span class="sc">$</span>coefficients<span class="sc">$</span>fixed[<span class="dv">1</span>]</span>
+<span id="cb521-4"><a href="aula17.html#cb521-4" tabindex="-1"></a>slope<span class="ot">&lt;-</span>lme3<span class="sc">$</span>coefficients<span class="sc">$</span>fixed[<span class="dv">2</span>]</span>
+<span id="cb521-5"><a href="aula17.html#cb521-5" tabindex="-1"></a><span class="fu">abline</span>(intercept,slope,<span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb521-6"><a href="aula17.html#cb521-6" tabindex="-1"></a><span class="co">#lines(NAPs,Level0[I],lwd=3)</span></span>
+<span id="cb521-7"><a href="aula17.html#cb521-7" tabindex="-1"></a><span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>){</span>
+<span id="cb521-8"><a href="aula17.html#cb521-8" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span>intercept<span class="sc">+</span><span class="fu">ranef</span>(lme3)[j,<span class="dv">1</span>],<span class="at">b=</span>slope<span class="sc">+</span><span class="fu">ranef</span>(lme3)[j,<span class="dv">2</span>],<span class="at">col=</span><span class="fu">terrain.colors</span>(<span class="dv">10</span>)[j])</span>
+<span id="cb521-9"><a href="aula17.html#cb521-9" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 <p>Zuur says in page 110 we could compare the models by AIC, but that is just nonsense. Having been fitted by REML, no AIC is available</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="aula17.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(lme1)</span></code></pre></div>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="aula17.html#cb522-1" tabindex="-1"></a><span class="fu">AIC</span>(lme1)</span></code></pre></div>
 <pre><code>## [1] 247.4802</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="aula17.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(lme3)</span></code></pre></div>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="aula17.html#cb524-1" tabindex="-1"></a><span class="fu">AIC</span>(lme3)</span></code></pre></div>
 <pre><code>## [1] 244.3839</code></pre>
 <p>Just for comparison, we could try to see if a random effect model would be a better model. In other words, was NAP required at all or a different mean by beach would suffice?</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="aula17.html#cb29-1" aria-hidden="true" tabindex="-1"></a>lme6<span class="ot">=</span><span class="fu">lme</span>(Richness<span class="sc">~</span><span class="dv">1</span>,<span class="at">random=</span><span class="sc">~</span><span class="dv">1</span><span class="sc">|</span>fbeach,<span class="at">data=</span>RIKZ)</span></code></pre></div>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="aula17.html#cb526-1" tabindex="-1"></a>lme6<span class="ot">=</span><span class="fu">lme</span>(Richness<span class="sc">~</span><span class="dv">1</span>,<span class="at">random=</span><span class="sc">~</span><span class="dv">1</span><span class="sc">|</span>fbeach,<span class="at">data=</span>RIKZ)</span></code></pre></div>
 <p>We can look at the summary of such a model</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="aula17.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lme6)</span></code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="aula17.html#cb527-1" tabindex="-1"></a><span class="fu">summary</span>(lme6)</span></code></pre></div>
 <pre><code>## Linear mixed-effects model fit by REML
 ##   Data: RIKZ 
 ##        AIC      BIC    logLik
@@ -490,7 +523,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Number of Observations: 45
 ## Number of Groups: 9</code></pre>
 <p>Comparing the 3 models regarding AIC</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="aula17.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(lme1,lme3,lme6)</span></code></pre></div>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="aula17.html#cb529-1" tabindex="-1"></a><span class="fu">AIC</span>(lme1,lme3,lme6)</span></code></pre></div>
 <pre><code>## Warning in AIC.default(lme1, lme3, lme6): models are not all fitted to the same
 ## number of observations</code></pre>
 <pre><code>##      df      AIC
@@ -500,26 +533,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>we can see that the most parsimonious model is in fact the one with random intercepts and random slopes.</p>
 <p>Just checking the correlation between the parameters in the random intercept and slope model, as they seem higly correlated.</p>
 <p>Looking at the coefficients</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="aula17.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lme3)</span></code></pre></div>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="aula17.html#cb532-1" tabindex="-1"></a><span class="fu">coef</span>(lme3)</span></code></pre></div>
 <pre><code>##   (Intercept)       NAP
-## 1    8.421057 -3.656268
-## 2   12.363497 -5.536814
-## 3    3.806643 -1.505716
-## 4    3.562422 -1.385960
-## 5   11.200150 -5.137323
-## 6    4.426279 -1.775675
-## 7    4.082944 -1.644329
-## 8    5.099895 -2.106852
-## 9    6.335471 -2.721314</code></pre>
+## 1    8.421059 -3.656259
+## 2   12.363492 -5.536807
+## 3    3.806646 -1.505714
+## 4    3.562425 -1.385958
+## 5   11.200160 -5.137363
+## 6    4.426283 -1.775668
+## 7    4.082949 -1.644330
+## 8    5.099897 -2.106848
+## 9    6.335472 -2.721318</code></pre>
 <p>making a model</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="aula17.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">coef</span>(lme3)[,<span class="dv">1</span>],<span class="fu">coef</span>(lme3)[,<span class="dv">2</span>],<span class="at">xlab=</span><span class="st">&quot;Intercepts&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Slopes&quot;</span>)</span>
-<span id="cb37-2"><a href="aula17.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(<span class="fu">coef</span>(lme3)[,<span class="dv">2</span>]<span class="sc">~</span><span class="fu">coef</span>(lme3)[,<span class="dv">1</span>]))</span>
-<span id="cb37-3"><a href="aula17.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">10</span>,<span class="sc">-</span><span class="dv">3</span>,<span class="fu">paste</span>(<span class="st">&quot;Correlation is&quot;</span>,<span class="fu">round</span>(<span class="fu">cor</span>(<span class="fu">coef</span>(lme3)[,<span class="dv">1</span>],<span class="fu">coef</span>(lme3)[,<span class="dv">2</span>]),<span class="dv">5</span>)))</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="aula17.html#cb534-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">coef</span>(lme3)[,<span class="dv">1</span>],<span class="fu">coef</span>(lme3)[,<span class="dv">2</span>],<span class="at">xlab=</span><span class="st">&quot;Intercepts&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Slopes&quot;</span>)</span>
+<span id="cb534-2"><a href="aula17.html#cb534-2" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(<span class="fu">coef</span>(lme3)[,<span class="dv">2</span>]<span class="sc">~</span><span class="fu">coef</span>(lme3)[,<span class="dv">1</span>]))</span>
+<span id="cb534-3"><a href="aula17.html#cb534-3" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">10</span>,<span class="sc">-</span><span class="dv">3</span>,<span class="fu">paste</span>(<span class="st">&quot;Correlation is&quot;</span>,<span class="fu">round</span>(<span class="fu">cor</span>(<span class="fu">coef</span>(lme3)[,<span class="dv">1</span>],<span class="fu">coef</span>(lme3)[,<span class="dv">2</span>]),<span class="dv">5</span>)))</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
 <p>the correlation is in fact very large! Note this correlation is actually an output present in the <code>lme</code> and <code>lmer</code> fitted objects. A very detailed description of what these correlations are when we have more than 1 of them can be found here: <a href="https://rpubs.com/yjunechoe/correlationsLMEM" class="uri">https://rpubs.com/yjunechoe/correlationsLMEM</a>. That is a quite advanced topic though.</p>
 <p>Note that we could have considered a standard model where beach might be a factor and we would include an interaction between beach and NAP to allow for both different intercepts and slopes across beaches.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="aula17.html#cb38-1" aria-hidden="true" tabindex="-1"></a>lmALL<span class="ot">=</span><span class="fu">lm</span>(Richness<span class="sc">~</span>NAP<span class="sc">+</span>fbeach<span class="sc">+</span>NAP<span class="sc">:</span>fbeach,<span class="at">data=</span>RIKZ)</span>
-<span id="cb38-2"><a href="aula17.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmALL)</span></code></pre></div>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="aula17.html#cb535-1" tabindex="-1"></a>lmALL<span class="ot">=</span><span class="fu">lm</span>(Richness<span class="sc">~</span>NAP<span class="sc">+</span>fbeach<span class="sc">+</span>NAP<span class="sc">:</span>fbeach,<span class="at">data=</span>RIKZ)</span>
+<span id="cb535-2"><a href="aula17.html#cb535-2" tabindex="-1"></a><span class="fu">summary</span>(lmALL)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Richness ~ NAP + fbeach + NAP:fbeach, data = RIKZ)
@@ -555,29 +588,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Multiple R-squared:  0.8494, Adjusted R-squared:  0.7546 
 ## F-statistic: 8.957 on 17 and 27 DF,  p-value: 4.056e-07</code></pre>
 <p>We can represent the models fitted independently beach by beach we had above with this full model with the interaction term side by side:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="aula17.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb40-2"><a href="aula17.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
-<span id="cb40-3"><a href="aula17.html#cb40-3" aria-hidden="true" tabindex="-1"></a>as<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>);bs<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>);exp<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>)</span>
-<span id="cb40-4"><a href="aula17.html#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>){</span>
-<span id="cb40-5"><a href="aula17.html#cb40-5" aria-hidden="true" tabindex="-1"></a>  m<span class="ot">=</span><span class="fu">lm</span>(Richness<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ[RIKZ<span class="sc">$</span>Beach<span class="sc">==</span>i,])</span>
-<span id="cb40-6"><a href="aula17.html#cb40-6" aria-hidden="true" tabindex="-1"></a>  cs<span class="ot">=</span><span class="fu">coef</span>(m)</span>
-<span id="cb40-7"><a href="aula17.html#cb40-7" aria-hidden="true" tabindex="-1"></a>  as[i]<span class="ot">=</span>cs[<span class="dv">1</span>]</span>
-<span id="cb40-8"><a href="aula17.html#cb40-8" aria-hidden="true" tabindex="-1"></a>  bs[i]<span class="ot">=</span>cs[<span class="dv">2</span>]</span>
-<span id="cb40-9"><a href="aula17.html#cb40-9" aria-hidden="true" tabindex="-1"></a>  exp[i]<span class="ot">=</span>RIKZ<span class="sc">$</span>Exposure[i<span class="sc">*</span><span class="dv">5</span>]</span>
-<span id="cb40-10"><a href="aula17.html#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(cs,<span class="at">lty=</span>exp[i]<span class="sc">+</span><span class="dv">1</span>,<span class="at">col=</span><span class="fu">terrain.colors</span>(<span class="dv">10</span>)[i])</span>
-<span id="cb40-11"><a href="aula17.html#cb40-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb40-12"><a href="aula17.html#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Exposure 0&quot;</span>,<span class="st">&quot;Exposure 1&quot;</span>),<span class="at">inset=</span><span class="fl">0.05</span>)</span>
-<span id="cb40-13"><a href="aula17.html#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="co">#a single model</span></span>
-<span id="cb40-14"><a href="aula17.html#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
-<span id="cb40-15"><a href="aula17.html#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="co">#beach 1</span></span>
-<span id="cb40-16"><a href="aula17.html#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span><span class="fu">coef</span>(lmALL)[<span class="dv">1</span>],<span class="at">b=</span><span class="fu">coef</span>(lmALL)[<span class="dv">2</span>],<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="dv">1</span>],<span class="at">lty=</span>exp[<span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>)</span>
-<span id="cb40-17"><a href="aula17.html#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">9</span>){</span>
-<span id="cb40-18"><a href="aula17.html#cb40-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a=</span><span class="fu">coef</span>(lmALL)[<span class="dv">1</span>]<span class="sc">+</span><span class="fu">coef</span>(lmALL)[i<span class="sc">+</span><span class="dv">1</span>],<span class="at">b=</span><span class="fu">coef</span>(lmALL)[<span class="dv">2</span>]<span class="sc">+</span><span class="fu">coef</span>(lmALL)[i<span class="sc">+</span><span class="dv">9</span>],<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[i],<span class="at">lty=</span>exp[i]<span class="sc">+</span><span class="dv">1</span>)</span>
-<span id="cb40-19"><a href="aula17.html#cb40-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Exposure 0&quot;</span>,<span class="st">&quot;Exposure 1&quot;</span>),<span class="at">inset=</span><span class="fl">0.05</span>)</span>
-<span id="cb40-20"><a href="aula17.html#cb40-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="aula17.html#cb537-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb537-2"><a href="aula17.html#cb537-2" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
+<span id="cb537-3"><a href="aula17.html#cb537-3" tabindex="-1"></a>as<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>);bs<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>);exp<span class="ot">=</span><span class="fu">numeric</span>(<span class="dv">9</span>)</span>
+<span id="cb537-4"><a href="aula17.html#cb537-4" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>){</span>
+<span id="cb537-5"><a href="aula17.html#cb537-5" tabindex="-1"></a>  m<span class="ot">=</span><span class="fu">lm</span>(Richness<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ[RIKZ<span class="sc">$</span>Beach<span class="sc">==</span>i,])</span>
+<span id="cb537-6"><a href="aula17.html#cb537-6" tabindex="-1"></a>  cs<span class="ot">=</span><span class="fu">coef</span>(m)</span>
+<span id="cb537-7"><a href="aula17.html#cb537-7" tabindex="-1"></a>  as[i]<span class="ot">=</span>cs[<span class="dv">1</span>]</span>
+<span id="cb537-8"><a href="aula17.html#cb537-8" tabindex="-1"></a>  bs[i]<span class="ot">=</span>cs[<span class="dv">2</span>]</span>
+<span id="cb537-9"><a href="aula17.html#cb537-9" tabindex="-1"></a>  exp[i]<span class="ot">=</span>RIKZ<span class="sc">$</span>Exposure[i<span class="sc">*</span><span class="dv">5</span>]</span>
+<span id="cb537-10"><a href="aula17.html#cb537-10" tabindex="-1"></a>  <span class="fu">abline</span>(cs,<span class="at">lty=</span>exp[i]<span class="sc">+</span><span class="dv">1</span>,<span class="at">col=</span><span class="fu">terrain.colors</span>(<span class="dv">10</span>)[i])</span>
+<span id="cb537-11"><a href="aula17.html#cb537-11" tabindex="-1"></a>}</span>
+<span id="cb537-12"><a href="aula17.html#cb537-12" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Exposure 0&quot;</span>,<span class="st">&quot;Exposure 1&quot;</span>),<span class="at">inset=</span><span class="fl">0.05</span>)</span>
+<span id="cb537-13"><a href="aula17.html#cb537-13" tabindex="-1"></a><span class="co">#a single model</span></span>
+<span id="cb537-14"><a href="aula17.html#cb537-14" tabindex="-1"></a><span class="fu">plot</span>(Richness<span class="sc">~</span>NAP,<span class="at">pch=</span><span class="fu">as.character</span>(Beach),<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="fu">as.numeric</span>(Beach)],<span class="at">data=</span>RIKZ)</span>
+<span id="cb537-15"><a href="aula17.html#cb537-15" tabindex="-1"></a><span class="co">#beach 1</span></span>
+<span id="cb537-16"><a href="aula17.html#cb537-16" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span><span class="fu">coef</span>(lmALL)[<span class="dv">1</span>],<span class="at">b=</span><span class="fu">coef</span>(lmALL)[<span class="dv">2</span>],<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[<span class="dv">1</span>],<span class="at">lty=</span>exp[<span class="dv">1</span>]<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb537-17"><a href="aula17.html#cb537-17" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">9</span>){</span>
+<span id="cb537-18"><a href="aula17.html#cb537-18" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">a=</span><span class="fu">coef</span>(lmALL)[<span class="dv">1</span>]<span class="sc">+</span><span class="fu">coef</span>(lmALL)[i<span class="sc">+</span><span class="dv">1</span>],<span class="at">b=</span><span class="fu">coef</span>(lmALL)[<span class="dv">2</span>]<span class="sc">+</span><span class="fu">coef</span>(lmALL)[i<span class="sc">+</span><span class="dv">9</span>],<span class="at">col=</span> <span class="fu">terrain.colors</span>(<span class="dv">10</span>)[i],<span class="at">lty=</span>exp[i]<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb537-19"><a href="aula17.html#cb537-19" tabindex="-1"></a>  <span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Exposure 0&quot;</span>,<span class="st">&quot;Exposure 1&quot;</span>),<span class="at">inset=</span><span class="fl">0.05</span>)</span>
+<span id="cb537-20"><a href="aula17.html#cb537-20" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 <p>and we can add the AIC of this model to the above comparison</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="aula17.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(lme1,lme3,lme6,lmALL)</span></code></pre></div>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="aula17.html#cb538-1" tabindex="-1"></a><span class="fu">AIC</span>(lme1,lme3,lme6,lmALL)</span></code></pre></div>
 <pre><code>## Warning in AIC.default(lme1, lme3, lme6, lmALL): models are not all fitted to
 ## the same number of observations</code></pre>
 <pre><code>##       df      AIC
@@ -649,6 +682,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

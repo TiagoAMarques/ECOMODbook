@@ -2,7 +2,7 @@
 
 Here we come up with a story... an example about regression.
 
-I would love to weave in an example that could also be used to illustrate simpsons paradox, as in https://twitter.com/TivadarDanka/status/1646101110065856512
+I would love to weave in an example that could also be used to illustrate Simpsons paradox, as in https://twitter.com/TivadarDanka/status/1646101110065856512
 
 A simple regression is just the situation where we want to model a response variable as a function of a single explanatory variable. As an examples, say, the time a fish takes to react to a predator introduced in an aquarium by getting into shelter, as a function of the water temperature. Let's simulate some data that would represent this scenario, but I am not showing you the way the data was simulated just yet.
 
@@ -17,6 +17,7 @@ noise <- 0.2
 temp<-runif(n,10,20)
 react<-beta0+beta1*temp+rnorm(n,sd=noise)
 reaction<-data.frame(react=react,temp=temp)
+write.table(reaction,file="reaction.txt")
 ```
 
 The first few lines of the simulated data are shown in Table \@ref(tab:Ttab1).
@@ -77,7 +78,9 @@ The estimated line and the true line are very similar, as expected since we have
 
 ## The assumptions are on the residuals, not the data
 
-Imagine that you have a single variable that you are interested in modelling. This is the concentration of an enzime in the blood of small rodents, from 4 diffferent species. This is represented in the image below \@ref(fig:figrodents).
+Imagine that you have a single variable that you are interested in modelling. This is the concentration of an enzyme in the blood of small rodents, from 4 different species. The data is created and saved as file `enzimes.txt`, but I do not show here how it is generated for dramatic effects!
+
+This is represented in the image below \@ref(fig:figrodents).
 
 ```{r reg10,echo=FALSE}
 #This is just an ANOVA, we are just not going to call it as such now!
@@ -92,7 +95,6 @@ ntr=length(tr)
 #balanced design
 n.by.tr=n/ntr
 #generate data
-xs=runif(n,10,20)
 type=as.factor(rep(tr,each=n.by.tr))
 #if I wanted to recode the levels such that c was the baseline
 #type=factor(type,levels = c("c","a","b","d"))
@@ -101,13 +103,14 @@ cores=rep(1:ntr,each=n.by.tr)
 ms=c(12,15,24,29)
 #ys, not a function of the xs!!!
 ys=ifelse(type=="a",ms[1],ifelse(type=="b",ms[2],ifelse(type=="c",ms[3],ms[4])))+rnorm(n,0,3)
+write.table(data.frame(concentration=ys,sp=type),file="enzimes.txt")
 ```
 
 ```{r figrodents, fig.cap='Concentration of an enzime (mg/L) in the blood of small rodents, from 4 diffferent species', out.width='80%', fig.asp=.75, fig.align='center'}
 hist(ys,breaks=0:40,xlab="Concentration of enzime (mg/L)")
 ```
 
-A poor (conventional and traditional) biologist would die if shown this dataset, but the truth is there would be no reason for it. If one accounts for the different species, this is what we see. Clear differences between two groups of species. 
+A poor (conventional and traditional) biologist would die if shown this dataset - it looks nothing like Gaussian, what shall he do? - but the truth is there would be no reason for it. If one accounts for the different species, this is what we see. Clear differences between two groups of species. 
 
 ```{r reg11}
 boxplot(ys~type,ylab="Concentration of enzime (mg/L)")
@@ -119,5 +122,5 @@ And further, we can see that the remaining residuals are a beautiful Gaussian. N
 hist(residuals(lm(ys~type)),main="",xlab="Residuals")
 ```
 
-The take home message from the story: what the data looks like might be irrelevant. The patterns that remain in the residuals, if any, those are the ones we might need to worry about. So do not transform data just becasue the data looks odd. It might just be Gaussian data in disguise!
+The take home message from the story: what the data looks like might be irrelevant. The patterns that remain in the residuals, if any, those are the ones we might need to worry about. So do not transform data just because the data looks odd. It might just be Gaussian data in disguise!
 

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Regression inside out | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Regression inside out | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2022-11-02" />
+<meta name="date" content="2023-10-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +119,32 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -162,16 +188,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2.1" data-path="aula6.html"><a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Class 7 14 10 2020</a>
+<li class="chapter" data-level="9" data-path="aula7.html"><a href="aula7.html"><i class="fa fa-check"></i><b>9</b> Two tasks to further understand regression</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="aula7.html"><a href="aula7.html#task-1"><i class="fa fa-check"></i><b>9.1</b> Task 1</a></li>
 <li class="chapter" data-level="9.2" data-path="aula7.html"><a href="aula7.html#task-2"><i class="fa fa-check"></i><b>9.2</b> Task 2</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> Class 8 20 10 2020 - t-test and ANOVA are just linear models</a>
+<li class="chapter" data-level="10" data-path="aula8.html"><a href="aula8.html"><i class="fa fa-check"></i><b>10</b> t-tests and ANOVAs are just linear models</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.1</b> The t-test</a></li>
-<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.2</b> ANOVA</a></li>
-<li class="chapter" data-level="10.3" data-path="aula8.html"><a href="aula8.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>10.3</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
+<li class="chapter" data-level="10.1" data-path="aula8.html"><a href="aula8.html#a-one-sample-t-test-is-the-simplest-possible-linear-model"><i class="fa fa-check"></i><b>10.1</b> A one sample t-test is the simplest possible linear model</a></li>
+<li class="chapter" data-level="10.2" data-path="aula8.html"><a href="aula8.html#the-t-test"><i class="fa fa-check"></i><b>10.2</b> The t-test</a></li>
+<li class="chapter" data-level="10.3" data-path="aula8.html"><a href="aula8.html#anova"><i class="fa fa-check"></i><b>10.3</b> ANOVA</a></li>
+<li class="chapter" data-level="10.4" data-path="aula8.html"><a href="aula8.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>10.4</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="aula9.html"><a href="aula9.html"><i class="fa fa-check"></i><b>11</b> Class 9: 21 10 2020 - ANCOVA is (also) just a linear model</a>
 <ul>
@@ -191,9 +218,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="14.1" data-path="aula13.html"><a href="aula13.html#larger-order-interactions"><i class="fa fa-check"></i><b>14.1</b> Larger order interactions</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conlusion on linear regression</a>
+<li class="chapter" data-level="15" data-path="conclusion-on-linear-regression.html"><a href="conclusion-on-linear-regression.html"><i class="fa fa-check"></i><b>15</b> Conclusion on linear regression</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="conlusion-on-linear-regression.html"><a href="conlusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
+<li class="chapter" data-level="15.1" data-path="conclusion-on-linear-regression.html"><a href="conclusion-on-linear-regression.html#conclusion"><i class="fa fa-check"></i><b>15.1</b> Conclusion</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="aula12.html"><a href="aula12.html"><i class="fa fa-check"></i><b>16</b> Class 13: 10 11 2020 Maximum likelihood and all that</a>
 <ul>
@@ -212,29 +239,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="17.4" data-path="aula14.html"><a href="aula14.html#an-example-analysis"><i class="fa fa-check"></i><b>17.4</b> An example analysis</a></li>
 <li class="chapter" data-level="17.5" data-path="aula14.html"><a href="aula14.html#an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework"><i class="fa fa-check"></i><b>17.5</b> An example of a GLM as a detail within a conceptualization framework</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a>
+<li class="chapter" data-level="18" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>18</b> Class 15: 17 11 2020</a></li>
+<li class="chapter" data-level="19" data-path="example-1---deviance.html"><a href="example-1---deviance.html"><i class="fa fa-check"></i><b>19</b> Example 1 - deviance</a></li>
+<li class="chapter" data-level="20" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html"><i class="fa fa-check"></i><b>20</b> Example 2 - lagartyos GLM</a>
 <ul>
-<li class="chapter" data-level="18.1" data-path="aula15.html"><a href="aula15.html#example-2"><i class="fa fa-check"></i><b>18.1</b> Example 2</a></li>
+<li class="chapter" data-level="20.1" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html#example-2"><i class="fa fa-check"></i><b>20.1</b> Example 2</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>19</b> Class 16: 18 11 2020</a>
+<li class="chapter" data-level="21" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>21</b> Class 16: 18 11 2020</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>19.1</b> A logistic regression example</a></li>
-<li class="chapter" data-level="19.2" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>19.2</b> About multicollinearity</a></li>
-</ul></li>
-<li class="chapter" data-level="20" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>20</b> Class 17: 24 11 2020</a></li>
-<li class="chapter" data-level="21" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>21</b> Class 18: 25 11 2020</a>
+<li class="chapter" data-level="21.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>21.1</b> A logistic regression example</a></li>
+<li class="chapter" data-level="21.2" data-path="aula16.html"><a href="aula16.html#titanic-example"><i class="fa fa-check"></i><b>21.2</b> Titanic example</a>
 <ul>
-<li class="chapter" data-level="21.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>21.1</b> Presence of bats</a></li>
-<li class="chapter" data-level="21.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>21.2</b> Sponges</a>
+<li class="chapter" data-level="21.2.1" data-path="aula16.html"><a href="aula16.html#análise-exploratoria-de-dados"><i class="fa fa-check"></i><b>21.2.1</b> Análise Exploratoria de Dados</a></li>
+<li class="chapter" data-level="21.2.2" data-path="aula16.html"><a href="aula16.html#modelação"><i class="fa fa-check"></i><b>21.2.2</b> Modelação</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>21.3</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="aula17.html"><a href="aula17.html"><i class="fa fa-check"></i><b>22</b> Random effects and mixed Models</a></li>
+<li class="chapter" data-level="23" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>23</b> Class 18: 25 11 2020</a>
 <ul>
-<li class="chapter" data-level="21.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>21.2.1</b> Reading data in</a></li>
-<li class="chapter" data-level="21.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>21.2.2</b> Exploratory Data Analysis</a></li>
-<li class="chapter" data-level="21.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>21.2.3</b> Modelling</a></li>
+<li class="chapter" data-level="23.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>23.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="23.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>23.2</b> Sponges</a>
+<ul>
+<li class="chapter" data-level="23.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>23.2.1</b> Reading data in</a></li>
+<li class="chapter" data-level="23.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>23.2.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="23.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>23.2.3</b> Modelling</a></li>
 </ul></li>
-<li class="chapter" data-level="21.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>21.3</b> Extra GLM stuff</a></li>
+<li class="chapter" data-level="23.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>23.3</b> Extra GLM stuff</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>22</b> Class 19: 02 12 2020</a></li>
-<li class="chapter" data-level="23" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>23</b> Final Words</a></li>
+<li class="chapter" data-level="24" data-path="aula19.html"><a href="aula19.html"><i class="fa fa-check"></i><b>24</b> Class 19: 02 12 2020</a></li>
+<li class="chapter" data-level="25" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>25</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -262,17 +296,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.1</span> Implementing a regression<a href="aula6.html#implementing-a-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We begin by reading the data in “lagartos.txt” and fitting a regression model to it.</p>
 <p>Read the data in</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="aula6.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#folder&lt;-&quot;../Aula6 13 10 2020/&quot;</span></span>
-<span id="cb1-2"><a href="aula6.html#cb1-2" aria-hidden="true" tabindex="-1"></a>folder<span class="ot">&lt;-</span><span class="st">&quot;extfiles/&quot;</span></span>
-<span id="cb1-3"><a href="aula6.html#cb1-3" aria-hidden="true" tabindex="-1"></a>lagartos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="fu">paste0</span>(folder,<span class="st">&quot;lagartos.txt&quot;</span>), <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb1-4"><a href="aula6.html#cb1-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(lagartos)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="aula6.html#cb11-1" tabindex="-1"></a><span class="co">#folder&lt;-&quot;../Aula6 13 10 2020/&quot;</span></span>
+<span id="cb11-2"><a href="aula6.html#cb11-2" tabindex="-1"></a>folder<span class="ot">&lt;-</span><span class="st">&quot;extfiles/&quot;</span></span>
+<span id="cb11-3"><a href="aula6.html#cb11-3" tabindex="-1"></a>lagartos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="fu">paste0</span>(folder,<span class="st">&quot;lagartos.txt&quot;</span>), <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb11-4"><a href="aula6.html#cb11-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(lagartos)</span></code></pre></div>
 <p>We see that we have 97 observations.</p>
 <p>Plot the data</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="aula6.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">plot</span>(peso<span class="sc">~</span>comp))</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="aula6.html#cb12-1" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">plot</span>(peso<span class="sc">~</span>comp))</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.2-1.png" width="672" /></p>
 <p>A linear model seems adequate. Lets fit a regression line to the data</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="aula6.html#cb3-1" aria-hidden="true" tabindex="-1"></a>lmlag <span class="ot">&lt;-</span> <span class="fu">lm</span>(peso<span class="sc">~</span>comp,<span class="at">data=</span>lagartos)</span>
-<span id="cb3-2"><a href="aula6.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmlag)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="aula6.html#cb13-1" tabindex="-1"></a>lmlag <span class="ot">&lt;-</span> <span class="fu">lm</span>(peso<span class="sc">~</span>comp,<span class="at">data=</span>lagartos)</span>
+<span id="cb13-2"><a href="aula6.html#cb13-2" tabindex="-1"></a><span class="fu">summary</span>(lmlag)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = peso ~ comp, data = lagartos)
@@ -292,16 +326,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Multiple R-squared:  0.8391, Adjusted R-squared:  0.8374 
 ## F-statistic: 495.3 on 1 and 95 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Remember that a linear model is just a special GLM:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="aula6.html#cb5-1" aria-hidden="true" tabindex="-1"></a>glmlag <span class="ot">&lt;-</span> <span class="fu">glm</span>(peso<span class="sc">~</span>comp,<span class="at">data=</span>lagartos,<span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb5-2"><a href="aula6.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glmlag)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="aula6.html#cb15-1" tabindex="-1"></a>glmlag <span class="ot">&lt;-</span> <span class="fu">glm</span>(peso<span class="sc">~</span>comp,<span class="at">data=</span>lagartos,<span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb15-2"><a href="aula6.html#cb15-2" tabindex="-1"></a><span class="fu">summary</span>(glmlag)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = peso ~ comp, family = gaussian(link = &quot;identity&quot;), 
 ##     data = lagartos)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -6.5199  -1.6961   0.3495   1.7490   4.7127  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
@@ -324,106 +354,106 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>and the estimated R-squared is 0.84. The standard error associated with the model is estimated to be 2.4146. Below we explain what each of these values correspond to.</p>
 <p>The estimated standard error corresponds to the standard deviation of the residuals of the model, that is, the diference between the observations and the predicted values given the model.</p>
 <p>The observation we have already, those are the <code>peso</code>. We can obtain the predicted <code>peso</code> for each observation with the function <code>predict</code>, but here we do it manually so that we see that the errors are just the observations minus the predictions.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="aula6.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get estimated values</span></span>
-<span id="cb7-2"><a href="aula6.html#cb7-2" aria-hidden="true" tabindex="-1"></a>estimated<span class="ot">&lt;-</span><span class="fu">with</span>(lagartos,<span class="fu">summary</span>(lmlag)<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span><span class="fu">summary</span>(lmlag)<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span>comp)</span>
-<span id="cb7-3"><a href="aula6.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># note this would be the same as</span></span>
-<span id="cb7-4"><a href="aula6.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># estimated&lt;-predict(lmlag)</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="aula6.html#cb17-1" tabindex="-1"></a><span class="co">#get estimated values</span></span>
+<span id="cb17-2"><a href="aula6.html#cb17-2" tabindex="-1"></a>estimated<span class="ot">&lt;-</span><span class="fu">with</span>(lagartos,<span class="fu">summary</span>(lmlag)<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span><span class="fu">summary</span>(lmlag)<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span>comp)</span>
+<span id="cb17-3"><a href="aula6.html#cb17-3" tabindex="-1"></a><span class="co"># note this would be the same as</span></span>
+<span id="cb17-4"><a href="aula6.html#cb17-4" tabindex="-1"></a><span class="co"># estimated&lt;-predict(lmlag)</span></span></code></pre></div>
 <p>Now we can compute the residuals and their corresponding standard error</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="aula6.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get residuals</span></span>
-<span id="cb8-2"><a href="aula6.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#erros = observações - valores previstos</span></span>
-<span id="cb8-3"><a href="aula6.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># e= y- (a+bx)</span></span>
-<span id="cb8-4"><a href="aula6.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># y= (a+bx) + e</span></span>
-<span id="cb8-5"><a href="aula6.html#cb8-5" aria-hidden="true" tabindex="-1"></a>resid<span class="ot">&lt;-</span>lagartos<span class="sc">$</span>peso<span class="sc">-</span>estimated</span>
-<span id="cb8-6"><a href="aula6.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(resid)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="aula6.html#cb18-1" tabindex="-1"></a><span class="co">#get residuals</span></span>
+<span id="cb18-2"><a href="aula6.html#cb18-2" tabindex="-1"></a><span class="co">#erros = observações - valores previstos</span></span>
+<span id="cb18-3"><a href="aula6.html#cb18-3" tabindex="-1"></a><span class="co"># e= y- (a+bx)</span></span>
+<span id="cb18-4"><a href="aula6.html#cb18-4" tabindex="-1"></a><span class="co"># y= (a+bx) + e</span></span>
+<span id="cb18-5"><a href="aula6.html#cb18-5" tabindex="-1"></a>resid<span class="ot">&lt;-</span>lagartos<span class="sc">$</span>peso<span class="sc">-</span>estimated</span>
+<span id="cb18-6"><a href="aula6.html#cb18-6" tabindex="-1"></a><span class="fu">sd</span>(resid)</span></code></pre></div>
 <pre><code>## [1] 2.402032</code></pre>
 <p>Note as predict, we could use just the function <code>residuals</code> with the model object as argument to get us the residuals in a single line of code.</p>
 <p>The reason the above standard error is not exactly the same as in the model output above has to do with the degrees of freedom, a concepth that is hard to explain in this applied context, but relates to the number of available independent bits of information available. So turst me when I say that we loose a degree of freedom for each parameter estimated in a model. The exact value of the standard deviation as estimated in the model must account for that loss of one extra degree of freedom (associated with estimating the slope of the line), and so the standard formula of the <code>sd</code> needs to be adjusted for the lost degree of freedom, like this:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="aula6.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Residual Standard error (Like Standard Deviation)</span></span>
-<span id="cb10-2"><a href="aula6.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#the right way</span></span>
-<span id="cb10-3"><a href="aula6.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Subtract one to ignore intercept</span></span>
-<span id="cb10-4"><a href="aula6.html#cb10-4" aria-hidden="true" tabindex="-1"></a>k<span class="ot">=</span><span class="fu">length</span>(lmlag<span class="sc">$</span>coefficients)<span class="sc">-</span><span class="dv">1</span> </span>
-<span id="cb10-5"><a href="aula6.html#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#get the error sum of squares</span></span>
-<span id="cb10-6"><a href="aula6.html#cb10-6" aria-hidden="true" tabindex="-1"></a>SSE<span class="ot">=</span><span class="fu">sum</span>(lmlag<span class="sc">$</span>residuals<span class="sc">**</span><span class="dv">2</span>)</span>
-<span id="cb10-7"><a href="aula6.html#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Residual Standard Error</span></span>
-<span id="cb10-8"><a href="aula6.html#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(SSE<span class="sc">/</span>(n<span class="sc">-</span>(<span class="dv">1</span><span class="sc">+</span>k))) </span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="aula6.html#cb20-1" tabindex="-1"></a><span class="co">#Residual Standard error (Like Standard Deviation)</span></span>
+<span id="cb20-2"><a href="aula6.html#cb20-2" tabindex="-1"></a><span class="co">#the right way</span></span>
+<span id="cb20-3"><a href="aula6.html#cb20-3" tabindex="-1"></a><span class="co">#Subtract one to ignore intercept</span></span>
+<span id="cb20-4"><a href="aula6.html#cb20-4" tabindex="-1"></a>k<span class="ot">=</span><span class="fu">length</span>(lmlag<span class="sc">$</span>coefficients)<span class="sc">-</span><span class="dv">1</span> </span>
+<span id="cb20-5"><a href="aula6.html#cb20-5" tabindex="-1"></a><span class="co">#get the error sum of squares</span></span>
+<span id="cb20-6"><a href="aula6.html#cb20-6" tabindex="-1"></a>SSE<span class="ot">=</span><span class="fu">sum</span>(lmlag<span class="sc">$</span>residuals<span class="sc">**</span><span class="dv">2</span>)</span>
+<span id="cb20-7"><a href="aula6.html#cb20-7" tabindex="-1"></a><span class="co">#Residual Standard Error</span></span>
+<span id="cb20-8"><a href="aula6.html#cb20-8" tabindex="-1"></a><span class="fu">sqrt</span>(SSE<span class="sc">/</span>(n<span class="sc">-</span>(<span class="dv">1</span><span class="sc">+</span>k))) </span></code></pre></div>
 <pre><code>## [1] 2.414641</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="aula6.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#equivalently</span></span>
-<span id="cb12-2"><a href="aula6.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(resid)<span class="sc">*</span>(n<span class="dv">-1</span>)<span class="sc">/</span>(n<span class="dv">-2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="aula6.html#cb22-1" tabindex="-1"></a><span class="co">#equivalently</span></span>
+<span id="cb22-2"><a href="aula6.html#cb22-2" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(resid)<span class="sc">*</span>(n<span class="dv">-1</span>)<span class="sc">/</span>(n<span class="dv">-2</span>))</span></code></pre></div>
 <pre><code>## [1] 2.414641</code></pre>
 <p>Now we get the exact same value as above: 2.4146412.</p>
 <p>The <code>summary</code> of the model above is very useful, but nothing like adding the estimated model to the plot with the data. We can easily add the line to the plot with function <code>abline</code> (tip: note the ab in <code>abline</code> correspond to the <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> in <span class="math inline">\(y=a+bx\)</span>, but the function abline is “smart” enough to take an object of class <code>lm</code> and extract the corresponding <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> for plotting)</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="aula6.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#with(lagartos,plot(peso~comp))</span></span>
-<span id="cb14-2"><a href="aula6.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(peso<span class="sc">~</span>comp,<span class="at">data=</span>lagartos)</span>
-<span id="cb14-3"><a href="aula6.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#these next 3 lines are equivalent</span></span>
-<span id="cb14-4"><a href="aula6.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lmlag,<span class="at">col=</span><span class="st">&quot;orange&quot;</span>)</span>
-<span id="cb14-5"><a href="aula6.html#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span><span class="fl">11.72234</span>,<span class="at">b=</span><span class="fl">1.20233</span>,<span class="at">col=</span><span class="st">&quot;pink&quot;</span>)</span>
-<span id="cb14-6"><a href="aula6.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># y = a + bx</span></span>
-<span id="cb14-7"><a href="aula6.html#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span><span class="fu">summary</span>(lmlag)<span class="sc">$</span>coefficients[<span class="dv">1</span>,<span class="dv">1</span>],<span class="at">b=</span><span class="fu">summary</span>(lmlag)<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">1</span>],<span class="at">col=</span><span class="st">&quot;brown&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="aula6.html#cb24-1" tabindex="-1"></a><span class="co">#with(lagartos,plot(peso~comp))</span></span>
+<span id="cb24-2"><a href="aula6.html#cb24-2" tabindex="-1"></a><span class="fu">plot</span>(peso<span class="sc">~</span>comp,<span class="at">data=</span>lagartos)</span>
+<span id="cb24-3"><a href="aula6.html#cb24-3" tabindex="-1"></a><span class="co">#these next 3 lines are equivalent</span></span>
+<span id="cb24-4"><a href="aula6.html#cb24-4" tabindex="-1"></a><span class="fu">abline</span>(lmlag,<span class="at">col=</span><span class="st">&quot;orange&quot;</span>)</span>
+<span id="cb24-5"><a href="aula6.html#cb24-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span><span class="fl">11.72234</span>,<span class="at">b=</span><span class="fl">1.20233</span>,<span class="at">col=</span><span class="st">&quot;pink&quot;</span>)</span>
+<span id="cb24-6"><a href="aula6.html#cb24-6" tabindex="-1"></a><span class="co"># y = a + bx</span></span>
+<span id="cb24-7"><a href="aula6.html#cb24-7" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span><span class="fu">summary</span>(lmlag)<span class="sc">$</span>coefficients[<span class="dv">1</span>,<span class="dv">1</span>],<span class="at">b=</span><span class="fu">summary</span>(lmlag)<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">1</span>],<span class="at">col=</span><span class="st">&quot;brown&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.9-1.png" width="672" /></p>
 <p>Note the last line works because the parameter estimates are hold in a component of the <code>summary</code> of the fitted model called <code>coefficients</code></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="aula6.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmlag)<span class="sc">$</span>coefficients</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="aula6.html#cb25-1" tabindex="-1"></a><span class="fu">summary</span>(lmlag)<span class="sc">$</span>coefficients</span></code></pre></div>
 <pre><code>##              Estimate Std. Error  t value     Pr(&gt;|t|)
 ## (Intercept) 11.722343 0.72299153 16.21367 4.135172e-29
 ## comp         1.202333 0.05402397 22.25555 1.839784e-39</code></pre>
 <p>Additionally, we can also add the residuals in the plot (we use the very handy function <code>segments</code>, that adds segments to plots, to do so)</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="aula6.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get estimated/predicted values with function residuals</span></span>
-<span id="cb17-2"><a href="aula6.html#cb17-2" aria-hidden="true" tabindex="-1"></a>estimated2<span class="ot">&lt;-</span><span class="fu">predict</span>(lmlag)</span>
-<span id="cb17-3"><a href="aula6.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#plot the data</span></span>
-<span id="cb17-4"><a href="aula6.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">plot</span>(peso<span class="sc">~</span>comp,<span class="at">pch=</span><span class="dv">21</span>,<span class="at">bg=</span><span class="st">&quot;brown&quot;</span>,<span class="at">col=</span><span class="st">&quot;green&quot;</span>))</span>
-<span id="cb17-5"><a href="aula6.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lmlag,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb17-6"><a href="aula6.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#add residuals</span></span>
-<span id="cb17-7"><a href="aula6.html#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">segments</span>(<span class="at">x0 =</span> comp,<span class="at">y0 =</span> peso, <span class="at">x1=</span> comp, <span class="at">y1=</span>estimated,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="aula6.html#cb27-1" tabindex="-1"></a><span class="co"># get estimated/predicted values with function residuals</span></span>
+<span id="cb27-2"><a href="aula6.html#cb27-2" tabindex="-1"></a>estimated2<span class="ot">&lt;-</span><span class="fu">predict</span>(lmlag)</span>
+<span id="cb27-3"><a href="aula6.html#cb27-3" tabindex="-1"></a><span class="co">#plot the data</span></span>
+<span id="cb27-4"><a href="aula6.html#cb27-4" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">plot</span>(peso<span class="sc">~</span>comp,<span class="at">pch=</span><span class="dv">21</span>,<span class="at">bg=</span><span class="st">&quot;brown&quot;</span>,<span class="at">col=</span><span class="st">&quot;green&quot;</span>))</span>
+<span id="cb27-5"><a href="aula6.html#cb27-5" tabindex="-1"></a><span class="fu">abline</span>(lmlag,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb27-6"><a href="aula6.html#cb27-6" tabindex="-1"></a><span class="co">#add residuals</span></span>
+<span id="cb27-7"><a href="aula6.html#cb27-7" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">segments</span>(<span class="at">x0 =</span> comp,<span class="at">y0 =</span> peso, <span class="at">x1=</span> comp, <span class="at">y1=</span>estimated,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>))</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.11-1.png" width="672" /></p>
 <p>The regression line is the line that minimizes the sum of the red distances in the plot above. That is also why it is called a minimum squares estimate in the special case of a Gaussian model (in PT, é a reta dos mínimos quadrados).</p>
 <p>The residuals should, if the model is reasonable - and here that should be the case - be well approximated by a Gaussian distribution. Note we can get the values of the residuals by the difference between the observations and the estimated values, as we did above. We can look at their histogram below</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="aula6.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(resid,<span class="at">main=</span><span class="st">&quot;Residuals by hand&quot;</span>,<span class="at">freq=</span><span class="cn">FALSE</span>)</span>
-<span id="cb18-2"><a href="aula6.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#adding the theorethical density of a Gaussian with mean 0 and the</span></span>
-<span id="cb18-3"><a href="aula6.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#correct standard error</span></span>
-<span id="cb18-4"><a href="aula6.html#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">8</span>,<span class="dv">8</span>,<span class="at">by=</span><span class="fl">0.1</span>),<span class="fu">dnorm</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">8</span>,<span class="dv">8</span>,<span class="at">by=</span><span class="fl">0.1</span>),<span class="at">mean=</span><span class="dv">0</span>,<span class="at">sd=</span><span class="fu">summary</span>(lmlag)<span class="sc">$</span>sigma))</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="aula6.html#cb28-1" tabindex="-1"></a><span class="fu">hist</span>(resid,<span class="at">main=</span><span class="st">&quot;Residuals by hand&quot;</span>,<span class="at">freq=</span><span class="cn">FALSE</span>)</span>
+<span id="cb28-2"><a href="aula6.html#cb28-2" tabindex="-1"></a><span class="co">#adding the theorethical density of a Gaussian with mean 0 and the</span></span>
+<span id="cb28-3"><a href="aula6.html#cb28-3" tabindex="-1"></a><span class="co">#correct standard error</span></span>
+<span id="cb28-4"><a href="aula6.html#cb28-4" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">8</span>,<span class="dv">8</span>,<span class="at">by=</span><span class="fl">0.1</span>),<span class="fu">dnorm</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">8</span>,<span class="dv">8</span>,<span class="at">by=</span><span class="fl">0.1</span>),<span class="at">mean=</span><span class="dv">0</span>,<span class="at">sd=</span><span class="fu">summary</span>(lmlag)<span class="sc">$</span>sigma))</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.12-1.png" width="672" /></p>
 <p>or alternatively we can use the bespoke function <code>residuals</code></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="aula6.html#cb19-1" aria-hidden="true" tabindex="-1"></a>resid2<span class="ot">&lt;-</span><span class="fu">residuals</span>(lmlag)</span>
-<span id="cb19-2"><a href="aula6.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(resid2,<span class="at">main=</span><span class="st">&quot;Residuals by function residuals&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="aula6.html#cb29-1" tabindex="-1"></a>resid2<span class="ot">&lt;-</span><span class="fu">residuals</span>(lmlag)</span>
+<span id="cb29-2"><a href="aula6.html#cb29-2" tabindex="-1"></a><span class="fu">hist</span>(resid2,<span class="at">main=</span><span class="st">&quot;Residuals by function residuals&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.13-1.png" width="672" /></p>
 <p>It is often said that the <span class="math inline">\(R^2\)</span> represents the amount of variation in the response that the regression explains. Why is that?</p>
 <p>Because if you assume that all the variability in the response data, the <span class="math inline">\(y_i\)</span> the diference between the data points and a common mean</p>
 <p><span class="math display">\[\sum_{i=1}^n (y_i- \bar y)^2\]</span></p>
 <p>in an image, the sum of the square of these quantities</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="aula6.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plot</span></span>
-<span id="cb20-2"><a href="aula6.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">plot</span>(peso<span class="sc">~</span>comp))</span>
-<span id="cb20-3"><a href="aula6.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lmlag,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb20-4"><a href="aula6.html#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(lagartos<span class="sc">$</span>peso))</span>
-<span id="cb20-5"><a href="aula6.html#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">segments</span>(<span class="at">x0 =</span> comp,<span class="at">y0 =</span> peso, <span class="at">x1=</span> comp, <span class="at">y1=</span><span class="fu">mean</span>(peso),<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="aula6.html#cb30-1" tabindex="-1"></a><span class="co">#plot</span></span>
+<span id="cb30-2"><a href="aula6.html#cb30-2" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">plot</span>(peso<span class="sc">~</span>comp))</span>
+<span id="cb30-3"><a href="aula6.html#cb30-3" tabindex="-1"></a><span class="fu">abline</span>(lmlag,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb30-4"><a href="aula6.html#cb30-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(lagartos<span class="sc">$</span>peso))</span>
+<span id="cb30-5"><a href="aula6.html#cb30-5" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">segments</span>(<span class="at">x0 =</span> comp,<span class="at">y0 =</span> peso, <span class="at">x1=</span> comp, <span class="at">y1=</span><span class="fu">mean</span>(peso),<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">2</span>))</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.14-1.png" width="672" /></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="aula6.html#cb21-1" aria-hidden="true" tabindex="-1"></a>all.var<span class="ot">&lt;-</span><span class="fu">sum</span>((lagartos<span class="sc">$</span>peso<span class="sc">-</span><span class="fu">mean</span>(lagartos<span class="sc">$</span>peso))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb21-2"><a href="aula6.html#cb21-2" aria-hidden="true" tabindex="-1"></a>all.var</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="aula6.html#cb31-1" tabindex="-1"></a>all.var<span class="ot">&lt;-</span><span class="fu">sum</span>((lagartos<span class="sc">$</span>peso<span class="sc">-</span><span class="fu">mean</span>(lagartos<span class="sc">$</span>peso))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb31-2"><a href="aula6.html#cb31-2" tabindex="-1"></a>all.var</span></code></pre></div>
 <pre><code>## [1] 3441.795</code></pre>
 <p>and the variability that is not explained is the one that remains in the errors (the corresponding plot was shown above)</p>
 <p><span class="math display">\[\sum_{i=1}^n (y_i- \hat y_i)^2\]</span></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="aula6.html#cb23-1" aria-hidden="true" tabindex="-1"></a>error.var<span class="ot">&lt;-</span><span class="fu">sum</span>((lagartos<span class="sc">$</span>peso<span class="sc">-</span>estimated)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb23-2"><a href="aula6.html#cb23-2" aria-hidden="true" tabindex="-1"></a>error.var</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="aula6.html#cb33-1" tabindex="-1"></a>error.var<span class="ot">&lt;-</span><span class="fu">sum</span>((lagartos<span class="sc">$</span>peso<span class="sc">-</span>estimated)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb33-2"><a href="aula6.html#cb33-2" tabindex="-1"></a>error.var</span></code></pre></div>
 <pre><code>## [1] 553.8968</code></pre>
 <p>then the ratio of those two quantities is what is NOT explained by the regression model, and therefore, 1 minus that is what explained by the regression model.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="aula6.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span>error.var<span class="sc">/</span>all.var</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="aula6.html#cb35-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">-</span>error.var<span class="sc">/</span>all.var</span></code></pre></div>
 <pre><code>## [1] 0.8390675</code></pre>
 <p>And that… as noted above… is the <span class="math inline">\(R^2\)</span>=0.8391. This comes from the fact that all of the variability in the data (the <span class="math inline">\(y\)</span>, the response, here the <code>peso</code>) can be decomposed into the variability explained by the model, and the unexplained variability, that of the errors. In a formula</p>
 <p><span class="math display">\[SS_{TOTAL}=SS_{REGRESSÃO}+SS_{ERRO}\]</span></p>
 <p>Note naturally we could also represent in an image what is explained by the regression model, which is</p>
 <p><span class="math display">\[\sum_{i=1}^n (\hat y_i- \bar y)^2\]</span></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="aula6.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plot</span></span>
-<span id="cb27-2"><a href="aula6.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">plot</span>(peso<span class="sc">~</span>comp))</span>
-<span id="cb27-3"><a href="aula6.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lmlag,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb27-4"><a href="aula6.html#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(lagartos<span class="sc">$</span>peso))</span>
-<span id="cb27-5"><a href="aula6.html#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">segments</span>(<span class="at">x0 =</span> comp,<span class="at">y0 =</span> estimated, <span class="at">x1=</span> comp, <span class="at">y1=</span><span class="fu">mean</span>(peso),<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="aula6.html#cb37-1" tabindex="-1"></a><span class="co">#plot</span></span>
+<span id="cb37-2"><a href="aula6.html#cb37-2" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">plot</span>(peso<span class="sc">~</span>comp))</span>
+<span id="cb37-3"><a href="aula6.html#cb37-3" tabindex="-1"></a><span class="fu">abline</span>(lmlag,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb37-4"><a href="aula6.html#cb37-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(lagartos<span class="sc">$</span>peso))</span>
+<span id="cb37-5"><a href="aula6.html#cb37-5" tabindex="-1"></a><span class="fu">with</span>(lagartos,<span class="fu">segments</span>(<span class="at">x0 =</span> comp,<span class="at">y0 =</span> estimated, <span class="at">x1=</span> comp, <span class="at">y1=</span><span class="fu">mean</span>(peso),<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">2</span>))</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.18-1.png" width="672" /></p>
 <p>and that naturally is obtained as</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="aula6.html#cb28-1" aria-hidden="true" tabindex="-1"></a>reg.var<span class="ot">&lt;-</span><span class="fu">sum</span>((<span class="fu">mean</span>(lagartos<span class="sc">$</span>peso)<span class="sc">-</span>estimated)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb28-2"><a href="aula6.html#cb28-2" aria-hidden="true" tabindex="-1"></a>reg.var</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="aula6.html#cb38-1" tabindex="-1"></a>reg.var<span class="ot">&lt;-</span><span class="fu">sum</span>((<span class="fu">mean</span>(lagartos<span class="sc">$</span>peso)<span class="sc">-</span>estimated)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb38-2"><a href="aula6.html#cb38-2" tabindex="-1"></a>reg.var</span></code></pre></div>
 <pre><code>## [1] 2887.898</code></pre>
 <p>and hence the total variability is given by the sum <span class="math inline">\(SS_{REGRESSÃO}+SS_{ERRO}\)</span></p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="aula6.html#cb30-1" aria-hidden="true" tabindex="-1"></a>reg.var<span class="sc">+</span>error.var</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="aula6.html#cb40-1" tabindex="-1"></a>reg.var<span class="sc">+</span>error.var</span></code></pre></div>
 <pre><code>## [1] 3441.795</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="aula6.html#cb32-1" aria-hidden="true" tabindex="-1"></a>all.var</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="aula6.html#cb42-1" tabindex="-1"></a>all.var</span></code></pre></div>
 <pre><code>## [1] 3441.795</code></pre>
 <p>So, always remember that</p>
 <p><span class="math display">\[SS_{TOTAL}=SS_{REGRESSÃO}+SS_{ERRO}\]</span></p>
@@ -439,21 +469,21 @@ I think it could take just 5 minutes ;) but many thanks to Dmitry Leiderman for 
 <p>We consider that the usual length of a lizard can be between 5 and 20 cm, and the standard error is 4.</p>
 <p>As in the data we will have 97 lizards</p>
 <p>Then you were told to create the lengths:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="aula6.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">121</span>)</span>
-<span id="cb34-2"><a href="aula6.html#cb34-2" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">97</span></span>
-<span id="cb34-3"><a href="aula6.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#lengths</span></span>
-<span id="cb34-4"><a href="aula6.html#cb34-4" aria-hidden="true" tabindex="-1"></a>xs<span class="ot">=</span><span class="fu">runif</span>(n,<span class="dv">5</span>,<span class="dv">20</span>)</span>
-<span id="cb34-5"><a href="aula6.html#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(xs,<span class="at">main=</span><span class="st">&quot;Lenths (cm)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="aula6.html#cb44-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">121</span>)</span>
+<span id="cb44-2"><a href="aula6.html#cb44-2" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">97</span></span>
+<span id="cb44-3"><a href="aula6.html#cb44-3" tabindex="-1"></a><span class="co">#lengths</span></span>
+<span id="cb44-4"><a href="aula6.html#cb44-4" tabindex="-1"></a>xs<span class="ot">=</span><span class="fu">runif</span>(n,<span class="dv">5</span>,<span class="dv">20</span>)</span>
+<span id="cb44-5"><a href="aula6.html#cb44-5" tabindex="-1"></a><span class="fu">hist</span>(xs,<span class="at">main=</span><span class="st">&quot;Lenths (cm)&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.21-1.png" width="672" /></p>
 <p>and then to create weights of lizards</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="aula6.html#cb35-1" aria-hidden="true" tabindex="-1"></a>a<span class="ot">=</span><span class="dv">12</span></span>
-<span id="cb35-2"><a href="aula6.html#cb35-2" aria-hidden="true" tabindex="-1"></a>b<span class="ot">=</span><span class="fl">1.2</span></span>
-<span id="cb35-3"><a href="aula6.html#cb35-3" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="aula6.html#cb45-1" tabindex="-1"></a>a<span class="ot">=</span><span class="dv">12</span></span>
+<span id="cb45-2"><a href="aula6.html#cb45-2" tabindex="-1"></a>b<span class="ot">=</span><span class="fl">1.2</span></span>
+<span id="cb45-3"><a href="aula6.html#cb45-3" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs</span></code></pre></div>
 <p>If we plot the data, all points are in a single line. Why, because there is no randomness.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="aula6.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="aula6.html#cb46-1" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.23-1.png" width="672" /></p>
 <p>This means that if you try to run a model, it gives you a warning that the model might be unreliable</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="aula6.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys<span class="sc">~</span>xs))</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="aula6.html#cb47-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys<span class="sc">~</span>xs))</span></code></pre></div>
 <pre><code>## Warning in summary.lm(lm(ys ~ xs)): essentially perfect fit: summary may be
 ## unreliable</code></pre>
 <pre><code>## 
@@ -475,22 +505,22 @@ I think it could take just 5 minutes ;) but many thanks to Dmitry Leiderman for 
 ## Multiple R-squared:      1,  Adjusted R-squared:      1 
 ## F-statistic: 6.773e+30 on 1 and 95 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>So… , we add some variance, and plot the data:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="aula6.html#cb40-1" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">4</span>)</span>
-<span id="cb40-2"><a href="aula6.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="aula6.html#cb50-1" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">4</span>)</span>
+<span id="cb50-2"><a href="aula6.html#cb50-2" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.25-1.png" width="672" /></p>
 <p>Using the code above, experiment with changing the standard deviation of the error, and see what happens to the estimated <span class="math inline">\(R^2\)</span>, to the parameter estimates, to the estimated error, and to how close the estimated regression mode is to the true model (note this is the amazing advantage of a simulation, which we do not have in real data, we know what reality is, and a true model exists!). This will give you a good feeling for what a regression model is and what is does, and what it can’t do. An example of what it can’t give you is reliable estimates when the error is large compared to the systematic part of the model.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="aula6.html#cb41-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">97</span></span>
-<span id="cb41-2"><a href="aula6.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#simular comprimentos</span></span>
-<span id="cb41-3"><a href="aula6.html#cb41-3" aria-hidden="true" tabindex="-1"></a>comp.sim <span class="ot">&lt;-</span> <span class="fu">runif</span>(n,<span class="dv">5</span>,<span class="dv">20</span>)</span>
-<span id="cb41-4"><a href="aula6.html#cb41-4" aria-hidden="true" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="dv">12</span></span>
-<span id="cb41-5"><a href="aula6.html#cb41-5" aria-hidden="true" tabindex="-1"></a>b<span class="ot">&lt;-</span><span class="fl">1.2</span></span>
-<span id="cb41-6"><a href="aula6.html#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co">#simular pesos</span></span>
-<span id="cb41-7"><a href="aula6.html#cb41-7" aria-hidden="true" tabindex="-1"></a>peso.sim<span class="ot">&lt;-</span>a<span class="sc">+</span>b<span class="sc">*</span>comp.sim<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="at">mean=</span><span class="dv">0</span>,<span class="at">sd=</span><span class="dv">2</span>)</span>
-<span id="cb41-8"><a href="aula6.html#cb41-8" aria-hidden="true" tabindex="-1"></a>data.sim<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">csim=</span>comp.sim,<span class="at">psim=</span>peso.sim)</span>
-<span id="cb41-9"><a href="aula6.html#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(psim<span class="sc">~</span>csim,<span class="at">data=</span>data.sim)</span>
-<span id="cb41-10"><a href="aula6.html#cb41-10" aria-hidden="true" tabindex="-1"></a>mod.sim<span class="ot">&lt;-</span><span class="fu">lm</span>(psim<span class="sc">~</span>csim,<span class="at">data=</span>data.sim)</span>
-<span id="cb41-11"><a href="aula6.html#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod.sim,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb41-12"><a href="aula6.html#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.sim)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="aula6.html#cb51-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">97</span></span>
+<span id="cb51-2"><a href="aula6.html#cb51-2" tabindex="-1"></a><span class="co">#simular comprimentos</span></span>
+<span id="cb51-3"><a href="aula6.html#cb51-3" tabindex="-1"></a>comp.sim <span class="ot">&lt;-</span> <span class="fu">runif</span>(n,<span class="dv">5</span>,<span class="dv">20</span>)</span>
+<span id="cb51-4"><a href="aula6.html#cb51-4" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="dv">12</span></span>
+<span id="cb51-5"><a href="aula6.html#cb51-5" tabindex="-1"></a>b<span class="ot">&lt;-</span><span class="fl">1.2</span></span>
+<span id="cb51-6"><a href="aula6.html#cb51-6" tabindex="-1"></a><span class="co">#simular pesos</span></span>
+<span id="cb51-7"><a href="aula6.html#cb51-7" tabindex="-1"></a>peso.sim<span class="ot">&lt;-</span>a<span class="sc">+</span>b<span class="sc">*</span>comp.sim<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="at">mean=</span><span class="dv">0</span>,<span class="at">sd=</span><span class="dv">2</span>)</span>
+<span id="cb51-8"><a href="aula6.html#cb51-8" tabindex="-1"></a>data.sim<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">csim=</span>comp.sim,<span class="at">psim=</span>peso.sim)</span>
+<span id="cb51-9"><a href="aula6.html#cb51-9" tabindex="-1"></a><span class="fu">plot</span>(psim<span class="sc">~</span>csim,<span class="at">data=</span>data.sim)</span>
+<span id="cb51-10"><a href="aula6.html#cb51-10" tabindex="-1"></a>mod.sim<span class="ot">&lt;-</span><span class="fu">lm</span>(psim<span class="sc">~</span>csim,<span class="at">data=</span>data.sim)</span>
+<span id="cb51-11"><a href="aula6.html#cb51-11" tabindex="-1"></a><span class="fu">abline</span>(mod.sim,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb51-12"><a href="aula6.html#cb51-12" tabindex="-1"></a><span class="fu">summary</span>(mod.sim)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = psim ~ csim, data = data.sim)
@@ -509,83 +539,83 @@ I think it could take just 5 minutes ;) but many thanks to Dmitry Leiderman for 
 ## Residual standard error: 1.822 on 95 degrees of freedom
 ## Multiple R-squared:  0.8916, Adjusted R-squared:  0.8905 
 ## F-statistic: 781.6 on 1 and 95 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="aula6.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
-<span id="cb43-2"><a href="aula6.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Estimated line&quot;</span>,<span class="st">&quot;True model&quot;</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;green&quot;</span>),<span class="at">lty=</span><span class="dv">1</span>,<span class="at">inset=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="aula6.html#cb53-1" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb53-2"><a href="aula6.html#cb53-2" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Estimated line&quot;</span>,<span class="st">&quot;True model&quot;</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;green&quot;</span>),<span class="at">lty=</span><span class="dv">1</span>,<span class="at">inset=</span><span class="fl">0.05</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.26-1.png" width="672" /></p>
 <div id="what-is-the-effect-of-increasing-the-error-a-simulation-experiment" class="section level3 hasAnchor" number="8.2.1">
 <h3><span class="header-section-number">8.2.1</span> What is the effect of increasing the error: a simulation experiment<a href="aula6.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now, let’s consider there’s more and less variance. We also add to each plot the real line (that with the true parameter values) and the one with the estimated parameter values.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="aula6.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
-<span id="cb44-2"><a href="aula6.html#cb44-2" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb44-3"><a href="aula6.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
-<span id="cb44-4"><a href="aula6.html#cb44-4" aria-hidden="true" tabindex="-1"></a>mod1<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
-<span id="cb44-5"><a href="aula6.html#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod1,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb44-6"><a href="aula6.html#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
-<span id="cb44-7"><a href="aula6.html#cb44-7" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">2</span>)</span>
-<span id="cb44-8"><a href="aula6.html#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
-<span id="cb44-9"><a href="aula6.html#cb44-9" aria-hidden="true" tabindex="-1"></a>mod2<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
-<span id="cb44-10"><a href="aula6.html#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod2,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb44-11"><a href="aula6.html#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
-<span id="cb44-12"><a href="aula6.html#cb44-12" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">4</span>)</span>
-<span id="cb44-13"><a href="aula6.html#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
-<span id="cb44-14"><a href="aula6.html#cb44-14" aria-hidden="true" tabindex="-1"></a>mod4<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
-<span id="cb44-15"><a href="aula6.html#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod4,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb44-16"><a href="aula6.html#cb44-16" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
-<span id="cb44-17"><a href="aula6.html#cb44-17" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">10</span>)</span>
-<span id="cb44-18"><a href="aula6.html#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
-<span id="cb44-19"><a href="aula6.html#cb44-19" aria-hidden="true" tabindex="-1"></a>mod10<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
-<span id="cb44-20"><a href="aula6.html#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod10,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb44-21"><a href="aula6.html#cb44-21" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
-<span id="cb44-22"><a href="aula6.html#cb44-22" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">20</span>)</span>
-<span id="cb44-23"><a href="aula6.html#cb44-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
-<span id="cb44-24"><a href="aula6.html#cb44-24" aria-hidden="true" tabindex="-1"></a>mod20<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
-<span id="cb44-25"><a href="aula6.html#cb44-25" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod20,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb44-26"><a href="aula6.html#cb44-26" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
-<span id="cb44-27"><a href="aula6.html#cb44-27" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">100</span>)</span>
-<span id="cb44-28"><a href="aula6.html#cb44-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
-<span id="cb44-29"><a href="aula6.html#cb44-29" aria-hidden="true" tabindex="-1"></a>mod100<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
-<span id="cb44-30"><a href="aula6.html#cb44-30" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod100,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb44-31"><a href="aula6.html#cb44-31" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="aula6.html#cb54-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb54-2"><a href="aula6.html#cb54-2" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb54-3"><a href="aula6.html#cb54-3" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
+<span id="cb54-4"><a href="aula6.html#cb54-4" tabindex="-1"></a>mod1<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
+<span id="cb54-5"><a href="aula6.html#cb54-5" tabindex="-1"></a><span class="fu">abline</span>(mod1,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb54-6"><a href="aula6.html#cb54-6" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb54-7"><a href="aula6.html#cb54-7" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">2</span>)</span>
+<span id="cb54-8"><a href="aula6.html#cb54-8" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
+<span id="cb54-9"><a href="aula6.html#cb54-9" tabindex="-1"></a>mod2<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
+<span id="cb54-10"><a href="aula6.html#cb54-10" tabindex="-1"></a><span class="fu">abline</span>(mod2,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb54-11"><a href="aula6.html#cb54-11" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb54-12"><a href="aula6.html#cb54-12" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">4</span>)</span>
+<span id="cb54-13"><a href="aula6.html#cb54-13" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
+<span id="cb54-14"><a href="aula6.html#cb54-14" tabindex="-1"></a>mod4<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
+<span id="cb54-15"><a href="aula6.html#cb54-15" tabindex="-1"></a><span class="fu">abline</span>(mod4,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb54-16"><a href="aula6.html#cb54-16" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb54-17"><a href="aula6.html#cb54-17" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">10</span>)</span>
+<span id="cb54-18"><a href="aula6.html#cb54-18" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
+<span id="cb54-19"><a href="aula6.html#cb54-19" tabindex="-1"></a>mod10<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
+<span id="cb54-20"><a href="aula6.html#cb54-20" tabindex="-1"></a><span class="fu">abline</span>(mod10,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb54-21"><a href="aula6.html#cb54-21" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb54-22"><a href="aula6.html#cb54-22" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">20</span>)</span>
+<span id="cb54-23"><a href="aula6.html#cb54-23" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
+<span id="cb54-24"><a href="aula6.html#cb54-24" tabindex="-1"></a>mod20<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
+<span id="cb54-25"><a href="aula6.html#cb54-25" tabindex="-1"></a><span class="fu">abline</span>(mod20,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb54-26"><a href="aula6.html#cb54-26" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb54-27"><a href="aula6.html#cb54-27" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">100</span>)</span>
+<span id="cb54-28"><a href="aula6.html#cb54-28" tabindex="-1"></a><span class="fu">plot</span>(xs,ys)</span>
+<span id="cb54-29"><a href="aula6.html#cb54-29" tabindex="-1"></a>mod100<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
+<span id="cb54-30"><a href="aula6.html#cb54-30" tabindex="-1"></a><span class="fu">abline</span>(mod100,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb54-31"><a href="aula6.html#cb54-31" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.27-1.png" width="672" /></p>
 <p>Not surprisingly, as the variance increases, we get data that more and more looks like it is not coming from a real linear process.</p>
 <p>You can also look at the model summaries, and there you can see that, in fact, the models become essentially useless as the variance increases! You can see that both from the correlation, but also by the predictions generated from the model (comparing to the truth), and also the significance of the coefficients associated with the regression parameters.</p>
 <p>Make no mistake, the reality is always the same, in terms of the fixed part of the model, it’s just the variance that increases.</p>
 <p>Also, don’t get confused, the different green lines might look different, but they are always exactly the same line! You can check that by forcing the y axis to span the same limits.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="aula6.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
-<span id="cb45-2"><a href="aula6.html#cb45-2" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb45-3"><a href="aula6.html#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">400</span>,<span class="dv">400</span>))</span>
-<span id="cb45-4"><a href="aula6.html#cb45-4" aria-hidden="true" tabindex="-1"></a>mod1<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
-<span id="cb45-5"><a href="aula6.html#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod1,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb45-6"><a href="aula6.html#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
-<span id="cb45-7"><a href="aula6.html#cb45-7" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">2</span>)</span>
-<span id="cb45-8"><a href="aula6.html#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">400</span>,<span class="dv">400</span>))</span>
-<span id="cb45-9"><a href="aula6.html#cb45-9" aria-hidden="true" tabindex="-1"></a>mod2<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
-<span id="cb45-10"><a href="aula6.html#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod2,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb45-11"><a href="aula6.html#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
-<span id="cb45-12"><a href="aula6.html#cb45-12" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">4</span>)</span>
-<span id="cb45-13"><a href="aula6.html#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">400</span>,<span class="dv">400</span>))</span>
-<span id="cb45-14"><a href="aula6.html#cb45-14" aria-hidden="true" tabindex="-1"></a>mod4<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
-<span id="cb45-15"><a href="aula6.html#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod4,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb45-16"><a href="aula6.html#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
-<span id="cb45-17"><a href="aula6.html#cb45-17" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">10</span>)</span>
-<span id="cb45-18"><a href="aula6.html#cb45-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">400</span>,<span class="dv">400</span>))</span>
-<span id="cb45-19"><a href="aula6.html#cb45-19" aria-hidden="true" tabindex="-1"></a>mod10<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
-<span id="cb45-20"><a href="aula6.html#cb45-20" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod10,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb45-21"><a href="aula6.html#cb45-21" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
-<span id="cb45-22"><a href="aula6.html#cb45-22" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">20</span>)</span>
-<span id="cb45-23"><a href="aula6.html#cb45-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">400</span>,<span class="dv">400</span>))</span>
-<span id="cb45-24"><a href="aula6.html#cb45-24" aria-hidden="true" tabindex="-1"></a>mod20<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
-<span id="cb45-25"><a href="aula6.html#cb45-25" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod20,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb45-26"><a href="aula6.html#cb45-26" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
-<span id="cb45-27"><a href="aula6.html#cb45-27" aria-hidden="true" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">100</span>)</span>
-<span id="cb45-28"><a href="aula6.html#cb45-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">400</span>,<span class="dv">400</span>))</span>
-<span id="cb45-29"><a href="aula6.html#cb45-29" aria-hidden="true" tabindex="-1"></a>mod100<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
-<span id="cb45-30"><a href="aula6.html#cb45-30" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mod100,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb45-31"><a href="aula6.html#cb45-31" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="aula6.html#cb55-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb55-2"><a href="aula6.html#cb55-2" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb55-3"><a href="aula6.html#cb55-3" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">400</span>,<span class="dv">400</span>))</span>
+<span id="cb55-4"><a href="aula6.html#cb55-4" tabindex="-1"></a>mod1<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
+<span id="cb55-5"><a href="aula6.html#cb55-5" tabindex="-1"></a><span class="fu">abline</span>(mod1,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb55-6"><a href="aula6.html#cb55-6" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb55-7"><a href="aula6.html#cb55-7" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">2</span>)</span>
+<span id="cb55-8"><a href="aula6.html#cb55-8" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">400</span>,<span class="dv">400</span>))</span>
+<span id="cb55-9"><a href="aula6.html#cb55-9" tabindex="-1"></a>mod2<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
+<span id="cb55-10"><a href="aula6.html#cb55-10" tabindex="-1"></a><span class="fu">abline</span>(mod2,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb55-11"><a href="aula6.html#cb55-11" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb55-12"><a href="aula6.html#cb55-12" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">4</span>)</span>
+<span id="cb55-13"><a href="aula6.html#cb55-13" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">400</span>,<span class="dv">400</span>))</span>
+<span id="cb55-14"><a href="aula6.html#cb55-14" tabindex="-1"></a>mod4<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
+<span id="cb55-15"><a href="aula6.html#cb55-15" tabindex="-1"></a><span class="fu">abline</span>(mod4,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb55-16"><a href="aula6.html#cb55-16" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb55-17"><a href="aula6.html#cb55-17" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">10</span>)</span>
+<span id="cb55-18"><a href="aula6.html#cb55-18" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">400</span>,<span class="dv">400</span>))</span>
+<span id="cb55-19"><a href="aula6.html#cb55-19" tabindex="-1"></a>mod10<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
+<span id="cb55-20"><a href="aula6.html#cb55-20" tabindex="-1"></a><span class="fu">abline</span>(mod10,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb55-21"><a href="aula6.html#cb55-21" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb55-22"><a href="aula6.html#cb55-22" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">20</span>)</span>
+<span id="cb55-23"><a href="aula6.html#cb55-23" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">400</span>,<span class="dv">400</span>))</span>
+<span id="cb55-24"><a href="aula6.html#cb55-24" tabindex="-1"></a>mod20<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
+<span id="cb55-25"><a href="aula6.html#cb55-25" tabindex="-1"></a><span class="fu">abline</span>(mod20,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb55-26"><a href="aula6.html#cb55-26" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span>
+<span id="cb55-27"><a href="aula6.html#cb55-27" tabindex="-1"></a>ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">100</span>)</span>
+<span id="cb55-28"><a href="aula6.html#cb55-28" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">400</span>,<span class="dv">400</span>))</span>
+<span id="cb55-29"><a href="aula6.html#cb55-29" tabindex="-1"></a>mod100<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
+<span id="cb55-30"><a href="aula6.html#cb55-30" tabindex="-1"></a><span class="fu">abline</span>(mod100,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb55-31"><a href="aula6.html#cb55-31" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.28-1.png" width="672" /></p>
 <p>but since then you loose all the ability to look at the actual data in some of the plots, that is not really that useful!</p>
 <p>Below I look at the summary of each model. Look at correlations, at the estimated values for the parameters, their corresponding variances and the <span class="math inline">\(R^2\)</span>.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="aula6.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="aula6.html#cb56-1" tabindex="-1"></a><span class="fu">summary</span>(mod1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs)
@@ -604,7 +634,7 @@ I think it could take just 5 minutes ;) but many thanks to Dmitry Leiderman for 
 ## Residual standard error: 1.077 on 95 degrees of freedom
 ## Multiple R-squared:  0.9574, Adjusted R-squared:  0.9569 
 ## F-statistic:  2133 on 1 and 95 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="aula6.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="aula6.html#cb58-1" tabindex="-1"></a><span class="fu">summary</span>(mod2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs)
@@ -623,7 +653,7 @@ I think it could take just 5 minutes ;) but many thanks to Dmitry Leiderman for 
 ## Residual standard error: 2.129 on 95 degrees of freedom
 ## Multiple R-squared:  0.8665, Adjusted R-squared:  0.8651 
 ## F-statistic: 616.4 on 1 and 95 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="aula6.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod4)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="aula6.html#cb60-1" tabindex="-1"></a><span class="fu">summary</span>(mod4)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs)
@@ -642,7 +672,7 @@ I think it could take just 5 minutes ;) but many thanks to Dmitry Leiderman for 
 ## Residual standard error: 4.028 on 95 degrees of freedom
 ## Multiple R-squared:  0.5876, Adjusted R-squared:  0.5833 
 ## F-statistic: 135.4 on 1 and 95 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="aula6.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod10)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="aula6.html#cb62-1" tabindex="-1"></a><span class="fu">summary</span>(mod10)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs)
@@ -661,7 +691,7 @@ I think it could take just 5 minutes ;) but many thanks to Dmitry Leiderman for 
 ## Residual standard error: 9.632 on 95 degrees of freedom
 ## Multiple R-squared:  0.2262, Adjusted R-squared:  0.218 
 ## F-statistic: 27.76 on 1 and 95 DF,  p-value: 8.541e-07</code></pre>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="aula6.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod20)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="aula6.html#cb64-1" tabindex="-1"></a><span class="fu">summary</span>(mod20)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs)
@@ -680,7 +710,7 @@ I think it could take just 5 minutes ;) but many thanks to Dmitry Leiderman for 
 ## Residual standard error: 20.46 on 95 degrees of freedom
 ## Multiple R-squared:  0.1093, Adjusted R-squared:  0.09991 
 ## F-statistic: 11.66 on 1 and 95 DF,  p-value: 0.0009426</code></pre>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="aula6.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod100)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="aula6.html#cb66-1" tabindex="-1"></a><span class="fu">summary</span>(mod100)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ xs)
@@ -698,51 +728,51 @@ I think it could take just 5 minutes ;) but many thanks to Dmitry Leiderman for 
 ## Multiple R-squared:  0.0005949,  Adjusted R-squared:  -0.009925 
 ## F-statistic: 0.05655 on 1 and 95 DF,  p-value: 0.8126</code></pre>
 <p>As an example, we can plot the <span class="math inline">\(R^2\)</span> as a function of the variance</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="aula6.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">100</span>),<span class="fu">c</span>(<span class="fu">summary</span>(mod1)<span class="sc">$</span>r.squared,<span class="fu">summary</span>(mod2)<span class="sc">$</span>r.squared,<span class="fu">summary</span>(mod4)<span class="sc">$</span>r.squared,<span class="fu">summary</span>(mod10)<span class="sc">$</span>r.squared,<span class="fu">summary</span>(mod20)<span class="sc">$</span>r.squared,<span class="fu">summary</span>(mod100)<span class="sc">$</span>r.squared))</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="aula6.html#cb68-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">100</span>),<span class="fu">c</span>(<span class="fu">summary</span>(mod1)<span class="sc">$</span>r.squared,<span class="fu">summary</span>(mod2)<span class="sc">$</span>r.squared,<span class="fu">summary</span>(mod4)<span class="sc">$</span>r.squared,<span class="fu">summary</span>(mod10)<span class="sc">$</span>r.squared,<span class="fu">summary</span>(mod20)<span class="sc">$</span>r.squared,<span class="fu">summary</span>(mod100)<span class="sc">$</span>r.squared))</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.30-1.png" width="672" /></p>
 <p>That is quite interesting actually… There seems to be a nonlinear relationship, but we only have a sample size of six (different standard deviatios, i.e., variances, as variance is standard deviation squared), so hard to tell…</p>
 <p>Let’s show off in R…</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="aula6.html#cb59-1" aria-hidden="true" tabindex="-1"></a>sds<span class="ot">=</span><span class="fu">seq</span>(<span class="fl">0.5</span>,<span class="dv">100</span>,<span class="at">by=</span><span class="fl">0.5</span>)</span>
-<span id="cb59-2"><a href="aula6.html#cb59-2" aria-hidden="true" tabindex="-1"></a>nsds<span class="ot">=</span><span class="fu">length</span>(sds)</span>
-<span id="cb59-3"><a href="aula6.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="co">#an object to hold the correlations</span></span>
-<span id="cb59-4"><a href="aula6.html#cb59-4" aria-hidden="true" tabindex="-1"></a>Rsqs<span class="ot">=</span><span class="fu">numeric</span>(nsds)</span>
-<span id="cb59-5"><a href="aula6.html#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsds){</span>
-<span id="cb59-6"><a href="aula6.html#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#create data</span></span>
-<span id="cb59-7"><a href="aula6.html#cb59-7" aria-hidden="true" tabindex="-1"></a>  ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,sds[i])</span>
-<span id="cb59-8"><a href="aula6.html#cb59-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#estimate model</span></span>
-<span id="cb59-9"><a href="aula6.html#cb59-9" aria-hidden="true" tabindex="-1"></a>  modi<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
-<span id="cb59-10"><a href="aula6.html#cb59-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#get R-squared</span></span>
-<span id="cb59-11"><a href="aula6.html#cb59-11" aria-hidden="true" tabindex="-1"></a>  Rsqs[i]<span class="ot">=</span><span class="fu">summary</span>(modi)<span class="sc">$</span>r.squared</span>
-<span id="cb59-12"><a href="aula6.html#cb59-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb59-13"><a href="aula6.html#cb59-13" aria-hidden="true" tabindex="-1"></a><span class="co">#and at the end... plot results</span></span>
-<span id="cb59-14"><a href="aula6.html#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sds,Rsqs)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="aula6.html#cb69-1" tabindex="-1"></a>sds<span class="ot">=</span><span class="fu">seq</span>(<span class="fl">0.5</span>,<span class="dv">100</span>,<span class="at">by=</span><span class="fl">0.5</span>)</span>
+<span id="cb69-2"><a href="aula6.html#cb69-2" tabindex="-1"></a>nsds<span class="ot">=</span><span class="fu">length</span>(sds)</span>
+<span id="cb69-3"><a href="aula6.html#cb69-3" tabindex="-1"></a><span class="co">#an object to hold the correlations</span></span>
+<span id="cb69-4"><a href="aula6.html#cb69-4" tabindex="-1"></a>Rsqs<span class="ot">=</span><span class="fu">numeric</span>(nsds)</span>
+<span id="cb69-5"><a href="aula6.html#cb69-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsds){</span>
+<span id="cb69-6"><a href="aula6.html#cb69-6" tabindex="-1"></a>  <span class="co">#create data</span></span>
+<span id="cb69-7"><a href="aula6.html#cb69-7" tabindex="-1"></a>  ys<span class="ot">=</span>a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,sds[i])</span>
+<span id="cb69-8"><a href="aula6.html#cb69-8" tabindex="-1"></a>  <span class="co">#estimate model</span></span>
+<span id="cb69-9"><a href="aula6.html#cb69-9" tabindex="-1"></a>  modi<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs)</span>
+<span id="cb69-10"><a href="aula6.html#cb69-10" tabindex="-1"></a>  <span class="co">#get R-squared</span></span>
+<span id="cb69-11"><a href="aula6.html#cb69-11" tabindex="-1"></a>  Rsqs[i]<span class="ot">=</span><span class="fu">summary</span>(modi)<span class="sc">$</span>r.squared</span>
+<span id="cb69-12"><a href="aula6.html#cb69-12" tabindex="-1"></a>}</span>
+<span id="cb69-13"><a href="aula6.html#cb69-13" tabindex="-1"></a><span class="co">#and at the end... plot results</span></span>
+<span id="cb69-14"><a href="aula6.html#cb69-14" tabindex="-1"></a><span class="fu">plot</span>(sds,Rsqs)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.31-1.png" width="672" /></p>
 <p>How cool is that!! Actually, this means we can model the <span class="math inline">\(R^2\)</span> as a function of the original variance! But we would not be able to model it using a linear model…</p>
 <p>You are not supposed to know about this yet, but I’ll continue to show off. Let’s use a GAM</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="aula6.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="aula6.html#cb70-1" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span></code></pre></div>
 <pre><code>## Loading required package: nlme</code></pre>
-<pre><code>## This is mgcv 1.8-40. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="aula6.html#cb63-1" aria-hidden="true" tabindex="-1"></a>gam1<span class="ot">=</span><span class="fu">gam</span>(Rsqs<span class="sc">~</span><span class="fu">s</span>(sds),<span class="at">link=</span>log)</span>
-<span id="cb63-2"><a href="aula6.html#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="co">#make predictions to plot the estimated GAM model</span></span>
-<span id="cb63-3"><a href="aula6.html#cb63-3" aria-hidden="true" tabindex="-1"></a>predRsqs<span class="ot">=</span><span class="fu">predict.gam</span>(gam1,<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">sds=</span>sds),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
-<span id="cb63-4"><a href="aula6.html#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sds,Rsqs)</span>
-<span id="cb63-5"><a href="aula6.html#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(sds,predRsqs,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<pre><code>## This is mgcv 1.8-42. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="aula6.html#cb73-1" tabindex="-1"></a>gam1<span class="ot">=</span><span class="fu">gam</span>(Rsqs<span class="sc">~</span><span class="fu">s</span>(sds),<span class="at">link=</span>log)</span>
+<span id="cb73-2"><a href="aula6.html#cb73-2" tabindex="-1"></a><span class="co">#make predictions to plot the estimated GAM model</span></span>
+<span id="cb73-3"><a href="aula6.html#cb73-3" tabindex="-1"></a>predRsqs<span class="ot">=</span><span class="fu">predict.gam</span>(gam1,<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">sds=</span>sds),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb73-4"><a href="aula6.html#cb73-4" tabindex="-1"></a><span class="fu">plot</span>(sds,Rsqs)</span>
+<span id="cb73-5"><a href="aula6.html#cb73-5" tabindex="-1"></a><span class="fu">lines</span>(sds,predRsqs,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.32-1.png" width="672" /></p>
 <p>Aha… remember what we talked in class today? It seems like we have overfitted. Then, I constrain the GAM.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="aula6.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
-<span id="cb64-2"><a href="aula6.html#cb64-2" aria-hidden="true" tabindex="-1"></a>gam1<span class="ot">=</span><span class="fu">gam</span>(Rsqs<span class="sc">~</span><span class="fu">s</span>(sds,<span class="at">k=</span><span class="dv">3</span>),<span class="at">link=</span>log)</span>
-<span id="cb64-3"><a href="aula6.html#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="co">#make predictions to plot the estimated GAM model</span></span>
-<span id="cb64-4"><a href="aula6.html#cb64-4" aria-hidden="true" tabindex="-1"></a>predRsqs<span class="ot">=</span><span class="fu">predict.gam</span>(gam1,<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">sds=</span>sds),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
-<span id="cb64-5"><a href="aula6.html#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sds,Rsqs)</span>
-<span id="cb64-6"><a href="aula6.html#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(sds,predRsqs,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="aula6.html#cb74-1" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
+<span id="cb74-2"><a href="aula6.html#cb74-2" tabindex="-1"></a>gam1<span class="ot">=</span><span class="fu">gam</span>(Rsqs<span class="sc">~</span><span class="fu">s</span>(sds,<span class="at">k=</span><span class="dv">3</span>),<span class="at">link=</span>log)</span>
+<span id="cb74-3"><a href="aula6.html#cb74-3" tabindex="-1"></a><span class="co">#make predictions to plot the estimated GAM model</span></span>
+<span id="cb74-4"><a href="aula6.html#cb74-4" tabindex="-1"></a>predRsqs<span class="ot">=</span><span class="fu">predict.gam</span>(gam1,<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">sds=</span>sds),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb74-5"><a href="aula6.html#cb74-5" tabindex="-1"></a><span class="fu">plot</span>(sds,Rsqs)</span>
+<span id="cb74-6"><a href="aula6.html#cb74-6" tabindex="-1"></a><span class="fu">lines</span>(sds,predRsqs,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.33-1.png" width="672" /></p>
 <p>That was too much…</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="aula6.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
-<span id="cb65-2"><a href="aula6.html#cb65-2" aria-hidden="true" tabindex="-1"></a>gam1<span class="ot">=</span><span class="fu">gam</span>(Rsqs<span class="sc">~</span><span class="fu">s</span>(sds,<span class="at">k=</span><span class="dv">6</span>),<span class="at">link=</span>log)</span>
-<span id="cb65-3"><a href="aula6.html#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="co">#make predictions to plot the estimated GAM model</span></span>
-<span id="cb65-4"><a href="aula6.html#cb65-4" aria-hidden="true" tabindex="-1"></a>predRsqs<span class="ot">=</span><span class="fu">predict.gam</span>(gam1,<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">sds=</span>sds),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
-<span id="cb65-5"><a href="aula6.html#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sds,Rsqs)</span>
-<span id="cb65-6"><a href="aula6.html#cb65-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(sds,predRsqs,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="aula6.html#cb75-1" tabindex="-1"></a><span class="fu">library</span>(mgcv)</span>
+<span id="cb75-2"><a href="aula6.html#cb75-2" tabindex="-1"></a>gam1<span class="ot">=</span><span class="fu">gam</span>(Rsqs<span class="sc">~</span><span class="fu">s</span>(sds,<span class="at">k=</span><span class="dv">6</span>),<span class="at">link=</span>log)</span>
+<span id="cb75-3"><a href="aula6.html#cb75-3" tabindex="-1"></a><span class="co">#make predictions to plot the estimated GAM model</span></span>
+<span id="cb75-4"><a href="aula6.html#cb75-4" tabindex="-1"></a>predRsqs<span class="ot">=</span><span class="fu">predict.gam</span>(gam1,<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">sds=</span>sds),<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb75-5"><a href="aula6.html#cb75-5" tabindex="-1"></a><span class="fu">plot</span>(sds,Rsqs)</span>
+<span id="cb75-6"><a href="aula6.html#cb75-6" tabindex="-1"></a><span class="fu">lines</span>(sds,predRsqs,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a6.34-1.png" width="672" /></p>
 <p>That is already overfitting… conclusion, the GAM is not the right tool here :)</p>
 <p>What is…? Well, stay tuned and one day you’ll learn!</p>
