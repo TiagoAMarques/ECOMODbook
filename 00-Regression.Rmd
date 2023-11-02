@@ -20,10 +20,6 @@ While in general we are interested in modelling the mean value of a single respo
 
 2. we could model more than a single response variable at the same time, and there are a wide variety of examples of such models, like joint models in survival analysis, or multivariate analysis of variance (a.k.a MANOVA).
 
-
-
-
-
 ## The general linear model
 
 A general expression for a regression model (i.e. the expression for a generalized linear model is)

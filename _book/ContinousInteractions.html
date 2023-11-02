@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Interactions between continous covariates | Notes for Ecological Modelling</title>
+  <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Interactions between continous covariates | Notes for Ecological Modelling" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Interactions between continous covariates | Notes for Ecological Modelling" />
+  
+  <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Tiago A. Marques" />
+
+
+<meta name="date" content="2023-11-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ANCOVAdifslopes.html"/>
+<link rel="next" href="MLEs.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
+<li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
+<li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
+<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="prelim.html"><a href="prelim.html#lbtb"><i class="fa fa-check"></i><b>5.1</b> Learning by the book</a></li>
+<li class="chapter" data-level="5.2" data-path="prelim.html"><a href="prelim.html#ftpt"><i class="fa fa-check"></i><b>5.2</b> Following the paper trail</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>6</b> About regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>6.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="6.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>6.2</b> The general linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>7</b> Hands On Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="RIO.html"><a href="RIO.html"><i class="fa fa-check"></i><b>8</b> Regression inside out</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="RIO.html"><a href="RIO.html#implementing-a-regression"><i class="fa fa-check"></i><b>8.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="8.2" data-path="RIO.html"><a href="RIO.html#simulating-regression-data"><i class="fa fa-check"></i><b>8.2</b> Simulating regression data</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="RIO.html"><a href="RIO.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="RIO.html"><a href="RIO.html#two-tasks-to-further-understand-regression"><i class="fa fa-check"></i><b>8.3</b> Two tasks to further understand regression</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="RIO.html"><a href="RIO.html#task-1"><i class="fa fa-check"></i><b>8.3.1</b> Task 1</a></li>
+<li class="chapter" data-level="8.3.2" data-path="RIO.html"><a href="RIO.html#task-2"><i class="fa fa-check"></i><b>8.3.2</b> Task 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html"><i class="fa fa-check"></i><b>9</b> t-tests and ANOVAs are just linear models</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#a-one-sample-t-test-is-the-simplest-possible-linear-model"><i class="fa fa-check"></i><b>9.1</b> A one sample t-test is the simplest possible linear model</a></li>
+<li class="chapter" data-level="9.2" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#the-t-test"><i class="fa fa-check"></i><b>9.2</b> The t-test</a></li>
+<li class="chapter" data-level="9.3" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#anova"><i class="fa fa-check"></i><b>9.3</b> ANOVA</a></li>
+<li class="chapter" data-level="9.4" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>9.4</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html"><i class="fa fa-check"></i><b>10</b> ANCOVA is (also) just a linear model</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>10.1</b> Common slope, different intercepts per treatment</a></li>
+<li class="chapter" data-level="10.2" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html#ANCOVAe"><i class="fa fa-check"></i><b>10.2</b> ANCOVA encore</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html#same-story-another-spin"><i class="fa fa-check"></i><b>10.2.1</b> Same story, another spin</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html"><i class="fa fa-check"></i><b>11</b> ANCOVA with different slopes: interactions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html#about-interactions"><i class="fa fa-check"></i><b>11.1</b> About interactions</a></li>
+<li class="chapter" data-level="11.2" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>11.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="11.3" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>11.3</b> Task 2 Modeling a data set</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html"><i class="fa fa-check"></i><b>12</b> Interactions between continous covariates</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html#larger-order-interactions"><i class="fa fa-check"></i><b>12.1</b> Larger order interactions</a></li>
+<li class="chapter" data-level="12.2" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html#conclusion-on-linear-regression"><i class="fa fa-check"></i><b>12.2</b> Conclusion on linear regression</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html#conclusion"><i class="fa fa-check"></i><b>12.2.1</b> Conclusion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="MLEs.html"><a href="MLEs.html"><i class="fa fa-check"></i><b>13</b> Class 13: 10 11 2020 Maximum likelihood and all that</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="MLEs.html"><a href="MLEs.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>13.1</b> Maximizing a likelihood algebraically</a></li>
+<li class="chapter" data-level="13.2" data-path="MLEs.html"><a href="MLEs.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>13.2</b> Numerically Maximizing a likelihood</a></li>
+<li class="chapter" data-level="13.3" data-path="MLEs.html"><a href="MLEs.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>13.3</b> The case of a Gaussian</a></li>
+<li class="chapter" data-level="13.4" data-path="MLEs.html"><a href="MLEs.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>13.4</b> The case of a linear model</a></li>
+<li class="chapter" data-level="13.5" data-path="MLEs.html"><a href="MLEs.html#the-really-interesting-case"><i class="fa fa-check"></i><b>13.5</b> The really interesting case</a></li>
+<li class="chapter" data-level="13.6" data-path="MLEs.html"><a href="MLEs.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>13.6</b> Likelihood, above and beyond</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="GLMs.html"><a href="GLMs.html"><i class="fa fa-check"></i><b>14</b> An introduction to generalized linear models</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="GLMs.html"><a href="GLMs.html#what-are-glms"><i class="fa fa-check"></i><b>14.1</b> What are GLMs</a></li>
+<li class="chapter" data-level="14.2" data-path="GLMs.html"><a href="GLMs.html#the-link-function"><i class="fa fa-check"></i><b>14.2</b> The link function</a></li>
+<li class="chapter" data-level="14.3" data-path="GLMs.html"><a href="GLMs.html#most-useful-glm-families"><i class="fa fa-check"></i><b>14.3</b> Most useful GLM Families</a></li>
+<li class="chapter" data-level="14.4" data-path="GLMs.html"><a href="GLMs.html#an-example-analysis"><i class="fa fa-check"></i><b>14.4</b> An example analysis</a></li>
+<li class="chapter" data-level="14.5" data-path="GLMs.html"><a href="GLMs.html#an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework"><i class="fa fa-check"></i><b>14.5</b> An example of a GLM as a detail within a conceptualization framework</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>15</b> Class 15: 17 11 2020</a></li>
+<li class="chapter" data-level="16" data-path="example-1---deviance.html"><a href="example-1---deviance.html"><i class="fa fa-check"></i><b>16</b> Example 1 - deviance</a></li>
+<li class="chapter" data-level="17" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html"><i class="fa fa-check"></i><b>17</b> Example 2 - lagartyos GLM</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html#example-2"><i class="fa fa-check"></i><b>17.1</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>18</b> Class 16: 18 11 2020</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>18.1</b> A logistic regression example</a></li>
+<li class="chapter" data-level="18.2" data-path="aula16.html"><a href="aula16.html#titanic-example"><i class="fa fa-check"></i><b>18.2</b> Titanic example</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="aula16.html"><a href="aula16.html#análise-exploratoria-de-dados"><i class="fa fa-check"></i><b>18.2.1</b> Análise Exploratoria de Dados</a></li>
+<li class="chapter" data-level="18.2.2" data-path="aula16.html"><a href="aula16.html#modelação"><i class="fa fa-check"></i><b>18.2.2</b> Modelação</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>18.3</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="GLMM.html"><a href="GLMM.html"><i class="fa fa-check"></i><b>19</b> Random effects and mixed models</a></li>
+<li class="chapter" data-level="20" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>20</b> Class 18: 25 11 2020</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>20.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="20.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>20.2</b> Sponges</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>20.2.1</b> Reading data in</a></li>
+<li class="chapter" data-level="20.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>20.2.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="20.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>20.2.3</b> Modelling</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>20.3</b> Extra GLM stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>21</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes for Ecological Modelling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ContinousInteractions" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Interactions between continous covariates<a href="ContinousInteractions.html#ContinousInteractions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The examples in previous chapters considered interactions between variables, where at least one of the variables was a factor. This was for convenience, not for necessity, and interactions can occur also across strictly continuous variables. An example follows. Imagine we are interested in modelling the length of a fish species as a function of water temperature <code>temp</code> and <code>pH</code>.</p>
+<p>We make up some example data below. Note in passing if those were real values for some water pH… all the fish would probably be dissolved!</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="ContinousInteractions.html#cb307-1" tabindex="-1"></a><span class="co">#--------------------------------------------------------</span></span>
+<span id="cb307-2"><a href="ContinousInteractions.html#cb307-2" tabindex="-1"></a><span class="co">#Interactions</span></span>
+<span id="cb307-3"><a href="ContinousInteractions.html#cb307-3" tabindex="-1"></a><span class="do">#### With continous covariates</span></span>
+<span id="cb307-4"><a href="ContinousInteractions.html#cb307-4" tabindex="-1"></a><span class="co">#--------------------------------------------------------</span></span>
+<span id="cb307-5"><a href="ContinousInteractions.html#cb307-5" tabindex="-1"></a><span class="co">#sample size</span></span>
+<span id="cb307-6"><a href="ContinousInteractions.html#cb307-6" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">121</span>)</span>
+<span id="cb307-7"><a href="ContinousInteractions.html#cb307-7" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">100</span></span>
+<span id="cb307-8"><a href="ContinousInteractions.html#cb307-8" tabindex="-1"></a><span class="co">#get a response variable</span></span>
+<span id="cb307-9"><a href="ContinousInteractions.html#cb307-9" tabindex="-1"></a>xs1<span class="ot">=</span><span class="fu">runif</span>(n,<span class="dv">30</span>,<span class="dv">90</span>)</span>
+<span id="cb307-10"><a href="ContinousInteractions.html#cb307-10" tabindex="-1"></a><span class="co">#get a second variable</span></span>
+<span id="cb307-11"><a href="ContinousInteractions.html#cb307-11" tabindex="-1"></a>xs2<span class="ot">=</span><span class="fu">rgamma</span>(n,<span class="dv">10</span>,<span class="dv">10</span>)</span>
+<span id="cb307-12"><a href="ContinousInteractions.html#cb307-12" tabindex="-1"></a><span class="co">#define the linear predictor</span></span>
+<span id="cb307-13"><a href="ContinousInteractions.html#cb307-13" tabindex="-1"></a>ys<span class="ot">=</span><span class="dv">20</span><span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>xs1<span class="dv">-4</span><span class="sc">*</span>xs2<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span>xs1<span class="sc">*</span>xs2<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">2</span>)</span>
+<span id="cb307-14"><a href="ContinousInteractions.html#cb307-14" tabindex="-1"></a></span>
+<span id="cb307-15"><a href="ContinousInteractions.html#cb307-15" tabindex="-1"></a><span class="co">#to make it easier</span></span>
+<span id="cb307-16"><a href="ContinousInteractions.html#cb307-16" tabindex="-1"></a>xs12<span class="ot">=</span>xs1<span class="sc">*</span>xs2</span>
+<span id="cb307-17"><a href="ContinousInteractions.html#cb307-17" tabindex="-1"></a></span>
+<span id="cb307-18"><a href="ContinousInteractions.html#cb307-18" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb307-19"><a href="ContinousInteractions.html#cb307-19" tabindex="-1"></a><span class="fu">plot</span>(xs1,ys,<span class="at">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Temperature&quot;</span>)</span>
+<span id="cb307-20"><a href="ContinousInteractions.html#cb307-20" tabindex="-1"></a><span class="fu">plot</span>(xs2,ys,<span class="at">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;pH&quot;</span>)</span>
+<span id="cb307-21"><a href="ContinousInteractions.html#cb307-21" tabindex="-1"></a><span class="fu">plot</span>(xs12,ys,<span class="at">ylab=</span><span class="st">&quot;Length (mm)&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Temperature * pH&quot;</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a12.1-1.png" width="672" /></p>
+<p>We can fit different models to such data, namely those that consider just the <code>xs1</code> (temperature), just the <code>xs2</code> (pH), or even just a new variable called <code>xs1xs2</code>, the product between <code>pH</code> and temperature (temperature <span class="math inline">\(\times\)</span> pH), and those with both variables with and without the interaction.</p>
+<p>Note that the variable <code>xs1xs2</code> is just the product of the main effects, and as we will exemplify below, fitting that product alone is equivalent to fitting the interaction term alone.</p>
+<p>Models without the interaction term</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="ContinousInteractions.html#cb308-1" tabindex="-1"></a><span class="co">#-----------------------------------</span></span>
+<span id="cb308-2"><a href="ContinousInteractions.html#cb308-2" tabindex="-1"></a><span class="co">#models without the interaction term</span></span>
+<span id="cb308-3"><a href="ContinousInteractions.html#cb308-3" tabindex="-1"></a>mx1x2<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2)</span>
+<span id="cb308-4"><a href="ContinousInteractions.html#cb308-4" tabindex="-1"></a>mx1<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1)</span>
+<span id="cb308-5"><a href="ContinousInteractions.html#cb308-5" tabindex="-1"></a>mx2<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs2)</span></code></pre></div>
+<p>Models with the interaction term</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="ContinousInteractions.html#cb309-1" tabindex="-1"></a><span class="co">#-----------------------------------</span></span>
+<span id="cb309-2"><a href="ContinousInteractions.html#cb309-2" tabindex="-1"></a><span class="co">#models with interaction</span></span>
+<span id="cb309-3"><a href="ContinousInteractions.html#cb309-3" tabindex="-1"></a><span class="co">#just the interaction term</span></span>
+<span id="cb309-4"><a href="ContinousInteractions.html#cb309-4" tabindex="-1"></a>mI<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">:</span>xs2)</span>
+<span id="cb309-5"><a href="ContinousInteractions.html#cb309-5" tabindex="-1"></a><span class="co">#same as just the interaction term</span></span>
+<span id="cb309-6"><a href="ContinousInteractions.html#cb309-6" tabindex="-1"></a>mI.b<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs12)</span>
+<span id="cb309-7"><a href="ContinousInteractions.html#cb309-7" tabindex="-1"></a><span class="co">#model with main effects and interaction</span></span>
+<span id="cb309-8"><a href="ContinousInteractions.html#cb309-8" tabindex="-1"></a>mx1x2I<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2<span class="sc">+</span>xs1<span class="sc">:</span>xs2)</span>
+<span id="cb309-9"><a href="ContinousInteractions.html#cb309-9" tabindex="-1"></a><span class="co">#same as mx1x2I</span></span>
+<span id="cb309-10"><a href="ContinousInteractions.html#cb309-10" tabindex="-1"></a>mx1x2I.b<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs2)</span></code></pre></div>
+<p>To begin with, check what we commented above is true. Models <code>mx1x2I</code> and <code>mx1x2I.b</code> are equivalent,</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="ContinousInteractions.html#cb310-1" tabindex="-1"></a><span class="fu">summary</span>(mx1x2I)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2 + xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7590 -0.6134  0.1005  0.6850  2.5857 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 23.21760    1.22479  18.956  &lt; 2e-16 ***
+## xs1          1.97682    0.02030  97.368  &lt; 2e-16 ***
+## xs2         -5.06833    1.09787  -4.617 1.21e-05 ***
+## xs1:xs2      3.01992    0.01876 160.986  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9462 on 96 degrees of freedom
+## Multiple R-squared:  0.9999, Adjusted R-squared:  0.9999 
+## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="ContinousInteractions.html#cb312-1" tabindex="-1"></a><span class="fu">summary</span>(mx1x2I.b)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1 * xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7590 -0.6134  0.1005  0.6850  2.5857 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 23.21760    1.22479  18.956  &lt; 2e-16 ***
+## xs1          1.97682    0.02030  97.368  &lt; 2e-16 ***
+## xs2         -5.06833    1.09787  -4.617 1.21e-05 ***
+## xs1:xs2      3.01992    0.01876 160.986  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9462 on 96 degrees of freedom
+## Multiple R-squared:  0.9999, Adjusted R-squared:  0.9999 
+## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>and <code>mI</code> and <code>mI.b</code> are equivalent.</p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="ContinousInteractions.html#cb314-1" tabindex="-1"></a><span class="fu">summary</span>(mI)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.780 -19.984   1.668  19.739  57.329 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  82.7735     7.4909   11.05   &lt;2e-16 ***
+## xs1:xs2       3.9363     0.1196   32.90   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 27.28 on 98 degrees of freedom
+## Multiple R-squared:  0.917,  Adjusted R-squared:  0.9161 
+## F-statistic:  1083 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="ContinousInteractions.html#cb316-1" tabindex="-1"></a><span class="fu">summary</span>(mI.b)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs12)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.780 -19.984   1.668  19.739  57.329 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  82.7735     7.4909   11.05   &lt;2e-16 ***
+## xs12          3.9363     0.1196   32.90   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 27.28 on 98 degrees of freedom
+## Multiple R-squared:  0.917,  Adjusted R-squared:  0.9161 
+## F-statistic:  1083 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Now, we plot the single variable models</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="ContinousInteractions.html#cb318-1" tabindex="-1"></a><span class="co">#ploting the data and (single variable) models</span></span>
+<span id="cb318-2"><a href="ContinousInteractions.html#cb318-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</span>
+<span id="cb318-3"><a href="ContinousInteractions.html#cb318-3" tabindex="-1"></a><span class="fu">plot</span>(xs1,ys)</span>
+<span id="cb318-4"><a href="ContinousInteractions.html#cb318-4" tabindex="-1"></a><span class="fu">abline</span>(mx1,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb318-5"><a href="ContinousInteractions.html#cb318-5" tabindex="-1"></a><span class="fu">plot</span>(xs2,ys)</span>
+<span id="cb318-6"><a href="ContinousInteractions.html#cb318-6" tabindex="-1"></a><span class="fu">abline</span>(mx2,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb318-7"><a href="ContinousInteractions.html#cb318-7" tabindex="-1"></a><span class="fu">plot</span>(xs12,ys)</span>
+<span id="cb318-8"><a href="ContinousInteractions.html#cb318-8" tabindex="-1"></a><span class="fu">abline</span>(mI,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a12.5-1.png" width="672" /></p>
+<p>Note that if we ignore the interaction, we make the wrong conclusion, we conclude that <code>xs2</code> has the wrong effect compared to reality: it seems to have a positive influence, when we know that influence is negative! This happens if we ignore the relevant interaction term, irrespective of wether we consider the <code>xs2</code> as the single predictor or jointly with <code>xs1</code></p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="ContinousInteractions.html#cb319-1" tabindex="-1"></a><span class="fu">summary</span>(mx1x2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -67.854  -6.369   0.761   7.561  52.010 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -156.08567    8.34374  -18.71   &lt;2e-16 ***
+## xs1            5.11738    0.09208   55.57   &lt;2e-16 ***
+## xs2          164.10708    5.20386   31.54   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 15.49 on 97 degrees of freedom
+## Multiple R-squared:  0.9735, Adjusted R-squared:  0.973 
+## F-statistic:  1782 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="ContinousInteractions.html#cb321-1" tabindex="-1"></a><span class="fu">summary</span>(mx2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -161.03  -80.04   11.24   63.49  221.62 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   201.58      30.27   6.659 1.61e-09 ***
+## xs2           111.57      29.18   3.824 0.000231 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 88.34 on 98 degrees of freedom
+## Multiple R-squared:  0.1299, Adjusted R-squared:  0.121 
+## F-statistic: 14.62 on 1 and 98 DF,  p-value: 0.0002307</code></pre>
+<p>When we look at the model that really makes sense here - i.e. the true model that we know generated the data - we get the right decisions for all the terms in the model: <code>xs1</code> has a positive effect and <code>xs2</code> has a negative effect in the response, with a significant positive effect on the interaction between the two.</p>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="ContinousInteractions.html#cb323-1" tabindex="-1"></a><span class="fu">summary</span>(mx1x2I)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2 + xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7590 -0.6134  0.1005  0.6850  2.5857 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 23.21760    1.22479  18.956  &lt; 2e-16 ***
+## xs1          1.97682    0.02030  97.368  &lt; 2e-16 ***
+## xs2         -5.06833    1.09787  -4.617 1.21e-05 ***
+## xs1:xs2      3.01992    0.01876 160.986  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.9462 on 96 degrees of freedom
+## Multiple R-squared:  0.9999, Adjusted R-squared:  0.9999 
+## F-statistic: 3.272e+05 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The cautionary tale’s moral follows: failing to include significant interactions could lead one to wrongly conclude the influence of the main effects on a response. Here, <code>xs2</code>, a variable that in reality has a negative effect on the response, happens to be seens as having a significant positive impact on the response. This is induced by the effect of the ignored interaction.</p>
+<p>Note that, reassuringly, even if we had no idea about the true model, as would happen in any real life scenario, it would be the model preferred by AIC, by a long shot. All is good when all ends well, which if we have lots of useful data and low error, is not unexpected.</p>
+<p>The real danger lies in real life data, where by definition we do not know what reality actually is, so we cannot contrast our predictions to it. In particular, the real danger lies in situations were we have failed to collect the relevant variables that explain a response - like <code>xs1</code> here - and then we have no way to tell whether the effects we are finding are really about the variables measured or just the consequence of us having missed the right variables to explain the response. This is where notions about causal inference come into play. All these models, based on observations, are just correlation stories. And correlation does not imply causation. To tell stories about causation is a story for another book. As a taster, a good introduction to causal inference can be found in <span class="citation">Hernán and Robins (<a href="#ref-Hernan2020">2020</a>)</span>. But reading that book might come to you as a shock. Most of what we do in ecology, fitting models to observational data, seems rather far from what causal inference advocates defend.</p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="ContinousInteractions.html#cb325-1" tabindex="-1"></a><span class="co">#compare models using say AIC</span></span>
+<span id="cb325-2"><a href="ContinousInteractions.html#cb325-2" tabindex="-1"></a><span class="fu">AIC</span>(mx1,mx2,mI,mx1x2,mx1x2I)</span></code></pre></div>
+<pre><code>##        df       AIC
+## mx1     3 1076.8927
+## mx2     3 1183.9971
+## mI      3  949.0211
+## mx1x2   4  836.8333
+## mx1x2I  5  278.6349</code></pre>
+<p>The previous example was a 2-way interaction. It showed us that exploring important interactions is important, and failing to include relevant ones might cause errors. On the other hand, including interactions in models when those are not real, might also mask some real effects, as illustrated in the next session’s example. One can think about 3-way interactions, or even higher order interactions. While these might still be useful for predictions, interpreting those models will become extremely challenging. I have never seen anyone trying to interpret more than a 3 way interaction, and even then, it becomes rather confusing to do so.</p>
+<div id="larger-order-interactions" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Larger order interactions<a href="ContinousInteractions.html#larger-order-interactions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Just for fun (yeah.. fun !) we look at an example where we have more than just 2 variables available to fit. In fact, we have 4 covariates, meaning we could fit up to a 4th order interaction. Do not try that at home alone folks, only trained professionals should. To do so with a 4th order interaction, and to try to interpret it, probably only trained professionals that went a bit crazy at some point!</p>
+<p>Our true model will be of the form</p>
+<p><span class="math inline">\(ys=20+2*xs1-4*xs2+3*xs1*xs2+xs3+xs4\)</span></p>
+<p>implying that all four variables have an influence in the response, but only the 2nd order interaction between <code>xs1</code> and <code>xs2</code> is relevant. Nonetheless, as usual, to begin with we put ourselves in the position of a researcher that does not know the true model.</p>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="ContinousInteractions.html#cb327-1" tabindex="-1"></a><span class="co">#--------------------------------------------</span></span>
+<span id="cb327-2"><a href="ContinousInteractions.html#cb327-2" tabindex="-1"></a><span class="co"># A 4 way interaction model</span></span>
+<span id="cb327-3"><a href="ContinousInteractions.html#cb327-3" tabindex="-1"></a><span class="co">#but in reality there is only 1 second order interaction</span></span>
+<span id="cb327-4"><a href="ContinousInteractions.html#cb327-4" tabindex="-1"></a><span class="co">#--------------------------------------------</span></span>
+<span id="cb327-5"><a href="ContinousInteractions.html#cb327-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb327-6"><a href="ContinousInteractions.html#cb327-6" tabindex="-1"></a><span class="co">#get a response variable</span></span>
+<span id="cb327-7"><a href="ContinousInteractions.html#cb327-7" tabindex="-1"></a>xs1<span class="ot">=</span><span class="fu">runif</span>(n,<span class="dv">30</span>,<span class="dv">90</span>)</span>
+<span id="cb327-8"><a href="ContinousInteractions.html#cb327-8" tabindex="-1"></a><span class="co">#get a second variable</span></span>
+<span id="cb327-9"><a href="ContinousInteractions.html#cb327-9" tabindex="-1"></a>xs2<span class="ot">=</span><span class="fu">rgamma</span>(n,<span class="dv">10</span>,<span class="dv">10</span>)</span>
+<span id="cb327-10"><a href="ContinousInteractions.html#cb327-10" tabindex="-1"></a><span class="co">#get a response variable</span></span>
+<span id="cb327-11"><a href="ContinousInteractions.html#cb327-11" tabindex="-1"></a>xs3<span class="ot">=</span><span class="fu">runif</span>(n,<span class="dv">3</span>,<span class="dv">6</span>)</span>
+<span id="cb327-12"><a href="ContinousInteractions.html#cb327-12" tabindex="-1"></a><span class="co">#get a second variable</span></span>
+<span id="cb327-13"><a href="ContinousInteractions.html#cb327-13" tabindex="-1"></a>xs4<span class="ot">=</span><span class="fu">rgamma</span>(n,<span class="dv">4</span>,<span class="dv">4</span>)</span>
+<span id="cb327-14"><a href="ContinousInteractions.html#cb327-14" tabindex="-1"></a><span class="co">#define the linear predictor</span></span>
+<span id="cb327-15"><a href="ContinousInteractions.html#cb327-15" tabindex="-1"></a>ys<span class="ot">=</span><span class="dv">20</span><span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>xs1<span class="dv">-4</span><span class="sc">*</span>xs2<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span>xs1<span class="sc">*</span>xs2<span class="sc">+</span>xs3<span class="sc">+</span>xs4<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">2</span>)</span></code></pre></div>
+<p>After having created the data, we can fit a couple of models to it. Here we restrict ourselves to a wrong model with all the interactions possible, and one with just the correct (=true, since we know the data generating model) 2 way interaction between <code>xs1</code> and <code>xs2</code>.</p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="ContinousInteractions.html#cb328-1" tabindex="-1"></a>modW<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs2<span class="sc">*</span>xs3<span class="sc">*</span>xs4)</span>
+<span id="cb328-2"><a href="ContinousInteractions.html#cb328-2" tabindex="-1"></a>modR<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2<span class="sc">+</span>xs3<span class="sc">+</span>xs4<span class="sc">+</span>xs1<span class="sc">:</span>xs2)</span></code></pre></div>
+<p>If we look at the 4 way interaction model</p>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="ContinousInteractions.html#cb329-1" tabindex="-1"></a><span class="fu">summary</span>(modW)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1 * xs2 * xs3 * xs4)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.38930 -0.54310  0.05557  0.65213  3.01609 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      1.687e+01  2.363e+01   0.714    0.477    
+## xs1              1.897e+00  3.753e-01   5.056 2.47e-06 ***
+## xs2              6.907e+00  2.383e+01   0.290    0.773    
+## xs3              2.413e+00  5.412e+00   0.446    0.657    
+## xs4              2.543e+01  2.372e+01   1.072    0.287    
+## xs1:xs2          3.024e+00  3.697e-01   8.180 2.64e-12 ***
+## xs1:xs3          1.438e-02  8.635e-02   0.167    0.868    
+## xs2:xs3         -2.400e+00  5.403e+00  -0.444    0.658    
+## xs1:xs4         -1.958e-01  3.457e-01  -0.567    0.573    
+## xs2:xs4         -3.026e+01  2.485e+01  -1.218    0.227    
+## xs3:xs4         -5.713e+00  5.582e+00  -1.024    0.309    
+## xs1:xs2:xs3     -6.552e-04  8.407e-02  -0.008    0.994    
+## xs1:xs2:xs4      2.623e-01  3.558e-01   0.737    0.463    
+## xs1:xs3:xs4      4.987e-02  8.132e-02   0.613    0.541    
+## xs2:xs3:xs4      6.737e+00  5.736e+00   1.175    0.243    
+## xs1:xs2:xs3:xs4 -6.164e-02  8.242e-02  -0.748    0.457    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.053 on 84 degrees of freedom
+## Multiple R-squared:  0.9999, Adjusted R-squared:  0.9999 
+## F-statistic: 6.03e+04 on 15 and 84 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>we see several errors, namely type II errors associated with <code>xs2</code>, <code>xs3</code> and <code>xs4</code>! In other words, including interactions which are not real masked the true influence of relevant variables. It seems like the information available in the data is being spread too thin, with a fierce competition between multiple useless parameters, trying to explain the data and hence remain in the final model. Once the dust settles parameters that would not be different from 0 (and hence truly not relevant to explain the response) managed to capture some of the variability in the data and seem apparently useful to explain it.</p>
+<p>When we look at the right model, these spurious relations go away, and all the main effects as well as the correct second order interaction are considered significant at the usual significance levels.</p>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="ContinousInteractions.html#cb331-1" tabindex="-1"></a><span class="fu">summary</span>(modR)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs1 + xs2 + xs3 + xs4 + xs1:xs2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.6674 -0.5841  0.1184  0.6866  2.7579 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 21.15925    1.46383  14.455  &lt; 2e-16 ***
+## xs1          1.99914    0.02291  87.247  &lt; 2e-16 ***
+## xs2         -3.30066    1.29741  -2.544  0.01259 *  
+## xs3          1.19397    0.12449   9.591 1.36e-15 ***
+## xs4          0.76218    0.24032   3.171  0.00205 ** 
+## xs1:xs2      2.99210    0.02131 140.432  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.054 on 94 degrees of freedom
+## Multiple R-squared:  0.9999, Adjusted R-squared:  0.9999 
+## F-statistic: 1.806e+05 on 5 and 94 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Reassuringly, when these two models are compared, the right model is preferred in terms of AIC</p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="ContinousInteractions.html#cb333-1" tabindex="-1"></a><span class="fu">AIC</span>(modW,modR)</span></code></pre></div>
+<pre><code>##      df      AIC
+## modW 17 310.6238
+## modR  7 302.0554</code></pre>
+<p>What would happen if we had not recorded some of the variables? Or if we considered different second order or even 3 order interactions? I experiment below just as an example creating additional 10 wrong models.</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="ContinousInteractions.html#cb335-1" tabindex="-1"></a>modW1<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2<span class="sc">*</span>xs3)</span>
+<span id="cb335-2"><a href="ContinousInteractions.html#cb335-2" tabindex="-1"></a>modW2<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs2<span class="sc">+</span>xs3<span class="sc">*</span>xs4)</span>
+<span id="cb335-3"><a href="ContinousInteractions.html#cb335-3" tabindex="-1"></a>modW3<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs2<span class="sc">*</span>xs3)</span>
+<span id="cb335-4"><a href="ContinousInteractions.html#cb335-4" tabindex="-1"></a>modW4<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs3<span class="sc">*</span>xs4)</span>
+<span id="cb335-5"><a href="ContinousInteractions.html#cb335-5" tabindex="-1"></a>modW5<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs2<span class="sc">+</span>xs3)</span>
+<span id="cb335-6"><a href="ContinousInteractions.html#cb335-6" tabindex="-1"></a>modW6<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">+</span>xs3<span class="sc">+</span>xs4)</span>
+<span id="cb335-7"><a href="ContinousInteractions.html#cb335-7" tabindex="-1"></a>modW7<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs2<span class="sc">+</span>xs3<span class="sc">+</span>xs4)</span>
+<span id="cb335-8"><a href="ContinousInteractions.html#cb335-8" tabindex="-1"></a>modW8<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs2)</span>
+<span id="cb335-9"><a href="ContinousInteractions.html#cb335-9" tabindex="-1"></a>modW9<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs3)</span>
+<span id="cb335-10"><a href="ContinousInteractions.html#cb335-10" tabindex="-1"></a>modW10<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>xs1<span class="sc">*</span>xs4)</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="ContinousInteractions.html#cb336-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb336-2"><a href="ContinousInteractions.html#cb336-2" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">AIC</span>(modW,modW1,modW2,modW3,modW4,modW5,modW6,modW7,modW8,modW9,modW10,modR))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">df</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">modW</td>
+<td align="right">17</td>
+<td align="right">310.6238</td>
+</tr>
+<tr class="even">
+<td align="left">modW1</td>
+<td align="right">6</td>
+<td align="right">835.1165</td>
+</tr>
+<tr class="odd">
+<td align="left">modW2</td>
+<td align="right">6</td>
+<td align="right">1180.6098</td>
+</tr>
+<tr class="even">
+<td align="left">modW3</td>
+<td align="right">9</td>
+<td align="right">311.4269</td>
+</tr>
+<tr class="odd">
+<td align="left">modW4</td>
+<td align="right">9</td>
+<td align="right">1086.9135</td>
+</tr>
+<tr class="even">
+<td align="left">modW5</td>
+<td align="right">5</td>
+<td align="right">833.2009</td>
+</tr>
+<tr class="odd">
+<td align="left">modW6</td>
+<td align="right">5</td>
+<td align="right">1089.0771</td>
+</tr>
+<tr class="even">
+<td align="left">modW7</td>
+<td align="right">5</td>
+<td align="right">1180.0438</td>
+</tr>
+<tr class="odd">
+<td align="left">modW8</td>
+<td align="right">5</td>
+<td align="right">368.2706</td>
+</tr>
+<tr class="even">
+<td align="left">modW9</td>
+<td align="right">5</td>
+<td align="right">1088.0494</td>
+</tr>
+<tr class="odd">
+<td align="left">modW10</td>
+<td align="right">5</td>
+<td align="right">1089.2458</td>
+</tr>
+<tr class="even">
+<td align="left">modR</td>
+<td align="right">7</td>
+<td align="right">302.0554</td>
+</tr>
+</tbody>
+</table>
+<p>If we had all the 4 relevant variables available, we would possibly most of the time - here, considering just a random selection of 10 models - get the correct model. Nonetheless, this was just a single example, and I did not implement a full search over the possible model space. I leave it as a task for the reader. If some of the truly relevant variables were not recorded, or if some new variables not relevant to explain the response were collected instead, some errors might occur. Your task now is to create a few additional variables, not related to the response, and explore how often you make mistakes, and what do these mistakes tend to depend on, when you have available a partial subset of the variables that explain the response, plus a subset of variables that do not. Have fun!</p>
+</div>
+<div id="conclusion-on-linear-regression" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Conclusion on linear regression<a href="ContinousInteractions.html#conclusion-on-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="conclusion" class="section level3 hasAnchor" number="12.2.1">
+<h3><span class="header-section-number">12.2.1</span> Conclusion<a href="ContinousInteractions.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The material in previous sections allows you to fully understand the outputs of simple regression models, and to see how some statistical models that you know by other names, like an ANOVA or a the t-test, are just simple special cases of a linear model.</p>
+<p>It also helps you understand how the parameter values represent just features of the data and its generating process, and how we can recover estimates of the original relationships between the variables from said set of parameters.</p>
+<p>You were also introduced to interactions, and how you might need to think about them when modelling real data.</p>
+<p>I recommend you explore the code and output above, and that in particular you experiment with changing means (parameter values for the real models), variances (the precision of how you would measure variables) and sample sizes (which gives you an indication of how much information you have to estimate the underlying reality). Understanding the outputs under these new scenarios is fundamental for progressing towards more complex regression models, like GLMs or GAMs, of which the above cases are just particular cases.</p>
+<p>Many additional interesting links on linear models exist online. This is just one of them:</p>
+<p><a href="https://data-flair.training/blogs/r-linear-regression-tutorial/" class="uri">https://data-flair.training/blogs/r-linear-regression-tutorial/</a></p>
+<p>Naturally, there will be many scenarios in which a linear model will not be enough. Under those settings, one might need other tools from our modelling toolbox. A discussion of th elimits of the linear model in ecological contexts is provided by</p>
+<p><a href="https://link.springer.com/chapter/10.1007/978-0-387-87458-6_2" class="uri">https://link.springer.com/chapter/10.1007/978-0-387-87458-6_2</a></p>
+
+</div>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Hernan2020" class="csl-entry">
+Hernán, M. A., and J. M. Robins. 2020. <em>Causal Inference: What If</em>. Boca Raton: Chapman; Hall/CRC.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ANCOVAdifslopes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="MLEs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ECOMODbook.pdf", "ECOMODbook.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

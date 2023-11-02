@@ -1,0 +1,68 @@
+\contentsline {chapter}{\numberline {1}Introduction}{5}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Preamble}{7}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Aknowledgments}{9}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Using R}{11}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Preliminaries}{17}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Learning by the book}{17}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Following the paper trail}{17}{section.5.2}%
+\contentsline {chapter}{\numberline {6}About regression}{21}{chapter.6}%
+\contentsline {section}{\numberline {6.1}What is a regression?}{21}{section.6.1}%
+\contentsline {section}{\numberline {6.2}The general linear model}{22}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Hands On Regression}{25}{chapter.7}%
+\contentsline {section}{\numberline {7.1}The assumptions are on the residuals, not the data}{28}{section.7.1}%
+\contentsline {chapter}{\numberline {8}Regression inside out}{33}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Implementing a regression}{33}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Simulating regression data}{44}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}What is the effect of increasing the error: a simulation experiment}{50}{subsection.8.2.1}%
+\contentsline {section}{\numberline {8.3}Two tasks to further understand regression}{58}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Task 1}{58}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}Task 2}{66}{subsection.8.3.2}%
+\contentsline {chapter}{\numberline {9}t-tests and ANOVAs are just linear models}{77}{chapter.9}%
+\contentsline {section}{\numberline {9.1}A one sample t-test is the simplest possible linear model}{77}{section.9.1}%
+\contentsline {section}{\numberline {9.2}The t-test}{78}{section.9.2}%
+\contentsline {section}{\numberline {9.3}ANOVA}{86}{section.9.3}%
+\contentsline {section}{\numberline {9.4}A two way ANOVA, and beyhond (ex Task: do it yourself!)}{93}{section.9.4}%
+\contentsline {chapter}{\numberline {10}ANCOVA is (also) just a linear model}{103}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Common slope, different intercepts per treatment}{103}{section.10.1}%
+\contentsline {section}{\numberline {10.2}ANCOVA encore}{111}{section.10.2}%
+\contentsline {subsection}{\numberline {10.2.1}Same story, another spin}{111}{subsection.10.2.1}%
+\contentsline {chapter}{\numberline {11}ANCOVA with different slopes: interactions}{125}{chapter.11}%
+\contentsline {section}{\numberline {11.1}About interactions}{125}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Task 1 Implementing the ANCOVA with different slopes}{128}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Task 2 Modeling a data set}{137}{section.11.3}%
+\contentsline {chapter}{\numberline {12}Interactions between continous covariates}{147}{chapter.12}%
+\contentsline {section}{\numberline {12.1}Larger order interactions}{154}{section.12.1}%
+\contentsline {section}{\numberline {12.2}Conclusion on linear regression}{157}{section.12.2}%
+\contentsline {subsection}{\numberline {12.2.1}Conclusion}{157}{subsection.12.2.1}%
+\contentsline {chapter}{\numberline {13}Class 13: 10 11 2020 Maximum likelihood and all that}{159}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Maximizing a likelihood algebraically}{166}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Numerically Maximizing a likelihood}{166}{section.13.2}%
+\contentsline {section}{\numberline {13.3}The case of a Gaussian}{175}{section.13.3}%
+\contentsline {section}{\numberline {13.4}The case of a linear model}{178}{section.13.4}%
+\contentsline {section}{\numberline {13.5}The really interesting case}{182}{section.13.5}%
+\contentsline {section}{\numberline {13.6}Likelihood, above and beyond}{188}{section.13.6}%
+\contentsline {chapter}{\numberline {14}An introduction to generalized linear models}{191}{chapter.14}%
+\contentsline {section}{\numberline {14.1}What are GLMs}{191}{section.14.1}%
+\contentsline {section}{\numberline {14.2}The link function}{193}{section.14.2}%
+\contentsline {section}{\numberline {14.3}Most useful GLM Families}{195}{section.14.3}%
+\contentsline {section}{\numberline {14.4}An example analysis}{196}{section.14.4}%
+\contentsline {section}{\numberline {14.5}An example of a GLM as a detail within a conceptualization framework}{204}{section.14.5}%
+\contentsline {chapter}{\numberline {15}Class 15: 17 11 2020}{207}{chapter.15}%
+\contentsline {chapter}{\numberline {16}Example 1 - deviance}{209}{chapter.16}%
+\contentsline {chapter}{\numberline {17}Example 2 - lagartyos GLM}{211}{chapter.17}%
+\contentsline {section}{\numberline {17.1}Example 2}{211}{section.17.1}%
+\contentsline {chapter}{\numberline {18}Class 16: 18 11 2020}{217}{chapter.18}%
+\contentsline {section}{\numberline {18.1}A logistic regression example}{217}{section.18.1}%
+\contentsline {section}{\numberline {18.2}Titanic example}{219}{section.18.2}%
+\contentsline {subsection}{\numberline {18.2.1}Análise Exploratoria de Dados}{220}{subsection.18.2.1}%
+\contentsline {subsection}{\numberline {18.2.2}Modelação}{223}{subsection.18.2.2}%
+\contentsline {section}{\numberline {18.3}About multicollinearity}{228}{section.18.3}%
+\contentsline {chapter}{\numberline {19}Random effects and mixed models}{237}{chapter.19}%
+\contentsline {chapter}{\numberline {20}Class 18: 25 11 2020}{253}{chapter.20}%
+\contentsline {section}{\numberline {20.1}Presence of bats}{253}{section.20.1}%
+\contentsline {section}{\numberline {20.2}Sponges}{253}{section.20.2}%
+\contentsline {subsection}{\numberline {20.2.1}Reading data in}{253}{subsection.20.2.1}%
+\contentsline {subsection}{\numberline {20.2.2}Exploratory Data Analysis}{254}{subsection.20.2.2}%
+\contentsline {subsection}{\numberline {20.2.3}Modelling}{262}{subsection.20.2.3}%
+\contentsline {section}{\numberline {20.3}Extra GLM stuff}{268}{section.20.3}%
+\contentsline {chapter}{\numberline {21}Final Words}{269}{chapter.21}%

@@ -1,4 +1,4 @@
-# Random effects and mixed Models {#aula17}
+# Random effects and mixed models {#GLMM}
 
 In this chapter we investigate the use of random effects.
 

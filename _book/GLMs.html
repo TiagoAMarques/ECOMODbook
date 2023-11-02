@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 14 An introduction to generalized linear models | Notes for Ecological Modelling</title>
+  <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 14 An introduction to generalized linear models | Notes for Ecological Modelling" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 14 An introduction to generalized linear models | Notes for Ecological Modelling" />
+  
+  <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Tiago A. Marques" />
+
+
+<meta name="date" content="2023-11-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="MLEs.html"/>
+<link rel="next" href="aula15.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
+<li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
+<li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
+<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="prelim.html"><a href="prelim.html#lbtb"><i class="fa fa-check"></i><b>5.1</b> Learning by the book</a></li>
+<li class="chapter" data-level="5.2" data-path="prelim.html"><a href="prelim.html#ftpt"><i class="fa fa-check"></i><b>5.2</b> Following the paper trail</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>6</b> About regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>6.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="6.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>6.2</b> The general linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>7</b> Hands On Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="RIO.html"><a href="RIO.html"><i class="fa fa-check"></i><b>8</b> Regression inside out</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="RIO.html"><a href="RIO.html#implementing-a-regression"><i class="fa fa-check"></i><b>8.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="8.2" data-path="RIO.html"><a href="RIO.html#simulating-regression-data"><i class="fa fa-check"></i><b>8.2</b> Simulating regression data</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="RIO.html"><a href="RIO.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="RIO.html"><a href="RIO.html#two-tasks-to-further-understand-regression"><i class="fa fa-check"></i><b>8.3</b> Two tasks to further understand regression</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="RIO.html"><a href="RIO.html#task-1"><i class="fa fa-check"></i><b>8.3.1</b> Task 1</a></li>
+<li class="chapter" data-level="8.3.2" data-path="RIO.html"><a href="RIO.html#task-2"><i class="fa fa-check"></i><b>8.3.2</b> Task 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html"><i class="fa fa-check"></i><b>9</b> t-tests and ANOVAs are just linear models</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#a-one-sample-t-test-is-the-simplest-possible-linear-model"><i class="fa fa-check"></i><b>9.1</b> A one sample t-test is the simplest possible linear model</a></li>
+<li class="chapter" data-level="9.2" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#the-t-test"><i class="fa fa-check"></i><b>9.2</b> The t-test</a></li>
+<li class="chapter" data-level="9.3" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#anova"><i class="fa fa-check"></i><b>9.3</b> ANOVA</a></li>
+<li class="chapter" data-level="9.4" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>9.4</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html"><i class="fa fa-check"></i><b>10</b> ANCOVA is (also) just a linear model</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>10.1</b> Common slope, different intercepts per treatment</a></li>
+<li class="chapter" data-level="10.2" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html#ANCOVAe"><i class="fa fa-check"></i><b>10.2</b> ANCOVA encore</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html#same-story-another-spin"><i class="fa fa-check"></i><b>10.2.1</b> Same story, another spin</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html"><i class="fa fa-check"></i><b>11</b> ANCOVA with different slopes: interactions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html#about-interactions"><i class="fa fa-check"></i><b>11.1</b> About interactions</a></li>
+<li class="chapter" data-level="11.2" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>11.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="11.3" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>11.3</b> Task 2 Modeling a data set</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html"><i class="fa fa-check"></i><b>12</b> Interactions between continous covariates</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html#larger-order-interactions"><i class="fa fa-check"></i><b>12.1</b> Larger order interactions</a></li>
+<li class="chapter" data-level="12.2" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html#conclusion-on-linear-regression"><i class="fa fa-check"></i><b>12.2</b> Conclusion on linear regression</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html#conclusion"><i class="fa fa-check"></i><b>12.2.1</b> Conclusion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="MLEs.html"><a href="MLEs.html"><i class="fa fa-check"></i><b>13</b> Class 13: 10 11 2020 Maximum likelihood and all that</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="MLEs.html"><a href="MLEs.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>13.1</b> Maximizing a likelihood algebraically</a></li>
+<li class="chapter" data-level="13.2" data-path="MLEs.html"><a href="MLEs.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>13.2</b> Numerically Maximizing a likelihood</a></li>
+<li class="chapter" data-level="13.3" data-path="MLEs.html"><a href="MLEs.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>13.3</b> The case of a Gaussian</a></li>
+<li class="chapter" data-level="13.4" data-path="MLEs.html"><a href="MLEs.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>13.4</b> The case of a linear model</a></li>
+<li class="chapter" data-level="13.5" data-path="MLEs.html"><a href="MLEs.html#the-really-interesting-case"><i class="fa fa-check"></i><b>13.5</b> The really interesting case</a></li>
+<li class="chapter" data-level="13.6" data-path="MLEs.html"><a href="MLEs.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>13.6</b> Likelihood, above and beyond</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="GLMs.html"><a href="GLMs.html"><i class="fa fa-check"></i><b>14</b> An introduction to generalized linear models</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="GLMs.html"><a href="GLMs.html#what-are-glms"><i class="fa fa-check"></i><b>14.1</b> What are GLMs</a></li>
+<li class="chapter" data-level="14.2" data-path="GLMs.html"><a href="GLMs.html#the-link-function"><i class="fa fa-check"></i><b>14.2</b> The link function</a></li>
+<li class="chapter" data-level="14.3" data-path="GLMs.html"><a href="GLMs.html#most-useful-glm-families"><i class="fa fa-check"></i><b>14.3</b> Most useful GLM Families</a></li>
+<li class="chapter" data-level="14.4" data-path="GLMs.html"><a href="GLMs.html#an-example-analysis"><i class="fa fa-check"></i><b>14.4</b> An example analysis</a></li>
+<li class="chapter" data-level="14.5" data-path="GLMs.html"><a href="GLMs.html#an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework"><i class="fa fa-check"></i><b>14.5</b> An example of a GLM as a detail within a conceptualization framework</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>15</b> Class 15: 17 11 2020</a></li>
+<li class="chapter" data-level="16" data-path="example-1---deviance.html"><a href="example-1---deviance.html"><i class="fa fa-check"></i><b>16</b> Example 1 - deviance</a></li>
+<li class="chapter" data-level="17" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html"><i class="fa fa-check"></i><b>17</b> Example 2 - lagartyos GLM</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html#example-2"><i class="fa fa-check"></i><b>17.1</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>18</b> Class 16: 18 11 2020</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>18.1</b> A logistic regression example</a></li>
+<li class="chapter" data-level="18.2" data-path="aula16.html"><a href="aula16.html#titanic-example"><i class="fa fa-check"></i><b>18.2</b> Titanic example</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="aula16.html"><a href="aula16.html#análise-exploratoria-de-dados"><i class="fa fa-check"></i><b>18.2.1</b> Análise Exploratoria de Dados</a></li>
+<li class="chapter" data-level="18.2.2" data-path="aula16.html"><a href="aula16.html#modelação"><i class="fa fa-check"></i><b>18.2.2</b> Modelação</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>18.3</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="GLMM.html"><a href="GLMM.html"><i class="fa fa-check"></i><b>19</b> Random effects and mixed models</a></li>
+<li class="chapter" data-level="20" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>20</b> Class 18: 25 11 2020</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>20.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="20.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>20.2</b> Sponges</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>20.2.1</b> Reading data in</a></li>
+<li class="chapter" data-level="20.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>20.2.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="20.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>20.2.3</b> Modelling</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>20.3</b> Extra GLM stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>21</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes for Ecological Modelling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="GLMs" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Chapter 14</span> An introduction to generalized linear models<a href="GLMs.html#GLMs" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="what-are-glms" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> What are GLMs<a href="GLMs.html#what-are-glms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Until now we have been dealing with linear regression models, with a common set of characteristics. The variance of the residuals is constant and their distribution is Gaussian. While that is a very useful model and has been widely used for over a century to model all sorts of phenomena, these hardwired characteristics make such a model inflexible. Therefore, we need to include some more flexible models in our toolbox.</p>
+<p>Generalized linear models come to help, as they will generalize the Gaussian linear model in three fundamental ways:</p>
+<ol style="list-style-type: decimal">
+<li><p>They will relax the assumption that the residuals of the model are Gaussian, by allowing the user to specify different families for the response variable. These families will be from the Exponential family of random variables. While this is perhaps confusing wording, it is important to note that this should not to be confused with the Exponential distribution, which happens to be a special case of a Gamma random variable. The Gamma happens to be, like the Poisson or even the Gaussian, one of the distributions from the exponential Distribution.</p></li>
+<li><p>They become more flexible than the standard Gaussian linear model by allowing the relation between the response and the linear predictor to be mediated via a link function. This link function adds another very useful feature: the predictions from the response variable can be constrained to take only admissible values. case in point, a probability can be constrained to be between 0 and 1, and a weight can be constrained to be strictly positive, by choosing an appropriate link function.</p></li>
+</ol>
+<p>The use of a link function induces a complication that often confuses practitioners. We can now have predictions on the scale of the link function, but also predictions on the scale of the response. While the predictions on the scale of the link function are the default in R, these mean often very little in practice, and humans will have trouble understanding them. There might be a good reason why predictions from a GML based on the omnibus R function <code>predict.glm</code> are by default on the scale of the link function, but to be fair I find this to be the exception need, not the rule, when doing applied work.</p>
+<p>In the LM case we had, for <span class="math inline">\(K\)</span> independent variables, the following formulation for the model</p>
+<p><span class="math display">\[E(y)=\beta_0+\beta_1x_1+\beta_2x_2+...+\beta_Kx_K\]</span></p>
+<p>and when considering observations</p>
+<p><span class="math display">\[y_i=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+...+\beta_Kx_{iK}+e_i\]</span></p>
+<p>where the <span class="math inline">\(e_i\)</span> would be Gaussian with mean 0 and a constant variance <span class="math inline">\(\sigma^2\)</span>. In the generalized linear model we can choose a family for the response variable, and we have the relation between the mean value of the response mediated by a link function, represented by <span class="math inline">\(f\)</span>, therefore</p>
+<p><span class="math display">\[f(E(y))=\beta_0+\beta_1x_1+\beta_2x_2+...+\beta_Kx_K\]</span></p>
+<p>and therefore</p>
+<p><span class="math display">\[E(y)=f^{-1}(\beta_0+\beta_1x_1+\beta_2x_2+...+\beta_Kx_K)\]</span></p>
+<p>Note that the above implies that the linear model is just a GLM with a Gaussian response and an identity link function.</p>
+<p>It is interesting to note an often under-appreciated distinction between the Gaussian linear model and the other GLMs. While the Gaussian model implies that the residuals are Gaussian, no one knows what is the distribution of a Poisson, Gamma or Binomial GLM. This fact is often hard to grasp also because diagnostic plots produced for GLMs transform the residuals in an attempt to make them look normal. In some cases, like in the binomial case, that attempt is typically doomed from the start!</p>
+<p>While the choice of the right link function is fundamental for a GLM’s performance, that is often an easy decision since the key aspect is to insure only admissible estimates from the model. Arguably the most common link functions are the identity, the log and the logit.</p>
+</div>
+<div id="the-link-function" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> The link function<a href="GLMs.html#the-link-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Here we talk about link functions</p>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="GLMs.html#cb402-1" tabindex="-1"></a>lp<span class="ot">&lt;-</span><span class="cf">function</span>(a,b,x){</span>
+<span id="cb402-2"><a href="GLMs.html#cb402-2" tabindex="-1"></a>  res<span class="ot">&lt;-</span>a<span class="sc">+</span>b<span class="sc">*</span>x</span>
+<span id="cb402-3"><a href="GLMs.html#cb402-3" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
+<span id="cb402-4"><a href="GLMs.html#cb402-4" tabindex="-1"></a>}</span>
+<span id="cb402-5"><a href="GLMs.html#cb402-5" tabindex="-1"></a></span>
+<span id="cb402-6"><a href="GLMs.html#cb402-6" tabindex="-1"></a>ilogi<span class="ot">&lt;-</span><span class="cf">function</span>(lp){</span>
+<span id="cb402-7"><a href="GLMs.html#cb402-7" tabindex="-1"></a>  res<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(lp))</span>
+<span id="cb402-8"><a href="GLMs.html#cb402-8" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
+<span id="cb402-9"><a href="GLMs.html#cb402-9" tabindex="-1"></a>}</span></code></pre></div>
+<p>Illustrate how a link function can be used to ensure that a prediction only returns admissible values</p>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="GLMs.html#cb403-1" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="fl">0.04</span></span>
+<span id="cb403-2"><a href="GLMs.html#cb403-2" tabindex="-1"></a>b<span class="ot">&lt;-</span><span class="fl">0.08</span></span>
+<span id="cb403-3"><a href="GLMs.html#cb403-3" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb403-4"><a href="GLMs.html#cb403-4" tabindex="-1"></a></span>
+<span id="cb403-5"><a href="GLMs.html#cb403-5" tabindex="-1"></a>xs<span class="ot">&lt;-</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">20</span>,<span class="at">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb403-6"><a href="GLMs.html#cb403-6" tabindex="-1"></a><span class="fu">plot</span>(xs,<span class="fu">ilogi</span>(<span class="fu">lp</span>(a,b,xs)),<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb403-7"><a href="GLMs.html#cb403-7" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">1</span>)</span>
+<span id="cb403-8"><a href="GLMs.html#cb403-8" tabindex="-1"></a></span>
+<span id="cb403-9"><a href="GLMs.html#cb403-9" tabindex="-1"></a></span>
+<span id="cb403-10"><a href="GLMs.html#cb403-10" tabindex="-1"></a>xs<span class="ot">&lt;-</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">20</span>,<span class="at">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb403-11"><a href="GLMs.html#cb403-11" tabindex="-1"></a><span class="fu">plot</span>(xs,<span class="fu">ilogi</span>(<span class="fu">lp</span>(<span class="fl">0.9</span>,<span class="dv">12</span>,xs)),<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb403-12"><a href="GLMs.html#cb403-12" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">1</span>)</span>
+<span id="cb403-13"><a href="GLMs.html#cb403-13" tabindex="-1"></a></span>
+<span id="cb403-14"><a href="GLMs.html#cb403-14" tabindex="-1"></a></span>
+<span id="cb403-15"><a href="GLMs.html#cb403-15" tabindex="-1"></a>xs<span class="ot">&lt;-</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">2</span>,<span class="at">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb403-16"><a href="GLMs.html#cb403-16" tabindex="-1"></a><span class="fu">plot</span>(xs,<span class="fu">ilogi</span>(<span class="fu">lp</span>(<span class="fl">0.9</span>,<span class="dv">12</span>,xs)),<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb403-17"><a href="GLMs.html#cb403-17" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">1</span>)</span>
+<span id="cb403-18"><a href="GLMs.html#cb403-18" tabindex="-1"></a></span>
+<span id="cb403-19"><a href="GLMs.html#cb403-19" tabindex="-1"></a></span>
+<span id="cb403-20"><a href="GLMs.html#cb403-20" tabindex="-1"></a>xs<span class="ot">&lt;-</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb403-21"><a href="GLMs.html#cb403-21" tabindex="-1"></a><span class="fu">plot</span>(xs,<span class="fu">ilogi</span>(<span class="fu">lp</span>(<span class="fl">0.9</span>,<span class="dv">12</span>,xs)),<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb403-22"><a href="GLMs.html#cb403-22" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/links2-1.png" width="672" /></p>
+<p>In the following, I deal with the following task. Make up a predictor with 2 variables, create the inverse functions for the
+1. log link function
+2. logistic link function
+and convince yourself that, irrespective of what the parameter values might be for the covariates, or the value of the covariates used for that matter, the predictions are always bounded to be, respectively
+1. Positive, or
+2. between 0 and 1
+This illustrates the power of a link function to constrain the predictions to an admissiblke range, a strong advantage of the GLM framework when compared to the LM framework.</p>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="GLMs.html#cb404-1" tabindex="-1"></a><span class="co"># make up a linear predictor</span></span>
+<span id="cb404-2"><a href="GLMs.html#cb404-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6</span>)</span>
+<span id="cb404-3"><a href="GLMs.html#cb404-3" tabindex="-1"></a><span class="co">#intercept</span></span>
+<span id="cb404-4"><a href="GLMs.html#cb404-4" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span></span>
+<span id="cb404-5"><a href="GLMs.html#cb404-5" tabindex="-1"></a><span class="co">#the coeficint for x1</span></span>
+<span id="cb404-6"><a href="GLMs.html#cb404-6" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.023</span></span>
+<span id="cb404-7"><a href="GLMs.html#cb404-7" tabindex="-1"></a><span class="co"># the coefficeint for x2</span></span>
+<span id="cb404-8"><a href="GLMs.html#cb404-8" tabindex="-1"></a>beta2 <span class="ot">&lt;-</span> <span class="sc">+</span><span class="fl">0.04</span></span>
+<span id="cb404-9"><a href="GLMs.html#cb404-9" tabindex="-1"></a></span>
+<span id="cb404-10"><a href="GLMs.html#cb404-10" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">100</span></span>
+<span id="cb404-11"><a href="GLMs.html#cb404-11" tabindex="-1"></a>x1s<span class="ot">&lt;-</span><span class="fu">runif</span>(n,<span class="dv">10</span>,<span class="dv">30</span>)</span>
+<span id="cb404-12"><a href="GLMs.html#cb404-12" tabindex="-1"></a>x2s<span class="ot">&lt;-</span><span class="fu">runif</span>(n,<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb404-13"><a href="GLMs.html#cb404-13" tabindex="-1"></a></span>
+<span id="cb404-14"><a href="GLMs.html#cb404-14" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">0</span>))</span>
+<span id="cb404-15"><a href="GLMs.html#cb404-15" tabindex="-1"></a><span class="co">#LINEAR PREDICTOR</span></span>
+<span id="cb404-16"><a href="GLMs.html#cb404-16" tabindex="-1"></a>lp<span class="ot">&lt;-</span>beta0<span class="sc">+</span>beta1<span class="sc">*</span>x1s<span class="sc">+</span>beta2<span class="sc">*</span>x2s</span>
+<span id="cb404-17"><a href="GLMs.html#cb404-17" tabindex="-1"></a><span class="fu">boxplot</span>(lp,<span class="at">main=</span><span class="st">&quot;Linear predictor&quot;</span>)</span>
+<span id="cb404-18"><a href="GLMs.html#cb404-18" tabindex="-1"></a><span class="co"># RESPONSE: but we know, that there&#39;s a log link involved</span></span>
+<span id="cb404-19"><a href="GLMs.html#cb404-19" tabindex="-1"></a>Ey<span class="ot">&lt;-</span><span class="fu">exp</span>(lp)</span>
+<span id="cb404-20"><a href="GLMs.html#cb404-20" tabindex="-1"></a><span class="fu">boxplot</span>(Ey,<span class="at">main=</span><span class="st">&quot;Log link&quot;</span>)</span>
+<span id="cb404-21"><a href="GLMs.html#cb404-21" tabindex="-1"></a><span class="co">#rESPONSE: but we know, that there&#39;s a logit link involved</span></span>
+<span id="cb404-22"><a href="GLMs.html#cb404-22" tabindex="-1"></a>Ey<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(lp))</span>
+<span id="cb404-23"><a href="GLMs.html#cb404-23" tabindex="-1"></a><span class="fu">boxplot</span>(Ey,<span class="at">main=</span><span class="st">&quot;Logit link&quot;</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="most-useful-glm-families" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> Most useful GLM Families<a href="GLMs.html#most-useful-glm-families" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>These are arguably</p>
+<ul>
+<li>Gaussian - the standard for continuous data;</li>
+<li>Gamma - an alternative to the Gaussian for strictly positive data, like lengths, weights or animal densities;</li>
+<li>Beta - still an outsider, but clearly under-appreciated, as it can be invaluable to model responses that are probabilities <span class="citation">(<a href="#ref-Douma2019">Douma and Weedon 2019</a>)</span>. Not to confuse when one wants to model the probability of successes of yes or no events; see below, for that the Binomial is the omnibus candidate.</li>
+<li>Poisson - the default count model, but quite inflexible as it implies that the variance is equal to the mean, which is the exception rather than the norm for ecological count data;</li>
+<li>Binomial - the default model for yes/no or presence/absence data, also useful to model under-dispersed (var&lt;mean) counts, which are rare in biology/ecology</li>
+<li>Negative Binomial - the default candidate for over-dispersed (var&gt;mean) counts; an alternatives for over-dispersed counts is the quasi-Poisson <span class="citation">(<a href="#ref-Hoef2007">Ver Hoef and Boveng 2007</a>)</span></li>
+</ul>
+<p>In recent years flexible families like the Tweddie distribution, that include several of the above, have been gaining ground in the Ecological literature.</p>
+</div>
+<div id="an-example-analysis" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> An example analysis<a href="GLMs.html#an-example-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We begin by simulating data from a real GLM model. We simulate data from a Poisson regression. Note the difference between what is required now and the way we would simulate data before, in the Gaussian case. While before we would simply add the errors to the expected value given the linear predictor - since we knew the distribution of the errors to be Gaussian, by assumption, this is no longer possible because once the family becomes not Gaussian we do not know what is the distribution of the residuals. Therefore, to simulate data from a non-Gaussian GLM implies a two stage process:</p>
+<ol style="list-style-type: decimal">
+<li>First we generate the linear predictor, and then</li>
+<li>we apply to the linear predictor the inverse link funcion, and finally
+mean value of the response, and then</li>
+<li>we simulate data from the appropriate distribution (e.g. below Poisson), conditional on the corresponding mean.</li>
+</ol>
+<p>We simulate some data, and pretend these would correspond to the weight of a lizard, in grams, as a function of the length of the lizards, in mm. Please, don’t double check my numbers, they probably do not add up for any reasonable species of lizard, but that is a detail in this story.</p>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="GLMs.html#cb405-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">121</span>)</span>
+<span id="cb405-2"><a href="GLMs.html#cb405-2" tabindex="-1"></a><span class="co">#define sample size</span></span>
+<span id="cb405-3"><a href="GLMs.html#cb405-3" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">100</span></span>
+<span id="cb405-4"><a href="GLMs.html#cb405-4" tabindex="-1"></a><span class="co">#get a predictor variable</span></span>
+<span id="cb405-5"><a href="GLMs.html#cb405-5" tabindex="-1"></a>low<span class="ot">&lt;-</span><span class="dv">30</span></span>
+<span id="cb405-6"><a href="GLMs.html#cb405-6" tabindex="-1"></a>high<span class="ot">&lt;-</span><span class="dv">90</span></span>
+<span id="cb405-7"><a href="GLMs.html#cb405-7" tabindex="-1"></a>xs1<span class="ot">&lt;-</span><span class="fu">runif</span>(n,low,high)</span>
+<span id="cb405-8"><a href="GLMs.html#cb405-8" tabindex="-1"></a><span class="co">#get a second potentially predictor</span></span>
+<span id="cb405-9"><a href="GLMs.html#cb405-9" tabindex="-1"></a><span class="co">#not used</span></span>
+<span id="cb405-10"><a href="GLMs.html#cb405-10" tabindex="-1"></a><span class="co">#xs2&lt;-rgamma(n,10,10)</span></span>
+<span id="cb405-11"><a href="GLMs.html#cb405-11" tabindex="-1"></a><span class="co">#define linear predictor</span></span>
+<span id="cb405-12"><a href="GLMs.html#cb405-12" tabindex="-1"></a>lp1<span class="ot">&lt;-</span><span class="fl">0.01+0.05</span><span class="sc">*</span>xs1</span>
+<span id="cb405-13"><a href="GLMs.html#cb405-13" tabindex="-1"></a><span class="co">#get the mean value</span></span>
+<span id="cb405-14"><a href="GLMs.html#cb405-14" tabindex="-1"></a>Eys1<span class="ot">&lt;-</span><span class="fu">exp</span>(lp1)</span>
+<span id="cb405-15"><a href="GLMs.html#cb405-15" tabindex="-1"></a><span class="co">#get actual data</span></span>
+<span id="cb405-16"><a href="GLMs.html#cb405-16" tabindex="-1"></a>ys1<span class="ot">&lt;-</span><span class="fu">rpois</span>(n,Eys1)</span></code></pre></div>
+<p>We can plot side by side the linear predictor, hence in the scale of the link function, the mean value of the response, and then a realization of the process, that is, the actual data</p>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="GLMs.html#cb406-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="fl">0.1</span>))</span>
+<span id="cb406-2"><a href="GLMs.html#cb406-2" tabindex="-1"></a><span class="fu">plot</span>(xs1,lp1,<span class="at">main=</span><span class="st">&quot;Linear predictor&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Lizard length (mm)&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;lp1&quot;</span>)</span>
+<span id="cb406-3"><a href="GLMs.html#cb406-3" tabindex="-1"></a><span class="fu">plot</span>(xs1,Eys1,<span class="at">main=</span><span class="st">&quot;Response mean value&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Lizard length (mm)&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Eys1&quot;</span>)</span>
+<span id="cb406-4"><a href="GLMs.html#cb406-4" tabindex="-1"></a><span class="fu">plot</span>(xs1,ys1,<span class="at">main=</span><span class="st">&quot;The observed data&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Lizard length (mm)&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Lizard weight (g)&quot;</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/glm2-1.png" width="672" /></p>
+<p>Note that, while the model is linear on the scale of the link function, the relationship is not linear on the scale of the response. This illustrates some additional flexibility compared to the Gaussian linear model. The fact that the model is linear on the link scale is easily perceived from the code, and transparent in the plot above, left panel.</p>
+<p>Now, we can fit some models to the simulated data using the function <code>glm</code>. Note just as for the <code>lm</code> function we need to define the formula that represents the model, and we need to use the argument <code>data</code> to let <code>lm</code> know where to find the variables. The novelty lies in the <code>family</code> argument, that sets the assumed distribution for the response, and eventually also allows you to specify a link function.</p>
+<p>Next we will fit a number of generalized linear models to this dataset, to illustrate the consequences of using different families for the response variable and different link functions on the predictions. We will fit:</p>
+<ul>
+<li>a standard linear model, using <code>lm</code>, and then using the function <code>glm</code>, we fit</li>
+<li>a generalized linear model with the Gaussian family and the identity link (just to check that it is the same as above, i.e., the linear model is a special case of a generalized linear model)</li>
+<li>a generalized linear model with the Gaussian family and the log link</li>
+<li>a generalized linear model with the Poisson family and the log link</li>
+<li>a generalized linear model with the Gamma family and the inverse link (the canonical link function for the Gamma)</li>
+<li>a generalized linear model with the Gamma family and the log link</li>
+</ul>
+<p>Note that as usual when simulating data we have the privilege of knowing the true generating model, in this case, the Poisson with the log link. The Gaussian model with a log link function assumes a Gaussian response, but forcing predictions to be strictly positive. We implement the Gaussian identity link model both using <code>lm</code> and <code>glm</code>, to illustrate once again these are one and the same (and to remind you that if you forget to define the family in <code>glm</code>, you’re just fitting the standard linear model by default). The coimparisong across these apparently different ways to fit the Gaussian linear model follows</p>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="GLMs.html#cb407-1" tabindex="-1"></a>lm1A<span class="ot">&lt;-</span><span class="fu">lm</span>(ys1<span class="sc">~</span>xs1)</span>
+<span id="cb407-2"><a href="GLMs.html#cb407-2" tabindex="-1"></a>lm1B<span class="ot">&lt;-</span><span class="fu">glm</span>(ys1<span class="sc">~</span>xs1) </span>
+<span id="cb407-3"><a href="GLMs.html#cb407-3" tabindex="-1"></a>lm1C<span class="ot">&lt;-</span><span class="fu">glm</span>(ys1<span class="sc">~</span>xs1,<span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
+<p>We plot the predictions on top of each other, and no surprises here, the 3 implementations return the exact same thing:</p>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="GLMs.html#cb408-1" tabindex="-1"></a><span class="fu">plot</span>(ys1<span class="sc">~</span>xs1,<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">100</span>))</span>
+<span id="cb408-2"><a href="GLMs.html#cb408-2" tabindex="-1"></a>xs<span class="ot">&lt;-</span><span class="fu">seq</span>(low<span class="dv">-5</span>,high<span class="sc">+</span><span class="dv">5</span>,<span class="at">by=</span><span class="fl">0.5</span>)</span>
+<span id="cb408-3"><a href="GLMs.html#cb408-3" tabindex="-1"></a>novosdados<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">xs1=</span>xs)</span>
+<span id="cb408-4"><a href="GLMs.html#cb408-4" tabindex="-1"></a>predslm1A<span class="ot">&lt;-</span><span class="fu">predict</span>(lm1A,<span class="at">newdata=</span>novosdados)</span>
+<span id="cb408-5"><a href="GLMs.html#cb408-5" tabindex="-1"></a>predslm1B<span class="ot">&lt;-</span><span class="fu">predict</span>(lm1B,<span class="at">newdata=</span>novosdados)</span>
+<span id="cb408-6"><a href="GLMs.html#cb408-6" tabindex="-1"></a>predslm1C<span class="ot">&lt;-</span><span class="fu">predict</span>(lm1C,<span class="at">newdata=</span>novosdados)</span>
+<span id="cb408-7"><a href="GLMs.html#cb408-7" tabindex="-1"></a><span class="fu">lines</span>(xs,predslm1A,<span class="at">col=</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">6</span>)</span>
+<span id="cb408-8"><a href="GLMs.html#cb408-8" tabindex="-1"></a><span class="fu">lines</span>(xs,predslm1B,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb408-9"><a href="GLMs.html#cb408-9" tabindex="-1"></a><span class="fu">lines</span>(xs,predslm1C,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Unfortunately, and as expected, the predicttions would be nmegative, hence inadmissible, for values of the preditor <code>xs1</code> smaller than about 35, which is undesirable. This is where the GLMs will come in handy. We now fit those:</p>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="GLMs.html#cb409-1" tabindex="-1"></a>glmPoi<span class="ot">&lt;-</span><span class="fu">glm</span>(ys1<span class="sc">~</span>xs1,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb409-2"><a href="GLMs.html#cb409-2" tabindex="-1"></a>glmGau<span class="ot">&lt;-</span><span class="fu">glm</span>(ys1<span class="sc">~</span>xs1,<span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span>
+<span id="cb409-3"><a href="GLMs.html#cb409-3" tabindex="-1"></a>glmGamInv<span class="ot">&lt;-</span><span class="fu">glm</span>(ys1<span class="sc">~</span>xs1,<span class="at">family=</span><span class="fu">Gamma</span>(<span class="at">link=</span><span class="st">&quot;inverse&quot;</span>))</span>
+<span id="cb409-4"><a href="GLMs.html#cb409-4" tabindex="-1"></a>glmGamLog<span class="ot">&lt;-</span><span class="fu">glm</span>(ys1<span class="sc">~</span>xs1,<span class="at">family=</span><span class="fu">Gamma</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>))</span></code></pre></div>
+<p>We can look at the outcome of these overlaid on the data. The fundamental aspect when predicting from a <code>glm</code> model is that we need to be careful with the <code>type</code> argument. By default the predictions are on the scale of the link function, hardly helpful for you as a practitioner. Hence, you need to set <code>type="response"</code>. I can’t say I’d be a millionaire if I had a penny every time a student could not understand the predictions of a <code>glm</code> model because they are looking at predictions on the link scale, but I would nonetheless probably be able to buy a decent meal! (and be careful, because an often found bug is the <code>type=response</code> argument being defined by mistake inside the newdata data.frame, and that throws no error but means that you will be predicting for the data used for the model fitting, not the actual <code>newdata</code> as intended),</p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="GLMs.html#cb410-1" tabindex="-1"></a><span class="fu">plot</span>(ys1<span class="sc">~</span>xs1,<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">110</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span>
+<span id="cb410-2"><a href="GLMs.html#cb410-2" tabindex="-1"></a>xs<span class="ot">&lt;-</span><span class="fu">seq</span>(low<span class="dv">-5</span>,high<span class="sc">+</span><span class="dv">5</span>,<span class="at">by=</span><span class="fl">0.5</span>)</span>
+<span id="cb410-3"><a href="GLMs.html#cb410-3" tabindex="-1"></a>novosdados<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">xs1=</span>xs)</span>
+<span id="cb410-4"><a href="GLMs.html#cb410-4" tabindex="-1"></a>predslm1A<span class="ot">&lt;-</span><span class="fu">predict</span>(lm1A,<span class="at">newdata=</span>novosdados)</span>
+<span id="cb410-5"><a href="GLMs.html#cb410-5" tabindex="-1"></a>predsglmPoi<span class="ot">&lt;-</span><span class="fu">predict</span>(glmPoi,<span class="at">newdata=</span>novosdados,<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb410-6"><a href="GLMs.html#cb410-6" tabindex="-1"></a>predsglmGau<span class="ot">&lt;-</span><span class="fu">predict</span>(glmGau,<span class="at">newdata=</span>novosdados,<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb410-7"><a href="GLMs.html#cb410-7" tabindex="-1"></a>predsglmGamInv<span class="ot">&lt;-</span><span class="fu">predict</span>(glmGamInv,<span class="at">newdata=</span>novosdados,<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb410-8"><a href="GLMs.html#cb410-8" tabindex="-1"></a>predsglmGamLog<span class="ot">&lt;-</span><span class="fu">predict</span>(glmGamLog,<span class="at">newdata=</span>novosdados,<span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb410-9"><a href="GLMs.html#cb410-9" tabindex="-1"></a><span class="fu">lines</span>(xs,predslm1A,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb410-10"><a href="GLMs.html#cb410-10" tabindex="-1"></a><span class="fu">lines</span>(xs,predsglmPoi,<span class="at">col=</span><span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb410-11"><a href="GLMs.html#cb410-11" tabindex="-1"></a><span class="fu">lines</span>(xs,predsglmGau,<span class="at">col=</span><span class="dv">5</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb410-12"><a href="GLMs.html#cb410-12" tabindex="-1"></a><span class="fu">lines</span>(xs,predsglmGamInv,<span class="at">col=</span><span class="dv">6</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb410-13"><a href="GLMs.html#cb410-13" tabindex="-1"></a><span class="fu">lines</span>(xs,predsglmGamLog,<span class="at">col=</span><span class="dv">7</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb410-14"><a href="GLMs.html#cb410-14" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Gaussian&quot;</span>,<span class="st">&quot;Gaussian log&quot;</span>,<span class="st">&quot;Poisson log&quot;</span>,<span class="st">&quot;Gamma Inverse&quot;</span>,<span class="st">&quot;Gamma log&quot;</span>),lwd<span class="sc">==</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>),<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>),<span class="at">inset=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/glm4-1.png" width="672" /></p>
+<p>As expected, the linear model does the wrong thing. It was the wrong model, and it even produces inadmissible values. As an example, a lizard with 30mm length would be estimated to have -5.98 grams, and I guess you have never seen a lizard of negative weight! All the GLMs with a log link, the Poisson, the Gamma and the Gaussian, provide very similar point predictions. But this does not mean they are equal, because the different response models imply that the precision around predictions made form these models will be different.</p>
+<p>The usual question arises. Here we know what the generating model was, so we can tell which one is best. But how could we have spotted the Gaussian with the log link was the wrong model? Typically we evaluate the goodness of fit of a model by a variety of ways, but visual diagnostics based on the model residuals can be especially revealing. Clearly, the Gaussian model is incorrect, as the variance of the residuals is increasing with the mean, and the <code>qqplot</code> of the residuals indicates considerable lack of fit. This should not come to you as a surprise, since the true model was Poisson and in the Poisson the variance is equal to the mean.</p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="GLMs.html#cb411-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">2.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb411-2"><a href="GLMs.html#cb411-2" tabindex="-1"></a><span class="fu">plot</span>(glmGau)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/glm6-1.png" width="672" /></p>
+<p>On the other hand, the diagnostics for the Poisson model do not show any reasons to worry. (Something not adding up here re the explanation. How to answer the question: if predictions are the same with both models and the observations are the same by definition, how is it that the residuals differ?).</p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="GLMs.html#cb412-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">2.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb412-2"><a href="GLMs.html#cb412-2" tabindex="-1"></a><span class="fu">plot</span>(glmPoi)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/glm7-1.png" width="672" /></p>
+<p>A really nice and interesting evaluation of model adequacy, or in other words, a different way of looking at the information on the plots produced by default by the <code>plot</code> over a <code>glm</code> model object, is in the package <code>performance</code>, part of the <code>easystats</code> family</p>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="GLMs.html#cb413-1" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb413-2"><a href="GLMs.html#cb413-2" tabindex="-1"></a><span class="fu">check_model</span>(glmPoi)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>Additionally, if we would evaluate the AIC for these contending models, the Poisson model would be by far the most parsimonious. We have not talked about model selection yet, but AIC is a model selection criteria that favours models that fit to the data while penalizing for the number of parameters in the model <span class="citation">(e.g. <a href="#ref-Aho2014">Aho, Derryberry, and Peterson 2014</a>)</span>. The lowest AIC represents the most parsimonious model, hence the optimal fit given the amount of data and the number of parameters in the model.</p>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="GLMs.html#cb414-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb414-2"><a href="GLMs.html#cb414-2" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">AIC</span>(lm1A,lm1B,glmGau,glmPoi))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">df</th>
+<th align="right">AIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">lm1A</td>
+<td align="right">3</td>
+<td align="right">744.8996</td>
+</tr>
+<tr class="even">
+<td align="left">lm1B</td>
+<td align="right">3</td>
+<td align="right">744.8996</td>
+</tr>
+<tr class="odd">
+<td align="left">glmGau</td>
+<td align="right">3</td>
+<td align="right">617.3647</td>
+</tr>
+<tr class="even">
+<td align="left">glmPoi</td>
+<td align="right">2</td>
+<td align="right">590.3504</td>
+</tr>
+</tbody>
+</table>
+<p>Just to come back to a point made above, notice that different models whcih might lead to similar predictions might not result in the same inferences, because the precision around the estimates made might differ. Consider a comparison between the Poisson model and the Gamma model, both with a log link. We know in the Poisson the mean and the variance are the same, but in the gama the variance can be considerably larger than the mean. Then, let us look at the predictions from the above models, but now lets add on thop some confidence intervals around those predictions:</p>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="GLMs.html#cb415-1" tabindex="-1"></a><span class="fu">plot</span>(ys1<span class="sc">~</span>xs1,<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">110</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span>
+<span id="cb415-2"><a href="GLMs.html#cb415-2" tabindex="-1"></a>xs<span class="ot">&lt;-</span><span class="fu">seq</span>(low<span class="dv">-5</span>,high<span class="sc">+</span><span class="dv">5</span>,<span class="at">by=</span><span class="fl">0.5</span>)</span>
+<span id="cb415-3"><a href="GLMs.html#cb415-3" tabindex="-1"></a>novosdados<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">xs1=</span>xs)</span>
+<span id="cb415-4"><a href="GLMs.html#cb415-4" tabindex="-1"></a>predsglmPoi<span class="ot">&lt;-</span><span class="fu">predict</span>(glmPoi,<span class="at">newdata=</span>novosdados,<span class="at">type=</span><span class="st">&quot;response&quot;</span>,<span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb415-5"><a href="GLMs.html#cb415-5" tabindex="-1"></a>predsglmGamLog<span class="ot">&lt;-</span><span class="fu">predict</span>(glmGamLog,<span class="at">newdata=</span>novosdados,<span class="at">type=</span><span class="st">&quot;response&quot;</span>,<span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb415-6"><a href="GLMs.html#cb415-6" tabindex="-1"></a><span class="fu">lines</span>(xs,predsglmPoi<span class="sc">$</span>fit,<span class="at">col=</span><span class="st">&quot;blue&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb415-7"><a href="GLMs.html#cb415-7" tabindex="-1"></a><span class="fu">lines</span>(xs,predsglmGamLog<span class="sc">$</span>fit,<span class="at">col=</span><span class="st">&quot;green&quot;</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb415-8"><a href="GLMs.html#cb415-8" tabindex="-1"></a><span class="fu">lines</span>(xs,predsglmPoi<span class="sc">$</span>fit<span class="dv">-2</span><span class="sc">*</span>predsglmPoi<span class="sc">$</span>se.fit,<span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb415-9"><a href="GLMs.html#cb415-9" tabindex="-1"></a><span class="fu">lines</span>(xs,predsglmPoi<span class="sc">$</span>fit<span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>predsglmPoi<span class="sc">$</span>se.fit,<span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb415-10"><a href="GLMs.html#cb415-10" tabindex="-1"></a><span class="fu">lines</span>(xs,predsglmGamLog<span class="sc">$</span>fit<span class="dv">-2</span><span class="sc">*</span>predsglmGamLog<span class="sc">$</span>se.fit,<span class="at">col=</span><span class="st">&quot;lightgreen&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb415-11"><a href="GLMs.html#cb415-11" tabindex="-1"></a><span class="fu">lines</span>(xs,predsglmGamLog<span class="sc">$</span>fit<span class="sc">+</span><span class="dv">2</span><span class="sc">*</span>predsglmGamLog<span class="sc">$</span>se.fit,<span class="at">col=</span><span class="st">&quot;lightgreen&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb415-12"><a href="GLMs.html#cb415-12" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Poisson log&quot;</span>,<span class="st">&quot;Gamma log&quot;</span>),lwd<span class="sc">==</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;green&quot;</span>),<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">inset=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>As expected, thje precion around the Gamma predictions is larger. Of course, in real life, we might have trouble knowing what is best, but here, the lower variance of the Poisson is what is the real variance, since we know the data generating process (and AIC favours it).</p>
+</div>
+<div id="an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework" class="section level2 hasAnchor" number="14.5">
+<h2><span class="header-section-number">14.5</span> An example of a GLM as a detail within a conceptualization framework<a href="GLMs.html#an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Present the example of <span class="citation">Filipe et al. (<a href="#ref-Filipe2004">2004</a>)</span> here? How we had a question to address, data that contained information about it, and the conceptualization that went on to make the link between the data and the answer. Or as a separate chapter that ronds things up? Might make sense in this class, but somewhere else in a book?</p>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Aho2014" class="csl-entry">
+Aho, Ken, DeWayne Derryberry, and Teri Peterson. 2014. <span>“Model Selection for Ecologists: The Worldviews of AIC and BIC.”</span> <em>Ecology</em> 95 (3): 631–36. <a href="https://doi.org/10.1890/13-1452.1">https://doi.org/10.1890/13-1452.1</a>.
+</div>
+<div id="ref-Douma2019" class="csl-entry">
+Douma, Jacob C., and James T. Weedon. 2019. <span>“Analysing Continuous Proportions in Ecology and Evolution: A Practical Introduction to Beta and Dirichlet Regression.”</span> Edited by David Warton. <em>Methods in Ecology and Evolution</em> 10 (9): 1412–30. <a href="https://doi.org/10.1111/2041-210x.13234">https://doi.org/10.1111/2041-210x.13234</a>.
+</div>
+<div id="ref-Filipe2004" class="csl-entry">
+Filipe, A. F., T. A. Marques, S. Seabra, P. Tiago, F. Ribeiro, L. Moreira Da Costa, I. Cowx, and M. Collares-Pereira. 2004. <span>“Selection of Priority Areas for Fish Conservation in the <span>Guadiana River Basin, Iberian Peninsula</span>.”</span> <em>Conservation Biology</em> 18: 189–200. <a href="https://doi.org/10.1111/j.1523-1739.2004.00620.x">https://doi.org/10.1111/j.1523-1739.2004.00620.x</a>.
+</div>
+<div id="ref-Hoef2007" class="csl-entry">
+Ver Hoef, Jay M., and Peter L. Boveng. 2007. <span>“Quasi-Poisson Vs. Negative Binomial Regression: How Should We Model Overdispersed Count Data?”</span> <em>Ecology</em> 88: 2766–72.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="MLEs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="aula15.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ECOMODbook.pdf", "ECOMODbook.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

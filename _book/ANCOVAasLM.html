@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 ANCOVA is (also) just a linear model | Notes for Ecological Modelling</title>
+  <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 ANCOVA is (also) just a linear model | Notes for Ecological Modelling" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 ANCOVA is (also) just a linear model | Notes for Ecological Modelling" />
+  
+  <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Tiago A. Marques" />
+
+
+<meta name="date" content="2023-11-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ttestANOVAasLMs.html"/>
+<link rel="next" href="ANCOVAdifslopes.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
+<li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
+<li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
+<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="prelim.html"><a href="prelim.html#lbtb"><i class="fa fa-check"></i><b>5.1</b> Learning by the book</a></li>
+<li class="chapter" data-level="5.2" data-path="prelim.html"><a href="prelim.html#ftpt"><i class="fa fa-check"></i><b>5.2</b> Following the paper trail</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>6</b> About regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>6.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="6.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>6.2</b> The general linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>7</b> Hands On Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="RIO.html"><a href="RIO.html"><i class="fa fa-check"></i><b>8</b> Regression inside out</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="RIO.html"><a href="RIO.html#implementing-a-regression"><i class="fa fa-check"></i><b>8.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="8.2" data-path="RIO.html"><a href="RIO.html#simulating-regression-data"><i class="fa fa-check"></i><b>8.2</b> Simulating regression data</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="RIO.html"><a href="RIO.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="RIO.html"><a href="RIO.html#two-tasks-to-further-understand-regression"><i class="fa fa-check"></i><b>8.3</b> Two tasks to further understand regression</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="RIO.html"><a href="RIO.html#task-1"><i class="fa fa-check"></i><b>8.3.1</b> Task 1</a></li>
+<li class="chapter" data-level="8.3.2" data-path="RIO.html"><a href="RIO.html#task-2"><i class="fa fa-check"></i><b>8.3.2</b> Task 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html"><i class="fa fa-check"></i><b>9</b> t-tests and ANOVAs are just linear models</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#a-one-sample-t-test-is-the-simplest-possible-linear-model"><i class="fa fa-check"></i><b>9.1</b> A one sample t-test is the simplest possible linear model</a></li>
+<li class="chapter" data-level="9.2" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#the-t-test"><i class="fa fa-check"></i><b>9.2</b> The t-test</a></li>
+<li class="chapter" data-level="9.3" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#anova"><i class="fa fa-check"></i><b>9.3</b> ANOVA</a></li>
+<li class="chapter" data-level="9.4" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>9.4</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html"><i class="fa fa-check"></i><b>10</b> ANCOVA is (also) just a linear model</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>10.1</b> Common slope, different intercepts per treatment</a></li>
+<li class="chapter" data-level="10.2" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html#ANCOVAe"><i class="fa fa-check"></i><b>10.2</b> ANCOVA encore</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html#same-story-another-spin"><i class="fa fa-check"></i><b>10.2.1</b> Same story, another spin</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html"><i class="fa fa-check"></i><b>11</b> ANCOVA with different slopes: interactions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html#about-interactions"><i class="fa fa-check"></i><b>11.1</b> About interactions</a></li>
+<li class="chapter" data-level="11.2" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>11.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="11.3" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>11.3</b> Task 2 Modeling a data set</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html"><i class="fa fa-check"></i><b>12</b> Interactions between continous covariates</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html#larger-order-interactions"><i class="fa fa-check"></i><b>12.1</b> Larger order interactions</a></li>
+<li class="chapter" data-level="12.2" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html#conclusion-on-linear-regression"><i class="fa fa-check"></i><b>12.2</b> Conclusion on linear regression</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html#conclusion"><i class="fa fa-check"></i><b>12.2.1</b> Conclusion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="MLEs.html"><a href="MLEs.html"><i class="fa fa-check"></i><b>13</b> Class 13: 10 11 2020 Maximum likelihood and all that</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="MLEs.html"><a href="MLEs.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>13.1</b> Maximizing a likelihood algebraically</a></li>
+<li class="chapter" data-level="13.2" data-path="MLEs.html"><a href="MLEs.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>13.2</b> Numerically Maximizing a likelihood</a></li>
+<li class="chapter" data-level="13.3" data-path="MLEs.html"><a href="MLEs.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>13.3</b> The case of a Gaussian</a></li>
+<li class="chapter" data-level="13.4" data-path="MLEs.html"><a href="MLEs.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>13.4</b> The case of a linear model</a></li>
+<li class="chapter" data-level="13.5" data-path="MLEs.html"><a href="MLEs.html#the-really-interesting-case"><i class="fa fa-check"></i><b>13.5</b> The really interesting case</a></li>
+<li class="chapter" data-level="13.6" data-path="MLEs.html"><a href="MLEs.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>13.6</b> Likelihood, above and beyond</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="GLMs.html"><a href="GLMs.html"><i class="fa fa-check"></i><b>14</b> An introduction to generalized linear models</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="GLMs.html"><a href="GLMs.html#what-are-glms"><i class="fa fa-check"></i><b>14.1</b> What are GLMs</a></li>
+<li class="chapter" data-level="14.2" data-path="GLMs.html"><a href="GLMs.html#the-link-function"><i class="fa fa-check"></i><b>14.2</b> The link function</a></li>
+<li class="chapter" data-level="14.3" data-path="GLMs.html"><a href="GLMs.html#most-useful-glm-families"><i class="fa fa-check"></i><b>14.3</b> Most useful GLM Families</a></li>
+<li class="chapter" data-level="14.4" data-path="GLMs.html"><a href="GLMs.html#an-example-analysis"><i class="fa fa-check"></i><b>14.4</b> An example analysis</a></li>
+<li class="chapter" data-level="14.5" data-path="GLMs.html"><a href="GLMs.html#an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework"><i class="fa fa-check"></i><b>14.5</b> An example of a GLM as a detail within a conceptualization framework</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>15</b> Class 15: 17 11 2020</a></li>
+<li class="chapter" data-level="16" data-path="example-1---deviance.html"><a href="example-1---deviance.html"><i class="fa fa-check"></i><b>16</b> Example 1 - deviance</a></li>
+<li class="chapter" data-level="17" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html"><i class="fa fa-check"></i><b>17</b> Example 2 - lagartyos GLM</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html#example-2"><i class="fa fa-check"></i><b>17.1</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>18</b> Class 16: 18 11 2020</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>18.1</b> A logistic regression example</a></li>
+<li class="chapter" data-level="18.2" data-path="aula16.html"><a href="aula16.html#titanic-example"><i class="fa fa-check"></i><b>18.2</b> Titanic example</a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="aula16.html"><a href="aula16.html#análise-exploratoria-de-dados"><i class="fa fa-check"></i><b>18.2.1</b> Análise Exploratoria de Dados</a></li>
+<li class="chapter" data-level="18.2.2" data-path="aula16.html"><a href="aula16.html#modelação"><i class="fa fa-check"></i><b>18.2.2</b> Modelação</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>18.3</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="GLMM.html"><a href="GLMM.html"><i class="fa fa-check"></i><b>19</b> Random effects and mixed models</a></li>
+<li class="chapter" data-level="20" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>20</b> Class 18: 25 11 2020</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>20.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="20.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>20.2</b> Sponges</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>20.2.1</b> Reading data in</a></li>
+<li class="chapter" data-level="20.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>20.2.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="20.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>20.2.3</b> Modelling</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>20.3</b> Extra GLM stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>21</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes for Ecological Modelling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ANCOVAasLM" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Chapter 10</span> ANCOVA is (also) just a linear model<a href="ANCOVAasLM.html#ANCOVAasLM" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We move on to Analysis of Covariance, a.k.a. ANCOVA, which is essentially like an ANOVA to which we add a continuous explanatory covariate to the factor covariate in our attempt to explain the response.</p>
+<p>The ANCOVA was traditionally used to compare means of an outcome variable between two or more groups taking into account (or to correct for) variability of other variables, called covariates. In other words, ANCOVA allows to compare the adjusted means of two or more independent groups. It is just… another linear model with a fancy name! Words adapted from this link <a href="https://www.datanovia.com/en/lessons/ancova-in-r/" class="uri">https://www.datanovia.com/en/lessons/ancova-in-r/</a>!</p>
+<p>This is an extremely common situation in biology/ecology data. Consider, as an example, you are trying to explain how the weight of a fish depends on its length, but you want to see if that relationship changes per year or site.</p>
+<p>Also, remember the dataset we considered in class 7. The data was simulated via this website: <a href="https://drawdata.xyz/" class="uri">https://drawdata.xyz/</a> and was named <code>data4lines.csv</code>. Those had (about) the same slope in 3 groups, and a different slope in a forth group. That could be analyzed as an ANCOVA, and we will look at it that way at the end.</p>
+<p>Lets simulate some relevant data and fit the models</p>
+<div id="common-slope-different-intercepts-per-treatment" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Common slope, different intercepts per treatment<a href="ANCOVAasLM.html#common-slope-different-intercepts-per-treatment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We begin with a situation where there are different intercepts per group, but a common slope across all groups. Contrast this with what we saw under the previous class, under chapter <a href="RIO.html#RIO">8</a>.</p>
+<p>To make it interesting, assume that we are simulating weights for 4 different species, and that weights depend on length (as they almost always do!).</p>
+<p>This would be interesting and could be some real data if say one wanted to compare the weights of the fishes of 4 different species, we had captured 50 animals from each species. But we know that the fish lengths across species might be different to begin with, and yet our key interest would be say the weight by species, and in that sense the length was essentially a confounding factor.</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="ANCOVAasLM.html#cb212-1" tabindex="-1"></a><span class="co">#all slopes the same, different intercepts - no interactions</span></span>
+<span id="cb212-2"><a href="ANCOVAasLM.html#cb212-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb212-3"><a href="ANCOVAasLM.html#cb212-3" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">200</span></span>
+<span id="cb212-4"><a href="ANCOVAasLM.html#cb212-4" tabindex="-1"></a>nbygroup<span class="ot">&lt;-</span><span class="dv">50</span></span>
+<span id="cb212-5"><a href="ANCOVAasLM.html#cb212-5" tabindex="-1"></a>xs <span class="ot">&lt;-</span> <span class="fu">runif</span>(n,<span class="dv">10</span>,<span class="dv">20</span>)</span>
+<span id="cb212-6"><a href="ANCOVAasLM.html#cb212-6" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;d&quot;</span>)</span>
+<span id="cb212-7"><a href="ANCOVAasLM.html#cb212-7" tabindex="-1"></a>type <span class="ot">&lt;-</span> <span class="fu">rep</span>(tr,<span class="at">each=</span>nbygroup)</span>
+<span id="cb212-8"><a href="ANCOVAasLM.html#cb212-8" tabindex="-1"></a>cores <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">each=</span>nbygroup)</span>
+<span id="cb212-9"><a href="ANCOVAasLM.html#cb212-9" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="dv">3</span></span>
+<span id="cb212-10"><a href="ANCOVAasLM.html#cb212-10" tabindex="-1"></a>b<span class="ot">&lt;-</span><span class="dv">4</span></span>
+<span id="cb212-11"><a href="ANCOVAasLM.html#cb212-11" tabindex="-1"></a>error<span class="ot">&lt;-</span><span class="dv">4</span></span>
+<span id="cb212-12"><a href="ANCOVAasLM.html#cb212-12" tabindex="-1"></a>ys <span class="ot">&lt;-</span> a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span></span>
+<span id="cb212-13"><a href="ANCOVAasLM.html#cb212-13" tabindex="-1"></a><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;a&quot;</span>,<span class="dv">5</span>,<span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;b&quot;</span>,<span class="dv">8</span>,<span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;c&quot;</span>,<span class="dv">10</span>,<span class="dv">12</span>)))<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">4</span>)</span></code></pre></div>
+<p>We plot the data, all together, per group, and at the end adding the generating line to the plot. It’s not easy to make sense of it!</p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="ANCOVAasLM.html#cb213-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb213-2"><a href="ANCOVAasLM.html#cb213-2" tabindex="-1"></a><span class="co">#all the data - uma salganhada!</span></span>
+<span id="cb213-3"><a href="ANCOVAasLM.html#cb213-3" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">col=</span>cores,<span class="at">cex=</span><span class="fl">0.8</span>)</span>
+<span id="cb213-4"><a href="ANCOVAasLM.html#cb213-4" tabindex="-1"></a><span class="co">#plot the data</span></span>
+<span id="cb213-5"><a href="ANCOVAasLM.html#cb213-5" tabindex="-1"></a><span class="co">#par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))</span></span>
+<span id="cb213-6"><a href="ANCOVAasLM.html#cb213-6" tabindex="-1"></a><span class="fu">plot</span>(xs[type<span class="sc">==</span><span class="st">&quot;a&quot;</span>],ys[type<span class="sc">==</span><span class="st">&quot;a&quot;</span>],<span class="at">col=</span>cores[type<span class="sc">==</span><span class="st">&quot;a&quot;</span>])</span>
+<span id="cb213-7"><a href="ANCOVAasLM.html#cb213-7" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
+<span id="cb213-8"><a href="ANCOVAasLM.html#cb213-8" tabindex="-1"></a><span class="fu">plot</span>(xs[type<span class="sc">==</span><span class="st">&quot;b&quot;</span>],ys[type<span class="sc">==</span><span class="st">&quot;b&quot;</span>],<span class="at">col=</span>cores[type<span class="sc">==</span><span class="st">&quot;b&quot;</span>])</span>
+<span id="cb213-9"><a href="ANCOVAasLM.html#cb213-9" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">8</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb213-10"><a href="ANCOVAasLM.html#cb213-10" tabindex="-1"></a><span class="fu">plot</span>(xs[type<span class="sc">==</span><span class="st">&quot;c&quot;</span>],ys[type<span class="sc">==</span><span class="st">&quot;c&quot;</span>],<span class="at">col=</span>cores[type<span class="sc">==</span><span class="st">&quot;c&quot;</span>])</span>
+<span id="cb213-11"><a href="ANCOVAasLM.html#cb213-11" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">10</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
+<span id="cb213-12"><a href="ANCOVAasLM.html#cb213-12" tabindex="-1"></a><span class="fu">plot</span>(xs[type<span class="sc">==</span><span class="st">&quot;d&quot;</span>],ys[type<span class="sc">==</span><span class="st">&quot;d&quot;</span>],<span class="at">col=</span>cores[type<span class="sc">==</span><span class="st">&quot;d&quot;</span>])</span>
+<span id="cb213-13"><a href="ANCOVAasLM.html#cb213-13" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
+<span id="cb213-14"><a href="ANCOVAasLM.html#cb213-14" tabindex="-1"></a><span class="co">#the data with each line added to it</span></span>
+<span id="cb213-15"><a href="ANCOVAasLM.html#cb213-15" tabindex="-1"></a><span class="co">#par(mfrow=c(1,1),mar=c(4,4,0.5,0.5))</span></span>
+<span id="cb213-16"><a href="ANCOVAasLM.html#cb213-16" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">col=</span>cores,<span class="at">cex=</span><span class="fl">0.2</span>)</span>
+<span id="cb213-17"><a href="ANCOVAasLM.html#cb213-17" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
+<span id="cb213-18"><a href="ANCOVAasLM.html#cb213-18" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">8</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb213-19"><a href="ANCOVAasLM.html#cb213-19" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">10</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
+<span id="cb213-20"><a href="ANCOVAasLM.html#cb213-20" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a9.2-1.png" width="672" /></p>
+<p>While not the best to look at the data, note that to visually confirm the value of the intercepts we can zoom out on the plot.</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="ANCOVAasLM.html#cb214-1" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">col=</span>cores,<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">20</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">150</span>))</span>
+<span id="cb214-2"><a href="ANCOVAasLM.html#cb214-2" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
+<span id="cb214-3"><a href="ANCOVAasLM.html#cb214-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">8</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb214-4"><a href="ANCOVAasLM.html#cb214-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">10</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
+<span id="cb214-5"><a href="ANCOVAasLM.html#cb214-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
+<span id="cb214-6"><a href="ANCOVAasLM.html#cb214-6" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">c</span>(<span class="dv">3</span><span class="sc">+</span><span class="dv">5</span>,<span class="dv">3</span><span class="sc">+</span><span class="dv">8</span>,<span class="dv">3</span><span class="sc">+</span><span class="dv">10</span>,<span class="dv">3</span><span class="sc">+</span><span class="dv">12</span>),<span class="at">v=</span><span class="dv">0</span>,<span class="at">col=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">1</span>),<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a9.3-1.png" width="672" /></p>
+<p>Now we run the corresponding linear model</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="ANCOVAasLM.html#cb215-1" tabindex="-1"></a><span class="co">#fit the model</span></span>
+<span id="cb215-2"><a href="ANCOVAasLM.html#cb215-2" tabindex="-1"></a>lm.ancova1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(ys<span class="sc">~</span>xs<span class="sc">+</span>type))</span>
+<span id="cb215-3"><a href="ANCOVAasLM.html#cb215-3" tabindex="-1"></a>lm.ancova1</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs + type)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -13.4694  -2.3640   0.2813   2.1063  11.6596 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  9.24244    1.57462   5.870 1.85e-08 ***
+## xs           3.92089    0.09997  39.220  &lt; 2e-16 ***
+## typeb        3.11952    0.80410   3.880 0.000143 ***
+## typec        5.80393    0.80324   7.226 1.10e-11 ***
+## typed        7.36736    0.80434   9.159  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.008 on 195 degrees of freedom
+## Multiple R-squared:  0.9011, Adjusted R-squared:  0.8991 
+## F-statistic: 444.3 on 4 and 195 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We can check the model intercept coefficients</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="ANCOVAasLM.html#cb217-1" tabindex="-1"></a><span class="co">#estimated values of each intercept</span></span>
+<span id="cb217-2"><a href="ANCOVAasLM.html#cb217-2" tabindex="-1"></a>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 9.242444</code></pre>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="ANCOVAasLM.html#cb219-1" tabindex="-1"></a>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">3</span>]</span></code></pre></div>
+<pre><code>## [1] 12.36196</code></pre>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="ANCOVAasLM.html#cb221-1" tabindex="-1"></a>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">4</span>]</span></code></pre></div>
+<pre><code>## [1] 15.04638</code></pre>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="ANCOVAasLM.html#cb223-1" tabindex="-1"></a>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## [1] 16.60981</code></pre>
+<p>and the common slope</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="ANCOVAasLM.html#cb225-1" tabindex="-1"></a>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] 3.920888</code></pre>
+<p>Check how these values are similar (they are estimates) to those we simulated above, slope was 4, and the intercepts were respectively 3+5,3+8,3+10 and 3+12.</p>
+<p>We can plot the estimated regression lines</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="ANCOVAasLM.html#cb227-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">2.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb227-2"><a href="ANCOVAasLM.html#cb227-2" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">col=</span>cores,<span class="at">main=</span><span class="st">&quot;Estimated regression lines&quot;</span>)</span>
+<span id="cb227-3"><a href="ANCOVAasLM.html#cb227-3" tabindex="-1"></a><span class="fu">abline</span>(lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">1</span>],lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">2</span>],<span class="at">col=</span><span class="dv">1</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb227-4"><a href="ANCOVAasLM.html#cb227-4" tabindex="-1"></a><span class="fu">abline</span>(lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">3</span>],lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">2</span>],<span class="at">col=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb227-5"><a href="ANCOVAasLM.html#cb227-5" tabindex="-1"></a><span class="fu">abline</span>(lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">4</span>],lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">2</span>],<span class="at">col=</span><span class="dv">3</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb227-6"><a href="ANCOVAasLM.html#cb227-6" tabindex="-1"></a></span>
+<span id="cb227-7"><a href="ANCOVAasLM.html#cb227-7" tabindex="-1"></a><span class="fu">abline</span>(lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">5</span>],lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">2</span>],<span class="at">col=</span><span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb227-8"><a href="ANCOVAasLM.html#cb227-8" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="at">legend =</span> tr,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">inset=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a9.7-1.png" width="672" /></p>
+<p>But because we are in a simulation setting, we can contrast the estimated values against the reality (the real model).</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="ANCOVAasLM.html#cb228-1" tabindex="-1"></a><span class="co">#In a simulated scenario, we can see we are close to the real values</span></span>
+<span id="cb228-2"><a href="ANCOVAasLM.html#cb228-2" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">col=</span>cores)</span>
+<span id="cb228-3"><a href="ANCOVAasLM.html#cb228-3" tabindex="-1"></a></span>
+<span id="cb228-4"><a href="ANCOVAasLM.html#cb228-4" tabindex="-1"></a><span class="co">#plot the lines</span></span>
+<span id="cb228-5"><a href="ANCOVAasLM.html#cb228-5" tabindex="-1"></a><span class="fu">abline</span>(a<span class="sc">+</span><span class="dv">5</span>,b,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
+<span id="cb228-6"><a href="ANCOVAasLM.html#cb228-6" tabindex="-1"></a><span class="fu">abline</span>(a<span class="sc">+</span><span class="dv">8</span>,b,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb228-7"><a href="ANCOVAasLM.html#cb228-7" tabindex="-1"></a><span class="fu">abline</span>(a<span class="sc">+</span><span class="dv">10</span>,b,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
+<span id="cb228-8"><a href="ANCOVAasLM.html#cb228-8" tabindex="-1"></a><span class="fu">abline</span>(a<span class="sc">+</span><span class="dv">12</span>,b,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
+<span id="cb228-9"><a href="ANCOVAasLM.html#cb228-9" tabindex="-1"></a><span class="co">#group a</span></span>
+<span id="cb228-10"><a href="ANCOVAasLM.html#cb228-10" tabindex="-1"></a><span class="fu">abline</span>(lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">1</span>],lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">2</span>],<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb228-11"><a href="ANCOVAasLM.html#cb228-11" tabindex="-1"></a><span class="co">#group b</span></span>
+<span id="cb228-12"><a href="ANCOVAasLM.html#cb228-12" tabindex="-1"></a><span class="co"># intercept+slope*xs+intercept especifico do group b</span></span>
+<span id="cb228-13"><a href="ANCOVAasLM.html#cb228-13" tabindex="-1"></a><span class="co"># (intercept+intercept especifico do grupo b)+ slope</span></span>
+<span id="cb228-14"><a href="ANCOVAasLM.html#cb228-14" tabindex="-1"></a><span class="fu">abline</span>(lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">3</span>],lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">2</span>],<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb228-15"><a href="ANCOVAasLM.html#cb228-15" tabindex="-1"></a><span class="co">#group c</span></span>
+<span id="cb228-16"><a href="ANCOVAasLM.html#cb228-16" tabindex="-1"></a><span class="fu">abline</span>(lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">4</span>],lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">2</span>],<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb228-17"><a href="ANCOVAasLM.html#cb228-17" tabindex="-1"></a><span class="co">#group d</span></span>
+<span id="cb228-18"><a href="ANCOVAasLM.html#cb228-18" tabindex="-1"></a><span class="fu">abline</span>(lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">5</span>],lm.ancova1<span class="sc">$</span>coefficients[<span class="dv">2</span>],<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a9.8-1.png" width="672" /></p>
+<p>As we can see, they are quite close. The error is small compared with the effect sizes, and the sample size is large enough we can estimate the parameters reasonably well.</p>
+<p>But how exactly do we get the predicted intercepts?</p>
+<p>(note to TAM: this should come much before and not “lost” as a detail in the middle of this ANCOVA section)</p>
+<p>To understand where they come from we need to see what R does (or, for that matter, what any other software would need to do!) in the background to fit a model with a factor covariate. Remember what the data is</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="ANCOVAasLM.html#cb229-1" tabindex="-1"></a><span class="co">#the data</span></span>
+<span id="cb229-2"><a href="ANCOVAasLM.html#cb229-2" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data.frame</span>(<span class="at">ys=</span>ys,<span class="at">xs=</span>xs,<span class="at">type=</span>type),<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##          ys       xs type
+## 1  54.20623 11.13703    a
+## 2  70.99310 16.22299    a
+## 3  72.63496 16.09275    a
+## 4  70.92527 16.23379    a
+## 5  79.13262 18.60915    a
+## 6  74.28038 16.40311    a
+## 7  44.79477 10.09496    a
+## 8  57.97476 12.32551    a
+## 9  76.06322 16.66084    a
+## 10 68.36163 15.14251    a</code></pre>
+<p>and in particular that the factor covariate <code>type</code> has 4 levels</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="ANCOVAasLM.html#cb231-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(<span class="fu">as.factor</span>(type)))</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Before fitting a factor covariate, we need to replace it by dummy variables (<span class="math inline">\(k-1\)</span> dummy variables, where <span class="math inline">\(k\)</span> is the number of levels of the factor). Below we look at a set of data lines that allow us to see observations from the different <code>type</code>s considered</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="ANCOVAasLM.html#cb232-1" tabindex="-1"></a><span class="co">#explaining it</span></span>
+<span id="cb232-2"><a href="ANCOVAasLM.html#cb232-2" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">ys=</span>ys,<span class="at">xs=</span>xs,<span class="at">type=</span>type,<span class="at">typeb=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;b&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="at">typec=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;c&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="at">typed=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;d&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>))[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">49</span>,<span class="dv">50</span>,<span class="dv">51</span>,<span class="dv">99</span>,<span class="dv">100</span>,<span class="dv">101</span>,<span class="dv">149</span>,<span class="dv">150</span>,<span class="dv">151</span>,<span class="dv">200</span>),]</span></code></pre></div>
+<pre><code>##           ys       xs type typeb typec typed
+## 1   54.20623 11.13703    a     0     0     0
+## 49  59.78224 12.43929    a     0     0     0
+## 50  80.00860 17.65460    a     0     0     0
+## 51  52.44224 10.73780    b     1     0     0
+## 99  64.03652 13.09647    b     1     0     0
+## 100 72.37184 17.42120    b     1     0     0
+## 101 56.35918 10.35457    c     0     1     0
+## 149 93.28892 19.80787    c     0     1     0
+## 150 77.14469 15.76813    c     0     1     0
+## 151 74.30940 14.39042    d     0     0     1
+## 200 81.84481 16.39205    d     0     0     1</code></pre>
+<p>So R first builds what is known as the design matrix. Notation wise Y= parameters <span class="math inline">\(\times\)</span> design matrix, or Y = <span class="math inline">\(\beta\)</span>X (see e.g. <a href="https://en.wikipedia.org/wiki/Design_matrix" class="uri">https://en.wikipedia.org/wiki/Design_matrix</a>)</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="ANCOVAasLM.html#cb234-1" tabindex="-1"></a><span class="co">#the design matrix</span></span>
+<span id="cb234-2"><a href="ANCOVAasLM.html#cb234-2" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data.frame</span>(<span class="at">xs=</span>xs,<span class="at">typeb=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;b&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="at">typec=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;c&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="at">typed=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;d&quot;</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span></code></pre></div>
+<pre><code>##         xs typeb typec typed
+## 1 11.13703     0     0     0
+## 2 16.22299     0     0     0
+## 3 16.09275     0     0     0
+## 4 16.23379     0     0     0
+## 5 18.60915     0     0     0
+## 6 16.40311     0     0     0</code></pre>
+<p>and that is what is used for the fitting. Therefore, if we want to know the intercept of say <code>type</code> c, we need to sum the common intercept with the parameter associated with the dummy variable <code>typec</code>. The overall model formula becomes</p>
+<p><span class="math display">\[Y= \alpha + \gamma_b × typeb + \gamma_c × typec + \gamma_d × typed +  \beta × xs\]</span>
+This would be an ANCOVA, and here we would conclude that the mean of the response was different for the different levels of <span class="math inline">\(z\)</span> , once accounting for the fact that the <span class="math inline">\(xs\)</span> varied. this is evident since all the coefficients estimates and associated precision in the summary of the model above would lead to rejecting the null hypothesis that their value was 0, as can be seen by the corresponding very small p-values. Not a surprise, since we simulated them as different and the errors were small.</p>
+<p>Task: Increase the simulated error or lower the coefficients until you get type II errors. Change also sample sizes and effect sizes to see the impacts on the model performance!</p>
+</div>
+<div id="ANCOVAe" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> ANCOVA encore<a href="ANCOVAasLM.html#ANCOVAe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Here we present an ANCOVA encore, that is, we look again at the ANCOVA model presented in chapter <a href="ANCOVAasLM.html#ANCOVAasLM">10</a>, but under a different perspective. This material was created as a bonus for students, to understand why the ANCOVA is what it is. Additionally, this also provides a cautionary tale about the dangers of non-random sampling, or more generally, confounding due to unmeasured factors that might affect our response variable.</p>
+<div id="same-story-another-spin" class="section level3 hasAnchor" number="10.2.1">
+<h3><span class="header-section-number">10.2.1</span> Same story, another spin<a href="ANCOVAasLM.html#same-story-another-spin" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As we noted above, the ANCOVA would be an useful model in a classical setting to compare means of an outcome variable between two or more groups taking into account (or to correcting for) variability induced by other variables, often called covariates. In other words, ANCOVA allows to compare the adjusted means of two or more independent groups.</p>
+<p>Here we tell the same story from chapter <a href="ANCOVAasLM.html#ANCOVAasLM">10</a> under said perspective. We will do so with the help of two unlikely characters. This is the story of two friends: a biologist that is exploring the weights of lizards, and his friend, a former biologist that decided to take an MSc in Ecological Statistics!</p>
+<p>The biologist will be the hero of our story. He has a great name. George Ramsey Ernest Armitage Turner. Note that he has 5 names, unusual in the Anglosaxonic world, but not that uncommon is say Portugal. To make it easier, we’ll call him just by his initials. So… let’s call him Great :) Great’s friend, whom also happens to be a great friend, is simply called John. Boring, but hey, names are not something you can choose (are they?) and when you are just the sidekick on the story, you cannot complain!</p>
+<p>Great went on a great journey to a distant Archipelago where there are 4 islands, each potentially with a different species of lizard that Great has great interest in. The folks providing names to islands where not has imaginative as Great’s parents, so the islands are called just A, B, C and D. Imagine that Great did a great job and collected a great sample of lizards in each island. Great is also interested in the amount of insects available for the lizards in each of the islands. He thinks they might determine the weight of the lizards. Weight is related to individual condition, condition to fecundity and survival, and so on.</p>
+<p>Imagine Great wanted to compare the weights of lizard specimens he collected in each of the 4 islands. He happen to capture a number of animals in each island, and we will label them as A to D, as per the islands they came from.</p>
+<p>(note, since this is a story, this time I am not showing you how the data was created (=simulated), for narrative reasons!)</p>
+<p>Great created a plot of the weights, in grams (g), of the captured lizards. These look like this:</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="ANCOVAasLM.html#cb236-1" tabindex="-1"></a><span class="fu">hist</span>(ys,<span class="at">main=</span><span class="st">&quot;Lizards pooled across 4 islands&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Weight (g)&quot;</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a10.2-1.png" width="672" /></p>
+<p>The distribution is unimodal and about symmetrical. When lizards are separated by island, they look like this</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="ANCOVAasLM.html#cb237-1" tabindex="-1"></a><span class="fu">boxplot</span>(ys<span class="sc">~</span>type,<span class="at">ylab=</span><span class="st">&quot;Weight (g)&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Island&quot;</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a10.3-1.png" width="672" /></p>
+<p>There seem to be clear differences in the weights per species, as a standard linear model (e.g. an ANOVA, see <a href="#aula8"><strong>??</strong></a>) will show:</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="ANCOVAasLM.html#cb238-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys<span class="sc">~</span>type))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ type)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -25.7066  -5.3458  -0.5474   6.2330  22.9767 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   48.079      1.199  40.105  &lt; 2e-16 ***
+## typeB          9.305      1.695   5.489 1.24e-07 ***
+## typeC         20.254      1.695  11.947  &lt; 2e-16 ***
+## typeD         30.583      1.695  18.039  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 8.477 on 196 degrees of freedom
+## Multiple R-squared:  0.652,  Adjusted R-squared:  0.6467 
+## F-statistic: 122.4 on 3 and 196 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Great is happy, he had seen different amounts of insects in each island and so he is already thinking about a paper he will write about how the size of the lizards depends on food availability.</p>
+<p>Further, he just had a great thought. He calls these GGTs: Great’s great thoughts. He is thinking about proposing that these correspond to different species in each island, and he is already dreaming about the names of his new species: he is considering naming them “slimus”, “normalis”, “fatis”, “fattissimus”, for animals in islands A, B, C and D, respectively. The plot would then read just like this, which looks… you guessed it… great.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="ANCOVAasLM.html#cb240-1" tabindex="-1"></a>spnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;slimus&quot;</span>, <span class="st">&quot;normalis&quot;</span>, <span class="st">&quot;fatis&quot;</span>, <span class="st">&quot;fattissimus&quot;</span>)</span>
+<span id="cb240-2"><a href="ANCOVAasLM.html#cb240-2" tabindex="-1"></a><span class="fu">boxplot</span>(ys<span class="sc">~</span>type,<span class="at">ylab=</span><span class="st">&quot;Weight (g)&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Island&quot;</span>,</span>
+<span id="cb240-3"><a href="ANCOVAasLM.html#cb240-3" tabindex="-1"></a><span class="at">names=</span>spnames)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a10.5-1.png" width="672" /></p>
+<p>Unfortunately, he goes to the pub and tells John about his findings. John has been doing some modelling courses at University and is very interested about sampling. John asks Great a great set of questions: “How did you selected the lizards you captured? What about the lengths of the lizards? Were the animals from each island of about the same length? In other words, did you control the weights for length? Because longer animals will tend to be heavier, you know?”</p>
+<p>Great had not thought about that yet, indeed. He’s feeling dizzy, might be the beers he had, might be the questions he was just asked! He rushes home and looks at the data. And in fact, the different lizards from the different islands have very different lengths to begin with, as we can see in the plot below.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="ANCOVAasLM.html#cb241-1" tabindex="-1"></a><span class="fu">boxplot</span>(xs<span class="sc">~</span>type,<span class="at">ylab=</span><span class="st">&quot;Length&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Species&quot;</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a10.6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="ANCOVAasLM.html#cb242-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(xs<span class="sc">~</span>type))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = xs ~ type)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.30243 -0.60977 -0.06891  0.52388  1.41528 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  11.2298     0.1034  108.55   &lt;2e-16 ***
+## typeB         2.2413     0.1463   15.32   &lt;2e-16 ***
+## typeC         4.6822     0.1463   32.00   &lt;2e-16 ***
+## typeD         7.4886     0.1463   51.19   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.7315 on 196 degrees of freedom
+## Multiple R-squared:  0.9368, Adjusted R-squared:  0.9358 
+## F-statistic: 968.6 on 3 and 196 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>In his mind Great has a vague memory of a teacher in Numerical Ecology saying that one should explore the data before modelling. He would have avoided this embarrassment if he only had done that. Before leaving the pub he heard John saying he should look into ANCOVA’s. Something about “you need to test for the weights, accounting for differences in lengths!”.</p>
+<p>He goes into his books and finds that ANCOVA is just a linear model, where you model a response (weight, he realizes) as a function of a factor covariate (say, island) and a continuous covariate (say length). He implements the models and, much to his despair, realizes that, once he accounts for the length, the weights are not different per island. The damn lizards are exactly the same weight in the different islands once you account for their length.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="ANCOVAasLM.html#cb244-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys<span class="sc">~</span>xs<span class="sc">+</span>type))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys ~ xs + type)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -27.4613  -4.7367   0.5201   4.2655  23.8079 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   5.3307     8.8751   0.601    0.549    
+## xs            3.8067     0.7838   4.857 2.45e-06 ***
+## typeB         0.7735     2.3798   0.325    0.746    
+## typeC         2.4305     4.0058   0.607    0.545    
+## typeD         2.0764     6.0853   0.341    0.733    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 8.027 on 195 degrees of freedom
+## Multiple R-squared:  0.6896, Adjusted R-squared:  0.6832 
+## F-statistic: 108.3 on 4 and 195 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>He sees his paper further and further farther away. This is what we saw: the same line explains all the data, irrespective of the island it comes from. In other words, there is not a different relationship per species between weight and length! His great ecological theory goes to the bin!</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="ANCOVAasLM.html#cb246-1" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>xs,<span class="at">col=</span>cores)</span>
+<span id="cb246-2"><a href="ANCOVAasLM.html#cb246-2" tabindex="-1"></a><span class="fu">abline</span>(a,b,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a10.8-1.png" width="672" /></p>
+<p>Now, that is dismaying, but interesting. So Great returns to the pub and he asks John: “Would the opposite be possible? Say things looked just the same, yet they were different after accounting for a confounding factor?”.</p>
+<p>“Yes”, John replied: “I have heard about that situation, but have never seen it in a real data set before. Of course that is hard to happen, because <em>the stars need to align</em>. But it can happen in theory. Imagine the situation where the relationship between length and weight is different per group. However, out of a strange confounding circumstance, the observed weights happen to be similar, because we sampled (just the right, in this case, wrong!) different lengths in each species.”</p>
+<p>By now Great has a great headache, but he wants to see this with his own eyes, so he goes back home, sits in front of the computer, opens R and decides: “I will simulate this example”. That is what we will do here.</p>
+<p>Imagine the following example:</p>
+<p>The lizards relationship between weight and length is different per island. Say, akin to what we saw before. Just by (simulation) magic, we have access to all the lizards in the island.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="ANCOVAasLM.html#cb247-1" tabindex="-1"></a><span class="co">#all slopes the same, diferent intercepts - no interactions</span></span>
+<span id="cb247-2"><a href="ANCOVAasLM.html#cb247-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb247-3"><a href="ANCOVAasLM.html#cb247-3" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">2000</span></span>
+<span id="cb247-4"><a href="ANCOVAasLM.html#cb247-4" tabindex="-1"></a>nbygroup<span class="ot">&lt;-</span><span class="dv">500</span></span>
+<span id="cb247-5"><a href="ANCOVAasLM.html#cb247-5" tabindex="-1"></a>xs <span class="ot">&lt;-</span> <span class="fu">runif</span>(n,<span class="dv">10</span>,<span class="dv">20</span>)</span>
+<span id="cb247-6"><a href="ANCOVAasLM.html#cb247-6" tabindex="-1"></a>island <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>)</span>
+<span id="cb247-7"><a href="ANCOVAasLM.html#cb247-7" tabindex="-1"></a>type <span class="ot">&lt;-</span> <span class="fu">rep</span>(island,<span class="at">each=</span>nbygroup)</span>
+<span id="cb247-8"><a href="ANCOVAasLM.html#cb247-8" tabindex="-1"></a>cores <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="at">each=</span>nbygroup)</span>
+<span id="cb247-9"><a href="ANCOVAasLM.html#cb247-9" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="dv">12</span></span>
+<span id="cb247-10"><a href="ANCOVAasLM.html#cb247-10" tabindex="-1"></a>b<span class="ot">&lt;-</span><span class="dv">4</span></span>
+<span id="cb247-11"><a href="ANCOVAasLM.html#cb247-11" tabindex="-1"></a>error<span class="ot">&lt;-</span><span class="dv">4</span></span>
+<span id="cb247-12"><a href="ANCOVAasLM.html#cb247-12" tabindex="-1"></a>ys <span class="ot">&lt;-</span> a<span class="sc">+</span>b<span class="sc">*</span>xs<span class="sc">+</span></span>
+<span id="cb247-13"><a href="ANCOVAasLM.html#cb247-13" tabindex="-1"></a><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;A&quot;</span>,<span class="dv">5</span>,<span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;B&quot;</span>,<span class="dv">12</span>,<span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;C&quot;</span>,<span class="dv">18</span>,<span class="dv">22</span>)))<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">4</span>)</span>
+<span id="cb247-14"><a href="ANCOVAasLM.html#cb247-14" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">col=</span>cores)</span>
+<span id="cb247-15"><a href="ANCOVAasLM.html#cb247-15" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
+<span id="cb247-16"><a href="ANCOVAasLM.html#cb247-16" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb247-17"><a href="ANCOVAasLM.html#cb247-17" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">18</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
+<span id="cb247-18"><a href="ANCOVAasLM.html#cb247-18" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">22</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a10.9-1.png" width="672" /></p>
+<p>Now imagine, for the sake of argument, that in all islands we captured lizards with lengths spanning about 2 cm, but in island A we caught animals with about 18 cm, in B with about 16 cm, in c with about 15 cm and in D with about 14 cm, on average. We can simulate that non-random sampling process with respect to length.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="ANCOVAasLM.html#cb248-1" tabindex="-1"></a>sampled.a<span class="ot">&lt;-</span><span class="fu">which</span>(xs<span class="sc">&gt;</span><span class="dv">17</span> <span class="sc">&amp;</span> xs<span class="sc">&lt;</span><span class="dv">19</span> <span class="sc">&amp;</span> type<span class="sc">==</span><span class="st">&quot;A&quot;</span>)</span>
+<span id="cb248-2"><a href="ANCOVAasLM.html#cb248-2" tabindex="-1"></a>sampled.b<span class="ot">&lt;-</span><span class="fu">which</span>(xs<span class="sc">&gt;</span><span class="dv">15</span> <span class="sc">&amp;</span> xs<span class="sc">&lt;</span><span class="dv">17</span> <span class="sc">&amp;</span> type<span class="sc">==</span><span class="st">&quot;B&quot;</span>)</span>
+<span id="cb248-3"><a href="ANCOVAasLM.html#cb248-3" tabindex="-1"></a>sampled.c<span class="ot">&lt;-</span><span class="fu">which</span>(xs<span class="sc">&gt;</span><span class="dv">14</span> <span class="sc">&amp;</span> xs<span class="sc">&lt;</span><span class="dv">16</span> <span class="sc">&amp;</span> type<span class="sc">==</span><span class="st">&quot;C&quot;</span>)</span>
+<span id="cb248-4"><a href="ANCOVAasLM.html#cb248-4" tabindex="-1"></a>sampled.d<span class="ot">&lt;-</span><span class="fu">which</span>(xs<span class="sc">&gt;</span><span class="dv">13</span> <span class="sc">&amp;</span> xs<span class="sc">&lt;</span><span class="dv">15</span> <span class="sc">&amp;</span> type<span class="sc">==</span><span class="st">&quot;D&quot;</span>)</span>
+<span id="cb248-5"><a href="ANCOVAasLM.html#cb248-5" tabindex="-1"></a>sample.all<span class="ot">&lt;-</span><span class="fu">c</span>(sampled.a,sampled.b,sampled.c,sampled.d)</span>
+<span id="cb248-6"><a href="ANCOVAasLM.html#cb248-6" tabindex="-1"></a><span class="co">#select a biased sample!</span></span>
+<span id="cb248-7"><a href="ANCOVAasLM.html#cb248-7" tabindex="-1"></a>xs2<span class="ot">&lt;-</span>xs[sample.all]</span>
+<span id="cb248-8"><a href="ANCOVAasLM.html#cb248-8" tabindex="-1"></a>ys2<span class="ot">&lt;-</span>ys[sample.all]</span>
+<span id="cb248-9"><a href="ANCOVAasLM.html#cb248-9" tabindex="-1"></a>type2<span class="ot">&lt;-</span>type[sample.all]</span>
+<span id="cb248-10"><a href="ANCOVAasLM.html#cb248-10" tabindex="-1"></a>cores2<span class="ot">&lt;-</span>cores[sample.all]</span>
+<span id="cb248-11"><a href="ANCOVAasLM.html#cb248-11" tabindex="-1"></a><span class="fu">table</span>(type2)</span></code></pre></div>
+<pre><code>## type2
+##   A   B   C   D 
+## 119 116 108 100</code></pre>
+<p>Now, if this is our sample, what happens when we look at the weights alone? First, let’s look at the previous plot with the sampled data highlighted in colors and the non sampled data grayed out.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="ANCOVAasLM.html#cb250-1" tabindex="-1"></a><span class="fu">plot</span>(xs,ys,<span class="at">pch=</span><span class="st">&quot;.&quot;</span>,<span class="at">col=</span><span class="st">&quot;grey&quot;</span>)</span>
+<span id="cb250-2"><a href="ANCOVAasLM.html#cb250-2" tabindex="-1"></a><span class="fu">points</span>(xs2,ys2,<span class="at">col=</span>cores2,<span class="at">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a10.11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="ANCOVAasLM.html#cb251-1" tabindex="-1"></a><span class="co">#abline(12+5,4,lwd=3,col=1)</span></span>
+<span id="cb251-2"><a href="ANCOVAasLM.html#cb251-2" tabindex="-1"></a><span class="co">#abline(12+12,4,lwd=3,col=2)</span></span>
+<span id="cb251-3"><a href="ANCOVAasLM.html#cb251-3" tabindex="-1"></a><span class="co">#abline(12+18,4,lwd=3,col=3)</span></span>
+<span id="cb251-4"><a href="ANCOVAasLM.html#cb251-4" tabindex="-1"></a><span class="co">#abline(12+22,4,lwd=3,col=4)</span></span></code></pre></div>
+<p>That was really not a random sample. And non-random samples always ask for trouble. Lets see what happens here. If we look at weights per island, there seems to be no effect:</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="ANCOVAasLM.html#cb252-1" tabindex="-1"></a><span class="fu">boxplot</span>(ys2<span class="sc">~</span>type2)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a10.12-1.png" width="672" /></p>
+<p>If we test formally for it with an ANOVA, it seems like there is absolutely no effect on weight from the different islands</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="ANCOVAasLM.html#cb253-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys2<span class="sc">~</span>type2))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys2 ~ type2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -13.918  -3.137   0.035   3.142  13.648 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  88.9384     0.4194 212.040   &lt;2e-16 ***
+## type2B       -0.4589     0.5970  -0.769    0.443    
+## type2C        0.4200     0.6081   0.691    0.490    
+## type2D        0.7764     0.6207   1.251    0.212    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.576 on 439 degrees of freedom
+## Multiple R-squared:  0.009992,   Adjusted R-squared:  0.003227 
+## F-statistic: 1.477 on 3 and 439 DF,  p-value: 0.2201</code></pre>
+<p>This is where we need to be smart. If we conduct the correct analysis, one that includes and adjusts for the effect of length, the differences in the length to weight relationship are clear. The intercepts of the different lines are all different from each other.</p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="ANCOVAasLM.html#cb255-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys2<span class="sc">~</span>type2<span class="sc">+</span>xs2))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ys2 ~ type2 + xs2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -12.1010  -2.8430  -0.0603   2.7281  10.9553 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  18.2503     6.0704   3.006   0.0028 ** 
+## type2B        6.9837     0.8244   8.472  3.7e-16 ***
+## type2C       12.1627     1.1384  10.684  &lt; 2e-16 ***
+## type2D       16.2717     1.4349  11.340  &lt; 2e-16 ***
+## xs2           3.9374     0.3375  11.666  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.001 on 438 degrees of freedom
+## Multiple R-squared:  0.2447, Adjusted R-squared:  0.2378 
+## F-statistic: 35.47 on 4 and 438 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Note this corresponds to first comparing weights while not accounting for differences (in lengths), and then comparing weights while accounting for those differences. In other words, we are interested in different intercepts in the left plot below, not in the boxplots of the right plot, that ignore the effect of length.</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="ANCOVAasLM.html#cb257-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb257-2"><a href="ANCOVAasLM.html#cb257-2" tabindex="-1"></a><span class="fu">plot</span>(xs2,ys2,<span class="at">col=</span>cores2)</span>
+<span id="cb257-3"><a href="ANCOVAasLM.html#cb257-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">5</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
+<span id="cb257-4"><a href="ANCOVAasLM.html#cb257-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">12</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb257-5"><a href="ANCOVAasLM.html#cb257-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">18</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
+<span id="cb257-6"><a href="ANCOVAasLM.html#cb257-6" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">12</span><span class="sc">+</span><span class="dv">22</span>,<span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
+<span id="cb257-7"><a href="ANCOVAasLM.html#cb257-7" tabindex="-1"></a><span class="fu">boxplot</span>(ys2<span class="sc">~</span>type2)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/a10.15-1.png" width="672" /></p>
+<p>Actually, what the ANCOVA model does is equivalent to looking at the data by rotating the left plot above and see it in the “axis” we care about. That corresponds to the axis such that the slope of the regression lines are aligned with the x-axis of the Cartesian referential.</p>
+<p>I want to do this by implementing angular rotation but I am running out of time. That will involve implementing these transformations:</p>
+<p><a href="https://en.wikipedia.org/wiki/Rotation_of_axes" class="uri">https://en.wikipedia.org/wiki/Rotation_of_axes</a></p>
+<p>The plot will look just like this!</p>
+<p><img src="FigPlotRotatedAula10.JPG" /></p>
+<p>Naturally these were forced examples, carefully chosen to illustrate a point. But this was really interesting because it:</p>
+<ul>
+<li><p>illustrates how an ANCOVA is when we test for differences in a response (weight) as a function of a factor (island) while accounting for differences in a quantitative variable (length)</p></li>
+<li><p>shows the dangers of testing univariate hypothesis when several (in reality, usually many more than those we can record!) factors have an influence in the response.</p></li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ttestANOVAasLMs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ANCOVAdifslopes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ECOMODbook.pdf", "ECOMODbook.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

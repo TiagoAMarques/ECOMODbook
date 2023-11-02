@@ -1,0 +1,526 @@
+# t-tests and ANOVAs are just linear models {#ttestANOVAasLMs}
+
+The objective of this chapter is to explore different regression models and to see how they relate to statistical procedures one might not at first associate with a regression, when in fact, they are just special cases of a standard linear models, i.e. special cases of regression models.
+
+## A one sample t-test is the simplest possible linear model
+
+When you want to test whether a sample might have been taken from a population with a mean equal to a given value, say $\mu_0$, then one can use a simple t-test. That t-test is in fact a linear model in disguise. 
+
+```{r}
+set.seed(123)
+n1<-100
+mean1<- 1.5
+sd1<-0.5
+ys<-rnorm(n1,mean=mean1,sd=sd1)
+mu1<-0
+```
+
+Here is an example, where we generate a sample of size `r n1` Gaussian values, with mean `r mu1` and standard deviation `r sd1`. Then we test if the mean is equal to `r mu1`, which given the way the data was simulated, is therefore false.
+
+```{r}
+t.test(ys,mu=mu1)
+```
+
+Then, we can implement a linear model without covariates and check the exact same p-values comes associated with the intercept term
+
+```{r}
+summary(lm(ys~1))
+```
+
+this is not a mathematical proof, of course, but you can convince yourself that this is the same by induction. Just change the `set.seed` value above, as well as the values for `n`, the mean and the standard deviation of the Gaussian and the value of the mean unde H0 and convince yourself that these are one and the same. Gaining such insights from simulation is a great way to fully understannd in practice what is going on behind the simplest of regression models: `y~1`
+
+## The t-test
+
+While we did not do the t-test in class,  this is useful because it allows you to see how a simple t-test is just a linear model too, and acts as a building block for the next examples. The two sample t-test allows us to test the null hypothesis that two samples have the same mean.
+
+Create some data
+
+```{r a8.1}
+#Making up a t-test
+#making sure everyone gets the same results
+set.seed(980)
+```
+
+Then we define the sample size and the number of treatments
+
+```{r a8.2}
+#define sample size
+n=100
+#define treatments
+tr=c("a","b")
+#how many treatments - 2 for a t test
+ntr=length(tr)
+#balanced design
+n.by.tr=n/ntr
+```
+
+Now, we can simulate some data. First, the treatments
+
+```{r a8.3}
+type=as.factor(rep(tr,each=n.by.tr))
+cores=rep(1:ntr,each=n.by.tr)
+```
+
+Then we define the means by treatment - note that they are indeed different, so the null hypothesis in the t-test, that the mean of a is equal to the mean of b, is known to be false in this case.
+
+```{r a8.4}
+#define 4 means
+ms=c(3,4)
+```
+
+Then, the key part, the response variable, with a different mean by treatment. Note the use of the `ifelse` function, which evaluates its first argument and then assigns the value of its second argument if the first is true or the value of the second if its first argument is false. An example
+
+```{r a8.5}
+ifelse(3>4,55,77)
+ifelse(3<4,55,77)
+```
+
+So now, generate the response data
+
+```{r a8.6}
+ys=ifelse(type=="a",ms[1],ms[2])+rnorm(n,0,1.5)
+```
+
+Look at the data
+
+```{r a8.7}
+plot(ys~type)
+```
+
+Now, we can run the usual t-test, note below we use a formulation where the function `t.test` uses two arguments, each of the samples to compare the means, and in the second, it uses the model formulation, more akin to the henceforth use of the linear model
+
+```{r a8.8}
+t.test(x=ys[type=="a"],y=ys[type=="a"])
+t.test(ys~type)
+```
+
+So now we can do it the linear regression way
+
+```{r a8.9}
+lm0=lm(ys~type)
+summary(lm0)
+```
+
+and as you can see, we get the same result for the test statistic. It is the same thing! And we can naturally get the estimated means per group. The mean for a is just the intercept of the model. To get the mean of the group b we add the mean of group b to the intercept, as
+
+```{r a8.10}
+#mean of ys under treatment a
+summary(lm0)$coefficients[1]
+#mean of ys under treatment b
+summary(lm0)$coefficients[1]+lm0$coefficients[2]
+```
+
+This is required because in a linear model, all the other parameters associated with levels of a factor will be compared to a reference value, that of the intercept, which happens to be the mean under treatment a. Below you will see more examples of this. 
+
+Note we were able to detect the null was false, but this was because we had a decent sample size compared to the variance of the measurements and the magnitude of the true effect (the difference of the means). If we keep the sample size constant but we increase the noise or decrease the magnitude of the difference, we might not get the same result, and make a type II error!
+
+```{r a8.11}
+#define 2 means
+ms=c(3,4)
+#increase the variance of the process
+ys=ifelse(type=="a",ms[1],ms[2])+rnorm(n,0,5)
+
+```
+
+Look at the data, we can see much more variation
+
+```{r a8.12}
+plot(ys~type)
+```
+
+Now, we can run the usual t-test
+
+```{r a8.13}
+t.test(ys~type)
+```
+
+and now we can do it the linear regression way
+
+```{r a8.14}
+lm0=lm(ys~type)
+summary(lm0)
+```
+
+and as you can see, we get the same result for the test statistic, but now with a non significant test. 
+The same would have happened if we decreased the true difference, while keeping the original magnitude of the error
+
+```{r a8.15}
+#define 2 means
+ms=c(3,3.1)
+#increase the variance of the process
+ys=ifelse(type=="a",ms[1],ms[2])+rnorm(n,0,1.5)
+
+```
+
+Look at the data, we can see again lower variation, but the difference across treatments is very small (so, hard to detect!)
+
+```{r a8.16}
+plot(ys~type)
+```
+
+Now, we can run the usual t-test
+
+```{r a8.17}
+t.test(ys~type)
+```
+
+and now we can do it the linear regression way
+
+```{r a8.18}
+lm0=lm(ys~type)
+summary(lm0)
+```
+
+A word of caution regarding the equivalence of the linear model and the `t.test`. They are really only strictly equivalent if the assumption of equal variances across groups is made. This means in the case of a `t.test`, that we would use the argument `var.equal=TRUE`. The default in R is `var.equal=FALSe`, in other words, the t.test performs a Welsh test which does not assume the same variance for both samples. This is a slight detail but important for the sake of the rigour associated with the equivalence. The impact of the diference is typically small especially if sample sizes are large. Here is an example 
+
+```{r a8.17.b}
+t.test(ys~type)
+t.test(ys~type,var.equal=TRUE)
+```
+
+## ANOVA
+
+We move on with perhaps the most famous example of a statistical test/procedure, the ANOVA. An ANOVA is nothing but a linear model, where we have a continuous response variable, which we want to explain as a function of a factor (with several levels, or treatments).
+
+There is a slight difference in the way we can code the dummy variables that might be worth to explore (this relates to contrasts, but perhaps beyond what I want to let the students know? cf. https://www.theanalysisfactor.com/why-anova-and-linear-regression-are-the-same-analysis/).
+
+Here we simulate a data set, beginning by making sure everyone gets the same results by using `set.seed`
+
+```{r a8.19}
+#Making up an ANOVA
+#An ANOVA
+#making sure everyone gets the same results
+set.seed(12345)
+```
+
+Then we define the sample size and the number of treatments
+
+```{r a8.20}
+#define sample size
+n=2000
+#define treatments
+tr=c("a","b","c","d")
+#how many treatments
+ntr=length(tr)
+#balanced design
+n.by.tr=n/ntr
+```
+
+now, we can simulate some data. First, the treatments, but we also generate a independent variable that is not really used for now (`xs`).
+
+```{r a8.21}
+#generate data
+xs=runif(n,10,20)
+type=as.factor(rep(tr,each=n.by.tr))
+#if I wanted to recode the levels such that c was the baseline
+#type=factor(type,levels = c("c","a","b","d"))
+#get colors for plotting
+cores=rep(1:ntr,each=n.by.tr)
+```
+
+Then we define the means by treatment - note that they are different, so the null hypothesis in an ANOVA, that all the means are the same, is false.
+
+```{r a8.22}
+#define 4 means
+ms=c(3,5,6,2)
+```
+
+Then, the key part, the response variable, with a different mean by treatment. Note the use of the `ifelse` function, which evaluates its first argument and then assigns the value of its second argument if the first is true or the value of the second if its first argument is false. An example
+
+```{r a8.23}
+ifelse(3>4,55,77)
+ifelse(3<4,55,77)
+```
+
+Note these can be used nested, leading to possible multiple outcomes, and I use that below to define 4 different means depending on the treatment of the observation
+
+```{r a8.24}
+ifelse(3<4,55,ifelse(3>2,55,68))
+ifelse(3>4,55,ifelse(3>2,666,68))
+ifelse(3>4,55,ifelse(3<2,666,68))
+```
+
+So now, generate the data
+
+```{r a8.25}
+#ys, not a function of the xs!!!
+ys=ifelse(type=="a",ms[1],ifelse(type=="b",ms[2],ifelse(type=="c",ms[3],ms[4])))+rnorm(n,0,3)
+```
+
+We can actually look at the simulated data
+
+```{r a8.26}
+par(mfrow=c(1,1),mar=c(4,4,0.5,0.5))
+plot(ys~type,col=1:4)
+#abline(h=ms,col=1:4)
+```
+
+finally, we can implement the linear model and look at its summary
+
+```{r a8.27}
+lm.anova=lm(ys~type)
+summary(lm.anova)
+```
+
+note that, again, we can manipulate any sub-components of the created objects
+
+```{r a8.28}
+
+#see the parameters
+lm.anova$coefficients
+#see the third parameter
+lm.anova$coefficients[3]
+```
+
+Not surprisingly, because the means were different and we had a large sample size, everything is highly significant. Note that the ANOVA test is actually presented in the regression output, and that is the corresponding F-test
+
+```{r a8.29}
+summary(lm.anova)$fstatistic
+```
+
+and we can use the F distribution to calculate the corresponding P-value (note that is already in the output above)
+
+```{r a8.30}
+ftest=summary(lm.anova)$fstatistic[1]
+df1=summary(lm.anova)$fstatistic[2]
+df2=summary(lm.anova)$fstatistic[3]
+pt(ftest,df1,df2)
+```
+
+OK, this is actually the exact value, while above the value was reported as just a small value (< 2.2 $\times$ 10$^{-16}$), but it is the same value, believe me!
+
+Finally, to show (by example) this is just what the ANOVA does, we have the NAOVA itself
+
+```{r a8.31}
+summary(aov(lm.anova))
+```
+
+where everything is the same (test statistic, degrees of freedom and p-values).
+
+Conclusion: an ANOVA is just a special case of a linear model, one where we have a continuous response variable and a factor explanatory covariate. In fact, a two way ANOVA is just the extension where we have a continuous response variable and 2 factor explanatory covariates, and, you guessed it, a three way ANOVA means we have a continuous response variable and a 3 factor explanatory covariates.
+
+Just to finish up this example, we could now plot the true means per treatment, the estimated means per treatment
+
+```{r a8.32}
+par(mfrow=c(1,1),mar=c(4,4,0.5,0.5))
+plot(as.numeric(type),ys,col=as.numeric(type),xlab="Treatment",xaxt="n")
+axis(1,at=1:4,letters[1:4])
+#plot the estimated line for type a
+abline(h=lm.anova$coefficients[1],lwd=3,col=1)
+#plot the mean line for type a
+abline(h=mean(ys[type=="a"]),lwd=1,col=1,lty=2)
+#plot the real mean for type a
+abline(h=ms[1],lwd=2,col=1,lty=3)
+#and now for the other types
+abline(h=lm.anova$coefficients[1]+lm.anova$coefficients[2],lwd=3,col=2)
+abline(h=mean(ys[type=="b"]),lwd=1,col=2,lty=2)
+#plot the real mean for type b
+abline(h=ms[2],lwd=2,col=2,lty=3)
+abline(h=lm.anova$coefficients[1]+lm.anova$coefficients[3],lwd=3,col=3)
+abline(h=mean(ys[type=="c"]),lwd=1,col=3,lty=2)
+#plot the real mean for type c
+abline(h=ms[3],lwd=2,col=3,lty=3)
+abline(h=lm.anova$coefficients[1]+lm.anova$coefficients[4],lwd=3,col=4)
+abline(h=mean(ys[type=="d"]),lwd=1,col=4,lty=2)
+#plot the real mean for type a
+abline(h=ms[4],lwd=2,col=4,lty=3)
+legend("topright",c("Estimated","Mean of data","True"),lwd=c(4,1,2),lty=c(1,3,2),inset=0.03)
+
+```
+
+It's not easy to see because these overlap (large sample size, high precision) but the estimated means are really close to the real means. It's a bit easier to see if we separate in 4 plots and zoom in on the mean of each treatment, but still the blue lines are all on top of each other, since the mean value was estimated real close to truth (truth=2, estimated = `r mean(ys[type=="d"])`).
+
+```{r a8.33}
+#see this in 4 plots, less blur
+par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))
+plot(as.numeric(type),ys,col=as.numeric(type),xlab="Treatment",xaxt="n",ylim=mean(ys[type=="a"])+c(-0.5,0.5))
+axis(1,at=1:4,letters[1:4])
+#plot the estimated line for type a
+abline(h=lm.anova$coefficients[1],lwd=3,col=1)
+#plot the mean line for type a
+abline(h=mean(ys[type=="a"]),lwd=1,col=1,lty=2)
+#plot the real mean for type a
+abline(h=ms[1],lwd=2,col=1,lty=3)
+#and now for the other types
+plot(as.numeric(type),ys,col=as.numeric(type),xlab="Treatment",xaxt="n",ylim=mean(ys[type=="b"])+c(-0.5,0.5))
+axis(1,at=1:4,letters[1:4])
+abline(h=lm.anova$coefficients[1]+lm.anova$coefficients[2],lwd=3,col=2)
+abline(h=mean(ys[type=="b"]),lwd=1,col=2,lty=2)
+#plot the real mean for type b
+abline(h=ms[2],lwd=2,col=2,lty=3)
+plot(as.numeric(type),ys,col=as.numeric(type),xlab="Treatment",xaxt="n",ylim=mean(ys[type=="c"])+c(-0.5,0.5))
+axis(1,at=1:4,letters[1:4])
+abline(h=lm.anova$coefficients[1]+lm.anova$coefficients[3],lwd=3,col=3)
+abline(h=mean(ys[type=="c"]),lwd=1,col=3,lty=2)
+#plot the real mean for type c
+abline(h=ms[3],lwd=2,col=3,lty=3)
+plot(as.numeric(type),ys,col=as.numeric(type),xlab="Treatment",xaxt="n",ylim=mean(ys[type=="d"])+c(-0.5,0.5))
+axis(1,at=1:4,letters[1:4])
+abline(h=lm.anova$coefficients[1]+lm.anova$coefficients[4],lwd=3,col=4)
+abline(h=mean(ys[type=="d"]),lwd=1,col=4,lty=2)
+#plot the real mean for type a
+abline(h=ms[4],lwd=2,col=4,lty=3)
+#legend("bottomright",c("Estimated","Mean of data","True"),lwd=c(4,1,2),lty=c(1,3,2),inset=0.05)
+```
+
+Now we can check how we can obtain the estimated means from the actual parameters of the regression model (yes, that is what the regression does, it calculates the expected mean of the response, conditional on the treatment).
+
+This is the estimated mean per treatment, using function `tapply` (very useful function to get any statistics over a variable, inside groups defined by a second variable, here the treatment)
+
+```{r a8.34}
+tapply(X=ys,INDEX=type,FUN=mean)
+```
+
+and checking these are obtained from the regression coefficients. 
+An important note. When you fit models with factors (like here), the intercept term will correspond to the mean of the reference level of the factor(s). Hence, to get the other means, you always have to sum the parameter of the corresponding level to the intercept. So we do it below
+
+```{r a8.35}
+#check ANOVA is just computing the mean in each group
+lm.anova$coefficients[1]
+lm.anova$coefficients[1]+lm.anova$coefficients[2]
+lm.anova$coefficients[1]+lm.anova$coefficients[3]
+lm.anova$coefficients[1]+lm.anova$coefficients[4]
+```
+
+and we can see these are exactly the same values.
+
+## A two way ANOVA, and beyhond (ex Task: do it yourself!)
+
+The dataset `penguins` in the package `palmerpenguins` is very useful to illustrate ANOVA's. It includes body size measurements (bill length and depth, flipper length and body mass) by sex for adult foraging penguins near Palmer Station, Antarctica, for 3 different islands. 
+
+I found out about this data in this twitter post by Trevor Branch (\@\ TrevorABranch, https://twitter.com/TrevorABranch/status/1333844966632607745). This dataset was made as an R package by Allison Horst (yes, the same person that makes the amazing R abd RStudio related artwork that we used before, https://www.allisonhorst.com/). Here we brighten up our book with Allison's artwork again, for a reminder that the residuals of the ANOVA should be approximately Gaussian, with constant variance! If they are not Gaussian, you might more elaborate models, like a GLM, say.
+
+![](extfiles/not_normal.png)
+Looking at the dataset in question, explore the two way ANOVA as a linear model, and then, we move way past beyhond that into a bit of how to interpret a multiple regression output.
+
+```{r a8.36}
+library(palmerpenguins)
+data(penguins)
+```
+
+Just to make it easier, we remove some records of penguins for which there is no sex. Always think about what might be the impact of removing data, but here we assume these are missing at random and hence would not bias inferences.
+
+```{r a8.37}
+penguins<-penguins[!is.na(penguins$sex),]
+```
+
+Lets check how many animals we have in each treatment (a treatment is jargon for the level of a factor covariate, or for a combination of levels in a factorial experiment).
+
+```{r a8.38}
+barplot(with(penguins,table(species,sex)))
+```
+
+
+Perhaps surprisingly given this is observational data, the number of animals per island is balanced across sexes. On the other hane, more animals are coming from Adelie than from Gentoo, and Chinstrap presents overall a lower number of animals.
+
+Imagine you are researcher wanting to explain how the flipper length depends on the animal's sex and species. Given that we have a response variable as a function of two factor covariates, an interaction plot comes in handy. This visualization, available through function `interaction.plot`, allows us to see how the data varies as a function of the level of multiple factors. The interaction plot below illustrates the data of the flipper length (in millimeters) as a function of sex and species. 
+
+```{r a8.39}
+with(penguins,interaction.plot(x.factor=species,trace.factor=sex,response=flipper_length_mm,ylab="Flipper length (mm)"))
+```
+
+Looking at this plot tells us little about whether the two variables are significant or not, because we do not really have a notion of variability associated with it. But it does seem like size might be different by sex and by species, with males being apparently larger than females, and animals from Gentoo being considerably larger than those from Adelie and Chinstrap. There do not seem to be strong interactions, but whether possible interactions are present or not remains to be seen. If the lines are parallel then there are by definition no interactions, i.e., the effect of a variable does not depend on the effect of another, and vice versa. The problem is that looking at the plot alone tells us nothing about how much those lines deviate from being parallel or not.
+
+Note that strictly the interaction plot needs to be interpreted with care because the lines are not in any way supposed to be taken as if the relationship is continuous. The slope of the lines dows give us however an idea about the differences between the different treatments.
+
+We can actually look at the observation in each of the treatments (i.e. combinations of sex and island)
+
+```{r a8.40}
+par(mar=c(10,4,0,0))
+with(penguins,boxplot(flipper_length_mm ~ species + sex,las=2,xlab="",col=c(1,2,3,1,2,3)))
+```
+
+This plot does allow us to see the variability of the data, and it is likely that several terms will be considered statistically significant. We can implement the linear model that corresponds to the two way ANOVA to formally test that
+
+```{r a8.41}
+lm2wayANOVA<-lm(flipper_length_mm~species+sex,data=penguins)
+summary(lm2wayANOVA)
+```
+
+we can actually implement this same model as a standard ANOVA
+
+```{r a8.42}
+summary(aov(lm2wayANOVA))
+```
+
+and even conduct post hoc comparisons
+
+```{r a8.43}
+TukeyHSD(aov(lm2wayANOVA))
+```
+
+Everything is statistically significant from everything else, but what does it all mean? In fact, the two way ANOVA is just a really fancy way of estimating the mean in each one of the 6 treatments, while assuming a constant variance (since we are using a simple linear model). The coeficiet estimates are these
+
+```{r a8.44}
+coefs<-coef(lm2wayANOVA)
+coefs
+```
+
+Therefore, the estimate of the mean of the flipper for a female penguin from Adelie island is (just the intercept!)
+
+```{r a8.45}
+as.numeric(coefs[1])
+```
+
+for a male in Adelie you need to add the male coefficient
+
+```{r a8.46}
+as.numeric(coefs[1]+coefs[4])
+```
+
+for a female in Chinstrap and in Gentoo their respective island parameters
+
+```{r a8.47}
+as.numeric(coefs[1]+coefs[2])
+as.numeric(coefs[1]+coefs[3])
+```
+
+and for the males in these two islands just need to add the male effect, respectively
+
+```{r a8.48}
+as.numeric(coefs[1]+coefs[2]+coefs[4])
+as.numeric(coefs[1]+coefs[3]+coefs[4])
+```
+
+We can contrast these with the empirical mean in each group. These are given by
+
+```{r a8.49}
+with(penguins,tapply(X=flipper_length_mm,INDEX=paste0(species,sex),mean))
+```
+
+The minor differences in the estimated values for the means arise given that the number of animals per group are not perfectly balanced. Hence these are simply slightly different estimators of the same quantities, the treatment means. If the sample size per group were exactly the same these would coincide exactly (challenge: show that with a simulation!).
+
+We could now formally assess whether the interaction term was required, in other words, if the influence of sex and species on the length of the flipper is independent or the effect of one variable depends on the level of the other. This is implemented as
+
+```{r a8.50}
+lm2wayANOVA.I<-lm(flipper_length_mm~species+sex+species:sex,data=penguins)
+summary(lm2wayANOVA.I)
+```
+
+Note that in an R model formula, `y~x*z` is a shortcut for `y~x+z+x:z`, i.e. a model with both main effects, `x` and `z`, and the interaction term between `x` and `z`.
+
+Considering the usual significance levels, the interaction term is significant
+
+```{r a8.51}
+summary(aov(lm2wayANOVA.I))
+```
+
+The interpretation is as follows, and was naturally apparent in the interaction plot above. The length of the flipper depends on sex (males are larger) and species (Gentoo larger than Chinstrap larger than Adelie), but the interaction means that the difference between males and females in Adelie is actually smaller than that in Chinstrap and Gentoo.
+
+And now we've done all this, let's jump a few steps forward and think about all this in an integrated way. This dataset contains also the weight of the penguins (`body_mass_g`). Let's see how all the other variables explain those weights
+
+```{r a8.52}
+summary(lm(body_mass_g~.,data=penguins))
+```
+
+Interestingly, but not surprisingly, everything seems to be relevant to explain the weights of the animals, except, the islands they come from. It makes sense, given we know the species, sex and some measurements on beak and flippers, we can predict the weight really well. But now, the cautionary tale... what if we didn't record all this, and we only had measurements from  different islands
+
+```{r a8.53}
+summary(lm(body_mass_g~island,data=penguins))
+```
+
+WoW!?! So actually, island is very important to explain the weights... or is it? It is actually probably not. The truth is probably already stated above. Other things explain the weights, namely sex and species, as we saw above. 
+
+But since different islands might have different compositions in terms of sex ratio and species, and hence, if we do not have those true drivers of weight variation, and only know the island form where each penguin came from, we might believe the differences are across islands. In some sence they are, but really mediated by the other covariates.
+
+This is a cautionary tale about interpreting data from ecological studies, typically observational studies, where the balance across unmeasured variables might induce patterns that do not exist.

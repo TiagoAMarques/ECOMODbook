@@ -120,7 +120,7 @@
 
 \title{Notes for Ecological Modelling}
 \author{Tiago A. Marques}
-\date{2023-10-25}
+\date{2023-11-01}
 
 \begin{document}
 \maketitle
@@ -246,11 +246,11 @@ Go out and explore, little grasshopper. You will conquer many great things if yo
 \hypertarget{prelim}{%
 \chapter{Preliminaries}\label{prelim}}
 
-This book is written as a wya to help biologists become more quantitative, and who know one day ending up working primarily as ecological statitsicians. In this chapter I provide a number of resources that could be used as a reading list to become an ecological statitsician on your own.
+This book is written as a way to help biologists become more quantitative, and who knows one day ending up working primarily as ecological statisticians. In this chapter I provide a number of resources that could be used as a reading list to become an ecological statistician on your own.
 
-These are fundamental references that I think any candidate to become an ecological statistician, even before being an ecological modeller, should know about. These are useful either for someone that develops methods to be used by practicioners, as well as for practitioners wanting to use and understand the methods. Many of these are actually useful for both sets of people.
+These are fundamental references that I think any candidate to become an ecological statistician, even before being an ecological modeler, should know about. These are useful either for someone that develops methods to be used by practitioners, as well as for practitioners wanting to use and understand the methods. Many of these are actually useful for both sets of people.
 
-One might prefer to read directly from the source, and in that case, the list of papers provided in section \citet{lbtb} is a good way to do so. Warning, it will take a while to digest and red all these. In case you prefer comprehensive treatments of broad range of topics in a single source, hopefully with some ecological flavor to them, the subsequent section \citet{ftpt} with relevant books might be relevant.
+One might prefer to read directly from the source, and in that case, the list of papers provided in section \ref{lbtb} is a good way to do so. Warning, it will take a while to digest and read all these. In case you prefer comprehensive treatments of broad range of topics in a single source, hopefully with some ecological flavor to them, the subsequent section \ref{ftpt} with relevant books might useful.
 
 \hypertarget{lbtb}{%
 \section{Learning by the book}\label{lbtb}}
@@ -270,7 +270,7 @@ One might prefer to read directly from the source, and in that case, the list of
 \item
   \citet{Hurlbert1984} introduces the concept of pseudoreplication in the context of ecological field experiments. This is an ecology classic and a fundamental paper because I suspect many of th emisconceptions around the use of statistics in ecology stem from the fact that researchers try to apply methods that were developed in a context of designed experiments but in fact most ecological studies are observational in nature. Therefore, to soem degree, there is always a degree of pseudo-replication in field observations. Understanding when we can ignore these and treat observations as independent, versus when must account for that correlation in the analysis, is a fundamental ability. Unfortunately, I would say this is much easier said than done, and the ability to do so does not come in books. It is fundamentally obtained through experience.
 \item
-  \citet{AND2001} discuss the need to avoid index values, or in other words, that we must account for detectability when interpreting coundsof detected animals, and the fundamental avoiding convenience sampling when sampling wildlife. What you learn from sampling animals from a road in not something about the animals, but about what the animals do near roads. Understanding when the two might be, and even more important, when they might not be, the same thing, is fundamental.
+  \citet{AND2001} discuss what they refer as two fundamental aspects to consider when dealing with ecological studies. First, the need to avoid index values, or in other words, that we must account for detectability when interpreting counts of detected animals. Second, that we should avoid at all costs convenience sampling when sampling wildlife. What you learn from sampling animals from a road in not something about the animals, but about what the animals do near roads. Understanding when the two might be, and even more important, when they might not be, the same thing, is fundamental.
 \item
   \citet{Kass2016} present 10 principles for effective statistical analysis, and while they are all important, I think that the plea for being careful about the data (after all, garbage in. garbage out) and also for aiming to have reproducible analysis are key, often overlooked, messages for all researchers, and that includes those hoping to strive in ecological modelling.
 \item
@@ -311,7 +311,17 @@ More on regression and extending the linear model (just an example): {[}\citet{F
 
 Where does the word come from? Gauss and regression towards the mean.
 
-A regression is a model that allows us to predict a response variable \(y\) (a.k.a the dependent variable, because it depends on the other variables) as a function of the values ofindependent variables (a.k.a. covariates, predictors or explanatory).
+A regression is a model that allows us to predict a response variable, often referred to as \(y\) (a.k.a the dependent variable, because it depends on the other variables) as a function of the values of one or several independent variables (a.k.a. covariates, predictors or explanatory).
+
+While in general we are interested in modelling the mean value of a single response variable, conditional on the values of the covariates, and that is the setting we concentrate on this book, one could extend such basic regression concepts in a couple of useful ways:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  we could model not the mean of the response but some quantile of interest, leading to quantile regression, or we could model more than just the mean, say the mean and the variance (or some other moments) of the response. For details about the former the reader can check \citet{Cade2003}, while for details about the latter the reader can explore GAMLSS models \citet{Stasinopoulos2017}. A good interface to material on such models can be found at \url{https://www.gamlss.com/}
+\item
+  we could model more than a single response variable at the same time, and there are a wide variety of examples of such models, like joint models in survival analysis, or multivariate analysis of variance (a.k.a MANOVA).
+\end{enumerate}
 
 \hypertarget{the-general-linear-model}{%
 \section{The general linear model}\label{the-general-linear-model}}
@@ -516,15 +526,19 @@ And further, we can see that the remaining residuals are a beautiful Gaussian. N
 
 The take home message from the story: what the data looks like might be irrelevant. The patterns that remain in the residuals, if any, those are the ones we might need to worry about. So do not transform data just because the data looks odd. It might just be Gaussian data in disguise!
 
-\hypertarget{aula6}{%
-\chapter{Regression inside out}\label{aula6}}
+\hypertarget{RIO}{%
+\chapter{Regression inside out}\label{RIO}}
+
+In this section we will look at regression models from different angles. Hopefully, by the end of this section, you will have mastered the linear model and will be able to recognize that several statistical procedures with famous names (like t-tests or ANOVA) are just special cases of the linear model.
 
 \hypertarget{implementing-a-regression}{%
 \section{Implementing a regression}\label{implementing-a-regression}}
 
-We begin by reading the data in ``lagartos.txt'' and fitting a regression model to it.
+Consider a dataset where we have the weight and lengths of lizards, and we are interested in modelling the weight as a function of the length of the available individuals. This will provide us an excuse to look at the different aspects of a linear model and the corresponding output.
 
-Read the data in
+The dataset is available as a text file: ``lagartos.txt'' . We begin by reading the data in ``lagartos.txt'', exploring the data and then fitting a simple regression, a linear model, to the data. Just as a detail regarding wording, which reflects what the procedure does, we fit models to data, we do not fit data to models!
+
+We begin by reading the data in
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -535,9 +549,7 @@ Read the data in
 \end{Highlighting}
 \end{Shaded}
 
-We see that we have 97 observations.
-
-Plot the data
+We can see that we have observations over 97 individuals, for which we have recorded both lengths and weights. We can plot the data, being careful to have the response variable, the weights, on the y-axis, and the explanatory variable, the lengths, on the x-axis.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -547,7 +559,25 @@ Plot the data
 
 \includegraphics{ECOMODbook_files/figure-latex/a6.2-1.pdf}
 
-A linear model seems adequate. Lets fit a regression line to the data
+(tip begins here)
+
+Tip: A common ``rookie'' mistake is to confuse the defaul R ploting syntax, and mix the two. Note that \texttt{plot(y\textasciitilde{}x)} is equivalent to \texttt{plot(x,y)} but different from \texttt{plot(x\textasciitilde{}y)}. The latter is not what you want, ´\textasciitilde´ should be read as ``as a function of'' and so you must have the response on the left side of the tilde, but by default the first argument to the function plot is the \(x\), usually by convention the explanatory variable. The next figure illustrates the differences, where I don't set the axis labels so that the consequences are transparent
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{mar=}\FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.5}\NormalTok{))}
+\FunctionTok{with}\NormalTok{(lagartos,}\FunctionTok{plot}\NormalTok{(peso}\SpecialCharTok{\textasciitilde{}}\NormalTok{comp))}
+\FunctionTok{with}\NormalTok{(lagartos,}\FunctionTok{plot}\NormalTok{(peso,comp))}
+\FunctionTok{with}\NormalTok{(lagartos,}\FunctionTok{plot}\NormalTok{(comp}\SpecialCharTok{\textasciitilde{}}\NormalTok{peso))}
+\FunctionTok{with}\NormalTok{(lagartos,}\FunctionTok{plot}\NormalTok{(comp,peso))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+(tip ends here)
+
+A linear model seems adequate to represent the weights as a function of the lengths. This is not surprising, especially since we simulated the data to be so. We fit a linear model to the data
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -577,7 +607,9 @@ A linear model seems adequate. Lets fit a regression line to the data
 ## F-statistic: 495.3 on 1 and 95 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-Remember that a linear model is just a special GLM:
+(tip begins here)
+
+Remember that a linear model is just a special generalized linear model (GLM):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -608,19 +640,20 @@ Remember that a linear model is just a special GLM:
 ## Number of Fisher Scoring iterations: 2
 \end{verbatim}
 
-as we can see the output looks a bit different (after all, \texttt{lm} and \texttt{glm} are different functions!), but the results are exactly the same. This does not prove it, but it illustrates by example that a lm is just a GLM with a Gaussian response and an \texttt{identity} link function.
+as we can see the output looks a bit different (after all, \texttt{lm} and \texttt{glm} are different functions!), but the results are exactly the same. This does not prove it, but it illustrates by example that a linear model is just a GLM with a Gaussian response and an \texttt{identity} link function.
 
 Lets use the results from \texttt{lm}, while noting that everything else would be the same.
 
+(tip ends here)
+
 The estimated regression line is
 
-peso =11.72 +1.2 \(\times\) comp
+\[weight= a+b \times length\]
+or in this case, with the estimated parameter values,
 
-and the estimated R-squared is 0.84. The standard error associated with the model is estimated to be 2.4146. Below we explain what each of these values correspond to.
+\[ peso =11.72 +1.2 \times comp \]
 
-The estimated standard error corresponds to the standard deviation of the residuals of the model, that is, the diference between the observations and the predicted values given the model.
-
-The observation we have already, those are the \texttt{peso}. We can obtain the predicted \texttt{peso} for each observation with the function \texttt{predict}, but here we do it manually so that we see that the errors are just the observations minus the predictions.
+and the estimated R-squared is 0.84. The standard error associated with the model is estimated to be 2.4146. Below we explain in detail what each of these values correspond to, but for now bear in mind that the estimated standard error corresponds to the standard deviation of the residuals of the model, that is, the difference between the observations and the predicted values given the model. The observation we have already as data, those are the \texttt{peso}. We can obtain the predicted \texttt{peso} for each observation with the function \texttt{predict}, but here we do it manually so that we see that the errors are just the observations minus the predictions.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -648,9 +681,9 @@ Now we can compute the residuals and their corresponding standard error
 ## [1] 2.402032
 \end{verbatim}
 
-Note as predict, we could use just the function \texttt{residuals} with the model object as argument to get us the residuals in a single line of code.
+Note as \texttt{predict}, we could use just the function \texttt{residuals} with the model object as argument to get us the residuals in a single line of code.
 
-The reason the above standard error is not exactly the same as in the model output above has to do with the degrees of freedom, a concepth that is hard to explain in this applied context, but relates to the number of available independent bits of information available. So turst me when I say that we loose a degree of freedom for each parameter estimated in a model. The exact value of the standard deviation as estimated in the model must account for that loss of one extra degree of freedom (associated with estimating the slope of the line), and so the standard formula of the \texttt{sd} needs to be adjusted for the lost degree of freedom, like this:
+The reason the above standard error is not exactly the same as in the model output above has to do with the degrees of freedom, a concept that is hard to explain in this applied context, but relates to the number of available independent bits of information available. So trust me when I say that we loose a degree of freedom for each parameter estimated in a model. The exact value of the standard deviation as estimated in the model must account for that loss of one extra degree of freedom (associated with estimating the slope of the line), and so the standard formula of the \texttt{sd} needs to be adjusted for the lost degree of freedom, like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -680,9 +713,25 @@ The reason the above standard error is not exactly the same as in the model outp
 ## [1] 2.414641
 \end{verbatim}
 
-Now we get the exact same value as above: 2.4146412.
+Now we get the exact same value as above: 2.415.
 
-The \texttt{summary} of the model above is very useful, but nothing like adding the estimated model to the plot with the data. We can easily add the line to the plot with function \texttt{abline} (tip: note the ab in \texttt{abline} correspond to the \(a\) and \(b\) in \(y=a+bx\), but the function abline is ``smart'' enough to take an object of class \texttt{lm} and extract the corresponding \(a\) and \(b\) for plotting)
+The \texttt{summary} of the model above is very useful, but nothing like adding the estimated model to the plot with the data. We can easily add the line to the plot with function \texttt{abline}
+
+(tip begins here)
+
+The \texttt{ab} in \texttt{abline} corresponds simply to the \(a\) and \(b\) in \(y=a+bx\), but the function \texttt{abline} is ``smart'' enough to take other arguments than just an intercept and slope a slope as arguments. It can take
+
+\begin{itemize}
+\tightlist
+\item
+  an object of class \texttt{lm} and extract the corresponding \(a\) and \(b\) for plotting
+\item
+  argument \texttt{v} to add vertical line(s) to an existing plot (e.g.~\texttt{v=20} would add a vertical line at \texttt{x=20} to an existing plot)
+\item
+  argument \texttt{h} to add horizontal line(s) to an existing plot (e.g.~\texttt{h=10} would add a horizontal line at \texttt{y=10} to an existing plot)
+\end{itemize}
+
+(tip ends here)
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -712,7 +761,7 @@ Note the last line works because the parameter estimates are hold in a component
 ## comp         1.202333 0.05402397 22.25555 1.839784e-39
 \end{verbatim}
 
-Additionally, we can also add the residuals in the plot (we use the very handy function \texttt{segments}, that adds segments to plots, to do so)
+Additionally, we can also add the residuals in the plot (we use the very handy function \texttt{segments}, that adds segments to existing plots, to do so)
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -728,14 +777,21 @@ Additionally, we can also add the residuals in the plot (we use the very handy f
 
 \includegraphics{ECOMODbook_files/figure-latex/a6.11-1.pdf}
 
-The regression line is the line that minimizes the sum of the red distances in the plot above. That is also why it is called a minimum squares estimate in the special case of a Gaussian model (in PT, é a reta dos mínimos quadrados).
+The regression line corresponds to the line that minimizes the sum of the red distances in the plot above. That is also why it is called a minimum squares line in the special case of a Gaussian model (in PT, é a reta dos mínimos quadrados).
 
-The residuals should, if the model is reasonable - and here that should be the case - be well approximated by a Gaussian distribution. Note we can get the values of the residuals by the difference between the observations and the estimated values, as we did above. We can look at their histogram below
+The residuals should, if the model is reasonable - and here that should be the case, as we are using simulated data - be well approximated by a Gaussian distribution. Note we can get the values of the residuals by the difference between the observations and the estimated values, as we did above, or just use the function \texttt{resid} over a fitted model, for simplicity. We can look at an histogram of the residuals below
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
 \FunctionTok{hist}\NormalTok{(resid,}\AttributeTok{main=}\StringTok{"Residuals by hand"}\NormalTok{,}\AttributeTok{freq=}\ConstantTok{FALSE}\NormalTok{)}
 \CommentTok{\#adding the theorethical density of a Gaussian with mean 0 and the}
+\CommentTok{\#correct standard error}
+\FunctionTok{lines}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{,}\DecValTok{8}\NormalTok{,}\AttributeTok{by=}\FloatTok{0.1}\NormalTok{),}\FunctionTok{dnorm}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{,}\DecValTok{8}\NormalTok{,}\AttributeTok{by=}\FloatTok{0.1}\NormalTok{),}\AttributeTok{mean=}\DecValTok{0}\NormalTok{,}\AttributeTok{sd=}\FunctionTok{summary}\NormalTok{(lmlag)}\SpecialCharTok{$}\NormalTok{sigma))}
+
+\NormalTok{resid2}\OtherTok{\textless{}{-}}\FunctionTok{residuals}\NormalTok{(lmlag)}
+\FunctionTok{hist}\NormalTok{(resid2,}\AttributeTok{main=}\StringTok{"Residuals by function residuals"}\NormalTok{)}
+
 \CommentTok{\#correct standard error}
 \FunctionTok{lines}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{,}\DecValTok{8}\NormalTok{,}\AttributeTok{by=}\FloatTok{0.1}\NormalTok{),}\FunctionTok{dnorm}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{,}\DecValTok{8}\NormalTok{,}\AttributeTok{by=}\FloatTok{0.1}\NormalTok{),}\AttributeTok{mean=}\DecValTok{0}\NormalTok{,}\AttributeTok{sd=}\FunctionTok{summary}\NormalTok{(lmlag)}\SpecialCharTok{$}\NormalTok{sigma))}
 \end{Highlighting}
@@ -743,23 +799,9 @@ The residuals should, if the model is reasonable - and here that should be the c
 
 \includegraphics{ECOMODbook_files/figure-latex/a6.12-1.pdf}
 
-or alternatively we can use the bespoke function \texttt{residuals}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{resid2}\OtherTok{\textless{}{-}}\FunctionTok{residuals}\NormalTok{(lmlag)}
-\FunctionTok{hist}\NormalTok{(resid2,}\AttributeTok{main=}\StringTok{"Residuals by function residuals"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{ECOMODbook_files/figure-latex/a6.13-1.pdf}
-
-It is often said that the \(R^2\) represents the amount of variation in the response that the regression explains. Why is that?
-
-Because if you assume that all the variability in the response data, the \(y_i\) the diference between the data points and a common mean
+It is often said that the \(R^2\) represents the amount of variation in the response that the regression explains, and we are now in a position to illustrate exactly why that is the case. If you assume that all the variability in the response data, the \(y_i\), as the difference between the data points and a common mean
 
 \[\sum_{i=1}^n (y_i- \bar y)^2\]
-
 in an image, the sum of the square of these quantities
 
 \begin{Shaded}
@@ -785,7 +827,7 @@ in an image, the sum of the square of these quantities
 ## [1] 3441.795
 \end{verbatim}
 
-and the variability that is not explained is the one that remains in the errors (the corresponding plot was shown above)
+and the variability that is not explained is the one that remains in the errors - for which the corresponding plot illustrating the concept geometrically was shown above, that is
 
 \[\sum_{i=1}^n (y_i- \hat y_i)^2\]
 
@@ -800,7 +842,7 @@ and the variability that is not explained is the one that remains in the errors 
 ## [1] 553.8968
 \end{verbatim}
 
-then the ratio of those two quantities is what is NOT explained by the regression model, and therefore, 1 minus that is what explained by the regression model.
+then the ratio of those two quantities is what is not explained by the regression model, and therefore, 1 minus that is what explained by the regression model:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -857,6 +899,8 @@ and hence the total variability is given by the sum \(SS_{REGRESSÃO}+SS_{ERRO}\
 ## [1] 3441.795
 \end{verbatim}
 
+which we had already established to be the total variability in the response
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{all.var}
@@ -867,27 +911,28 @@ and hence the total variability is given by the sum \(SS_{REGRESSÃO}+SS_{ERRO}\
 ## [1] 3441.795
 \end{verbatim}
 
-So, always remember that
+So, remember that
 
 \[SS_{TOTAL}=SS_{REGRESSÃO}+SS_{ERRO}\]
 
-This is also something that comes out often in books without a clear explanation of the reaon why that holds. While here I show it by example, it could be easily demonstrated algebraically if one wanted that
+This is something that is often stated without a clear explanation of the reason why that holds. While here I show it by example, it could be easily demonstrated algebraically if one wanted that
 
 \[\sum_{i=1}^n (y_i- \bar y)^2=\sum_{i=1}^n (\hat y_i- \bar y)^2 + \sum_{i=1}^n (y_i- \hat y_i)^2\]
 
-If you want that, this 28 minute video shows you the proof: \url{https://www.youtube.com/watch?v=aQ32qTjqqJM}
-I think it could take just 5 minutes ;) but many thanks to Dmitry Leiderman for having it out there! He does it in the context of ANOVA, but ANOVA is just a special case of regression, were you have a continous response and a single categorical explanatory variable. Therefore, have fun !
+If you want to see that that, this 28 minute video shows you the proof: \url{https://www.youtube.com/watch?v=aQ32qTjqqJM}
+
+I think it could take just 5 minutes ;) but many thanks to Dmitry Leiderman for having it out there! He does it in the context of ANOVA, but ANOVA is just a special case of regression, were you have a continuous response and a single categorical explanatory variable. Therefore, have fun!
 
 \hypertarget{simulating-regression-data}{%
 \section{Simulating regression data}\label{simulating-regression-data}}
 
-Using the above, simulate data assuming that the TRUE relation between the weight and length of a lizzard was given by
+Considering the above example, it should be possible for you to simulate similar data to that we had for the lizards, data assuming that the true relation between the weight and length of a lizard was given by
 
 \[ peso = 12 + 1.2 * comp \]
 
-We consider that the usual length of a lizard can be between 5 and 20 cm, and the standard error is 4.
+Note that this is a luxury we never have as researchers dealing with real data, knowing what truth is. But creating data from know truth scenarios via simulation can be invaluanble, as it allows us to explore the preformance of methods wehn we know what we should expect from them.
 
-As in the data we will have 97 lizards
+Here we consider that the usual length of a lizard can be between 5 and 20 cm, and the standard error is 4. As in the data we will have 97 lizards.
 
 Then you were told to create the lengths:
 
@@ -913,7 +958,7 @@ and then to create weights of lizards
 \end{Highlighting}
 \end{Shaded}
 
-If we plot the data, all points are in a single line. Why, because there is no randomness.
+If we plot the data, all points are in a single line. Why? Because there is no randomness. Given the length of a lizard, we know the weight for sure.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -957,7 +1002,15 @@ This means that if you try to run a model, it gives you a warning that the model
 ## F-statistic: 6.773e+30 on 1 and 95 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-So\ldots{} , we add some variance, and plot the data:
+reflecting that unlike what the model assumes, there would be no stochasticity in the data.
+
+(tip begins here)
+
+The data stochasticity, or variability, might be induced by process error, i.e.~the model might not be perfect, hence not being deterministic as is always the case in nature, but also induced by observation error, e.g.~because there is a random error in the measurement of the weights. In practice with a linear model we do not try to separate the two sources of errors, but in more advanced models that might be of interest in itself.
+
+(tip ends here)
+
+Therefore, we make the data realistic, and adhering to the model, by adding some variability to the data, in particular we assume the variability can be represented by Gaussian errors with mean zero and standard deviation of 4 units. Then we plot the data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -968,7 +1021,56 @@ So\ldots{} , we add some variance, and plot the data:
 
 \includegraphics{ECOMODbook_files/figure-latex/a6.25-1.pdf}
 
-Using the code above, experiment with changing the standard deviation of the error, and see what happens to the estimated \(R^2\), to the parameter estimates, to the estimated error, and to how close the estimated regression mode is to the true model (note this is the amazing advantage of a simulation, which we do not have in real data, we know what reality is, and a true model exists!). This will give you a good feeling for what a regression model is and what is does, and what it can't do. An example of what it can't give you is reliable estimates when the error is large compared to the systematic part of the model.
+we can now fit a linear model to the data, whic we call \texttt{lmSimL} and explore the results
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SimL}\OtherTok{\textless{}{-}}\FunctionTok{data.frame}\NormalTok{(ys,xs)}
+\NormalTok{lmSimL}\OtherTok{\textless{}{-}}\FunctionTok{lm}\NormalTok{(ys}\SpecialCharTok{\textasciitilde{}}\NormalTok{xs,}\AttributeTok{data=}\NormalTok{SimL)}
+\FunctionTok{summary}\NormalTok{(lmSimL)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys ~ xs, data = SimL)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -8.2024 -2.0587 -0.0304  2.2903  9.6963 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 10.47408    1.05716   9.908  2.6e-16 ***
+## xs           1.38463    0.08057  17.186  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.379 on 95 degrees of freedom
+## Multiple R-squared:  0.7566, Adjusted R-squared:  0.7541 
+## F-statistic: 295.4 on 1 and 95 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+We can extract from the model the relevant estimated quantities:
+
+\begin{itemize}
+\tightlist
+\item
+  the intercept is estimated to be 10.4740833 (using \texttt{coef(lmSimL){[}1{]}}),
+\item
+  the slope is estimated to be 1.3846293 (using \texttt{coef(lmSimL){[}2{]}}),
+\item
+  the residual error to be 3.3787165 (using \texttt{summary(lmSimL)\$sigma}), and
+\item
+  the \(R^2\) to be 0.7566342 (using \texttt{summary(lmSimL)\$r.squared}).
+\end{itemize}
+
+All the parameters were suitably estimated, not surprising since the amount of error was moderate, reflecting that the \texttt{xs} have a good explanatory power over the \texttt{ys}.
+
+Using the code above, experiment with changing the standard deviation of the error, and see what happens to the estimated \(R^2\), to the parameter estimates, to the estimated error, and to how close the estimated regression model is to the true model.
+
+This is the amazing advantage of a simulation, which we do not have in real data: we know what reality is, and a true model exists!. This will give you a good feeling for what a regression model is and what is does, and what it can't do. An example of what it can't give you is reliable estimates when the error is large compared to the systematic part of the model, as illustrated next
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1064,9 +1166,9 @@ Not surprisingly, as the variance increases, we get data that more and more look
 
 You can also look at the model summaries, and there you can see that, in fact, the models become essentially useless as the variance increases! You can see that both from the correlation, but also by the predictions generated from the model (comparing to the truth), and also the significance of the coefficients associated with the regression parameters.
 
-Make no mistake, the reality is always the same, in terms of the fixed part of the model, it's just the variance that increases.
+Make no mistake, the reality is always the same, in terms of the fixed part of the model, it is just the variance that we observe reality with that increases. This could happen either because the model is not adequate (e.g.~there are other variables than just length that explain the weight) but also because the measurement error in the weights might be larger (e.g.~think about measuring the weight of whales, instead that of lizards, say).
 
-Also, don't get confused, the different green lines might look different, but they are always exactly the same line! You can check that by forcing the y axis to span the same limits.
+Also, do not get confused, the different green lines might look different, but they are always exactly the same line, the same true model is constant across all plots! You can check that by forcing the y axis to span the same limits.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1106,183 +1208,53 @@ Also, don't get confused, the different green lines might look different, but th
 
 \includegraphics{ECOMODbook_files/figure-latex/a6.28-1.pdf}
 
-but since then you loose all the ability to look at the actual data in some of the plots, that is not really that useful!
+but since then you loose all the ability to look at the actual data in some of the plots, that representation is not really that useful!
 
-Below I look at the summary of each model. Look at correlations, at the estimated values for the parameters, their corresponding variances and the \(R^2\).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(mod1)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = ys ~ xs)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.87715 -0.62444  0.03329  0.69103  2.47244 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 12.24930    0.33691   36.36   <2e-16 ***
-## xs           1.18596    0.02568   46.19   <2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 1.077 on 95 degrees of freedom
-## Multiple R-squared:  0.9574, Adjusted R-squared:  0.9569 
-## F-statistic:  2133 on 1 and 95 DF,  p-value: < 2.2e-16
-\end{verbatim}
+Below we tabulate the summary statistics for of each model with increasing variance, focusing on the estimated values for the parameters, their corresponding variances and the \(R^2\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(mod2)}
+\FunctionTok{library}\NormalTok{(knitr)}
+\NormalTok{model.stats}\OtherTok{\textless{}{-}}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{error=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{100}\NormalTok{),}\AttributeTok{intercept=}\ConstantTok{NA}\NormalTok{,}\AttributeTok{ise=}\ConstantTok{NA}\NormalTok{,}\AttributeTok{slope=}\ConstantTok{NA}\NormalTok{,}\AttributeTok{sse=}\ConstantTok{NA}\NormalTok{,}\AttributeTok{sde=}\ConstantTok{NA}\NormalTok{,}\AttributeTok{R2=}\ConstantTok{NA}\NormalTok{)}
+\NormalTok{model.stats[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{7}\NormalTok{]}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod1))[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{],}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod1))[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{],}\FunctionTok{summary}\NormalTok{(mod1)}\SpecialCharTok{$}\NormalTok{sigma,}\FunctionTok{summary}\NormalTok{(mod1)}\SpecialCharTok{$}\NormalTok{r.squared)}
+\NormalTok{model.stats[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{7}\NormalTok{]}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod2))[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{],}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod2))[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{],}\FunctionTok{summary}\NormalTok{(mod2)}\SpecialCharTok{$}\NormalTok{sigma,}\FunctionTok{summary}\NormalTok{(mod2)}\SpecialCharTok{$}\NormalTok{r.squared)}
+\NormalTok{model.stats[}\DecValTok{3}\NormalTok{,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{7}\NormalTok{]}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod4))[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{],}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod4))[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{],}\FunctionTok{summary}\NormalTok{(mod1)}\SpecialCharTok{$}\NormalTok{sigma,}\FunctionTok{summary}\NormalTok{(mod4)}\SpecialCharTok{$}\NormalTok{r.squared)}
+\NormalTok{model.stats[}\DecValTok{4}\NormalTok{,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{7}\NormalTok{]}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod10))[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{],}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod10))[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{],}\FunctionTok{summary}\NormalTok{(mod1)}\SpecialCharTok{$}\NormalTok{sigma,}\FunctionTok{summary}\NormalTok{(mod10)}\SpecialCharTok{$}\NormalTok{r.squared)}
+\NormalTok{model.stats[}\DecValTok{5}\NormalTok{,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{7}\NormalTok{]}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod20))[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{],}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod20))[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{],}\FunctionTok{summary}\NormalTok{(mod1)}\SpecialCharTok{$}\NormalTok{sigma,}\FunctionTok{summary}\NormalTok{(mod20)}\SpecialCharTok{$}\NormalTok{r.squared)}
+\NormalTok{model.stats[}\DecValTok{6}\NormalTok{,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{7}\NormalTok{]}\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod100))[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{],}\FunctionTok{coef}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod100))[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{],}\FunctionTok{summary}\NormalTok{(mod1)}\SpecialCharTok{$}\NormalTok{sigma,}\FunctionTok{summary}\NormalTok{(mod100)}\SpecialCharTok{$}\NormalTok{r.squared)}
+\FunctionTok{kable}\NormalTok{(model.stats,}\AttributeTok{digits=}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = ys ~ xs)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -4.7122 -1.5245 -0.0731  1.5830  4.5457 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 11.22718    0.66606   16.86   <2e-16 ***
-## xs           1.26028    0.05076   24.83   <2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 2.129 on 95 degrees of freedom
-## Multiple R-squared:  0.8665, Adjusted R-squared:  0.8651 
-## F-statistic: 616.4 on 1 and 95 DF,  p-value: < 2.2e-16
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(mod4)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = ys ~ xs)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -9.8201 -2.6923  0.0809  2.8841 11.1413 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 12.93903    1.26042   10.27   <2e-16 ***
-## xs           1.11757    0.09606   11.63   <2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 4.028 on 95 degrees of freedom
-## Multiple R-squared:  0.5876, Adjusted R-squared:  0.5833 
-## F-statistic: 135.4 on 1 and 95 DF,  p-value: < 2.2e-16
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(mod10)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = ys ~ xs)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -23.236  -6.053  -2.186   7.375  25.314 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  12.1949     3.0136   4.047 0.000106 ***
-## xs            1.2102     0.2297   5.269 8.54e-07 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 9.632 on 95 degrees of freedom
-## Multiple R-squared:  0.2262, Adjusted R-squared:  0.218 
-## F-statistic: 27.76 on 1 and 95 DF,  p-value: 8.541e-07
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(mod20)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = ys ~ xs)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -48.932 -16.093   1.632  13.610  55.287 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)   9.2412     6.4002   1.444 0.152058    
-## xs            1.6652     0.4878   3.414 0.000943 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 20.46 on 95 degrees of freedom
-## Multiple R-squared:  0.1093, Adjusted R-squared:  0.09991 
-## F-statistic: 11.66 on 1 and 95 DF,  p-value: 0.0009426
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{summary}\NormalTok{(mod100)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Call:
-## lm(formula = ys ~ xs)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -214.028  -69.887    0.743   60.602  255.109 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)
-## (Intercept)  41.6496    30.0996   1.384    0.170
-## xs           -0.5455     2.2939  -0.238    0.813
-## 
-## Residual standard error: 96.2 on 95 degrees of freedom
-## Multiple R-squared:  0.0005949,  Adjusted R-squared:  -0.009925 
-## F-statistic: 0.05655 on 1 and 95 DF,  p-value: 0.8126
-\end{verbatim}
+\begin{tabular}{r|r|r|r|r|r|r}
+\hline
+error & intercept & ise & slope & sse & sde & R2\\
+\hline
+1 & 12.25 & 0.34 & 1.19 & 0.03 & 1.08 & 0.96\\
+\hline
+2 & 11.23 & 0.67 & 1.26 & 0.05 & 2.13 & 0.87\\
+\hline
+4 & 12.94 & 1.26 & 1.12 & 0.10 & 1.08 & 0.59\\
+\hline
+10 & 12.19 & 3.01 & 1.21 & 0.23 & 1.08 & 0.23\\
+\hline
+20 & 9.24 & 6.40 & 1.67 & 0.49 & 1.08 & 0.11\\
+\hline
+100 & 41.65 & 30.10 & -0.55 & 2.29 & 1.08 & 0.00\\
+\hline
+\end{tabular}
 
 As an example, we can plot the \(R^2\) as a function of the variance
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{100}\NormalTok{),}\FunctionTok{c}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod1)}\SpecialCharTok{$}\NormalTok{r.squared,}\FunctionTok{summary}\NormalTok{(mod2)}\SpecialCharTok{$}\NormalTok{r.squared,}\FunctionTok{summary}\NormalTok{(mod4)}\SpecialCharTok{$}\NormalTok{r.squared,}\FunctionTok{summary}\NormalTok{(mod10)}\SpecialCharTok{$}\NormalTok{r.squared,}\FunctionTok{summary}\NormalTok{(mod20)}\SpecialCharTok{$}\NormalTok{r.squared,}\FunctionTok{summary}\NormalTok{(mod100)}\SpecialCharTok{$}\NormalTok{r.squared))}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{100}\NormalTok{),}\FunctionTok{c}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod1)}\SpecialCharTok{$}\NormalTok{r.squared,}\FunctionTok{summary}\NormalTok{(mod2)}\SpecialCharTok{$}\NormalTok{r.squared,}\FunctionTok{summary}\NormalTok{(mod4)}\SpecialCharTok{$}\NormalTok{r.squared,}\FunctionTok{summary}\NormalTok{(mod10)}\SpecialCharTok{$}\NormalTok{r.squared,}\FunctionTok{summary}\NormalTok{(mod20)}\SpecialCharTok{$}\NormalTok{r.squared,}\FunctionTok{summary}\NormalTok{(mod100)}\SpecialCharTok{$}\NormalTok{r.squared),}\AttributeTok{xlab=}\StringTok{"R\^{}2"}\NormalTok{,}\AttributeTok{ylab=}\StringTok{"Standard deviation of the error"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \includegraphics{ECOMODbook_files/figure-latex/a6.30-1.pdf}
 
-That is quite interesting actually\ldots{} There seems to be a nonlinear relationship, but we only have a sample size of six (different standard deviatios, i.e., variances, as variance is standard deviation squared), so hard to tell\ldots{}
-
-Let's show off in R\ldots{}
+That is quite interesting actually. There seems to be a nonlinear relationship, but we only have a sample size of six different standard deviations, i.e., variances, as variance is standard deviation squared, so it is hard to tell. But we can bring in the power of a \texttt{for} loop to do this for us for many values of the errors. We can then plot the results:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1305,9 +1277,11 @@ Let's show off in R\ldots{}
 
 \includegraphics{ECOMODbook_files/figure-latex/a6.31-1.pdf}
 
-How cool is that!! Actually, this means we can model the \(R^2\) as a function of the original variance! But we would not be able to model it using a linear model\ldots{}
+How cool is that! There seems to be evidence of a clear pattern, as anticipated. There is noise in the relation, and that comes because at each iteration there is randomness in the simulated data. Can you think of a way to reduce the noise in the pattern shown? If so, do it yourself!
 
-You are not supposed to know about this yet, but I'll continue to show off. Let's use a GAM
+This means we can model the \(R^2\) as a function of the original variance! But we would not be able to model it using a linear model. While you are supposed to know about this yet, generalized linear models, which can be implemented with the help of function \texttt{gam} in package \texttt{mgcv} can come to our help. Later on we will earn more about GAM's, but for now you can take a look at Noam Ross's outstanding online free course on them (\url{https://noamross.github.io/gams-in-r-course/}) if you can't wait for it.
+
+Here I will just use it as is, you might see the syntax is quite similar to that of the \texttt{lm} function, we simply add syntax to reflect that we have non-linear, smooth terms of covariates (say e.g.~\texttt{s(x)}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1335,7 +1309,7 @@ You are not supposed to know about this yet, but I'll continue to show off. Let'
 
 \includegraphics{ECOMODbook_files/figure-latex/a6.32-1.pdf}
 
-Aha\ldots{} remember what we talked in class today? It seems like we have overfitted. Then, I constrain the GAM.
+While we have not yet talked about it, intuitively it seems like the model over-fitted to the data. In other words, the model is too much flexible. Therefore, I constrain the GAM to be not as wiggly (while it might sound like a funny made-up word, the ``wiggliness'' of a GAM is a technical term used even in publications) by changing the argument \texttt{k} which defines the degrees of freedom in the smooth term.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1350,7 +1324,7 @@ Aha\ldots{} remember what we talked in class today? It seems like we have overfi
 
 \includegraphics{ECOMODbook_files/figure-latex/a6.33-1.pdf}
 
-That was too much\ldots{}
+That was too much constraining, so now we are under-fitting, the model in not flexible enough to fit the data. We increase the allowed level of wiggliness again
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1365,19 +1339,19 @@ That was too much\ldots{}
 
 \includegraphics{ECOMODbook_files/figure-latex/a6.34-1.pdf}
 
-That is already overfitting\ldots{} conclusion, the GAM is not the right tool here :)
+but that is already over-fitting\ldots{} conclusion, the GAM might not be the right tool here :) Perhaps we could consider a model that embeds some understanding about the process between the two quantities, which is presumably possible to achieve by exploring analytically what said relation should be.
 
-What is\ldots? Well, stay tuned and one day you'll learn!
+Being happy with the visual illustration of the relation and the preview of how the use of a more flexible approach than a linear model might be useful to fit models to data, we will leave that implementation for readers which might find it an interesting (but quite likely to be found non-trivial) exercise.
 
-\hypertarget{aula7}{%
-\chapter{Two tasks to further understand regression}\label{aula7}}
+\hypertarget{two-tasks-to-further-understand-regression}{%
+\section{Two tasks to further understand regression}\label{two-tasks-to-further-understand-regression}}
 
-In this class we continue exploring regression models, but we are going to increase their complexity. We are no longer just thinking about the simple linear model \texttt{a+bx}, but we add more explanatory variables. In particular, we will also add a factor covariate. And then we look under the hood to understand what that means in practice and how to interpret the regression coefficients.
+In this section we continue exploring regression models, but we are going to increase their complexity. We are no longer just thinking about the simple linear model \texttt{a+bx}, but we add more explanatory variables. In particular, we will also add a factor covariate. And then we look under the hood to understand what that means in practice and how to interpret the regression coefficients.
 
 We do this based on a couple of tasks. Implementing the tasks allows the students to see hands on what is behind the regression model.
 
 \hypertarget{task-1}{%
-\section{Task 1}\label{task-1}}
+\subsection{Task 1}\label{task-1}}
 
 The first task the students were faced was to use some code to explore, by simulation, the impact of having variables in the model that are not relevant to explain the response. In particular, we wanted to identify when there would be no errors, or when there would be type I (a variable not relevant to explain the response is found relevant) and type II (a relevant variable to explain the response is not considered relevant) errors.
 
@@ -1682,7 +1656,7 @@ That is the luxury of simulation, allowing you to test scenarios where ``reality
 \end{Shaded}
 
 \hypertarget{task-2}{%
-\section{Task 2}\label{task-2}}
+\subsection{Task 2}\label{task-2}}
 
 The second task the students were faced was to create some regression data and the explore fitting models to it.
 
@@ -1900,16 +1874,16 @@ Naturally, now the lines do not have the same slope, and we can compare all thes
 
 \includegraphics{ECOMODbook_files/figure-latex/a7.16-1.pdf}
 
-But what is the best model to describe the data? That is a mistery that will remain to unfold. For that we will need and additional complication in a regression model: interactions.
+But what is the best model to describe the data? That is a mystery that will remain to unfold. For that we will need and additional complication in a regression model: interactions.
 
-But note 1 thing to begin with. The pooled model uses just 2 parameters, one slope and one intercept. The independent lines use 8 parameters, 4 slopes and 4 intercepts, one line for each museum. And the single model with \texttt{lenght} and \texttt{museum} uses 5 parameters, the intercept, the slope for \texttt{length}, and 3 parameters associated with the \(k-1=3\) levels of \texttt{museum} (remember, one level of each factor is absorbed by the regression intercept).
+But note one thing to begin with. The pooled model uses just 2 parameters, one slope and one intercept. The independent lines use 8 parameters, 4 slopes and 4 intercepts, one line for each museum. And the single model with \texttt{length} and \texttt{museum} uses 5 parameters, the intercept, the slope for \texttt{length}, and 3 parameters associated with the \(k-1=3\) levels of \texttt{museum} (remember, one level of each factor is absorbed by the regression intercept).
 
 So the choice of what is best might be not straightforward. While we created the data by hand, we do not know the true model! Choosing the best model requires choosing between models with different complexity, i.e.~different number of parameters. We will need a parsimonious model, one that describes the data well, but with a number of parameters that is not too high for the available data. That will also require selection criteria.
 
 Stay tuned for the next episodes on our regression saga!
 
-\hypertarget{aula8}{%
-\chapter{t-tests and ANOVAs are just linear models}\label{aula8}}
+\hypertarget{ttestANOVAasLMs}{%
+\chapter{t-tests and ANOVAs are just linear models}\label{ttestANOVAasLMs}}
 
 The objective of this chapter is to explore different regression models and to see how they relate to statistical procedures one might not at first associate with a regression, when in fact, they are just special cases of a standard linear models, i.e.~special cases of regression models.
 
@@ -3106,10 +3080,12 @@ But since different islands might have different compositions in terms of sex ra
 
 This is a cautionary tale about interpreting data from ecological studies, typically observational studies, where the balance across unmeasured variables might induce patterns that do not exist.
 
-\hypertarget{aula9}{%
-\chapter{Class 9: 21 10 2020 - ANCOVA is (also) just a linear model}\label{aula9}}
+\hypertarget{ANCOVAasLM}{%
+\chapter{ANCOVA is (also) just a linear model}\label{ANCOVAasLM}}
 
-We move on to Analysis of Covariance, a.k.a. ANCOVA, which is essentially like an ANOVA to which we add a continuous explanatory covariate. The ANCOVA was traditionally used to compare means of an outcome variable between two or more groups taking into account (or to correct for) variability of other variables, called covariates. In other words, ANCOVA allows to compare the adjusted means of two or more independent groups. It is just\ldots{} another linear model with a fancy name! Words adapted from this link \url{https://www.datanovia.com/en/lessons/ancova-in-r/}!
+We move on to Analysis of Covariance, a.k.a. ANCOVA, which is essentially like an ANOVA to which we add a continuous explanatory covariate to the factor covariate in our attempt to explain the response.
+
+The ANCOVA was traditionally used to compare means of an outcome variable between two or more groups taking into account (or to correct for) variability of other variables, called covariates. In other words, ANCOVA allows to compare the adjusted means of two or more independent groups. It is just\ldots{} another linear model with a fancy name! Words adapted from this link \url{https://www.datanovia.com/en/lessons/ancova-in-r/}!
 
 This is an extremely common situation in biology/ecology data. Consider, as an example, you are trying to explain how the weight of a fish depends on its length, but you want to see if that relationship changes per year or site.
 
@@ -3120,7 +3096,7 @@ Lets simulate some relevant data and fit the models
 \hypertarget{common-slope-different-intercepts-per-treatment}{%
 \section{Common slope, different intercepts per treatment}\label{common-slope-different-intercepts-per-treatment}}
 
-We begin with a situation where there are different intercepts per group, but a common slope across all groups. Contrast this with what we saw under the previous class, under chapter \ref{aula8}.
+We begin with a situation where there are different intercepts per group, but a common slope across all groups. Contrast this with what we saw under the previous class, under chapter \ref{RIO}.
 
 To make it interesting, assume that we are simulating weights for 4 different species, and that weights depend on length (as they almost always do!).
 
@@ -3360,7 +3336,7 @@ and in particular that the factor covariate \texttt{type} has 4 levels
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-7-1.pdf}
 
 Before fitting a factor covariate, we need to replace it by dummy variables (\(k-1\) dummy variables, where \(k\) is the number of levels of the factor). Below we look at a set of data lines that allow us to see observations from the different \texttt{type}s considered
 
@@ -3407,38 +3383,32 @@ So R first builds what is known as the design matrix. Notation wise Y= parameter
 
 and that is what is used for the fitting. Therefore, if we want to know the intercept of say \texttt{type} c, we need to sum the common intercept with the parameter associated with the dummy variable \texttt{typec}. The overall model formula becomes
 
-\[Y= \alpha + \gamma_b × typeb + \gamma_c × typec + \gamma_d × typed +  \beta × xs
-\]
-
+\[Y= \alpha + \gamma_b × typeb + \gamma_c × typec + \gamma_d × typed +  \beta × xs\]
 This would be an ANCOVA, and here we would conclude that the mean of the response was different for the different levels of \(z\) , once accounting for the fact that the \(xs\) varied. this is evident since all the coefficients estimates and associated precision in the summary of the model above would lead to rejecting the null hypothesis that their value was 0, as can be seen by the corresponding very small p-values. Not a surprise, since we simulated them as different and the errors were small.
 
 Task: Increase the simulated error or lower the coefficients until you get type II errors. Change also sample sizes and effect sizes to see the impacts on the model performance!
 
-\hypertarget{aula10}{%
-\chapter{Class 10: 27 10 2020}\label{aula10}}
+\hypertarget{ANCOVAe}{%
+\section{ANCOVA encore}\label{ANCOVAe}}
 
-In class 10 we actually had Miguel Pais talking about Individual Based Models.
-
-In this chapter we look again at the ANCOVA model presented in chapter \ref{aula9}, but under a different perspective. I decided to create this material as a bonus for students, to understand why the ANCOVA is what it is. As a bonus, this also provides a cautionary tale about the dangers of non-random sampling, or more generally, confounding due to unmeasured factors that might affect our response variable.
-
-Therefore,
+Here we present an ANCOVA encore, that is, we look again at the ANCOVA model presented in chapter \ref{ANCOVAasLM}, but under a different perspective. This material was created as a bonus for students, to understand why the ANCOVA is what it is. Additionally, this also provides a cautionary tale about the dangers of non-random sampling, or more generally, confounding due to unmeasured factors that might affect our response variable.
 
 \hypertarget{same-story-another-spin}{%
-\section{Same story, another spin}\label{same-story-another-spin}}
+\subsection{Same story, another spin}\label{same-story-another-spin}}
 
-As we noted above, the ANCOVA would be an useful model to compare means of an outcome variable between two or more groups taking into account (or to correct for) variability of other variables, often called covariates. In other words, ANCOVA allows to compare the adjusted means of two or more independent groups.
+As we noted above, the ANCOVA would be an useful model in a classical setting to compare means of an outcome variable between two or more groups taking into account (or to correcting for) variability induced by other variables, often called covariates. In other words, ANCOVA allows to compare the adjusted means of two or more independent groups.
 
-Here we tell the same story from chapter \ref{aula9} under said perspective. We will do so with the help of two unlikely caracters. This is the story of two friends: a biologist that is exploring the weights of lizards, and his friend, a former biology that decided to take an MSc in Ecological Statistics!
+Here we tell the same story from chapter \ref{ANCOVAasLM} under said perspective. We will do so with the help of two unlikely characters. This is the story of two friends: a biologist that is exploring the weights of lizards, and his friend, a former biologist that decided to take an MSc in Ecological Statistics!
 
-The biologist will be the hero of our story. He has a great name. George Ramsey Ernest Armitage Turner. Note that he has 5 names, unusal in the Anglosaxonic world, but not that uncommon is say Portugal. To make it easier, we'll call him just by his initials. So\ldots{} let's call him Great :) Great's fried, who's a great friend, is simply called John. Boring, but hey, names aren't something you can choose are they, and when you are just the sidekick on the story, you can't complain!
+The biologist will be the hero of our story. He has a great name. George Ramsey Ernest Armitage Turner. Note that he has 5 names, unusual in the Anglosaxonic world, but not that uncommon is say Portugal. To make it easier, we'll call him just by his initials. So\ldots{} let's call him Great :) Great's friend, whom also happens to be a great friend, is simply called John. Boring, but hey, names are not something you can choose (are they?) and when you are just the sidekick on the story, you cannot complain!
 
-Great when on a journey to a distant archipelago where there are 4 islands, each potentially with a different species of lizard that Great is interested in. The folks providing names to islands where not has imaginative as Great's parents, so the islands are called just A, B, C and D. Imagine that Great did a great job and collected a great sample of lizards in each island. Great is alos interested in the amount of insects available for the lizards in each of the islands. He thinks they might determine the weight of the lizards. Weight is related to condition, condition to fecundity and survival, and so on.
+Great went on a great journey to a distant Archipelago where there are 4 islands, each potentially with a different species of lizard that Great has great interest in. The folks providing names to islands where not has imaginative as Great's parents, so the islands are called just A, B, C and D. Imagine that Great did a great job and collected a great sample of lizards in each island. Great is also interested in the amount of insects available for the lizards in each of the islands. He thinks they might determine the weight of the lizards. Weight is related to individual condition, condition to fecundity and survival, and so on.
 
-Imagine Great wanted to compare the weights of lizard specimens he collected in each of the 4 islands. He happen to capture a number of animals in each island, and we will label them as A to D, as per the islands.
+Imagine Great wanted to compare the weights of lizard specimens he collected in each of the 4 islands. He happen to capture a number of animals in each island, and we will label them as A to D, as per the islands they came from.
 
 (note, since this is a story, this time I am not showing you how the data was created (=simulated), for narrative reasons!)
 
-Great ploted the weights, in grams (g), of the captured lizards. These look like this:
+Great created a plot of the weights, in grams (g), of the captured lizards. These look like this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3448,7 +3418,7 @@ Great ploted the weights, in grams (g), of the captured lizards. These look like
 
 \includegraphics{ECOMODbook_files/figure-latex/a10.2-1.pdf}
 
-The distribution is unimodal and about simetrical. When lizards are separated by island, they look like this
+The distribution is unimodal and about symmetrical. When lizards are separated by island, they look like this
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3489,9 +3459,9 @@ There seem to be clear differences in the weights per species, as a standard lin
 ## F-statistic: 122.4 on 3 and 196 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-Great is happy, he had seen differents amounts of insects in each island and so he is already thinking about a paper he will write about how the size of the lizards depends on food availability.
+Great is happy, he had seen different amounts of insects in each island and so he is already thinking about a paper he will write about how the size of the lizards depends on food availability.
 
-Further, he just had a great thought. He calls these GGTs: Great great thoughts. He is thinking about proposing that these correspond to different species in each island, and he is already dreaming about the names of his new species: he is considering naming them ``slimus'', ``normalis'', ``fatis'', ``fattissimus'', for animals in islands A, B, C and D, respectively. The plot would then read just like this, which looks\ldots{} you guessed it\ldots{} great.
+Further, he just had a great thought. He calls these GGTs: Great's great thoughts. He is thinking about proposing that these correspond to different species in each island, and he is already dreaming about the names of his new species: he is considering naming them ``slimus'', ``normalis'', ``fatis'', ``fattissimus'', for animals in islands A, B, C and D, respectively. The plot would then read just like this, which looks\ldots{} you guessed it\ldots{} great.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3503,8 +3473,7 @@ Further, he just had a great thought. He calls these GGTs: Great great thoughts.
 
 \includegraphics{ECOMODbook_files/figure-latex/a10.5-1.pdf}
 
-Unfortunately, he goes to the pub and tells John about his findings. John has been doing some modelling courses at the Univeristy and is very interested about sampling.
-John asks Great a great set of questions: ``How did you selected the lizards you captured? What about the lengths of the lizards? Were the animals from each island of about the same length? In other words, did you control the weights for length? Because longer animals will generaly heavier, you know?''
+Unfortunately, he goes to the pub and tells John about his findings. John has been doing some modelling courses at University and is very interested about sampling. John asks Great a great set of questions: ``How did you selected the lizards you captured? What about the lengths of the lizards? Were the animals from each island of about the same length? In other words, did you control the weights for length? Because longer animals will tend to be heavier, you know?''
 
 Great had not thought about that yet, indeed. He's feeling dizzy, might be the beers he had, might be the questions he was just asked! He rushes home and looks at the data. And in fact, the different lizards from the different islands have very different lengths to begin with, as we can see in the plot below.
 
@@ -3545,11 +3514,9 @@ Great had not thought about that yet, indeed. He's feeling dizzy, might be the b
 ## F-statistic: 968.6 on 3 and 196 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-In his mind Great has a vague memory of a teacher in Numerical Ecology that one should explore the data before modelling. He would have avoided this embarassement if he only had done that. Before leaving the pub he heard John saying he should look into ANCOVA's. Something about ``you need to test for the weights, accounting for differences in lengths!''.
+In his mind Great has a vague memory of a teacher in Numerical Ecology saying that one should explore the data before modelling. He would have avoided this embarrassment if he only had done that. Before leaving the pub he heard John saying he should look into ANCOVA's. Something about ``you need to test for the weights, accounting for differences in lengths!''.
 
-He goes into his books and finds that ANCOVA is just a linear model, where you model a response (weight, he realizes) with a factor (island) and a continous variable (lenght).
-
-He implements the models and, much to his despair, realizes that, once he you accounts for the length, the weights are not different per island. The damn lizards are exactly the same weight in the different islands once you account for their length\ldots{} :(
+He goes into his books and finds that ANCOVA is just a linear model, where you model a response (weight, he realizes) as a function of a factor covariate (say, island) and a continuous covariate (say length). He implements the models and, much to his despair, realizes that, once he accounts for the length, the weights are not different per island. The damn lizards are exactly the same weight in the different islands once you account for their length.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3581,7 +3548,7 @@ He implements the models and, much to his despair, realizes that, once he you ac
 ## F-statistic: 108.3 on 4 and 195 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-He sees his paper further and further farther away. This is what we saw: the same line explains all the data, irrespectively of group. In other words, there is not a different relationship per species between weight and length! His great ecologycal theory goes to the bin!
+He sees his paper further and further farther away. This is what we saw: the same line explains all the data, irrespective of the island it comes from. In other words, there is not a different relationship per species between weight and length! His great ecological theory goes to the bin!
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3592,15 +3559,15 @@ He sees his paper further and further farther away. This is what we saw: the sam
 
 \includegraphics{ECOMODbook_files/figure-latex/a10.8-1.pdf}
 
-Now, that is dismaying, but interesting. So Great returns to the pub and he asks John: ``Would the oposite be possible? Say things looked just the same, yet they were different after accounting for a confounding factor?''.
+Now, that is dismaying, but interesting. So Great returns to the pub and he asks John: ``Would the opposite be possible? Say things looked just the same, yet they were different after accounting for a confounding factor?''.
 
-``Yes'', John replied: ``I have heard about that situation, but have never seen it in a real data set before. Of course that is hard to happen, because \emph{the stars need to align}. But it can happen in theory. Imagine the situation where the relationship between length and weight is different per group. However, out of a strange confounding circumstance, the observed weights happen to be similar, because we sampled (just the right, in this case, wrong!) different lengthts in each species.''
+``Yes'', John replied: ``I have heard about that situation, but have never seen it in a real data set before. Of course that is hard to happen, because \emph{the stars need to align}. But it can happen in theory. Imagine the situation where the relationship between length and weight is different per group. However, out of a strange confounding circumstance, the observed weights happen to be similar, because we sampled (just the right, in this case, wrong!) different lengths in each species.''
 
 By now Great has a great headache, but he wants to see this with his own eyes, so he goes back home, sits in front of the computer, opens R and decides: ``I will simulate this example''. That is what we will do here.
 
 Imagine the following example:
 
-The lizards relationship between weight and length is different per island. Say, akin to what we saw before. Just by magin, we have access to all the lizards in the island.
+The lizards relationship between weight and length is different per island. Say, akin to what we saw before. Just by (simulation) magic, we have access to all the lizards in the island.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3627,7 +3594,7 @@ The lizards relationship between weight and length is different per island. Say,
 
 \includegraphics{ECOMODbook_files/figure-latex/a10.9-1.pdf}
 
-Now imagine, for the sake of argument, that in all islands we captured lizards with lengths spanning about 2 cm, but in island A we caught animals with about 18 cm, in B with about 16 cm, in c with about 15 cm and in D with about 14 cm, on average. We can simulate that non-random sampling process with respect to lenghth.
+Now imagine, for the sake of argument, that in all islands we captured lizards with lengths spanning about 2 cm, but in island A we caught animals with about 18 cm, in B with about 16 cm, in c with about 15 cm and in D with about 14 cm, on average. We can simulate that non-random sampling process with respect to length.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3651,7 +3618,7 @@ Now imagine, for the sake of argument, that in all islands we captured lizards w
 ## 119 116 108 100
 \end{verbatim}
 
-Now, if this is our sample, what happens when we look at the weights alone? First, let's look at the previous plot with the sampled data highlighted in colors and the non sampled data greyed out.
+Now, if this is our sample, what happens when we look at the weights alone? First, let's look at the previous plot with the sampled data highlighted in colors and the non sampled data grayed out.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3681,7 +3648,7 @@ That was really not a random sample. And non-random samples always ask for troub
 
 \includegraphics{ECOMODbook_files/figure-latex/a10.12-1.pdf}
 
-If we test formally for it with an ANOVA, it seems like there is absolutely no effect of weight:
+If we test formally for it with an ANOVA, it seems like there is absolutely no effect on weight from the different islands
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3712,7 +3679,7 @@ If we test formally for it with an ANOVA, it seems like there is absolutely no e
 ## F-statistic: 1.477 on 3 and 439 DF,  p-value: 0.2201
 \end{verbatim}
 
-This is where we need to be smart. If we conducts the correct analysis, one that includes and adjusts for the effect of length, the differences in length to weight relationship are clear. The intercepts of the different lines are all different from each other.
+This is where we need to be smart. If we conduct the correct analysis, one that includes and adjusts for the effect of length, the differences in the length to weight relationship are clear. The intercepts of the different lines are all different from each other.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3744,7 +3711,7 @@ This is where we need to be smart. If we conducts the correct analysis, one that
 ## F-statistic: 35.47 on 4 and 438 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-Note this corresponds to comparing weights while not accounting for differences (in lengths), and comparing weights while accounting for those differences. In other words, we are interested in different intercepts in the left plot below, not in the boxplots of the right plot, that ignore the effect of length.
+Note this corresponds to first comparing weights while not accounting for differences (in lengths), and then comparing weights while accounting for those differences. In other words, we are interested in different intercepts in the left plot below, not in the boxplots of the right plot, that ignore the effect of length.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3762,7 +3729,7 @@ Note this corresponds to comparing weights while not accounting for differences 
 
 Actually, what the ANCOVA model does is equivalent to looking at the data by rotating the left plot above and see it in the ``axis'' we care about. That corresponds to the axis such that the slope of the regression lines are aligned with the x-axis of the Cartesian referential.
 
-I want to do this by implementing angular rotation but running out of time. That will involve implementing these transformations:
+I want to do this by implementing angular rotation but I am running out of time. That will involve implementing these transformations:
 
 \url{https://en.wikipedia.org/wiki/Rotation_of_axes}
 
@@ -3770,18 +3737,19 @@ The plot will look just like this!
 
 \includegraphics{FigPlotRotatedAula10.JPG}
 
-Naturally these were forced examples, caefully chosen to illustrate a point. But this was really interesting because it:
+Naturally these were forced examples, carefully chosen to illustrate a point. But this was really interesting because it:
 
 \begin{itemize}
-\tightlist
 \item
-  illustrates how an ANCOVA is when we test for differences in a response (weight) as a function of a factor (island) while accounting for differences in a quatitative variable (length)
+  illustrates how an ANCOVA is when we test for differences in a response (weight) as a function of a factor (island) while accounting for differences in a quantitative variable (length)
 \item
   shows the dangers of testing univariate hypothesis when several (in reality, usually many more than those we can record!) factors have an influence in the response.
 \end{itemize}
 
-\hypertarget{aula11}{%
-\chapter{Class 11: 03 11 2020 ANCOVA with different slopes: interactions}\label{aula11}}
+\hypertarget{ANCOVAdifslopes}{%
+\chapter{ANCOVA with different slopes: interactions}\label{ANCOVAdifslopes}}
+
+In the previous section we saw an ANCOVA, but we assumed all groups would have the same slope. So the rate of change of the response with the continuous covariate would not depend on the level of the factor covariate. Here we extend that model to consider different slopes per group, and for that we will need interactions.
 
 \hypertarget{about-interactions}{%
 \section{About interactions}\label{about-interactions}}
@@ -3877,7 +3845,7 @@ We can see what these interaction plots might look like for different realities.
 \hypertarget{task-1-implementing-the-ancova-with-different-slopes}{%
 \section{Task 1 Implementing the ANCOVA with different slopes}\label{task-1-implementing-the-ancova-with-different-slopes}}
 
-The previous model, explored in Chapters \ref{aula9} and \ref{aula10}, assumed that the slopes were the same across the different groups. But that might not be the case in many scenarios.
+The previous model, explored in Chapter \ref{ANCOVAasLM}, assumed that the slopes were the same across the different groups. But that might not be the case in many scenarios.
 
 What would change if they were different? We extend the previous case to the scenario where the slope of the relationship is also different per treatment.
 
@@ -3888,10 +3856,11 @@ We simulate treatments and data, just in the same way as before, but this gives 
 \CommentTok{\#{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
 \CommentTok{\#all slopes different}
 \FunctionTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
-\NormalTok{xs }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(}\DecValTok{200}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{)}
+\NormalTok{n}\OtherTok{\textless{}{-}}\DecValTok{200}
+\NormalTok{xs }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(n,}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{)}
 \NormalTok{tr }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{,}\StringTok{"b"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"d"}\NormalTok{)}
-\NormalTok{type }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(tr,}\AttributeTok{each=}\DecValTok{50}\NormalTok{)}
-\NormalTok{cores }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{,}\AttributeTok{each=}\DecValTok{50}\NormalTok{)}
+\NormalTok{type }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(tr,}\AttributeTok{each=}\NormalTok{n}\SpecialCharTok{/}\DecValTok{4}\NormalTok{)}
+\NormalTok{cores }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{,}\AttributeTok{each=}\NormalTok{n}\SpecialCharTok{/}\DecValTok{4}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3902,7 +3871,7 @@ Now we simulate the response
 \NormalTok{ys}\OtherTok{=}\DecValTok{3}\SpecialCharTok{+}
 \FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"a"}\NormalTok{,}\DecValTok{5}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"b"}\NormalTok{,}\DecValTok{8}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"c"}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{12}\NormalTok{)))}\SpecialCharTok{+}
 \DecValTok{4}\SpecialCharTok{*}\NormalTok{xs}\SpecialCharTok{+}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"a"}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"b"}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"c"}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{)))}\SpecialCharTok{*}\NormalTok{xs}\SpecialCharTok{+}
-\FunctionTok{rnorm}\NormalTok{(}\DecValTok{200}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\FunctionTok{rnorm}\NormalTok{(n,}\DecValTok{0}\NormalTok{,}\DecValTok{4}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3913,7 +3882,7 @@ If the above code is opaque, we present a different implementation below. Note t
 \CommentTok{\#same as}
 \NormalTok{intercept}\OtherTok{=}\DecValTok{3}\SpecialCharTok{+}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"a"}\NormalTok{,}\DecValTok{5}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"b"}\NormalTok{,}\DecValTok{8}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"c"}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{12}\NormalTok{)))}
 \NormalTok{slope}\OtherTok{=}\NormalTok{xs}\SpecialCharTok{*}\NormalTok{(}\DecValTok{4}\SpecialCharTok{+}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"a"}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"b"}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"c"}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))))}
-\NormalTok{ys}\OtherTok{=}\NormalTok{slope}\SpecialCharTok{+}\NormalTok{intercept}\SpecialCharTok{+}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{200}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\NormalTok{ys}\OtherTok{=}\NormalTok{slope}\SpecialCharTok{+}\NormalTok{intercept}\SpecialCharTok{+}\FunctionTok{rnorm}\NormalTok{(n,}\DecValTok{0}\NormalTok{,}\DecValTok{4}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4146,6 +4115,98 @@ Remember, if this was a real analysis, you would not know the truth, so at best,
 
 \includegraphics{ECOMODbook_files/figure-latex/a11.15-1.pdf}
 
+In the previous image the estimated lines were very consistent with the known truth. This would be different if we had less information, i.e., less data. The following image represents the same scenario, but where instead of 200 observations in total, we only had
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#all slopes different}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
+\NormalTok{n}\OtherTok{\textless{}{-}}\DecValTok{20}
+\NormalTok{xs3 }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(n,}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{)}
+\NormalTok{tr }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{,}\StringTok{"b"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"d"}\NormalTok{)}
+\NormalTok{type3 }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(tr,}\AttributeTok{each=}\NormalTok{n}\SpecialCharTok{/}\DecValTok{4}\NormalTok{)}
+\NormalTok{cores3 }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{,}\AttributeTok{each=}\NormalTok{n}\SpecialCharTok{/}\DecValTok{4}\NormalTok{)}
+\NormalTok{ys3}\OtherTok{=}\DecValTok{3}\SpecialCharTok{+}
+\FunctionTok{ifelse}\NormalTok{(type3}\SpecialCharTok{==}\StringTok{"a"}\NormalTok{,}\DecValTok{5}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type3}\SpecialCharTok{==}\StringTok{"b"}\NormalTok{,}\DecValTok{8}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type3}\SpecialCharTok{==}\StringTok{"c"}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{12}\NormalTok{)))}\SpecialCharTok{+}
+\DecValTok{4}\SpecialCharTok{*}\NormalTok{xs3}\SpecialCharTok{+}\FunctionTok{ifelse}\NormalTok{(type3}\SpecialCharTok{==}\StringTok{"a"}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type3}\SpecialCharTok{==}\StringTok{"b"}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type3}\SpecialCharTok{==}\StringTok{"c"}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{)))}\SpecialCharTok{*}\NormalTok{xs3}\SpecialCharTok{+}
+\FunctionTok{rnorm}\NormalTok{(n,}\DecValTok{0}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\NormalTok{lm.ancova3}\OtherTok{=}\FunctionTok{lm}\NormalTok{(ys3}\SpecialCharTok{\textasciitilde{}}\NormalTok{xs3}\SpecialCharTok{+}\NormalTok{type3}\SpecialCharTok{+}\NormalTok{xs3}\SpecialCharTok{*}\NormalTok{type3)}
+\CommentTok{\#real lines}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{),}\AttributeTok{mar=}\FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.5}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(xs3,ys3,}\AttributeTok{col=}\NormalTok{cores3)}
+\FunctionTok{abline}\NormalTok{(}\DecValTok{3}\SpecialCharTok{+}\DecValTok{5}\NormalTok{,}\DecValTok{4}\FloatTok{+0.2}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{,}\AttributeTok{col=}\DecValTok{1}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\DecValTok{3}\SpecialCharTok{+}\DecValTok{8}\NormalTok{,}\DecValTok{4}\FloatTok{+0.5}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{,}\AttributeTok{col=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\DecValTok{3}\SpecialCharTok{+}\DecValTok{10}\NormalTok{,}\DecValTok{4}\SpecialCharTok{+}\DecValTok{1}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{,}\AttributeTok{col=}\DecValTok{3}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\DecValTok{3}\SpecialCharTok{+}\DecValTok{12}\NormalTok{,}\DecValTok{4}\SpecialCharTok{+}\DecValTok{2}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{,}\AttributeTok{col=}\DecValTok{4}\NormalTok{)}
+\CommentTok{\#estimated lines}
+\CommentTok{\#type a}
+\FunctionTok{abline}\NormalTok{(lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{],lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],}\AttributeTok{lty=}\DecValTok{2}\NormalTok{,}\AttributeTok{col=}\DecValTok{1}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\CommentTok{\#type b}
+\FunctionTok{abline}\NormalTok{(lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{3}\NormalTok{],}
+\NormalTok{lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{6}\NormalTok{],}\AttributeTok{lty=}\DecValTok{2}\NormalTok{,}\AttributeTok{col=}\DecValTok{2}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\CommentTok{\#type c}
+\FunctionTok{abline}\NormalTok{(lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{4}\NormalTok{],}
+\NormalTok{lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{7}\NormalTok{],}\AttributeTok{lty=}\DecValTok{2}\NormalTok{,}\AttributeTok{col=}\DecValTok{3}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\CommentTok{\#type b}
+\FunctionTok{abline}\NormalTok{(lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{5}\NormalTok{],}
+\NormalTok{lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova3}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{8}\NormalTok{],}\AttributeTok{lty=}\DecValTok{2}\NormalTok{,}\AttributeTok{col=}\DecValTok{4}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topleft"}\NormalTok{,}\AttributeTok{legend =}\NormalTok{ tr,}\AttributeTok{lwd=}\DecValTok{2}\NormalTok{,}\AttributeTok{col=}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{,}\AttributeTok{inset=}\FloatTok{0.05}\NormalTok{)}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"bottomright"}\NormalTok{,}\AttributeTok{legend =}\FunctionTok{paste}\NormalTok{(}\StringTok{"Estimated"}\NormalTok{,tr),}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{,}\AttributeTok{lty=}\DecValTok{2}\NormalTok{,}\AttributeTok{col=}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{,}\AttributeTok{inset=}\FloatTok{0.05}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+As expected, in this plot the different estimated lines are considerably further away from the real lines. It is nonetheless quite remarkable how with only 5 points per group, we still obtain estimates not that far from the truth. However, if one looks at the summary of the model
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(lm.ancova3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ys3 ~ xs3 + type3 + xs3 * type3)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5796 -2.3670 -0.1640  0.9371  9.1474 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  -1.6002    11.1033  -0.144    0.888    
+## xs3           4.7503     0.7005   6.781 1.96e-05 ***
+## type3b        5.9856    14.7514   0.406    0.692    
+## type3c        3.6526    15.6372   0.234    0.819    
+## type3d       23.9730    14.8631   1.613    0.133    
+## xs3:type3b    0.2205     0.9740   0.226    0.825    
+## xs3:type3c    0.9038     0.9924   0.911    0.380    
+## xs3:type3d    0.5410     1.0006   0.541    0.599    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.836 on 12 degrees of freedom
+## Multiple R-squared:  0.9657, Adjusted R-squared:  0.9457 
+## F-statistic: 48.26 on 7 and 12 DF,  p-value: 7.539e-08
+\end{verbatim}
+
+none of the interaction terms would be considered relevant at the usual significance levels. In other words, with such few data we would not be able to distinguish that the slope was different in the different groups, and a common slope model would be preferred.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm.ancova3b}\OtherTok{=}\FunctionTok{lm}\NormalTok{(ys3}\SpecialCharTok{\textasciitilde{}}\NormalTok{xs3}\SpecialCharTok{+}\NormalTok{type3)}
+\FunctionTok{AIC}\NormalTok{(lm.ancova3,lm.ancova3b)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             df      AIC
+## lm.ancova3   9 118.3212
+## lm.ancova3b  6 113.8420
+\end{verbatim}
+
 It is interesting to note that the slopes were in general closer to the true values than the intercepts.
 
 \begin{Shaded}
@@ -4156,9 +4217,9 @@ It is interesting to note that the slopes were in general closer to the true val
 \CommentTok{\#true slopes}
 \NormalTok{TS}\OtherTok{\textless{}{-}}\FunctionTok{unique}\NormalTok{(}\DecValTok{4}\SpecialCharTok{+}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"a"}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"b"}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FunctionTok{ifelse}\NormalTok{(type}\SpecialCharTok{==}\StringTok{"c"}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))))}
 \CommentTok{\#estimated intercepts}
-\NormalTok{EI}\OtherTok{\textless{}{-}}\FunctionTok{round}\NormalTok{(}\FunctionTok{c}\NormalTok{(lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{],lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{3}\NormalTok{],lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{4}\NormalTok{],lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{5}\NormalTok{]),}\DecValTok{1}\NormalTok{)}
+\NormalTok{EI}\OtherTok{\textless{}{-}}\FunctionTok{round}\NormalTok{(}\FunctionTok{c}\NormalTok{(lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{],lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{3}\NormalTok{],lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{4}\NormalTok{],lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{5}\NormalTok{]),}\DecValTok{2}\NormalTok{)}
 \CommentTok{\#estimated slopes}
-\NormalTok{ES}\OtherTok{\textless{}{-}}\FunctionTok{round}\NormalTok{(}\FunctionTok{c}\NormalTok{(lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{6}\NormalTok{],lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{7}\NormalTok{],lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{8}\NormalTok{]),}\DecValTok{1}\NormalTok{)}
+\NormalTok{ES}\OtherTok{\textless{}{-}}\FunctionTok{round}\NormalTok{(}\FunctionTok{c}\NormalTok{(lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{],lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{6}\NormalTok{],lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{7}\NormalTok{],lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{+}\NormalTok{lm.ancova2}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{8}\NormalTok{]),}\DecValTok{2}\NormalTok{)}
 \CommentTok{\#pooled table}
 \FunctionTok{kable}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Type"}\NormalTok{,}\StringTok{"Intercept (true)"}\NormalTok{,}\StringTok{"Intercept (estimated)"}\NormalTok{,}\StringTok{"Slope (true)"}\NormalTok{,}\StringTok{"Slope (estimated)"}\NormalTok{),}\FunctionTok{rbind}\NormalTok{(}\FunctionTok{unique}\NormalTok{(type),TI,EI,TS,ES)))}
 \end{Highlighting}
@@ -4172,20 +4233,20 @@ It is interesting to note that the slopes were in general closer to the true val
 \hline
 TI & Intercept (true) & 8 & 11 & 13 & 15\\
 \hline
-EI & Intercept (estimated) & 8 & 18.6 & 10.8 & 15.5\\
+EI & Intercept (estimated) & 7.96 & 18.64 & 10.79 & 15.46\\
 \hline
 TS & Slope (true) & 4.2 & 4.5 & 5 & 6\\
 \hline
-ES & Slope (estimated) & 4.2 & 4 & 5.2 & 6\\
+ES & Slope (estimated) & 4.21 & 3.97 & 5.2 & 6\\
 \hline
 \end{tabular}
 
-Can you think about an intuitive reason for that being the case? The answer lies in figure \ref{fig:FCR}. There is no data near the intercept, so there is actually more information abot the slope than about the intercept. Things could have been different if the data for the continous response was also available around the value 0.
+Can you think about an intuitive reason for that being the case? The answer lies in figure \ref{fig:FCR}. There is no data near the intercept, so there is actually more information about the slope than about the intercept. Things could have been different if the data for the continous response was also available around the value 0.
 
 \hypertarget{task-2-modeling-a-data-set}{%
 \section{Task 2 Modeling a data set}\label{task-2-modeling-a-data-set}}
 
-In a given dataset we might want to explain a continous variable as a function of a couple of explanatory variables, specifically a continous variable and a factor. As we have seen before, this could be attempted via an ANCOVA, with or without an interaction term.Therefore, a relevant question might be to know if the interaction is needed or not, or in other words, if the different lines expressing the relationship between the countinous covariate and the response might be have different slopes per level of the factor covariate, or if on the other hand, a comon slope might be possible, with different per level of the factor covariate. A third even simpler model is the one where the factor covariate is not relevant at all, or, in other words, single line would be the most parcimonious way to model the data.
+In a given dataset we might want to explain a continuous variable as a function of a couple of explanatory variables, specifically a continuous variable and a factor. As we have seen before, this could be attempted via an ANCOVA, with or without an interaction term.Therefore, a relevant question might be to know if the interaction is needed or not, or in other words, if the different lines expressing the relationship between the continuous covariate and the response might be have different slopes per level of the factor covariate, or if on the other hand, a common slope might be possible, with different per level of the factor covariate. A third even simpler model is the one where the factor covariate is not relevant at all, or, in other words, single line would be the most parsimonious way to model the data.
 
 We illustrate that with the data set \texttt{data4lines.csv} that we considered before in chapter \ref{aula7}, which was created using the website \url{https://drawdata.xyz/}.
 
@@ -4422,12 +4483,12 @@ Carlos might have something to present at the congress after all! He goes to sle
 
 \includegraphics{ECOMODbook_files/figure-latex/a11.27-1.pdf}
 
-\hypertarget{aula13}{%
-\chapter{Class 12: 04 11 2020 Interactions between continous covariates}\label{aula13}}
+\hypertarget{ContinousInteractions}{%
+\chapter{Interactions between continous covariates}\label{ContinousInteractions}}
 
 The examples in previous chapters considered interactions between variables, where at least one of the variables was a factor. This was for convenience, not for necessity, and interactions can occur also across strictly continuous variables. An example follows. Imagine we are interested in modelling the length of a fish species as a function of water temperature \texttt{temp} and \texttt{pH}.
 
-We make up some example data below. Note in passing if those were real values of some water pH\ldots{} all the fish would probably be dissolved!
+We make up some example data below. Note in passing if those were real values for some water pH\ldots{} all the fish would probably be dissolved!
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4924,21 +4985,29 @@ modR & 7 & 302.0554\\
 If we had all the 4 relevant variables available, we would possibly most of the time - here, considering just a random selection of 10 models - get the correct model. Nonetheless, this was just a single example, and I did not implement a full search over the possible model space. I leave it as a task for the reader. If some of the truly relevant variables were not recorded, or if some new variables not relevant to explain the response were collected instead, some errors might occur. Your task now is to create a few additional variables, not related to the response, and explore how often you make mistakes, and what do these mistakes tend to depend on, when you have available a partial subset of the variables that explain the response, plus a subset of variables that do not. Have fun!
 
 \hypertarget{conclusion-on-linear-regression}{%
-\chapter{Conclusion on linear regression}\label{conclusion-on-linear-regression}}
+\section{Conclusion on linear regression}\label{conclusion-on-linear-regression}}
 
 \hypertarget{conclusion}{%
-\section{Conclusion}\label{conclusion}}
+\subsection{Conclusion}\label{conclusion}}
 
-The material in previous 4 lectures allows you to fully understand the outputs of simple regression models, and to see how some statistical models that you know by other names, like an ANOVA or a the t-test, are just simple special cases of a linear model.
+The material in previous sections allows you to fully understand the outputs of simple regression models, and to see how some statistical models that you know by other names, like an ANOVA or a the t-test, are just simple special cases of a linear model.
 
 It also helps you understand how the parameter values represent just features of the data and its generating process, and how we can recover estimates of the original relationships between the variables from said set of parameters.
 
+You were also introduced to interactions, and how you might need to think about them when modelling real data.
+
 I recommend you explore the code and output above, and that in particular you experiment with changing means (parameter values for the real models), variances (the precision of how you would measure variables) and sample sizes (which gives you an indication of how much information you have to estimate the underlying reality). Understanding the outputs under these new scenarios is fundamental for progressing towards more complex regression models, like GLMs or GAMs, of which the above cases are just particular cases.
 
-Many additional interesting links on linear models exist online. This is just one of them: \url{https://data-flair.training/blogs/r-linear-regression-tutorial/}
+Many additional interesting links on linear models exist online. This is just one of them:
 
-\hypertarget{aula12}{%
-\chapter{Class 13: 10 11 2020 Maximum likelihood and all that}\label{aula12}}
+\url{https://data-flair.training/blogs/r-linear-regression-tutorial/}
+
+Naturally, there will be many scenarios in which a linear model will not be enough. Under those settings, one might need other tools from our modelling toolbox. A discussion of th elimits of the linear model in ecological contexts is provided by
+
+\url{https://link.springer.com/chapter/10.1007/978-0-387-87458-6_2}
+
+\hypertarget{MLEs}{%
+\chapter{Class 13: 10 11 2020 Maximum likelihood and all that}\label{MLEs}}
 
 We have been fitting regression models, using say function \texttt{lm}. While this might seem rather ordinary and uninteresting to a seasoned statistician, it is quite remarkable for the average person. So remarkable that I would suggest the analogy of a cell phone to most of us. We do not really think about it, since we do it all the time, but wait a second: can you imagine all the things that must happen inside that little device so that your cousin Maria João having her honey moon in Hawaii can share with you a 2-second delay live of the fantastic romantic dinner she is having, while you are actually 10000 meters above ground on a plane preparing to land in Siberia? I dare to say that for about 99.9 \% of the readers, you cannot imagine it! And I do not plan on telling you here all the technological hurdles that had to ve overcome to make it possible - and I hope by now you have realized that is beyond the purpose of this book. On the contrary, telling you what happens behind the scenes when a function like \texttt{lm} reports some maximum likelihood estimates of a given model parameters is the task that lays ahead. ``Brace brace!'', as they might say when facing strong turbulence on your plane that, remember, is currently landing in Siberia.
 
@@ -5917,7 +5986,7 @@ Note that with only 5 nests, there is not much information to estimate the funct
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-6-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-12-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5955,7 +6024,7 @@ in which case, we would get a more sensible transition between successes and fai
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-13-1.pdf}
 
 \hypertarget{likelihood-above-and-beyond}{%
 \section{Likelihood, above and beyond}\label{likelihood-above-and-beyond}}
@@ -5970,8 +6039,8 @@ One such alternative might actually be to change the inferential framework. The 
 
 Most of the (parametric) statistical methods that you have used are probably based on a likelihood. That is the case for most parametric statistical tests like t-tests and ANOVA's (despite the fact that ANOVA's are typically implemented not exploiting the likelihood but using decompositions of the sources of variation into sums of squares associated to different components of the underlying linear models). That was a story we touch upon briefly, from a different perspective (see chapter \ref@aula8).
 
-\hypertarget{aula14}{%
-\chapter{Class 14: 11 11 2020 GLMs}\label{aula14}}
+\hypertarget{GLMs}{%
+\chapter{An introduction to generalized linear models}\label{GLMs}}
 
 \hypertarget{what-are-glms}{%
 \section{What are GLMs}\label{what-are-glms}}
@@ -6098,7 +6167,7 @@ This illustrates the power of a link function to constrain the predictions to an
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-8-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-14-1.pdf}
 
 \hypertarget{most-useful-glm-families}{%
 \section{Most useful GLM Families}\label{most-useful-glm-families}}
@@ -6224,7 +6293,7 @@ We plot the predictions on top of each other, and no surprises here, the 3 imple
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-9-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-15-1.pdf}
 
 Unfortunately, and as expected, the predicttions would be nmegative, hence inadmissible, for values of the preditor \texttt{xs1} smaller than about 35, which is undesirable. This is where the GLMs will come in handy. We now fit those:
 
@@ -6293,7 +6362,7 @@ A really nice and interesting evaluation of model adequacy, or in other words, a
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-11-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-17-1.pdf}
 
 Additionally, if we would evaluate the AIC for these contending models, the Poisson model would be by far the most parsimonious. We have not talked about model selection yet, but AIC is a model selection criteria that favours models that fit to the data while penalizing for the number of parameters in the model \citep[e.g.][]{Aho2014}. The lowest AIC represents the most parsimonious model, hence the optimal fit given the amount of data and the number of parameters in the model.
 
@@ -6337,7 +6406,7 @@ Just to come back to a point made above, notice that different models whcih migh
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-18-1.pdf}
 
 As expected, thje precion around the Gamma predictions is larger. Of course, in real life, we might have trouble knowing what is best, but here, the lower variance of the Poisson is what is the real variance, since we know the data generating process (and AIC favours it).
 
@@ -6385,7 +6454,7 @@ Look at the data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-14-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-20-1.pdf}
 
 Implement multiple regression
 
@@ -6720,7 +6789,7 @@ Look at AICc?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-23-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-29-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6757,7 +6826,7 @@ Look at AICc?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-23-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-29-2.pdf}
 
 \hypertarget{titanic-example}{%
 \section{Titanic example}\label{titanic-example}}
@@ -6813,7 +6882,7 @@ Vamos ver os dados
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-26-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-32-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6821,7 +6890,7 @@ Vamos ver os dados
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-27-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-33-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6829,7 +6898,7 @@ Vamos ver os dados
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-28-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-34-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6837,7 +6906,7 @@ Vamos ver os dados
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-29-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-35-1.pdf}
 
 \hypertarget{modelauxe7uxe3o}{%
 \subsection{Modelação}\label{modelauxe7uxe3o}}
@@ -6852,7 +6921,7 @@ Testar um modelo linear
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-30-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-36-1.pdf}
 
 tentar com um GLM
 
@@ -6872,7 +6941,7 @@ tentar com um GLM
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-31-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-37-1.pdf}
 
 o que diz o meu modelo
 
@@ -6926,7 +6995,7 @@ ok, idade influencia, negativamente, a sobrevivencia, e o sexo?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-33-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-39-1.pdf}
 
 ver o model
 
@@ -6989,7 +7058,7 @@ e a classe3 do bilhete?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-35-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-41-1.pdf}
 
 o modelo
 
@@ -7095,7 +7164,7 @@ o modelo
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-37-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-43-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7132,7 +7201,7 @@ o modelo
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-37-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-43-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7442,8 +7511,8 @@ o modelo
 
 The fundamental idea is that most of these models are equally good for prediction. But they might give you the complete wrong picture for explanation. Never confuse the two. Optimal modelling strategies and choices might require know what is more important.
 
-\hypertarget{aula17}{%
-\chapter{Random effects and mixed Models}\label{aula17}}
+\hypertarget{GLMM}{%
+\chapter{Random effects and mixed models}\label{GLMM}}
 
 In this chapter we investigate the use of random effects.
 
@@ -7500,7 +7569,7 @@ We can look at the response variable, species richness, as a function of NA
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-41-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-47-1.pdf}
 
 When we see it like this, there is no notion about the structure of the data, in particular that there are 5 measurements in each beach
 
@@ -7511,7 +7580,7 @@ When we see it like this, there is no notion about the structure of the data, in
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-42-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-48-1.pdf}
 
 but we could make it a bit more explicit by having different symbols for each beach (say the beach number) and coloring each beach symbol with a diferent color
 
@@ -7532,7 +7601,7 @@ but we could make it a bit more explicit by having different symbols for each be
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-43-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-49-1.pdf}
 
 Now the two stage approach: (1) we consider the relation between R and NAP, for each beach, and (2) we model the estimated coefficients per beach as a function of exposure
 
@@ -7552,7 +7621,7 @@ Now the two stage approach: (1) we consider the relation between R and NAP, for 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-44-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-50-1.pdf}
 
 Now the second stage
 
@@ -7564,7 +7633,7 @@ Now the second stage
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-45-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-51-1.pdf}
 
 The way to do all this in one go is to consider a mixed model, where exposure is a fixed effect, but beach is considered a random effect.
 
@@ -7670,7 +7739,7 @@ Look at the fitted model predictions over the data (note the use of function \te
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-49-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-55-1.pdf}
 
 Implementing the mixed model, with random intercepts and slopes
 
@@ -7777,7 +7846,7 @@ and ploting the model
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-54-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-60-1.pdf}
 
 Zuur says in page 110 we could compare the models by AIC, but that is just nonsense. Having been fitted by REML, no AIC is available
 
@@ -7895,7 +7964,7 @@ making a model
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-60-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-66-1.pdf}
 
 the correlation is in fact very large! Note this correlation is actually an output present in the \texttt{lme} and \texttt{lmer} fitted objects. A very detailed description of what these correlations are when we have more than 1 of them can be found here: \url{https://rpubs.com/yjunechoe/correlationsLMEM}. That is a quite advanced topic though.
 
@@ -7972,7 +8041,7 @@ We can represent the models fitted independently beach by beach we had above wit
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-62-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-68-1.pdf}
 
 and we can add the AIC of this model to the above comparison
 
@@ -8042,7 +8111,7 @@ This lets us visualize that the data comes from 8 clusters of locations, in the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-66-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-72-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8050,7 +8119,7 @@ This lets us visualize that the data comes from 8 clusters of locations, in the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-66-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-72-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8058,7 +8127,7 @@ This lets us visualize that the data comes from 8 clusters of locations, in the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-66-3.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-72-3.pdf}
 
 Note that cluster would have been an obvious covariate to use, namely as a random effect. While we are not interested in cluster per se, we know that sites are more alike within clusters just due to spatial auto-correlation, and hence that would have been sensible to include in the modelling.
 
@@ -8074,7 +8143,7 @@ We will now investigate the data set in a bit more detail. We begin by looking a
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-67-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-73-1.pdf}
 
 The largest positive correlation of a variable with the response SSR is 0.31, while the largest negative correlation is -0.35. Nonetheless, that is no reason to despair. Hopefully, when considering multiple variables we will be able to model SSR in a reasonable way.
 
@@ -8089,7 +8158,7 @@ Since we have too many variables compared to observations any way, we can ask ou
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-68-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-74-1.pdf}
 
 As we can see, there is a wide range of correlations, but in particular there is a peak at the 0.95-1 range, which we suspected might be due to the fact that some variables are actually obtained as a function of others. After a closer read at the original paper we come to realize these are highly correlated just by constriction. These correspond to echoes of radar on different frequency bands, and hence it is not surprising that they present incredibly high correlations across. It is somewhat surprising that the authors did not note this fact upfront on their paper. These are associated with backscatter variables, with code \texttt{bs}so we can use the function \texttt{grep} to look at these (note even so we divide these into several \texttt{pairs} plots otherwise the plots are too small for being useful).
 
@@ -8099,7 +8168,7 @@ As we can see, there is a wide range of correlations, but in particular there is
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-69-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-75-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8107,7 +8176,7 @@ As we can see, there is a wide range of correlations, but in particular there is
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-69-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-75-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8115,7 +8184,7 @@ As we can see, there is a wide range of correlations, but in particular there is
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-69-3.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-75-3.pdf}
 
 Including pairs of such highly correlated variables in the models could lead to problems nad makes interpretation harder, and hence we need to decide which to remove a priori. This should be driven by ecological knowledge, which in our case, for SSR, is close to inexistent!
 
@@ -8180,7 +8249,7 @@ What does the response variable itself look like? That is the key question to an
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-71-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-77-1.pdf}
 
 We can compare this with a poisson with the same mean, or a negative binomial with the same mean and variance. It should be obvious which provides a closer approximation, even before covariates get added to the mix.
 
@@ -8201,7 +8270,7 @@ We can compare this with a poisson with the same mean, or a negative binomial wi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-72-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-78-1.pdf}
 
 While there is never too much Exploratory Data Analysis (EDA), here we move on to do some modelling.
 
@@ -8219,7 +8288,7 @@ Just to begin, we take a peak at one of the variables that had a large positive 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-73-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-79-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8428,7 +8497,7 @@ We could look at the residuals for both models. First the Poisson
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-80-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-86-1.pdf}
 
 and then the negative binomial
 
@@ -8439,7 +8508,7 @@ and then the negative binomial
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-81-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-87-1.pdf}
 
 It is quite hard to choose between these based on the residuals, but remember that the AIC does not leave any room for doubts, the Negative Binomial is the most likely road to take here. So now it is time to investigate what might be the best model.
 
@@ -8477,15 +8546,10 @@ Zero inflated models and other similar stuff!
   \citet{Martin2005}
 \end{itemize}
 
-\hypertarget{aula19}{%
-\chapter{Class 19: 02 12 2020}\label{aula19}}
-
-Special class by Joana Portugal
-
 \hypertarget{final-words}{%
 \chapter{Final Words}\label{final-words}}
 
-This is a work in progress. If you have read it I hope you enjoyed it. Please send me any feedback you might have on it. Suggestions, questions, comments, edits, requests, etc will be taken seriously. I would be really very happy to use them and to aknowledge your contribution to make this more useful for students and readers.
+This is a work in progress. If you have read it I hope you enjoyed it. Please send me any feedback you might have on it. Suggestions, questions, comments, edits, requests, etc will be taken seriously. I would be really very happy to use them and to acknowledge your contribution to make this more useful for students and readers.
 
   \bibliography{book.bib,packages.bib}
 
