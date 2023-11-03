@@ -1,0 +1,156 @@
+
+# Real life examples using linear models {#LMinPractice}
+
+In previous sections we explored the different aspects of linear models, evaluating their performance and properties leveraging highly on simulated data. Simulated data represents a fantastic way to look at models knowing what reality is, and hence evaluate their properties under known scenarios, but naturally represent constrained realities that are rarely encountered in practice. Therefore, here, we use all that we have learned before to try to use linear models applied to real data. Therefore, while we will have no idea how well we are doing, this will be akin to what a researcher might have to do when working its own data.
+
+An important aspect to highlight is that there are certain decisions, especially those related to what variable one should measure when trying to explain a given response variable, which are fundamental to the model performance but which are heavily dependent on a researcher's knowledge about is specific knowledge domain. Here we assume that the variables available in the datasets would be a reasonable subset of variables to consider in modelling the response, but we note that the importance of that choice, as well as of the survey design and field methods considered to obtain the data, cannot be overstated.
+
+## RIKZ data
+
+This dataset contains the abundance of 75 species of invertebrates at 45 sites across 9 beaches in the Netherlands. Each data row represents a site. Columns 2 to 76 contain species and their abundances. In the following columns several explanatory variables are available.
+
+The data was originally used in @Zuur2007 and is freely available at said book website.  The dataset is used in several chapters of @Zuur2007, in particular chapter 27 @Janssen2007 where it is used to illustrate a set of both univariate and multivariate analysis. The data was later also used by @Zuur2009b, in particular to explore the notion of random effects in a mixed model context. Here, we simply use it to try to model the number of species per site, usually referred to as species richness by ecologists, as a function of available covariates assuming a linear model. This does not mean that the linear model would be the best tool in practice - it would not, for multiple reasons, see the discussion at the end - but it is a useful dataset to illustrate fitting a linear model to data.
+
+We begin by reading the data
+
+```{r}
+RIKZlm <- read.delim("extfiles/RIKZlm.txt")
+```
+
+and noting that it contains:
+
+* a first column with a site indicator variable
+* columns 2 to 76 contain the abundances per species
+* the remaining columns contain potential explanatory variables, including
+    - `week`: the week of sampling of a given beach, corresponding to the week each beach was sampled. Values varie from 1 to 4; 
+    - `angle1`: an angle measured at the site level 
+    - `angle2`: an angle measure at the beach level 
+    - `exposure`: a measure of exposure at the beach level     
+    - `salinity`:  salinity, in parts per 1000, at the beach level 
+    - `temperature`:  temperature, in ºC, at the beach level 
+    - `NAP`:  a measure of how much a site is submerged during the tidal cycle, corresponding to the height of the sampling site relative to the mean tidal level
+    - `penetrability`: A measure of how much the substrate is permeable,  at the site level
+    - `grainsize`: a measure of substrate granularity,  at the site level
+    - `humus`: percentage of organic material, at the site level
+    - `chalk`: percentage of chalk, at the site level
+    - `sorting1`: no idea what this is!
+    - `Beach`: the beach indicator (a factor covariate, levels 1 to 9)        
+
+We begin by creating the response variable, which is conveniently obtained by summing across rows, i.e. per site, how many species had 1 or more individuals:
+
+```{r}
+RIKZlm$nsp<-rowSums(RIKZlm[,2:76]>0)
+```
+
+The first thing to do in any statistical modelling exercise is to look at the data, so we begin by exploring the response variable, noting that we had on average `r round(mean(RIKZlm$nsp),2)` species present per site, ranging from `r min(RIKZlm$nsp)` to `r max(RIKZlm$nsp)` species per site. While counts like these should be treated as such, hence using at the very least a generalized linear model with a count response, we ignore that fact here.
+
+```{r}
+hist(RIKZlm$nsp,xlab="Species richness",main="")
+```
+
+Next, it seems relevant to explore the available covariates to be used to explain species richness. Beach and week are rather uninteresting for our current objectives - even though they might be fundamental for the full story behind this dataset - and so we ignore them here. We can distinguish variables available at the beach level, hence with only 9 different measurements for each variable, for which we have four
+
+```{r}
+par(mfrow=c(2,2),mar=c(4,4,0.5,0.5))
+hist(RIKZlm$angle2,main="")
+hist(RIKZlm$exposure,main="")
+hist(RIKZlm$salinity,main="")
+hist(RIKZlm$temperature,main="")
+```
+
+from those at the site level, for which we have eight, hence with 45 measurements each. Presumably the later might be more useful to explain the species richness, since there is variability within beach on the number of species present at a site
+
+
+```{r}
+par(mfrow=c(4,2),mar=c(4,4,0.5,0.5))
+hist(RIKZlm$angle2,main="")
+hist(RIKZlm$NAP,main="")
+hist(RIKZlm$penetrability,main="")
+hist(RIKZlm$grainsize,main="")
+hist(RIKZlm$humus,main="")
+hist(RIKZlm$chalk,main="")
+hist(RIKZlm$sorting1,main="")
+```
+
+Finally, we can explore the correlations betweeen the diferent covariates between themselves and with the response variable, and for that `corrplot` can be most useful.
+
+```{r}
+#get a simpler data.frame for modelling
+RIKZ4m <- RIKZlm[,-c(2:76)]
+library(corrplot)
+corrplot(cor(RIKZ4m[,-1]), type = "upper", order = "hclust", tl.col = "black", tl.srt = 45)
+```
+
+We can see that variables `NAP` and `exposure` seem negatively related to the response, while `salinity` and `humus` seem positively related to the response. We can also note some explanatory variables are considerably correlated, as an example, `salinity` with `exposure` or `exposure` with `temperature.` That could create instability in models including these pairs of variables.
+
+Just to start exploring models, we fit univariate models of the apparent best single predictors.
+
+```{r}
+modNAP<-lm(nsp~NAP,data=RIKZ4m)
+modExp<-lm(nsp~exposure,data=RIKZ4m)
+modSal<-lm(nsp~salinity,data=RIKZ4m)
+modHum<-lm(nsp~humus,data=RIKZ4m)
+summary(modExp)
+summary(modNAP)
+summary(modSal)
+summary(modHum)
+```
+
+on their own, all these would seem like relevant predictors. If we only had one of them, we might be happy enough. But here we have several. What happens if we use a pair of them, say `NAP` and `exposure`:
+
+```{r}
+modNAPExp<-lm(nsp~NAP+exposure,data=RIKZ4m)
+summary(modNAPExp)
+```
+
+The model seems to have improved. What should we try next? Perhaps `salinity`
+
+```{r}
+modNAPExpSal<-lm(nsp~NAP+exposure+salinity,data=RIKZ4m)
+summary(modNAPExpSal)
+```
+
+it seems like we have again improved model fit. What if we try `humus`
+
+```{r}
+modNAPExpSalHum<-lm(nsp~NAP+exposure+salinity+humus,data=RIKZ4m)
+summary(modNAPExpSalHum)
+```
+
+it seems like, given the previous 3 variables, `humus` is no longer relevant, even if it was apparently random on its own. That should not be a surprise. Just most of your friends might be useful in explaining you to me, they became redundant once I ask your best to explain you to me!
+
+Imagine for a second we would have started from a full model
+
+```{r}
+modFull<-lm(nsp~.,data=RIKZ4m[,-1])
+summary(modFull)
+```
+
+in such a case, several of the variables we think are relevant seem irrelevant, and only `NAP` stands out. Using the friends analogy, if I ask ten of your friends, including your best friend, about yourself, all the chatter across the 9 friends just seems contradictory, and only your best friend might be reliable. The problem with data is that you never know to begin whom our best friend might be, in other words, who might be the best in explaining the response.
+
+One possible approach might be to consider all possible model combinations. Here, excluding interaction terms for now, with 11 potential covariates, that would be a large number of models to fit to the data, namely 1 model with no variables, 11 models with 1 variable, plus combinations of 11, 2 by 2, of two variables, and hence forth, up to combinations of 11, 10 by 10 variables (that's 11 again!), plus 1 model with all covariates. That corresponds to `r choose(11,0)+choose(11,1)+choose(11,2)+choose(11,3)+choose(11,4)+choose(11,5)+choose(11,6)+choose(11,7)+choose(11,8)+choose(11,9)+choose(11,10)+choose(11,11)` (=$2^{11}$) models, which is a lot to run manually.
+
+We can leverage the ability of function `bestglm` from package `bestglm` to do so and report on the best model across all of them, conditional on some model performance metric. This package requires the data to be in a single `data.frame` with all variables named, and one of them, the response, named `y`. We do so here
+
+```{r}
+names(RIKZ4m)[names(RIKZ4m)=="nsp"]<-"y"
+```
+
+and then run the procedure, selecting here AIC (Akaike's Information Criteria) as the criteria for selecting the most parsimonious model.
+
+```{r}
+library(bestglm)
+bestGML1<-bestglm(RIKZ4m[,-1], family = gaussian, IC = "AIC")
+```
+
+The most parsimonious model according to AIC is 
+
+```{r}
+bestGML1
+```
+
+which was actually the model we had stopped at above.
+
+Note that in fact `bestglm` does not, by default, run all models. You can do so by turning the argument `RequireFullEnumerationQ`,  by default `FALSE`, to be `TRUE`. However, not that might take some time to run. By default the function uses an algorithm, named the leaps algorithm, to search the model space. In general that provides the best model, under some conditions that are too technical for me to want to discuss them here.
+
+This section needs some more details, it currently just reproduces what I did in class with the students. Students are challenged to help me complete it.

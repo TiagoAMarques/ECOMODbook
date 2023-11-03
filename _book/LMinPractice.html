@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 13 Real life examples using linear models | Notes for Ecological Modelling</title>
+  <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 13 Real life examples using linear models | Notes for Ecological Modelling" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 13 Real life examples using linear models | Notes for Ecological Modelling" />
+  
+  <meta name="twitter:description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Tiago A. Marques" />
+
+
+<meta name="date" content="2023-11-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ContinousInteractions.html"/>
+<link rel="next" href="MLEs.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="mainintro.html"><a href="mainintro.html"><i class="fa fa-check"></i><b>2</b> Preamble</a></li>
+<li class="chapter" data-level="3" data-path="aknowledgments.html"><a href="aknowledgments.html"><i class="fa fa-check"></i><b>3</b> Aknowledgments</a></li>
+<li class="chapter" data-level="4" data-path="usingRintro.html"><a href="usingRintro.html"><i class="fa fa-check"></i><b>4</b> Using R</a></li>
+<li class="chapter" data-level="5" data-path="prelim.html"><a href="prelim.html"><i class="fa fa-check"></i><b>5</b> Preliminaries</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="prelim.html"><a href="prelim.html#lbtb"><i class="fa fa-check"></i><b>5.1</b> Learning by the book</a></li>
+<li class="chapter" data-level="5.2" data-path="prelim.html"><a href="prelim.html#ftpt"><i class="fa fa-check"></i><b>5.2</b> Following the paper trail</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="about-regression.html"><a href="about-regression.html"><i class="fa fa-check"></i><b>6</b> About regression</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="about-regression.html"><a href="about-regression.html#what-is-a-regression"><i class="fa fa-check"></i><b>6.1</b> What is a regression?</a></li>
+<li class="chapter" data-level="6.2" data-path="about-regression.html"><a href="about-regression.html#the-general-linear-model"><i class="fa fa-check"></i><b>6.2</b> The general linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>7</b> Hands On Regression</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="RIO.html"><a href="RIO.html"><i class="fa fa-check"></i><b>8</b> Regression inside out</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="RIO.html"><a href="RIO.html#implementing-a-regression"><i class="fa fa-check"></i><b>8.1</b> Implementing a regression</a></li>
+<li class="chapter" data-level="8.2" data-path="RIO.html"><a href="RIO.html#simulating-regression-data"><i class="fa fa-check"></i><b>8.2</b> Simulating regression data</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="RIO.html"><a href="RIO.html#what-is-the-effect-of-increasing-the-error-a-simulation-experiment"><i class="fa fa-check"></i><b>8.2.1</b> What is the effect of increasing the error: a simulation experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="RIO.html"><a href="RIO.html#two-tasks-to-further-understand-regression"><i class="fa fa-check"></i><b>8.3</b> Two tasks to further understand regression</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="RIO.html"><a href="RIO.html#task-1"><i class="fa fa-check"></i><b>8.3.1</b> Task 1</a></li>
+<li class="chapter" data-level="8.3.2" data-path="RIO.html"><a href="RIO.html#task-2"><i class="fa fa-check"></i><b>8.3.2</b> Task 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html"><i class="fa fa-check"></i><b>9</b> t-tests and ANOVAs are just linear models</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#a-one-sample-t-test-is-the-simplest-possible-linear-model"><i class="fa fa-check"></i><b>9.1</b> A one sample t-test is the simplest possible linear model</a></li>
+<li class="chapter" data-level="9.2" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#the-t-test"><i class="fa fa-check"></i><b>9.2</b> The t-test</a></li>
+<li class="chapter" data-level="9.3" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#anova"><i class="fa fa-check"></i><b>9.3</b> ANOVA</a></li>
+<li class="chapter" data-level="9.4" data-path="ttestANOVAasLMs.html"><a href="ttestANOVAasLMs.html#a-two-way-anova-and-beyhond-ex-task-do-it-yourself"><i class="fa fa-check"></i><b>9.4</b> A two way ANOVA, and beyhond (ex Task: do it yourself!)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html"><i class="fa fa-check"></i><b>10</b> ANCOVA is (also) just a linear model</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html#common-slope-different-intercepts-per-treatment"><i class="fa fa-check"></i><b>10.1</b> Common slope, different intercepts per treatment</a></li>
+<li class="chapter" data-level="10.2" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html#ANCOVAe"><i class="fa fa-check"></i><b>10.2</b> ANCOVA encore</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="ANCOVAasLM.html"><a href="ANCOVAasLM.html#same-story-another-spin"><i class="fa fa-check"></i><b>10.2.1</b> Same story, another spin</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html"><i class="fa fa-check"></i><b>11</b> ANCOVA with different slopes: interactions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html#about-interactions"><i class="fa fa-check"></i><b>11.1</b> About interactions</a></li>
+<li class="chapter" data-level="11.2" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html#task-1-implementing-the-ancova-with-different-slopes"><i class="fa fa-check"></i><b>11.2</b> Task 1 Implementing the ANCOVA with different slopes</a></li>
+<li class="chapter" data-level="11.3" data-path="ANCOVAdifslopes.html"><a href="ANCOVAdifslopes.html#task-2-modeling-a-data-set"><i class="fa fa-check"></i><b>11.3</b> Task 2 Modeling a data set</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html"><i class="fa fa-check"></i><b>12</b> Interactions between continous covariates</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html#larger-order-interactions"><i class="fa fa-check"></i><b>12.1</b> Larger order interactions</a></li>
+<li class="chapter" data-level="12.2" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html#conclusion-on-linear-regression"><i class="fa fa-check"></i><b>12.2</b> Conclusion on linear regression</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="ContinousInteractions.html"><a href="ContinousInteractions.html#conclusion"><i class="fa fa-check"></i><b>12.2.1</b> Conclusion</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="LMinPractice.html"><a href="LMinPractice.html"><i class="fa fa-check"></i><b>13</b> Real life examples using linear models</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="LMinPractice.html"><a href="LMinPractice.html#rikz-data"><i class="fa fa-check"></i><b>13.1</b> RIKZ data</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="MLEs.html"><a href="MLEs.html"><i class="fa fa-check"></i><b>14</b> Class 13: 10 11 2020 Maximum likelihood and all that</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="MLEs.html"><a href="MLEs.html#maximizing-a-likelihood-algebraically"><i class="fa fa-check"></i><b>14.1</b> Maximizing a likelihood algebraically</a></li>
+<li class="chapter" data-level="14.2" data-path="MLEs.html"><a href="MLEs.html#numerically-maximizing-a-likelihood"><i class="fa fa-check"></i><b>14.2</b> Numerically Maximizing a likelihood</a></li>
+<li class="chapter" data-level="14.3" data-path="MLEs.html"><a href="MLEs.html#the-case-of-a-gaussian"><i class="fa fa-check"></i><b>14.3</b> The case of a Gaussian</a></li>
+<li class="chapter" data-level="14.4" data-path="MLEs.html"><a href="MLEs.html#the-case-of-a-linear-model"><i class="fa fa-check"></i><b>14.4</b> The case of a linear model</a></li>
+<li class="chapter" data-level="14.5" data-path="MLEs.html"><a href="MLEs.html#the-really-interesting-case"><i class="fa fa-check"></i><b>14.5</b> The really interesting case</a></li>
+<li class="chapter" data-level="14.6" data-path="MLEs.html"><a href="MLEs.html#likelihood-above-and-beyond"><i class="fa fa-check"></i><b>14.6</b> Likelihood, above and beyond</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="GLMs.html"><a href="GLMs.html"><i class="fa fa-check"></i><b>15</b> An introduction to generalized linear models</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="GLMs.html"><a href="GLMs.html#what-are-glms"><i class="fa fa-check"></i><b>15.1</b> What are GLMs</a></li>
+<li class="chapter" data-level="15.2" data-path="GLMs.html"><a href="GLMs.html#the-link-function"><i class="fa fa-check"></i><b>15.2</b> The link function</a></li>
+<li class="chapter" data-level="15.3" data-path="GLMs.html"><a href="GLMs.html#most-useful-glm-families"><i class="fa fa-check"></i><b>15.3</b> Most useful GLM Families</a></li>
+<li class="chapter" data-level="15.4" data-path="GLMs.html"><a href="GLMs.html#an-example-analysis"><i class="fa fa-check"></i><b>15.4</b> An example analysis</a></li>
+<li class="chapter" data-level="15.5" data-path="GLMs.html"><a href="GLMs.html#an-example-of-a-glm-as-a-detail-within-a-conceptualization-framework"><i class="fa fa-check"></i><b>15.5</b> An example of a GLM as a detail within a conceptualization framework</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="aula15.html"><a href="aula15.html"><i class="fa fa-check"></i><b>16</b> Class 15: 17 11 2020</a></li>
+<li class="chapter" data-level="17" data-path="example-1---deviance.html"><a href="example-1---deviance.html"><i class="fa fa-check"></i><b>17</b> Example 1 - deviance</a></li>
+<li class="chapter" data-level="18" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html"><i class="fa fa-check"></i><b>18</b> Example 2 - lagartyos GLM</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="example-2---lagartyos-glm.html"><a href="example-2---lagartyos-glm.html#example-2"><i class="fa fa-check"></i><b>18.1</b> Example 2</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="aula16.html"><a href="aula16.html"><i class="fa fa-check"></i><b>19</b> Class 16: 18 11 2020</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="aula16.html"><a href="aula16.html#a-logistic-regression-example"><i class="fa fa-check"></i><b>19.1</b> A logistic regression example</a></li>
+<li class="chapter" data-level="19.2" data-path="aula16.html"><a href="aula16.html#titanic-example"><i class="fa fa-check"></i><b>19.2</b> Titanic example</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="aula16.html"><a href="aula16.html#análise-exploratoria-de-dados"><i class="fa fa-check"></i><b>19.2.1</b> Análise Exploratoria de Dados</a></li>
+<li class="chapter" data-level="19.2.2" data-path="aula16.html"><a href="aula16.html#modelação"><i class="fa fa-check"></i><b>19.2.2</b> Modelação</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="aula16.html"><a href="aula16.html#about-multicollinearity"><i class="fa fa-check"></i><b>19.3</b> About multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="GLMM.html"><a href="GLMM.html"><i class="fa fa-check"></i><b>20</b> Random effects and mixed models</a></li>
+<li class="chapter" data-level="21" data-path="aula18.html"><a href="aula18.html"><i class="fa fa-check"></i><b>21</b> Class 18: 25 11 2020</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="aula18.html"><a href="aula18.html#presence-of-bats"><i class="fa fa-check"></i><b>21.1</b> Presence of bats</a></li>
+<li class="chapter" data-level="21.2" data-path="aula18.html"><a href="aula18.html#sponges"><i class="fa fa-check"></i><b>21.2</b> Sponges</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="aula18.html"><a href="aula18.html#reading-data-in"><i class="fa fa-check"></i><b>21.2.1</b> Reading data in</a></li>
+<li class="chapter" data-level="21.2.2" data-path="aula18.html"><a href="aula18.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>21.2.2</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="21.2.3" data-path="aula18.html"><a href="aula18.html#modelling"><i class="fa fa-check"></i><b>21.2.3</b> Modelling</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="aula18.html"><a href="aula18.html#extra-glm-stuff"><i class="fa fa-check"></i><b>21.3</b> Extra GLM stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>22</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes for Ecological Modelling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="LMinPractice" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Chapter 13</span> Real life examples using linear models<a href="LMinPractice.html#LMinPractice" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In previous sections we explored the different aspects of linear models, evaluating their performance and properties leveraging highly on simulated data. Simulated data represents a fantastic way to look at models knowing what reality is, and hence evaluate their properties under known scenarios, but naturally represent constrained realities that are rarely encountered in practice. Therefore, here, we use all that we have learned before to try to use linear models applied to real data. Therefore, while we will have no idea how well we are doing, this will be akin to what a researcher might have to do when working its own data.</p>
+<p>An important aspect to highlight is that there are certain decisions, especially those related to what variable one should measure when trying to explain a given response variable, which are fundamental to the model performance but which are heavily dependent on a researcher’s knowledge about is specific knowledge domain. Here we assume that the variables available in the datasets would be a reasonable subset of variables to consider in modelling the response, but we note that the importance of that choice, as well as of the survey design and field methods considered to obtain the data, cannot be overstated.</p>
+<div id="rikz-data" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> RIKZ data<a href="LMinPractice.html#rikz-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This dataset contains the abundance of 75 species of invertebrates at 45 sites across 9 beaches in the Netherlands. Each data row represents a site. Columns 2 to 76 contain species and their abundances. In the following columns several explanatory variables are available.</p>
+<p>The data was originally used in <span class="citation">Zuur, Ieno, and Smith (<a href="#ref-Zuur2007">2007</a>)</span> and is freely available at said book website. The dataset is used in several chapters of <span class="citation">Zuur, Ieno, and Smith (<a href="#ref-Zuur2007">2007</a>)</span>, in particular chapter 27 <span class="citation">Janssen et al. (<a href="#ref-Janssen2007">2007</a>)</span> where it is used to illustrate a set of both univariate and multivariate analysis. The data was later also used by <span class="citation">Zuur et al. (<a href="#ref-Zuur2009b">2009b</a>)</span>, in particular to explore the notion of random effects in a mixed model context. Here, we simply use it to try to model the number of species per site, usually referred to as species richness by ecologists, as a function of available covariates assuming a linear model. This does not mean that the linear model would be the best tool in practice - it would not, for multiple reasons, see the discussion at the end - but it is a useful dataset to illustrate fitting a linear model to data.</p>
+<p>We begin by reading the data</p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="LMinPractice.html#cb337-1" tabindex="-1"></a>RIKZlm <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">&quot;extfiles/RIKZlm.txt&quot;</span>)</span></code></pre></div>
+<p>and noting that it contains:</p>
+<ul>
+<li>a first column with a site indicator variable</li>
+<li>columns 2 to 76 contain the abundances per species</li>
+<li>the remaining columns contain potential explanatory variables, including
+<ul>
+<li><code>week</code>: the week of sampling of a given beach, corresponding to the week each beach was sampled. Values varie from 1 to 4;</li>
+<li><code>angle1</code>: an angle measured at the site level</li>
+<li><code>angle2</code>: an angle measure at the beach level</li>
+<li><code>exposure</code>: a measure of exposure at the beach level<br />
+</li>
+<li><code>salinity</code>: salinity, in parts per 1000, at the beach level</li>
+<li><code>temperature</code>: temperature, in ºC, at the beach level</li>
+<li><code>NAP</code>: a measure of how much a site is submerged during the tidal cycle, corresponding to the height of the sampling site relative to the mean tidal level</li>
+<li><code>penetrability</code>: A measure of how much the substrate is permeable, at the site level</li>
+<li><code>grainsize</code>: a measure of substrate granularity, at the site level</li>
+<li><code>humus</code>: percentage of organic material, at the site level</li>
+<li><code>chalk</code>: percentage of chalk, at the site level</li>
+<li><code>sorting1</code>: no idea what this is!</li>
+<li><code>Beach</code>: the beach indicator (a factor covariate, levels 1 to 9)</li>
+</ul></li>
+</ul>
+<p>We begin by creating the response variable, which is conveniently obtained by summing across rows, i.e. per site, how many species had 1 or more individuals:</p>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="LMinPractice.html#cb338-1" tabindex="-1"></a>RIKZlm<span class="sc">$</span>nsp<span class="ot">&lt;-</span><span class="fu">rowSums</span>(RIKZlm[,<span class="dv">2</span><span class="sc">:</span><span class="dv">76</span>]<span class="sc">&gt;</span><span class="dv">0</span>)</span></code></pre></div>
+<p>The first thing to do in any statistical modelling exercise is to look at the data, so we begin by exploring the response variable, noting that we had on average 5.69 species present per site, ranging from 0 to 22 species per site. While counts like these should be treated as such, hence using at the very least a generalized linear model with a count response, we ignore that fact here.</p>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="LMinPractice.html#cb339-1" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>nsp,<span class="at">xlab=</span><span class="st">&quot;Species richness&quot;</span>,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Next, it seems relevant to explore the available covariates to be used to explain species richness. Beach and week are rather uninteresting for our current objectives - even though they might be fundamental for the full story behind this dataset - and so we ignore them here. We can distinguish variables available at the beach level, hence with only 9 different measurements for each variable, for which we have four</p>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="LMinPractice.html#cb340-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb340-2"><a href="LMinPractice.html#cb340-2" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>angle2,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb340-3"><a href="LMinPractice.html#cb340-3" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>exposure,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb340-4"><a href="LMinPractice.html#cb340-4" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>salinity,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb340-5"><a href="LMinPractice.html#cb340-5" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>temperature,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>from those at the site level, for which we have eight, hence with 45 measurements each. Presumably the later might be more useful to explain the species richness, since there is variability within beach on the number of species present at a site</p>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="LMinPractice.html#cb341-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb341-2"><a href="LMinPractice.html#cb341-2" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>angle2,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb341-3"><a href="LMinPractice.html#cb341-3" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>NAP,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb341-4"><a href="LMinPractice.html#cb341-4" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>penetrability,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb341-5"><a href="LMinPractice.html#cb341-5" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>grainsize,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb341-6"><a href="LMinPractice.html#cb341-6" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>humus,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb341-7"><a href="LMinPractice.html#cb341-7" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>chalk,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb341-8"><a href="LMinPractice.html#cb341-8" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>sorting1,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Finally, we can explore the correlations betweeen the diferent covariates between themselves and with the response variable, and for that <code>corrplot</code> can be most useful.</p>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="LMinPractice.html#cb342-1" tabindex="-1"></a><span class="co">#get a simpler data.frame for modelling</span></span>
+<span id="cb342-2"><a href="LMinPractice.html#cb342-2" tabindex="-1"></a>RIKZ4m <span class="ot">&lt;-</span> RIKZlm[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">76</span>)]</span>
+<span id="cb342-3"><a href="LMinPractice.html#cb342-3" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code></pre></div>
+<pre><code>## corrplot 0.92 loaded</code></pre>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="LMinPractice.html#cb344-1" tabindex="-1"></a><span class="fu">corrplot</span>(<span class="fu">cor</span>(RIKZ4m[,<span class="sc">-</span><span class="dv">1</span>]), <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, <span class="at">order =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.srt =</span> <span class="dv">45</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>We can see that variables <code>NAP</code> and <code>exposure</code> seem negatively related to the response, while <code>salinity</code> and <code>humus</code> seem positively related to the response. We can also note some explanatory variables are considerably correlated, as an example, <code>salinity</code> with <code>exposure</code> or <code>exposure</code> with <code>temperature.</code> That could create instability in models including these pairs of variables.</p>
+<p>Just to start exploring models, we fit univariate models of the apparent best single predictors.</p>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="LMinPractice.html#cb345-1" tabindex="-1"></a>modNAP<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb345-2"><a href="LMinPractice.html#cb345-2" tabindex="-1"></a>modExp<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>exposure,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb345-3"><a href="LMinPractice.html#cb345-3" tabindex="-1"></a>modSal<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>salinity,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb345-4"><a href="LMinPractice.html#cb345-4" tabindex="-1"></a>modHum<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>humus,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb345-5"><a href="LMinPractice.html#cb345-5" tabindex="-1"></a><span class="fu">summary</span>(modExp)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = nsp ~ exposure, data = RIKZ4m)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.3882 -2.2412 -0.2412  1.7588 15.6118 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  37.8588     6.8682   5.512 1.86e-06 ***
+## exposure     -3.1471     0.6692  -4.703 2.66e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.113 on 43 degrees of freedom
+## Multiple R-squared:  0.3396, Adjusted R-squared:  0.3243 
+## F-statistic: 22.11 on 1 and 43 DF,  p-value: 2.664e-05</code></pre>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="LMinPractice.html#cb347-1" tabindex="-1"></a><span class="fu">summary</span>(modNAP)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = nsp ~ NAP, data = RIKZ4m)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.0675 -2.7607 -0.8029  1.3534 13.8723 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   6.6857     0.6578  10.164 5.25e-13 ***
+## NAP          -2.8669     0.6307  -4.545 4.42e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.16 on 43 degrees of freedom
+## Multiple R-squared:  0.3245, Adjusted R-squared:  0.3088 
+## F-statistic: 20.66 on 1 and 43 DF,  p-value: 4.418e-05</code></pre>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="LMinPractice.html#cb349-1" tabindex="-1"></a><span class="fu">summary</span>(modSal)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = nsp ~ salinity, data = RIKZ4m)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -9.732 -2.689 -1.058  2.391 12.268 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -57.4246    15.1286  -3.796 0.000456 ***
+## salinity      2.2460     0.5379   4.176 0.000142 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.269 on 43 degrees of freedom
+## Multiple R-squared:  0.2885, Adjusted R-squared:  0.2719 
+## F-statistic: 17.43 on 1 and 43 DF,  p-value: 0.0001423</code></pre>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="LMinPractice.html#cb351-1" tabindex="-1"></a><span class="fu">summary</span>(modHum)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = nsp ~ humus, data = RIKZ4m)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.6801 -3.0894 -1.0894  0.9106 17.9106 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   4.0894     0.8822   4.636 3.31e-05 ***
+## humus        31.8127    10.9393   2.908  0.00573 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.627 on 43 degrees of freedom
+## Multiple R-squared:  0.1644, Adjusted R-squared:  0.1449 
+## F-statistic: 8.457 on 1 and 43 DF,  p-value: 0.005732</code></pre>
+<p>on their own, all these would seem like relevant predictors. If we only had one of them, we might be happy enough. But here we have several. What happens if we use a pair of them, say <code>NAP</code> and <code>exposure</code>:</p>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="LMinPractice.html#cb353-1" tabindex="-1"></a>modNAPExp<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>NAP<span class="sc">+</span>exposure,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb353-2"><a href="LMinPractice.html#cb353-2" tabindex="-1"></a><span class="fu">summary</span>(modNAPExp)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = nsp ~ NAP + exposure, data = RIKZ4m)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.3083 -1.7107 -0.8489  0.7674 13.3264 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  37.2909     5.1878   7.188 7.83e-09 ***
+## NAP          -2.7252     0.4716  -5.779 8.26e-07 ***
+## exposure     -2.9988     0.5060  -5.926 5.07e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.106 on 42 degrees of freedom
+## Multiple R-squared:  0.6321, Adjusted R-squared:  0.6146 
+## F-statistic: 36.09 on 2 and 42 DF,  p-value: 7.577e-10</code></pre>
+<p>The model seems to have improved. What should we try next? Perhaps <code>salinity</code></p>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="LMinPractice.html#cb355-1" tabindex="-1"></a>modNAPExpSal<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>NAP<span class="sc">+</span>exposure<span class="sc">+</span>salinity,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb355-2"><a href="LMinPractice.html#cb355-2" tabindex="-1"></a><span class="fu">summary</span>(modNAPExpSal)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = nsp ~ NAP + exposure + salinity, data = RIKZ4m)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.7980 -1.2762 -0.2463  0.7915 11.6894 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   0.5746    15.7414   0.036  0.97106    
+## NAP          -2.5881     0.4492  -5.762 9.43e-07 ***
+## exposure     -2.3201     0.5524  -4.200  0.00014 ***
+## salinity      1.0580     0.4310   2.455  0.01844 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.936 on 41 degrees of freedom
+## Multiple R-squared:  0.6793, Adjusted R-squared:  0.6558 
+## F-statistic: 28.94 on 3 and 41 DF,  p-value: 3.257e-10</code></pre>
+<p>it seems like we have again improved model fit. What if we try <code>humus</code></p>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="LMinPractice.html#cb357-1" tabindex="-1"></a>modNAPExpSalHum<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>NAP<span class="sc">+</span>exposure<span class="sc">+</span>salinity<span class="sc">+</span>humus,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb357-2"><a href="LMinPractice.html#cb357-2" tabindex="-1"></a><span class="fu">summary</span>(modNAPExpSalHum)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = nsp ~ NAP + exposure + salinity + humus, data = RIKZ4m)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5345 -1.6547 -0.1288  0.7652 12.0831 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1.2819    15.9181   0.081 0.936216    
+## NAP          -2.5269     0.4651  -5.433 2.95e-06 ***
+## exposure     -2.2593     0.5668  -3.986 0.000277 ***
+## salinity      1.0019     0.4453   2.250 0.030031 *  
+## humus         4.5179     7.8241   0.577 0.566886    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.96 on 40 degrees of freedom
+## Multiple R-squared:  0.6819, Adjusted R-squared:  0.6501 
+## F-statistic: 21.44 on 4 and 40 DF,  p-value: 1.646e-09</code></pre>
+<p>it seems like, given the previous 3 variables, <code>humus</code> is no longer relevant, even if it was apparently random on its own. That should not be a surprise. Just most of your friends might be useful in explaining you to me, they became redundant once I ask your best to explain you to me!</p>
+<p>Imagine for a second we would have started from a full model</p>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="LMinPractice.html#cb359-1" tabindex="-1"></a>modFull<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>.,<span class="at">data=</span>RIKZ4m[,<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb359-2"><a href="LMinPractice.html#cb359-2" tabindex="-1"></a><span class="fu">summary</span>(modFull)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = nsp ~ ., data = RIKZ4m[, -1])
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5434 -1.3910 -0.2209  0.8268 11.6548 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   -21.714257  62.877690  -0.345    0.732    
+## week            1.537678   2.873627   0.535    0.596    
+## angle1         -0.008529   0.011166  -0.764    0.451    
+## angle2          0.078737   0.062419   1.261    0.217    
+## exposure       -0.192513   1.988243  -0.097    0.923    
+## salinity       -0.149684   2.557775  -0.059    0.954    
+## temperature     1.645499   1.501715   1.096    0.282    
+## NAP            -2.727377   0.591672  -4.610 6.55e-05 ***
+## penetrability  -0.008968   0.008525  -1.052    0.301    
+## grainsize       0.015923   0.032054   0.497    0.623    
+## humus          -0.361549   9.275088  -0.039    0.969    
+## chalk          -0.127028   0.141104  -0.900    0.375    
+## sorting1        0.004410   0.042521   0.104    0.918    
+## Beach          -1.044276   1.717248  -0.608    0.548    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.14 on 31 degrees of freedom
+## Multiple R-squared:  0.7226, Adjusted R-squared:  0.6063 
+## F-statistic: 6.211 on 13 and 31 DF,  p-value: 1.527e-05</code></pre>
+<p>in such a case, several of the variables we think are relevant seem irrelevant, and only <code>NAP</code> stands out. Using the friends analogy, if I ask ten of your friends, including your best friend, about yourself, all the chatter across the 9 friends just seems contradictory, and only your best friend might be reliable. The problem with data is that you never know to begin whom our best friend might be, in other words, who might be the best in explaining the response.</p>
+<p>One possible approach might be to consider all possible model combinations. Here, excluding interaction terms for now, with 11 potential covariates, that would be a large number of models to fit to the data, namely 1 model with no variables, 11 models with 1 variable, plus combinations of 11, 2 by 2, of two variables, and hence forth, up to combinations of 11, 10 by 10 variables (that’s 11 again!), plus 1 model with all covariates. That corresponds to 2048 (=<span class="math inline">\(2^11\)</span>) models, which is a lot to run manually.</p>
+<p>We can leverage the ability of function <code>bestglm</code> from package <code>bestglm</code> to do so and report on the best model across all of them, conditional on some model performance metric. This package requires the data to be in a single <code>data.frame</code> with all variables named, and one of them, the response, named <code>y</code>. We do so here</p>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="LMinPractice.html#cb361-1" tabindex="-1"></a><span class="fu">names</span>(RIKZ4m)[<span class="fu">names</span>(RIKZ4m)<span class="sc">==</span><span class="st">&quot;nsp&quot;</span>]<span class="ot">&lt;-</span><span class="st">&quot;y&quot;</span></span></code></pre></div>
+<p>and then run the procedure, selecting here AIC (Akaike’s Information Criteria) as the criteria for selecting the most parsimonious model.</p>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="LMinPractice.html#cb362-1" tabindex="-1"></a><span class="fu">library</span>(bestglm)</span></code></pre></div>
+<pre><code>## Loading required package: leaps</code></pre>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="LMinPractice.html#cb364-1" tabindex="-1"></a>bestGML1<span class="ot">&lt;-</span><span class="fu">bestglm</span>(RIKZ4m[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">family =</span> gaussian, <span class="at">IC =</span> <span class="st">&quot;AIC&quot;</span>)</span></code></pre></div>
+<p>The most parsimonious model according to AIC is</p>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="LMinPractice.html#cb365-1" tabindex="-1"></a>bestGML1</span></code></pre></div>
+<pre><code>## AIC
+## BICq equivalent for q in (0.234777596202668, 0.788421926315081)
+## Best Model:
+##              Estimate Std. Error    t value     Pr(&gt;|t|)
+## (Intercept)  0.574551 15.7413843  0.0364994 9.710613e-01
+## exposure    -2.320101  0.5524193 -4.1998914 1.402696e-04
+## salinity     1.058035  0.4310479  2.4545640 1.843901e-02
+## NAP         -2.588074  0.4491540 -5.7621070 9.426989e-07</code></pre>
+<p>which was actually the model we had stopped at above.</p>
+<p>Note that in fact <code>bestglm</code> does not, by default, run all models. You can do so by turning the argument <code>RequireFullEnumerationQ</code>, by default <code>FALSE</code>, to be <code>TRUE</code>. However, not that might take some time to run. By default the function uses an algorithm, named the leaps algorithm, to search the model space. In general that provides the best model, under some conditions that are too technical for me to want to discuss them here.</p>
+<p>This section needs some more details, it currently just reproduces what I did in class with the students. Students are challenged to help me complete it.</p>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Janssen2007" class="csl-entry">
+Janssen, G. M., S. Mulder, A. F. Zuur, E. N. Ieno, and G. M. Smith. 2007. <span>“Univariate and Multivariate Analysis Applied on a Dutch Sandy Beach Community.”</span> In <em>Statistics for Biology and Health</em>, 485–501. Springer New York. <a href="https://doi.org/10.1007/978-0-387-45972-1_27">https://doi.org/10.1007/978-0-387-45972-1_27</a>.
+</div>
+<div id="ref-Zuur2007" class="csl-entry">
+Zuur, Alain F., Elena N. Ieno, and Graham M. Smith. 2007. <em>Analyzing Ecological Data</em>. Springer.
+</div>
+<div id="ref-Zuur2009b" class="csl-entry">
+Zuur, Alain F., Elena N. Ieno, Neil Walker, Anatoly A. Saveliev, and Graham M. Smith. 2009b. <em>Mixed Effects Models and Extensions in Ecology with r</em>. Springer.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ContinousInteractions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="MLEs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ECOMODbook.pdf", "ECOMODbook.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

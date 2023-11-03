@@ -40,6 +40,8 @@ ContinousInteractions
 larger-order-interactions
 conclusion-on-linear-regression
 conclusion
+LMinPractice
+rikz-data
 MLEs
 maximizing-a-likelihood-algebraically
 numerically-maximizing-a-likelihood

@@ -120,7 +120,7 @@
 
 \title{Notes for Ecological Modelling}
 \author{Tiago A. Marques}
-\date{2023-11-01}
+\date{2023-11-03}
 
 \begin{document}
 \maketitle
@@ -4998,13 +4998,459 @@ You were also introduced to interactions, and how you might need to think about 
 
 I recommend you explore the code and output above, and that in particular you experiment with changing means (parameter values for the real models), variances (the precision of how you would measure variables) and sample sizes (which gives you an indication of how much information you have to estimate the underlying reality). Understanding the outputs under these new scenarios is fundamental for progressing towards more complex regression models, like GLMs or GAMs, of which the above cases are just particular cases.
 
-Many additional interesting links on linear models exist online. This is just one of them:
+The reader could find it interesting to read \citet{Boldina2016}, focussing on the use of the linear model in marine ecology..
+
+Many additional interesting online resources are available online about linear models, including many tutorials. This is just one of them:
 
 \url{https://data-flair.training/blogs/r-linear-regression-tutorial/}
 
-Naturally, there will be many scenarios in which a linear model will not be enough. Under those settings, one might need other tools from our modelling toolbox. A discussion of th elimits of the linear model in ecological contexts is provided by
+Naturally, there will be many scenarios in which a linear model will not be enough. Under those settings, one might need other tools from our modelling toolbox. A discussion of th elimits of the linear model in ecological contexts is provided by \citet{Zuur2009c} (available for free \href{here}{https://www.researchgate.net/publication/226835875\_Limitations\_of\_Linear\_Regression\_Applied\_on\_Ecological\_Data}).
 
-\url{https://link.springer.com/chapter/10.1007/978-0-387-87458-6_2}
+\hypertarget{LMinPractice}{%
+\chapter{Real life examples using linear models}\label{LMinPractice}}
+
+In previous sections we explored the different aspects of linear models, evaluating their performance and properties leveraging highly on simulated data. Simulated data represents a fantastic way to look at models knowing what reality is, and hence evaluate their properties under known scenarios, but naturally represent constrained realities that are rarely encountered in practice. Therefore, here, we use all that we have learned before to try to use linear models applied to real data. Therefore, while we will have no idea how well we are doing, this will be akin to what a researcher might have to do when working its own data.
+
+An important aspect to highlight is that there are certain decisions, especially those related to what variable one should measure when trying to explain a given response variable, which are fundamental to the model performance but which are heavily dependent on a researcher's knowledge about is specific knowledge domain. Here we assume that the variables available in the datasets would be a reasonable subset of variables to consider in modelling the response, but we note that the importance of that choice, as well as of the survey design and field methods considered to obtain the data, cannot be overstated.
+
+\hypertarget{rikz-data}{%
+\section{RIKZ data}\label{rikz-data}}
+
+This dataset contains the abundance of 75 species of invertebrates at 45 sites across 9 beaches in the Netherlands. Each data row represents a site. Columns 2 to 76 contain species and their abundances. In the following columns several explanatory variables are available.
+
+The data was originally used in \citet{Zuur2007} and is freely available at said book website. The dataset is used in several chapters of \citet{Zuur2007}, in particular chapter 27 \citet{Janssen2007} where it is used to illustrate a set of both univariate and multivariate analysis. The data was later also used by \citet{Zuur2009b}, in particular to explore the notion of random effects in a mixed model context. Here, we simply use it to try to model the number of species per site, usually referred to as species richness by ecologists, as a function of available covariates assuming a linear model. This does not mean that the linear model would be the best tool in practice - it would not, for multiple reasons, see the discussion at the end - but it is a useful dataset to illustrate fitting a linear model to data.
+
+We begin by reading the data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RIKZlm }\OtherTok{\textless{}{-}} \FunctionTok{read.delim}\NormalTok{(}\StringTok{"extfiles/RIKZlm.txt"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+and noting that it contains:
+
+\begin{itemize}
+\tightlist
+\item
+  a first column with a site indicator variable
+\item
+  columns 2 to 76 contain the abundances per species
+\item
+  the remaining columns contain potential explanatory variables, including
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{week}: the week of sampling of a given beach, corresponding to the week each beach was sampled. Values varie from 1 to 4;
+  \item
+    \texttt{angle1}: an angle measured at the site level
+  \item
+    \texttt{angle2}: an angle measure at the beach level
+  \item
+    \texttt{exposure}: a measure of exposure at the beach level\\
+  \item
+    \texttt{salinity}: salinity, in parts per 1000, at the beach level
+  \item
+    \texttt{temperature}: temperature, in ºC, at the beach level
+  \item
+    \texttt{NAP}: a measure of how much a site is submerged during the tidal cycle, corresponding to the height of the sampling site relative to the mean tidal level
+  \item
+    \texttt{penetrability}: A measure of how much the substrate is permeable, at the site level
+  \item
+    \texttt{grainsize}: a measure of substrate granularity, at the site level
+  \item
+    \texttt{humus}: percentage of organic material, at the site level
+  \item
+    \texttt{chalk}: percentage of chalk, at the site level
+  \item
+    \texttt{sorting1}: no idea what this is!
+  \item
+    \texttt{Beach}: the beach indicator (a factor covariate, levels 1 to 9)
+  \end{itemize}
+\end{itemize}
+
+We begin by creating the response variable, which is conveniently obtained by summing across rows, i.e.~per site, how many species had 1 or more individuals:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RIKZlm}\SpecialCharTok{$}\NormalTok{nsp}\OtherTok{\textless{}{-}}\FunctionTok{rowSums}\NormalTok{(RIKZlm[,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{76}\NormalTok{]}\SpecialCharTok{\textgreater{}}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The first thing to do in any statistical modelling exercise is to look at the data, so we begin by exploring the response variable, noting that we had on average 5.69 species present per site, ranging from 0 to 22 species per site. While counts like these should be treated as such, hence using at the very least a generalized linear model with a count response, we ignore that fact here.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(RIKZlm}\SpecialCharTok{$}\NormalTok{nsp,}\AttributeTok{xlab=}\StringTok{"Species richness"}\NormalTok{,}\AttributeTok{main=}\StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+Next, it seems relevant to explore the available covariates to be used to explain species richness. Beach and week are rather uninteresting for our current objectives - even though they might be fundamental for the full story behind this dataset - and so we ignore them here. We can distinguish variables available at the beach level, hence with only 9 different measurements for each variable, for which we have four
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{mar=}\FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.5}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(RIKZlm}\SpecialCharTok{$}\NormalTok{angle2,}\AttributeTok{main=}\StringTok{""}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(RIKZlm}\SpecialCharTok{$}\NormalTok{exposure,}\AttributeTok{main=}\StringTok{""}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(RIKZlm}\SpecialCharTok{$}\NormalTok{salinity,}\AttributeTok{main=}\StringTok{""}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(RIKZlm}\SpecialCharTok{$}\NormalTok{temperature,}\AttributeTok{main=}\StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+from those at the site level, for which we have eight, hence with 45 measurements each. Presumably the later might be more useful to explain the species richness, since there is variability within beach on the number of species present at a site
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{mar=}\FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\FloatTok{0.5}\NormalTok{,}\FloatTok{0.5}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(RIKZlm}\SpecialCharTok{$}\NormalTok{angle2,}\AttributeTok{main=}\StringTok{""}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(RIKZlm}\SpecialCharTok{$}\NormalTok{NAP,}\AttributeTok{main=}\StringTok{""}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(RIKZlm}\SpecialCharTok{$}\NormalTok{penetrability,}\AttributeTok{main=}\StringTok{""}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(RIKZlm}\SpecialCharTok{$}\NormalTok{grainsize,}\AttributeTok{main=}\StringTok{""}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(RIKZlm}\SpecialCharTok{$}\NormalTok{humus,}\AttributeTok{main=}\StringTok{""}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(RIKZlm}\SpecialCharTok{$}\NormalTok{chalk,}\AttributeTok{main=}\StringTok{""}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(RIKZlm}\SpecialCharTok{$}\NormalTok{sorting1,}\AttributeTok{main=}\StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+Finally, we can explore the correlations betweeen the diferent covariates between themselves and with the response variable, and for that \texttt{corrplot} can be most useful.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#get a simpler data.frame for modelling}
+\NormalTok{RIKZ4m }\OtherTok{\textless{}{-}}\NormalTok{ RIKZlm[,}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{76}\NormalTok{)]}
+\FunctionTok{library}\NormalTok{(corrplot)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## corrplot 0.92 loaded
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{corrplot}\NormalTok{(}\FunctionTok{cor}\NormalTok{(RIKZ4m[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]), }\AttributeTok{type =} \StringTok{"upper"}\NormalTok{, }\AttributeTok{order =} \StringTok{"hclust"}\NormalTok{, }\AttributeTok{tl.col =} \StringTok{"black"}\NormalTok{, }\AttributeTok{tl.srt =} \DecValTok{45}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+We can see that variables \texttt{NAP} and \texttt{exposure} seem negatively related to the response, while \texttt{salinity} and \texttt{humus} seem positively related to the response. We can also note some explanatory variables are considerably correlated, as an example, \texttt{salinity} with \texttt{exposure} or \texttt{exposure} with \texttt{temperature.} That could create instability in models including these pairs of variables.
+
+Just to start exploring models, we fit univariate models of the apparent best single predictors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modNAP}\OtherTok{\textless{}{-}}\FunctionTok{lm}\NormalTok{(nsp}\SpecialCharTok{\textasciitilde{}}\NormalTok{NAP,}\AttributeTok{data=}\NormalTok{RIKZ4m)}
+\NormalTok{modExp}\OtherTok{\textless{}{-}}\FunctionTok{lm}\NormalTok{(nsp}\SpecialCharTok{\textasciitilde{}}\NormalTok{exposure,}\AttributeTok{data=}\NormalTok{RIKZ4m)}
+\NormalTok{modSal}\OtherTok{\textless{}{-}}\FunctionTok{lm}\NormalTok{(nsp}\SpecialCharTok{\textasciitilde{}}\NormalTok{salinity,}\AttributeTok{data=}\NormalTok{RIKZ4m)}
+\NormalTok{modHum}\OtherTok{\textless{}{-}}\FunctionTok{lm}\NormalTok{(nsp}\SpecialCharTok{\textasciitilde{}}\NormalTok{humus,}\AttributeTok{data=}\NormalTok{RIKZ4m)}
+\FunctionTok{summary}\NormalTok{(modExp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = nsp ~ exposure, data = RIKZ4m)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.3882 -2.2412 -0.2412  1.7588 15.6118 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  37.8588     6.8682   5.512 1.86e-06 ***
+## exposure     -3.1471     0.6692  -4.703 2.66e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.113 on 43 degrees of freedom
+## Multiple R-squared:  0.3396, Adjusted R-squared:  0.3243 
+## F-statistic: 22.11 on 1 and 43 DF,  p-value: 2.664e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(modNAP)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = nsp ~ NAP, data = RIKZ4m)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.0675 -2.7607 -0.8029  1.3534 13.8723 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   6.6857     0.6578  10.164 5.25e-13 ***
+## NAP          -2.8669     0.6307  -4.545 4.42e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.16 on 43 degrees of freedom
+## Multiple R-squared:  0.3245, Adjusted R-squared:  0.3088 
+## F-statistic: 20.66 on 1 and 43 DF,  p-value: 4.418e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(modSal)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = nsp ~ salinity, data = RIKZ4m)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -9.732 -2.689 -1.058  2.391 12.268 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -57.4246    15.1286  -3.796 0.000456 ***
+## salinity      2.2460     0.5379   4.176 0.000142 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.269 on 43 degrees of freedom
+## Multiple R-squared:  0.2885, Adjusted R-squared:  0.2719 
+## F-statistic: 17.43 on 1 and 43 DF,  p-value: 0.0001423
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(modHum)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = nsp ~ humus, data = RIKZ4m)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.6801 -3.0894 -1.0894  0.9106 17.9106 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   4.0894     0.8822   4.636 3.31e-05 ***
+## humus        31.8127    10.9393   2.908  0.00573 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.627 on 43 degrees of freedom
+## Multiple R-squared:  0.1644, Adjusted R-squared:  0.1449 
+## F-statistic: 8.457 on 1 and 43 DF,  p-value: 0.005732
+\end{verbatim}
+
+on their own, all these would seem like relevant predictors. If we only had one of them, we might be happy enough. But here we have several. What happens if we use a pair of them, say \texttt{NAP} and \texttt{exposure}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modNAPExp}\OtherTok{\textless{}{-}}\FunctionTok{lm}\NormalTok{(nsp}\SpecialCharTok{\textasciitilde{}}\NormalTok{NAP}\SpecialCharTok{+}\NormalTok{exposure,}\AttributeTok{data=}\NormalTok{RIKZ4m)}
+\FunctionTok{summary}\NormalTok{(modNAPExp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = nsp ~ NAP + exposure, data = RIKZ4m)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.3083 -1.7107 -0.8489  0.7674 13.3264 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  37.2909     5.1878   7.188 7.83e-09 ***
+## NAP          -2.7252     0.4716  -5.779 8.26e-07 ***
+## exposure     -2.9988     0.5060  -5.926 5.07e-07 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.106 on 42 degrees of freedom
+## Multiple R-squared:  0.6321, Adjusted R-squared:  0.6146 
+## F-statistic: 36.09 on 2 and 42 DF,  p-value: 7.577e-10
+\end{verbatim}
+
+The model seems to have improved. What should we try next? Perhaps \texttt{salinity}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modNAPExpSal}\OtherTok{\textless{}{-}}\FunctionTok{lm}\NormalTok{(nsp}\SpecialCharTok{\textasciitilde{}}\NormalTok{NAP}\SpecialCharTok{+}\NormalTok{exposure}\SpecialCharTok{+}\NormalTok{salinity,}\AttributeTok{data=}\NormalTok{RIKZ4m)}
+\FunctionTok{summary}\NormalTok{(modNAPExpSal)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = nsp ~ NAP + exposure + salinity, data = RIKZ4m)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.7980 -1.2762 -0.2463  0.7915 11.6894 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   0.5746    15.7414   0.036  0.97106    
+## NAP          -2.5881     0.4492  -5.762 9.43e-07 ***
+## exposure     -2.3201     0.5524  -4.200  0.00014 ***
+## salinity      1.0580     0.4310   2.455  0.01844 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.936 on 41 degrees of freedom
+## Multiple R-squared:  0.6793, Adjusted R-squared:  0.6558 
+## F-statistic: 28.94 on 3 and 41 DF,  p-value: 3.257e-10
+\end{verbatim}
+
+it seems like we have again improved model fit. What if we try \texttt{humus}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modNAPExpSalHum}\OtherTok{\textless{}{-}}\FunctionTok{lm}\NormalTok{(nsp}\SpecialCharTok{\textasciitilde{}}\NormalTok{NAP}\SpecialCharTok{+}\NormalTok{exposure}\SpecialCharTok{+}\NormalTok{salinity}\SpecialCharTok{+}\NormalTok{humus,}\AttributeTok{data=}\NormalTok{RIKZ4m)}
+\FunctionTok{summary}\NormalTok{(modNAPExpSalHum)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = nsp ~ NAP + exposure + salinity + humus, data = RIKZ4m)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5345 -1.6547 -0.1288  0.7652 12.0831 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   1.2819    15.9181   0.081 0.936216    
+## NAP          -2.5269     0.4651  -5.433 2.95e-06 ***
+## exposure     -2.2593     0.5668  -3.986 0.000277 ***
+## salinity      1.0019     0.4453   2.250 0.030031 *  
+## humus         4.5179     7.8241   0.577 0.566886    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.96 on 40 degrees of freedom
+## Multiple R-squared:  0.6819, Adjusted R-squared:  0.6501 
+## F-statistic: 21.44 on 4 and 40 DF,  p-value: 1.646e-09
+\end{verbatim}
+
+it seems like, given the previous 3 variables, \texttt{humus} is no longer relevant, even if it was apparently random on its own. That should not be a surprise. Just most of your friends might be useful in explaining you to me, they became redundant once I ask your best to explain you to me!
+
+Imagine for a second we would have started from a full model
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modFull}\OtherTok{\textless{}{-}}\FunctionTok{lm}\NormalTok{(nsp}\SpecialCharTok{\textasciitilde{}}\NormalTok{.,}\AttributeTok{data=}\NormalTok{RIKZ4m[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{])}
+\FunctionTok{summary}\NormalTok{(modFull)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = nsp ~ ., data = RIKZ4m[, -1])
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5434 -1.3910 -0.2209  0.8268 11.6548 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   -21.714257  62.877690  -0.345    0.732    
+## week            1.537678   2.873627   0.535    0.596    
+## angle1         -0.008529   0.011166  -0.764    0.451    
+## angle2          0.078737   0.062419   1.261    0.217    
+## exposure       -0.192513   1.988243  -0.097    0.923    
+## salinity       -0.149684   2.557775  -0.059    0.954    
+## temperature     1.645499   1.501715   1.096    0.282    
+## NAP            -2.727377   0.591672  -4.610 6.55e-05 ***
+## penetrability  -0.008968   0.008525  -1.052    0.301    
+## grainsize       0.015923   0.032054   0.497    0.623    
+## humus          -0.361549   9.275088  -0.039    0.969    
+## chalk          -0.127028   0.141104  -0.900    0.375    
+## sorting1        0.004410   0.042521   0.104    0.918    
+## Beach          -1.044276   1.717248  -0.608    0.548    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.14 on 31 degrees of freedom
+## Multiple R-squared:  0.7226, Adjusted R-squared:  0.6063 
+## F-statistic: 6.211 on 13 and 31 DF,  p-value: 1.527e-05
+\end{verbatim}
+
+in such a case, several of the variables we think are relevant seem irrelevant, and only \texttt{NAP} stands out. Using the friends analogy, if I ask ten of your friends, including your best friend, about yourself, all the chatter across the 9 friends just seems contradictory, and only your best friend might be reliable. The problem with data is that you never know to begin whom our best friend might be, in other words, who might be the best in explaining the response.
+
+One possible approach might be to consider all possible model combinations. Here, excluding interaction terms for now, with 11 potential covariates, that would be a large number of models to fit to the data, namely 1 model with no variables, 11 models with 1 variable, plus combinations of 11, 2 by 2, of two variables, and hence forth, up to combinations of 11, 10 by 10 variables (that's 11 again!), plus 1 model with all covariates. That corresponds to 2048 (=\(2^11\)) models, which is a lot to run manually.
+
+We can leverage the ability of function \texttt{bestglm} from package \texttt{bestglm} to do so and report on the best model across all of them, conditional on some model performance metric. This package requires the data to be in a single \texttt{data.frame} with all variables named, and one of them, the response, named \texttt{y}. We do so here
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(RIKZ4m)[}\FunctionTok{names}\NormalTok{(RIKZ4m)}\SpecialCharTok{==}\StringTok{"nsp"}\NormalTok{]}\OtherTok{\textless{}{-}}\StringTok{"y"}
+\end{Highlighting}
+\end{Shaded}
+
+and then run the procedure, selecting here AIC (Akaike's Information Criteria) as the criteria for selecting the most parsimonious model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(bestglm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: leaps
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bestGML1}\OtherTok{\textless{}{-}}\FunctionTok{bestglm}\NormalTok{(RIKZ4m[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{], }\AttributeTok{family =}\NormalTok{ gaussian, }\AttributeTok{IC =} \StringTok{"AIC"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The most parsimonious model according to AIC is
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bestGML1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## AIC
+## BICq equivalent for q in (0.234777596202668, 0.788421926315081)
+## Best Model:
+##              Estimate Std. Error    t value     Pr(>|t|)
+## (Intercept)  0.574551 15.7413843  0.0364994 9.710613e-01
+## exposure    -2.320101  0.5524193 -4.1998914 1.402696e-04
+## salinity     1.058035  0.4310479  2.4545640 1.843901e-02
+## NAP         -2.588074  0.4491540 -5.7621070 9.426989e-07
+\end{verbatim}
+
+which was actually the model we had stopped at above.
+
+Note that in fact \texttt{bestglm} does not, by default, run all models. You can do so by turning the argument \texttt{RequireFullEnumerationQ}, by default \texttt{FALSE}, to be \texttt{TRUE}. However, not that might take some time to run. By default the function uses an algorithm, named the leaps algorithm, to search the model space. In general that provides the best model, under some conditions that are too technical for me to want to discuss them here.
+
+This section needs some more details, it currently just reproduces what I did in class with the students. Students are challenged to help me complete it.
 
 \hypertarget{MLEs}{%
 \chapter{Class 13: 10 11 2020 Maximum likelihood and all that}\label{MLEs}}
@@ -5986,7 +6432,7 @@ Note that with only 5 nests, there is not much information to estimate the funct
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-26-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6024,7 +6470,7 @@ in which case, we would get a more sensible transition between successes and fai
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-13-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-27-1.pdf}
 
 \hypertarget{likelihood-above-and-beyond}{%
 \section{Likelihood, above and beyond}\label{likelihood-above-and-beyond}}
@@ -6167,7 +6613,7 @@ This illustrates the power of a link function to constrain the predictions to an
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-14-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-28-1.pdf}
 
 \hypertarget{most-useful-glm-families}{%
 \section{Most useful GLM Families}\label{most-useful-glm-families}}
@@ -6293,7 +6739,7 @@ We plot the predictions on top of each other, and no surprises here, the 3 imple
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-15-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-29-1.pdf}
 
 Unfortunately, and as expected, the predicttions would be nmegative, hence inadmissible, for values of the preditor \texttt{xs1} smaller than about 35, which is undesirable. This is where the GLMs will come in handy. We now fit those:
 
@@ -6362,7 +6808,7 @@ A really nice and interesting evaluation of model adequacy, or in other words, a
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-17-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-31-1.pdf}
 
 Additionally, if we would evaluate the AIC for these contending models, the Poisson model would be by far the most parsimonious. We have not talked about model selection yet, but AIC is a model selection criteria that favours models that fit to the data while penalizing for the number of parameters in the model \citep[e.g.][]{Aho2014}. The lowest AIC represents the most parsimonious model, hence the optimal fit given the amount of data and the number of parameters in the model.
 
@@ -6406,7 +6852,7 @@ Just to come back to a point made above, notice that different models whcih migh
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-18-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-32-1.pdf}
 
 As expected, thje precion around the Gamma predictions is larger. Of course, in real life, we might have trouble knowing what is best, but here, the lower variance of the Poisson is what is the real variance, since we know the data generating process (and AIC favours it).
 
@@ -6454,7 +6900,7 @@ Look at the data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-20-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-34-1.pdf}
 
 Implement multiple regression
 
@@ -6652,15 +7098,6 @@ Use function \texttt{bestglm}, confirm you get the best above and also the same 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(bestglm)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Loading required package: leaps
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{bestGLM}\OtherTok{=}\FunctionTok{bestglm}\NormalTok{(}\AttributeTok{Xy=}\NormalTok{peol[,}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}\DecValTok{1}\NormalTok{)],}\AttributeTok{family=}\FunctionTok{poisson}\NormalTok{(),}\AttributeTok{IC=}\StringTok{"AIC"}\NormalTok{,}\AttributeTok{RequireFullEnumeration=}\ConstantTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -6789,7 +7226,7 @@ Look at AICc?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-29-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-43-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6826,7 +7263,7 @@ Look at AICc?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-29-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-43-2.pdf}
 
 \hypertarget{titanic-example}{%
 \section{Titanic example}\label{titanic-example}}
@@ -6882,7 +7319,7 @@ Vamos ver os dados
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-32-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-46-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6890,7 +7327,7 @@ Vamos ver os dados
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-33-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-47-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6898,7 +7335,7 @@ Vamos ver os dados
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-34-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-48-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6906,7 +7343,7 @@ Vamos ver os dados
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-35-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-49-1.pdf}
 
 \hypertarget{modelauxe7uxe3o}{%
 \subsection{Modelação}\label{modelauxe7uxe3o}}
@@ -6921,7 +7358,7 @@ Testar um modelo linear
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-36-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-50-1.pdf}
 
 tentar com um GLM
 
@@ -6941,7 +7378,7 @@ tentar com um GLM
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-37-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-51-1.pdf}
 
 o que diz o meu modelo
 
@@ -6995,7 +7432,7 @@ ok, idade influencia, negativamente, a sobrevivencia, e o sexo?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-39-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-53-1.pdf}
 
 ver o model
 
@@ -7058,7 +7495,7 @@ e a classe3 do bilhete?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-41-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-55-1.pdf}
 
 o modelo
 
@@ -7164,7 +7601,7 @@ o modelo
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-43-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-57-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7201,7 +7638,7 @@ o modelo
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-43-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-57-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7569,7 +8006,7 @@ We can look at the response variable, species richness, as a function of NA
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-47-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-61-1.pdf}
 
 When we see it like this, there is no notion about the structure of the data, in particular that there are 5 measurements in each beach
 
@@ -7580,7 +8017,7 @@ When we see it like this, there is no notion about the structure of the data, in
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-48-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-62-1.pdf}
 
 but we could make it a bit more explicit by having different symbols for each beach (say the beach number) and coloring each beach symbol with a diferent color
 
@@ -7601,7 +8038,7 @@ but we could make it a bit more explicit by having different symbols for each be
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-49-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-63-1.pdf}
 
 Now the two stage approach: (1) we consider the relation between R and NAP, for each beach, and (2) we model the estimated coefficients per beach as a function of exposure
 
@@ -7621,7 +8058,7 @@ Now the two stage approach: (1) we consider the relation between R and NAP, for 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-50-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-64-1.pdf}
 
 Now the second stage
 
@@ -7633,7 +8070,7 @@ Now the second stage
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-51-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-65-1.pdf}
 
 The way to do all this in one go is to consider a mixed model, where exposure is a fixed effect, but beach is considered a random effect.
 
@@ -7739,7 +8176,7 @@ Look at the fitted model predictions over the data (note the use of function \te
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-55-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-69-1.pdf}
 
 Implementing the mixed model, with random intercepts and slopes
 
@@ -7846,7 +8283,7 @@ and ploting the model
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-60-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-74-1.pdf}
 
 Zuur says in page 110 we could compare the models by AIC, but that is just nonsense. Having been fitted by REML, no AIC is available
 
@@ -7964,7 +8401,7 @@ making a model
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-66-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-80-1.pdf}
 
 the correlation is in fact very large! Note this correlation is actually an output present in the \texttt{lme} and \texttt{lmer} fitted objects. A very detailed description of what these correlations are when we have more than 1 of them can be found here: \url{https://rpubs.com/yjunechoe/correlationsLMEM}. That is a quite advanced topic though.
 
@@ -8041,7 +8478,7 @@ We can represent the models fitted independently beach by beach we had above wit
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-68-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-82-1.pdf}
 
 and we can add the AIC of this model to the above comparison
 
@@ -8111,7 +8548,7 @@ This lets us visualize that the data comes from 8 clusters of locations, in the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-72-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-86-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8119,7 +8556,7 @@ This lets us visualize that the data comes from 8 clusters of locations, in the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-72-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-86-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8127,7 +8564,7 @@ This lets us visualize that the data comes from 8 clusters of locations, in the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-72-3.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-86-3.pdf}
 
 Note that cluster would have been an obvious covariate to use, namely as a random effect. While we are not interested in cluster per se, we know that sites are more alike within clusters just due to spatial auto-correlation, and hence that would have been sensible to include in the modelling.
 
@@ -8143,7 +8580,7 @@ We will now investigate the data set in a bit more detail. We begin by looking a
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-73-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-87-1.pdf}
 
 The largest positive correlation of a variable with the response SSR is 0.31, while the largest negative correlation is -0.35. Nonetheless, that is no reason to despair. Hopefully, when considering multiple variables we will be able to model SSR in a reasonable way.
 
@@ -8158,7 +8595,7 @@ Since we have too many variables compared to observations any way, we can ask ou
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-74-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-88-1.pdf}
 
 As we can see, there is a wide range of correlations, but in particular there is a peak at the 0.95-1 range, which we suspected might be due to the fact that some variables are actually obtained as a function of others. After a closer read at the original paper we come to realize these are highly correlated just by constriction. These correspond to echoes of radar on different frequency bands, and hence it is not surprising that they present incredibly high correlations across. It is somewhat surprising that the authors did not note this fact upfront on their paper. These are associated with backscatter variables, with code \texttt{bs}so we can use the function \texttt{grep} to look at these (note even so we divide these into several \texttt{pairs} plots otherwise the plots are too small for being useful).
 
@@ -8168,7 +8605,7 @@ As we can see, there is a wide range of correlations, but in particular there is
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-75-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-89-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8176,7 +8613,7 @@ As we can see, there is a wide range of correlations, but in particular there is
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-75-2.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-89-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8184,7 +8621,7 @@ As we can see, there is a wide range of correlations, but in particular there is
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-75-3.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-89-3.pdf}
 
 Including pairs of such highly correlated variables in the models could lead to problems nad makes interpretation harder, and hence we need to decide which to remove a priori. This should be driven by ecological knowledge, which in our case, for SSR, is close to inexistent!
 
@@ -8249,7 +8686,7 @@ What does the response variable itself look like? That is the key question to an
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-77-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-91-1.pdf}
 
 We can compare this with a poisson with the same mean, or a negative binomial with the same mean and variance. It should be obvious which provides a closer approximation, even before covariates get added to the mix.
 
@@ -8270,7 +8707,7 @@ We can compare this with a poisson with the same mean, or a negative binomial wi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-78-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-92-1.pdf}
 
 While there is never too much Exploratory Data Analysis (EDA), here we move on to do some modelling.
 
@@ -8288,7 +8725,7 @@ Just to begin, we take a peak at one of the variables that had a large positive 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-79-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-93-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8497,7 +8934,7 @@ We could look at the residuals for both models. First the Poisson
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-86-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-100-1.pdf}
 
 and then the negative binomial
 
@@ -8508,7 +8945,7 @@ and then the negative binomial
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-87-1.pdf}
+\includegraphics{ECOMODbook_files/figure-latex/unnamed-chunk-101-1.pdf}
 
 It is quite hard to choose between these based on the residuals, but remember that the AIC does not leave any room for doubts, the Negative Binomial is the most likely road to take here. So now it is time to investigate what might be the best model.
 
