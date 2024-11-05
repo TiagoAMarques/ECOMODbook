@@ -1,8 +1,14 @@
 # Random effects and mixed models {#GLMM}
 
-In this chapter we investigate the use of random effects.
+Until now, all the predictors in our models were fixed effects, either continous variables or factors for which we are interested in describing how they can be used to model a response variable. Typically, in fixed effect models, all the observations are independent of each other, which induces that the residuals are also uncorrelated.
 
-We describe the analysis of the RIKZ dataset, a traditional dataset used to illustrate mixed models, a companion to the book by Zuur et al. (). 
+In this chapter we investigate the use of random effects, which allow us to account for some lack of independence across observations. Random effects can be used to account for the lack of independence induced by say repeated measurements within the same sampling unit, or measurements made over batches of samplin units, like several animals in a litter, or multiple samples withing the same sampling site.
+
+A regression model that included both fixed effects and random effects is a mixed model. If a model only included random effects and no fixed effects it is referred as a random effects model. These are not often used besides some specific contexts, because in most settings there is at least one fixed effect that we are interested in exploring, making most models with random effects mixed models.
+
+To implement mixed models we will consider both the `lme` function, from the `nlme` package, and the `lmer` function, from `lme4` package. Note these two packages are developed by different schools of thought, and that will have implications in the corresponding outputs.
+
+We describe the analysis of the RIKZ dataset, a traditional dataset used to illustrate mixed models, a companion to the book by @Zuur2009b. 
 
 We read in the data
 
@@ -12,31 +18,37 @@ RIKZ <- read.delim("extfiles/RIKZ.txt")
 RIKZ$Exposure=ifelse(RIKZ$Exposure==11,1,0)
 ```
 
-we look at the data structure
-
-```{r}
-str(RIKZ)
-```
+and check it was properly imported
 
 ```{r}
 head(RIKZ)
 ```
 
+and look at the data structure
 
-We can look at the response variable, species richness, as a function of NA 
+```{r}
+str(RIKZ)
+```
+
+The data correspond to measurements of species `Richness`, and two measures of hidro-morphological exposure, `NAP` and `exposure`, and the measurements are clustered within beach, with 5 measurements per `Beach`. There are 9 beaches in total, leading to 45 measurements. They key feature of this data is that measurements within a beach are not independent. This is intuitive:   each beach might have intrinsic characteristics that we are unaware of that make the species richness in each beach different from the others
+
+We can look at the response variable, species richness, as a function of the NAP. For illustration, we can also add a simple regression line to the plot. For the time being, there is no notion about the structure of the data, in particular that there are 5 measurements in each beach.
 
 ```{r}
 plot(Richness~NAP,data=RIKZ)
+lm1<-lm(Richness~NAP,data=RIKZ)
+abline(lm1,lwd=2,lty=2)
 ```
 
-When we see it like this, there is no notion about the structure of the data, in particular that there are 5 measurements in each beach
+For comparison with the results from a mixed model which we will fit later, we present here the summary of the linear model that ignores this non-independence:
 
 ```{r}
-plot(Richness~NAP,data=RIKZ)
-abline(lm(Richness~NAP,data=RIKZ),lwd=2,lty=2)
+summary(lm1)
 ```
 
-but we could make it a bit more explicit by having different symbols for each beach (say the beach number) and coloring each beach symbol with a diferent color
+Considering such a model it seems like the higher the values of `NAP` the lower the species `Richness`. The key aspect to bear in mind is that this model ignores the non-independence in the data, which means that it is misleading in that we "pretend" we have more data than we actually have That means that likely the standard errors associated with the estimated parameters are lower than they should be.
+
+To emphasize that data are clustered by beach, we can represent each beach by a beach specific symbol with a different color
 
 ```{r}
 par(mfwor=c(1,1))
@@ -44,8 +56,7 @@ plot(Richness~NAP,pch=as.character(Beach),col= terrain.colors(10)[as.numeric(Bea
 abline(lm(Richness~NAP,data=RIKZ),lwd=2,lty=2)
 ```
 
-Now the two stage approach: (1) we consider the relation between R and NAP, for each beach, and (2) we model the estimated coefficients per beach as a function of exposure
-
+We will now model the species Richness as a function of the exposure variables in two stages: (1) we consider the relation between R and NAP, for each beach, and (2) we model the estimated coefficients per beach as a function of exposure
 
 ```{r}
 plot(Richness~NAP,pch=as.character(Beach),col= terrain.colors(10)[as.numeric(Beach)],data=RIKZ)
@@ -69,20 +80,20 @@ boxplot(as~exp,ylab="intercept",xlab="Exposure")
 boxplot(bs~exp,ylab="slope",xlab="Exposure")
 ```
 
-The way to do all this in one go is to consider a mixed model, where exposure is a fixed effect, but beach is considered a random effect.
+The way to do all this in one go is to consider a mixed model, where exposure is a fixed effect, but beach is considered a random effect. There are two options available, to assume that each beach will have a random intercept, but the slope of the relation between NAP and Richness is constant, or a model where both the intercept and the slope vary by beach. We call the first a random intercept model, and the second a random slope and intercept model. To fit a random intercept model, with an intercept per `Beach`, we use the syntax `1|Beach`. 
 
-Implementing the mixed model, with just random intercepts
+Note the different syntax depending on the package used for model fitting. While for `lme` there is an argument `fixed` and an argument `random`, and one must separate the two components of the model, for `lmer` the random component being just part of a single formula, defined by the `formula` argument.
 
-Using `lme` from `nlme`
+First considering `nlme`
 
 ```{r}
 library(nlme)
 RIKZ$fbeach=as.factor(RIKZ$Beach)
-lme1=lme(Richness~NAP,random=~1|fbeach,data=RIKZ)
+lme1=lme(fixed=Richness~NAP,random=~1|fbeach,data=RIKZ)
 summary(lme1)
 ```
 
-Using `lmer` from `lme4`
+and then considering `lme4`
 
 ```{r,warning=FALSE,message=FALSE}
 library(lme4)
@@ -90,53 +101,57 @@ lme2=lmer(Richness~NAP+(1|fbeach),data=RIKZ)
 summary(lme2)
 ```
 
-Make predictions from lme
+Note that the model outputs now include a fixed component, corresponding to a global relationship, with a pooled intercept and slope, but also a random component, that describes the variability in the intercepts per beach. This also means that we can now have a relationship at the global level, or at each of the random effects levels, i.e. at the beach level. To obtain the fitted values for each of these different levels we can use the argument `level` in the call to the functions that interact with the `lme` object, with `level=0` corresponding to the global level, and `level=1` corresponding to the random effect level. To extract an estimate of the random effect intercepts we can use function `ranef`
+
+We can make predictions from the `lme` model
 
 ```{r}
 Level0=fitted(lme1,level=0)
 Level1=fitted(lme1,level=1)
 ```
 
-Look at the fitted model predictions over the data (note the use of function `ranef` to extract the estimated random effects from the fitted model)
+Look at the fitted model overlaid on the data, at both the global and the random effect levels
 
 ```{r}
 plot(Richness~NAP,pch=as.character(Beach),col= terrain.colors(10)[as.numeric(Beach)],data=RIKZ)
 #the pooled line 
 intercept<-lme1$coefficients$fixed[1]
 slope<-lme1$coefficients$fixed[2]
+#the fixed part, pooled across beaches
 abline(intercept,slope,lwd=3)
-#lines(NAPs,Level0[I],lwd=3)
+# LOST CODE ? lines(NAPs,Level0[I],lwd=3)
+# note the use of function `ranef` to 
+# extract the estimated random effects from the fitted model
 for(j in 1:9){
 abline(a=intercept+ranef(lme1)[j,1],b=slope,col=terrain.colors(10)[j])
 }
 ```
 
+We can now explore a mixed model where both intercepts and slopes are allowed to vary across beaches, by fitting a random intercept and slope model. That is expressed via the syntax `NAP|Beach`, which as before is used either for argument random in the `lme` call (`random=~NAP|fbeach`) or just within the `formula` argument for `lmer` call.
 
-Implementing the mixed model, with random intercepts and slopes
 
-Using `lme` from `nlme`
+Implementing the mixed model, with random intercepts and slopes, first using `lme` from `nlme`
 
 ```{r}
 lme3=lme(Richness~NAP,random=~NAP|fbeach,data=RIKZ)
 summary(lme3)
 ```
 
-Using `lmer` from `lme4`
+and then using `lmer` from `lme4`
 
 ```{r,warning=FALSE,message=FALSE}
 lme5=lmer(Richness~NAP+(NAP|fbeach),data=RIKZ)
 summary(lme5)
 ```
 
-
-Make predictions from lme
+As before, we can evaluate the model at a global level or at the level of the random effect
 
 ```{r}
 Level0.3=fitted(lme3,level=0)
 Level1.3=fitted(lme3,level=1)
 ```
 
-and ploting the model
+and we can now overlay the fitted model over the data
 
 ```{r,echo=FALSE,eval=FALSE}
 #the order of the values of NAP
@@ -175,7 +190,7 @@ AIC(lme1)
 AIC(lme3)
 ```
 
-Just for comparison, we could try to see if a random effect model would be a better model. In other words, was NAP required at all or a different mean by beach would suffice?
+Just for comparison, we could try to see if a simpler random effect model would be a better model. In other words, was NAP required at all or a different mean by beach would suffice?
 
 ```{r}
 lme6=lme(Richness~1,random=~1|fbeach,data=RIKZ)
@@ -245,14 +260,18 @@ for(i in 2:9){
 }
 ```
 
-and we can add the AIC of this model to the above comparison
+and we confirm that the predictions from those models are indistinguishable. That makes sense. A model that allows an interaction term between `NAP` and `Beach` is a model where the relation between `NAP` and species `Richness` can vary freely by beach, so it is equivalent to having one different line fit to each beach.
+
+We can add the AIC of this model with the  `NAP` and `Beach` interaction to the above model comparison
 
 ```{r}
 AIC(lme1,lme3,lme6,lmALL)
 ```
 
-interestingly, the model without mixed effects is strongly favored as the most parsimonious model. This is perhaps not surprising given the clearly unrealistic model fits given the data for the model with both random intercepts and slopes for beach and NAP within beach. It seems as if the mixed model was not able to truly capture the range of slopes and intercepts required - I suspect this is due to the strong correlation between intercepts ans slopes note above. But then, pragmatically, what would you go about modelling this data?
+Interestingly, the model without mixed effects is strongly favored as the most parsimonious model. This is perhaps not surprising given the clearly unrealistic model fits given the data for the model with both random intercepts and slopes for beach and NAP within beach. It seems like the random slope and intercept model cannot adequately represent the data, because the mixed model was not able to truly capture the range of slopes and intercepts required. This might be related to the strong correlation between intercepts and slopes noted above for the random slope and intercepts model. But then, pragmatically, what should one do regarding modelling this data set?
 
-This is not really the outcome I was looking for here, even if the decision to use beach as random effect or as a fixed effect is a philosophical one.
+This is not really the outcome I was looking for, because I was hoping to end up with a mixed model being preferred to represent the data.
+
+Nonetheless, the decision to use beach as a random effect or as a fixed effect depends on our objectives regarding the model. In that sense, the choice to use a fixed effects model versus a random effects model is a philosophical one. Given an interest in each of these specific beaches, we could use a fixed effects model. If we are interested in interested on the overal relation between `NAP` and the species `Richness`, while accounting for the non-independence of the measurements within a beach, then the random effects models might be more sensible.
 
 

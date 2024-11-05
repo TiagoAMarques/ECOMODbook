@@ -74,3 +74,5 @@ exploratory-data-analysis
 modelling
 extra-glm-stuff
 final-words
+fig:unnamed-chunk-1
+conditional-versus-marginal-distribution
