@@ -146,7 +146,7 @@ beta1<-0.3
 n<-50
 noise <- 0.2
 temp<-runif(n,10,20)
-react<rnorm(n,mean=-beta0+beta1*temp,sd=noise)
+react<-rnorm(n,mean=-beta0+beta1*temp,sd=noise)
 reaction<-data.frame(react=react,temp=temp)
 ```
 

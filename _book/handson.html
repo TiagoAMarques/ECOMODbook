@@ -384,14 +384,9 @@ Figure 7.2: Concentration of an enzime (mg/L) in the blood of small rodents, fro
 where the <span class="math inline">\(e_i\)</span> are Gaussian with mean 0 and variance <span class="math inline">\(\sigma^2_i\)</span>, then it follows that conditioning on the covariate values, i.e. given the covariate values, we know the distribution of <span class="math inline">\(Y\)</span>, given by</p>
 <p><span class="math display">\[Y|X=Gaussian(\beta_0+\beta_1 X,\sigma^2)\]</span></p>
 <p>This highlights a different way to simulate data for a Gaussian regression</p>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [49] FALSE FALSE</code></pre>
 <p>and you can check this leads to the exact same thing</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="handson.html#cb12-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))</span>
-<span id="cb12-2"><a href="handson.html#cb12-2" tabindex="-1"></a><span class="fu">plot</span>(react<span class="sc">~</span>temp,<span class="at">xlab=</span><span class="st">&quot;Temperature (degrees, Celcius)&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Reaction time (seconds)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="handson.html#cb11-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))</span>
+<span id="cb11-2"><a href="handson.html#cb11-2" tabindex="-1"></a><span class="fu">plot</span>(react<span class="sc">~</span>temp,<span class="at">xlab=</span><span class="st">&quot;Temperature (degrees, Celcius)&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Reaction time (seconds)&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
 <img src="ECOMODbook_files/figure-html/unnamed-chunk-1-1.png" alt="An example regression data set that could be explained by a linear regression (same as above!)" width="80%" />
 <p class="caption">
