@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 21 Class 18: 25 11 2020 | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 21 Class 18: 25 11 2020 | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2023-11-03" />
+<meta name="date" content="2024-11-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -128,6 +128,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -179,6 +180,7 @@ div.csl-indent {
 <li class="chapter" data-level="7" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>7</b> Hands On Regression</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
+<li class="chapter" data-level="7.2" data-path="handson.html"><a href="handson.html#conditional-versus-marginal-distribution"><i class="fa fa-check"></i><b>7.2</b> Conditional versus marginal distribution</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="RIO.html"><a href="RIO.html"><i class="fa fa-check"></i><b>8</b> Regression inside out</a>
 <ul>
@@ -307,42 +309,42 @@ div.csl-indent {
 <div id="reading-data-in" class="section level3 hasAnchor" number="21.2.1">
 <h3><span class="header-section-number">21.2.1</span> Reading data in<a href="aula18.html#reading-data-in" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We read the data in</p>
-<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="aula18.html#cb565-1" tabindex="-1"></a>sponges <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;extfiles/1-s2.0-S1364815217301615-mmc2.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="aula18.html#cb568-1" tabindex="-1"></a>sponges <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;extfiles/1-s2.0-S1364815217301615-mmc2.csv&quot;</span>)</span></code></pre></div>
 <p>We briefly look at the data to make sure that all was read properly. We have sites with Sponge Species Richness (SSR) going from 1 to 39, with a mean of 10.48 and variance 110.78. In total we have 77 observations and 80 potential explanatory variables. We note upfront the potential practical issue that having more explanatory variables than observations raises.</p>
 </div>
 <div id="exploratory-data-analysis" class="section level3 hasAnchor" number="21.2.2">
 <h3><span class="header-section-number">21.2.2</span> Exploratory Data Analysis<a href="aula18.html#exploratory-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Since we have the geographic coordinates of all the samples, we can look at the data in space.</p>
 <p>This lets us visualize that the data comes from 8 clusters of locations, in the actual paper referred as sites A to H.</p>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="aula18.html#cb566-1" tabindex="-1"></a><span class="fu">with</span>(sponges,<span class="fu">plot</span>(long.sample,lat.sample)) </span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
-<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="aula18.html#cb567-1" tabindex="-1"></a><span class="fu">with</span>(sponges,<span class="fu">plot</span>(long.sample,lat.sample,<span class="at">cex=</span><span class="dv">1</span><span class="sc">+</span>species.richness<span class="sc">/</span><span class="fu">max</span>(species.richness))) </span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-86-2.png" width="672" /></p>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="aula18.html#cb568-1" tabindex="-1"></a><span class="fu">with</span>(sponges,<span class="fu">plot</span>(long.sample,lat.sample,<span class="at">col=</span><span class="fu">ifelse</span>(<span class="dv">1</span><span class="sc">+</span>species.richness<span class="sc">/</span><span class="fu">max</span>(species.richness)<span class="sc">&lt;</span><span class="fl">1.5</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;green&quot;</span>))) </span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-86-3.png" width="672" /></p>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="aula18.html#cb569-1" tabindex="-1"></a><span class="fu">with</span>(sponges,<span class="fu">plot</span>(long.sample,lat.sample)) </span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="aula18.html#cb570-1" tabindex="-1"></a><span class="fu">with</span>(sponges,<span class="fu">plot</span>(long.sample,lat.sample,<span class="at">cex=</span><span class="dv">1</span><span class="sc">+</span>species.richness<span class="sc">/</span><span class="fu">max</span>(species.richness))) </span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-87-2.png" width="672" /></p>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="aula18.html#cb571-1" tabindex="-1"></a><span class="fu">with</span>(sponges,<span class="fu">plot</span>(long.sample,lat.sample,<span class="at">col=</span><span class="fu">ifelse</span>(<span class="dv">1</span><span class="sc">+</span>species.richness<span class="sc">/</span><span class="fu">max</span>(species.richness)<span class="sc">&lt;</span><span class="fl">1.5</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;green&quot;</span>))) </span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-87-3.png" width="672" /></p>
 <p>Note that cluster would have been an obvious covariate to use, namely as a random effect. While we are not interested in cluster per se, we know that sites are more alike within clusters just due to spatial auto-correlation, and hence that would have been sensible to include in the modelling.</p>
 <p>Of course the other option might be to include latitude and longitude and explicitly consider to incorporate the spatiall auto-correlation structure. However, that is beyhond the objectives in this chapter, which are essentially to illustrate a GLM analysis over a real dataset.</p>
 <p>We will now investigate the data set in a bit more detail. We begin by looking at whether there are large correlations between the explanatory variables and SSR</p>
-<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="aula18.html#cb569-1" tabindex="-1"></a>corsponges<span class="ot">=</span><span class="fu">cor</span>(sponges)</span>
-<span id="cb569-2"><a href="aula18.html#cb569-2" tabindex="-1"></a>corWithSSR<span class="ot">=</span>corsponges[,<span class="dv">3</span>]</span>
-<span id="cb569-3"><a href="aula18.html#cb569-3" tabindex="-1"></a><span class="fu">hist</span>(corWithSSR[corWithSSR<span class="sc">!=</span><span class="dv">1</span>],<span class="at">main=</span><span class="st">&quot;Correlations between SSR and explanatory covariates&quot;</span>,<span class="at">breaks=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.05</span>))</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="aula18.html#cb572-1" tabindex="-1"></a>corsponges<span class="ot">=</span><span class="fu">cor</span>(sponges)</span>
+<span id="cb572-2"><a href="aula18.html#cb572-2" tabindex="-1"></a>corWithSSR<span class="ot">=</span>corsponges[,<span class="dv">3</span>]</span>
+<span id="cb572-3"><a href="aula18.html#cb572-3" tabindex="-1"></a><span class="fu">hist</span>(corWithSSR[corWithSSR<span class="sc">!=</span><span class="dv">1</span>],<span class="at">main=</span><span class="st">&quot;Correlations between SSR and explanatory covariates&quot;</span>,<span class="at">breaks=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.05</span>))</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
 <p>The largest positive correlation of a variable with the response SSR is 0.31, while the largest negative correlation is -0.35. Nonetheless, that is no reason to despair. Hopefully, when considering multiple variables we will be able to model SSR in a reasonable way.</p>
 <p>Since we have too many variables compared to observations any way, we can ask ourselves is if there are variables which are highly correlated, which could lead to unstable models and incorrect inferences about causality (which is, regardless, always hard in observational studies).</p>
-<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="aula18.html#cb570-1" tabindex="-1"></a>corsponges<span class="ot">=</span><span class="fu">cor</span>(sponges)</span>
-<span id="cb570-2"><a href="aula18.html#cb570-2" tabindex="-1"></a>covars<span class="ot">=</span>corsponges[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)]</span>
-<span id="cb570-3"><a href="aula18.html#cb570-3" tabindex="-1"></a>corcovars<span class="ot">=</span><span class="fu">cor</span>(covars)</span>
-<span id="cb570-4"><a href="aula18.html#cb570-4" tabindex="-1"></a><span class="fu">hist</span>(corcovars[corcovars<span class="sc">!=</span><span class="dv">1</span>],<span class="at">main=</span><span class="st">&quot;Correlations between explanatory covariates (lat,long excluded)&quot;</span>,<span class="at">breaks=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.05</span>))</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
-<p>As we can see, there is a wide range of correlations, but in particular there is a peak at the 0.95-1 range, which we suspected might be due to the fact that some variables are actually obtained as a function of others. After a closer read at the original paper we come to realize these are highly correlated just by constriction. These correspond to echoes of radar on different frequency bands, and hence it is not surprising that they present incredibly high correlations across. It is somewhat surprising that the authors did not note this fact upfront on their paper. These are associated with backscatter variables, with code <code>bs</code>so we can use the function <code>grep</code> to look at these (note even so we divide these into several <code>pairs</code> plots otherwise the plots are too small for being useful).</p>
-<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="aula18.html#cb571-1" tabindex="-1"></a><span class="fu">pairs</span>(sponges[,<span class="fu">grep</span>(<span class="at">pattern=</span><span class="st">&quot;bs&quot;</span>, <span class="at">x=</span><span class="fu">names</span>(sponges),<span class="at">value =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>]])</span></code></pre></div>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="aula18.html#cb573-1" tabindex="-1"></a>corsponges<span class="ot">=</span><span class="fu">cor</span>(sponges)</span>
+<span id="cb573-2"><a href="aula18.html#cb573-2" tabindex="-1"></a>covars<span class="ot">=</span>corsponges[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)]</span>
+<span id="cb573-3"><a href="aula18.html#cb573-3" tabindex="-1"></a>corcovars<span class="ot">=</span><span class="fu">cor</span>(covars)</span>
+<span id="cb573-4"><a href="aula18.html#cb573-4" tabindex="-1"></a><span class="fu">hist</span>(corcovars[corcovars<span class="sc">!=</span><span class="dv">1</span>],<span class="at">main=</span><span class="st">&quot;Correlations between explanatory covariates (lat,long excluded)&quot;</span>,<span class="at">breaks=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.05</span>))</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
-<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="aula18.html#cb572-1" tabindex="-1"></a><span class="fu">pairs</span>(sponges[,<span class="fu">grep</span>(<span class="at">pattern=</span><span class="st">&quot;bs&quot;</span>, <span class="at">x=</span><span class="fu">names</span>(sponges),<span class="at">value =</span> <span class="cn">TRUE</span>)[<span class="dv">15</span><span class="sc">:</span><span class="dv">28</span>]])</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-89-2.png" width="672" /></p>
-<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="aula18.html#cb573-1" tabindex="-1"></a><span class="fu">pairs</span>(sponges[,<span class="fu">grep</span>(<span class="at">pattern=</span><span class="st">&quot;bs&quot;</span>, <span class="at">x=</span><span class="fu">names</span>(sponges),<span class="at">value =</span> <span class="cn">TRUE</span>)[<span class="dv">29</span><span class="sc">:</span><span class="dv">35</span>]])</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-89-3.png" width="672" /></p>
+<p>As we can see, there is a wide range of correlations, but in particular there is a peak at the 0.95-1 range, which we suspected might be due to the fact that some variables are actually obtained as a function of others. After a closer read at the original paper we come to realize these are highly correlated just by constriction. These correspond to echoes of radar on different frequency bands, and hence it is not surprising that they present incredibly high correlations across. It is somewhat surprising that the authors did not note this fact upfront on their paper. These are associated with backscatter variables, with code <code>bs</code>so we can use the function <code>grep</code> to look at these (note even so we divide these into several <code>pairs</code> plots otherwise the plots are too small for being useful).</p>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="aula18.html#cb574-1" tabindex="-1"></a><span class="fu">pairs</span>(sponges[,<span class="fu">grep</span>(<span class="at">pattern=</span><span class="st">&quot;bs&quot;</span>, <span class="at">x=</span><span class="fu">names</span>(sponges),<span class="at">value =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>]])</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="aula18.html#cb575-1" tabindex="-1"></a><span class="fu">pairs</span>(sponges[,<span class="fu">grep</span>(<span class="at">pattern=</span><span class="st">&quot;bs&quot;</span>, <span class="at">x=</span><span class="fu">names</span>(sponges),<span class="at">value =</span> <span class="cn">TRUE</span>)[<span class="dv">15</span><span class="sc">:</span><span class="dv">28</span>]])</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-90-2.png" width="672" /></p>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="aula18.html#cb576-1" tabindex="-1"></a><span class="fu">pairs</span>(sponges[,<span class="fu">grep</span>(<span class="at">pattern=</span><span class="st">&quot;bs&quot;</span>, <span class="at">x=</span><span class="fu">names</span>(sponges),<span class="at">value =</span> <span class="cn">TRUE</span>)[<span class="dv">29</span><span class="sc">:</span><span class="dv">35</span>]])</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-90-3.png" width="672" /></p>
 <p>Including pairs of such highly correlated variables in the models could lead to problems nad makes interpretation harder, and hence we need to decide which to remove a priori. This should be driven by ecological knowledge, which in our case, for SSR, is close to inexistent!</p>
-<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="aula18.html#cb574-1" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">abs</span>(<span class="fu">round</span>(corWithSSR,<span class="dv">2</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="aula18.html#cb577-1" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">abs</span>(<span class="fu">round</span>(corWithSSR,<span class="dv">2</span>)))</span></code></pre></div>
 <pre><code>##             bs22             bs23             bs24             bs29 
 ##             0.00             0.00             0.00             0.00 
 ##             bs35             bs_o       rugosity_o             bs25 
@@ -386,35 +388,35 @@ div.csl-indent {
 ## species.richness 
 ##             1.00</code></pre>
 <p>What does the response variable itself look like? That is the key question to answer, as it will determine the distribution we use to model it. We already saw that the variance is considerably larger than the mean, and therefore, the default go-to distribution for counts, a Poisson, will probably not be the best choice here.</p>
-<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="aula18.html#cb576-1" tabindex="-1"></a><span class="fu">hist</span>(sponges<span class="sc">$</span>species.richness,<span class="at">xlab=</span><span class="st">&quot;Species Richness&quot;</span>,<span class="at">main=</span><span class="st">&quot;&quot;</span>,<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="at">by=</span><span class="dv">1</span>))</span>
-<span id="cb576-2"><a href="aula18.html#cb576-2" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">30</span>,<span class="dv">7</span>,<span class="fu">paste0</span>(<span class="st">&quot;Mean=&quot;</span>,<span class="fu">round</span>(<span class="fu">mean</span>(sponges<span class="sc">$</span>species.richness),<span class="dv">1</span>)))</span>
-<span id="cb576-3"><a href="aula18.html#cb576-3" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">30</span>,<span class="dv">5</span>,<span class="fu">paste0</span>(<span class="st">&quot;Variance=&quot;</span>,<span class="fu">round</span>(<span class="fu">var</span>(sponges<span class="sc">$</span>species.richness),<span class="dv">1</span>)))</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
-<p>We can compare this with a poisson with the same mean, or a negative binomial with the same mean and variance. It should be obvious which provides a closer approximation, even before covariates get added to the mix.</p>
-<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="aula18.html#cb577-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
-<span id="cb577-2"><a href="aula18.html#cb577-2" tabindex="-1"></a><span class="fu">hist</span>(sponges<span class="sc">$</span>species.richness,<span class="at">xlab=</span><span class="st">&quot;Species Richness&quot;</span>,<span class="at">main=</span><span class="st">&quot;&quot;</span>,<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="at">by=</span><span class="dv">5</span>))</span>
-<span id="cb577-3"><a href="aula18.html#cb577-3" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">30</span>,<span class="dv">20</span>,<span class="fu">paste0</span>(<span class="st">&quot;Mean=&quot;</span>,<span class="fu">round</span>(<span class="fu">mean</span>(sponges<span class="sc">$</span>species.richness),<span class="dv">1</span>)))</span>
-<span id="cb577-4"><a href="aula18.html#cb577-4" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">30</span>,<span class="dv">10</span>,<span class="fu">paste0</span>(<span class="st">&quot;Variance=&quot;</span>,<span class="fu">round</span>(<span class="fu">var</span>(sponges<span class="sc">$</span>species.richness),<span class="dv">1</span>)))</span>
-<span id="cb577-5"><a href="aula18.html#cb577-5" tabindex="-1"></a><span class="co"># Poisson</span></span>
-<span id="cb577-6"><a href="aula18.html#cb577-6" tabindex="-1"></a>mean<span class="ot">=</span><span class="dv">10</span></span>
-<span id="cb577-7"><a href="aula18.html#cb577-7" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">rpois</span>(<span class="dv">10000</span>,mean),<span class="at">main=</span><span class="st">&quot;&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Poisson, mean=10&quot;</span>,<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="at">by=</span><span class="dv">5</span>))</span>
-<span id="cb577-8"><a href="aula18.html#cb577-8" tabindex="-1"></a><span class="co">#Neg Bin</span></span>
-<span id="cb577-9"><a href="aula18.html#cb577-9" tabindex="-1"></a>mean<span class="ot">=</span><span class="dv">10</span></span>
-<span id="cb577-10"><a href="aula18.html#cb577-10" tabindex="-1"></a>var<span class="ot">=</span><span class="dv">100</span></span>
-<span id="cb577-11"><a href="aula18.html#cb577-11" tabindex="-1"></a>dat<span class="ot">=</span><span class="fu">rnbinom</span>(<span class="dv">10000</span>,<span class="at">size=</span>mean<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(var<span class="sc">-</span>mean),<span class="at">mu=</span>mean)</span>
-<span id="cb577-12"><a href="aula18.html#cb577-12" tabindex="-1"></a><span class="fu">hist</span>(dat[dat<span class="sc">&lt;</span><span class="dv">40</span>],<span class="at">main=</span><span class="st">&quot;&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Negative Binomial, mean=10, var=100&quot;</span>,<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="at">by=</span><span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="aula18.html#cb579-1" tabindex="-1"></a><span class="fu">hist</span>(sponges<span class="sc">$</span>species.richness,<span class="at">xlab=</span><span class="st">&quot;Species Richness&quot;</span>,<span class="at">main=</span><span class="st">&quot;&quot;</span>,<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="at">by=</span><span class="dv">1</span>))</span>
+<span id="cb579-2"><a href="aula18.html#cb579-2" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">30</span>,<span class="dv">7</span>,<span class="fu">paste0</span>(<span class="st">&quot;Mean=&quot;</span>,<span class="fu">round</span>(<span class="fu">mean</span>(sponges<span class="sc">$</span>species.richness),<span class="dv">1</span>)))</span>
+<span id="cb579-3"><a href="aula18.html#cb579-3" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">30</span>,<span class="dv">5</span>,<span class="fu">paste0</span>(<span class="st">&quot;Variance=&quot;</span>,<span class="fu">round</span>(<span class="fu">var</span>(sponges<span class="sc">$</span>species.richness),<span class="dv">1</span>)))</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p>We can compare this with a poisson with the same mean, or a negative binomial with the same mean and variance. It should be obvious which provides a closer approximation, even before covariates get added to the mix.</p>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="aula18.html#cb580-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb580-2"><a href="aula18.html#cb580-2" tabindex="-1"></a><span class="fu">hist</span>(sponges<span class="sc">$</span>species.richness,<span class="at">xlab=</span><span class="st">&quot;Species Richness&quot;</span>,<span class="at">main=</span><span class="st">&quot;&quot;</span>,<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="at">by=</span><span class="dv">5</span>))</span>
+<span id="cb580-3"><a href="aula18.html#cb580-3" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">30</span>,<span class="dv">20</span>,<span class="fu">paste0</span>(<span class="st">&quot;Mean=&quot;</span>,<span class="fu">round</span>(<span class="fu">mean</span>(sponges<span class="sc">$</span>species.richness),<span class="dv">1</span>)))</span>
+<span id="cb580-4"><a href="aula18.html#cb580-4" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">30</span>,<span class="dv">10</span>,<span class="fu">paste0</span>(<span class="st">&quot;Variance=&quot;</span>,<span class="fu">round</span>(<span class="fu">var</span>(sponges<span class="sc">$</span>species.richness),<span class="dv">1</span>)))</span>
+<span id="cb580-5"><a href="aula18.html#cb580-5" tabindex="-1"></a><span class="co"># Poisson</span></span>
+<span id="cb580-6"><a href="aula18.html#cb580-6" tabindex="-1"></a>mean<span class="ot">=</span><span class="dv">10</span></span>
+<span id="cb580-7"><a href="aula18.html#cb580-7" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">rpois</span>(<span class="dv">10000</span>,mean),<span class="at">main=</span><span class="st">&quot;&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Poisson, mean=10&quot;</span>,<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="at">by=</span><span class="dv">5</span>))</span>
+<span id="cb580-8"><a href="aula18.html#cb580-8" tabindex="-1"></a><span class="co">#Neg Bin</span></span>
+<span id="cb580-9"><a href="aula18.html#cb580-9" tabindex="-1"></a>mean<span class="ot">=</span><span class="dv">10</span></span>
+<span id="cb580-10"><a href="aula18.html#cb580-10" tabindex="-1"></a>var<span class="ot">=</span><span class="dv">100</span></span>
+<span id="cb580-11"><a href="aula18.html#cb580-11" tabindex="-1"></a>dat<span class="ot">=</span><span class="fu">rnbinom</span>(<span class="dv">10000</span>,<span class="at">size=</span>mean<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(var<span class="sc">-</span>mean),<span class="at">mu=</span>mean)</span>
+<span id="cb580-12"><a href="aula18.html#cb580-12" tabindex="-1"></a><span class="fu">hist</span>(dat[dat<span class="sc">&lt;</span><span class="dv">40</span>],<span class="at">main=</span><span class="st">&quot;&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Negative Binomial, mean=10, var=100&quot;</span>,<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">40</span>,<span class="at">by=</span><span class="dv">5</span>))</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
 <p>While there is never too much Exploratory Data Analysis (EDA), here we move on to do some modelling.</p>
 </div>
 <div id="modelling" class="section level3 hasAnchor" number="21.2.3">
 <h3><span class="header-section-number">21.2.3</span> Modelling<a href="aula18.html#modelling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Just to begin, we take a peak at one of the variables that had a large positive correlation with SSR, in this case, <code>dist.coast</code>.</p>
-<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="aula18.html#cb578-1" tabindex="-1"></a><span class="co">#testing a random variable!!</span></span>
-<span id="cb578-2"><a href="aula18.html#cb578-2" tabindex="-1"></a><span class="fu">with</span>(sponges,<span class="fu">plot</span>(dist.coast,species.richness))</span>
-<span id="cb578-3"><a href="aula18.html#cb578-3" tabindex="-1"></a>lm0<span class="ot">&lt;-</span><span class="fu">lm</span>(species.richness<span class="sc">~</span>dist.coast,<span class="at">data=</span>sponges)</span>
-<span id="cb578-4"><a href="aula18.html#cb578-4" tabindex="-1"></a><span class="fu">abline</span>(lm0)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
-<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="aula18.html#cb579-1" tabindex="-1"></a><span class="fu">summary</span>(lm0)</span></code></pre></div>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="aula18.html#cb581-1" tabindex="-1"></a><span class="co">#testing a random variable!!</span></span>
+<span id="cb581-2"><a href="aula18.html#cb581-2" tabindex="-1"></a><span class="fu">with</span>(sponges,<span class="fu">plot</span>(dist.coast,species.richness))</span>
+<span id="cb581-3"><a href="aula18.html#cb581-3" tabindex="-1"></a>lm0<span class="ot">&lt;-</span><span class="fu">lm</span>(species.richness<span class="sc">~</span>dist.coast,<span class="at">data=</span>sponges)</span>
+<span id="cb581-4"><a href="aula18.html#cb581-4" tabindex="-1"></a><span class="fu">abline</span>(lm0)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="aula18.html#cb582-1" tabindex="-1"></a><span class="fu">summary</span>(lm0)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = species.richness ~ dist.coast, data = sponges)
@@ -435,19 +437,19 @@ div.csl-indent {
 ## F-statistic: 8.177 on 1 and 75 DF,  p-value: 0.005492</code></pre>
 <p>Apparently there is information to explain the species richness, and while the correlation is low, we can see that from a classical perspective, the coeficient associated with the variable would be considered significant at the usual significance levels, considering a simple linear model. However, we now that we are modelling counts,a nd hence, the Gaussian distribution is unlikely to be reasonable assumption. So, we move on to GLMs.</p>
 <p>Lets begin by comparing just how different the model using a Poisson or a NB becomes, in terms of AIC</p>
-<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="aula18.html#cb581-1" tabindex="-1"></a><span class="co">#testing a random variable!!</span></span>
-<span id="cb581-2"><a href="aula18.html#cb581-2" tabindex="-1"></a>glmP1<span class="ot">=</span><span class="fu">glm</span>(species.richness<span class="sc">~</span>dist.coast,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>),<span class="at">data=</span>sponges)</span>
-<span id="cb581-3"><a href="aula18.html#cb581-3" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb581-4"><a href="aula18.html#cb581-4" tabindex="-1"></a>glmNB1<span class="ot">=</span><span class="fu">glm.nb</span>(species.richness<span class="sc">~</span>dist.coast,<span class="at">link=</span>log,<span class="at">data=</span>sponges)</span>
-<span id="cb581-5"><a href="aula18.html#cb581-5" tabindex="-1"></a><span class="fu">AIC</span>(glmP1,glmNB1)</span></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="aula18.html#cb584-1" tabindex="-1"></a><span class="co">#testing a random variable!!</span></span>
+<span id="cb584-2"><a href="aula18.html#cb584-2" tabindex="-1"></a>glmP1<span class="ot">=</span><span class="fu">glm</span>(species.richness<span class="sc">~</span>dist.coast,<span class="at">family=</span><span class="fu">poisson</span>(<span class="at">link=</span><span class="st">&quot;log&quot;</span>),<span class="at">data=</span>sponges)</span>
+<span id="cb584-3"><a href="aula18.html#cb584-3" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb584-4"><a href="aula18.html#cb584-4" tabindex="-1"></a>glmNB1<span class="ot">=</span><span class="fu">glm.nb</span>(species.richness<span class="sc">~</span>dist.coast,<span class="at">link=</span>log,<span class="at">data=</span>sponges)</span>
+<span id="cb584-5"><a href="aula18.html#cb584-5" tabindex="-1"></a><span class="fu">AIC</span>(glmP1,glmNB1)</span></code></pre></div>
 <pre><code>##        df      AIC
 ## glmP1   2 975.7237
 ## glmNB1  3 522.3367</code></pre>
 <p>There is absolutely no question about the fact that the NB is better here! Which does not necessarily mean it is the best model - remember AIC is a relative measure of fit.</p>
 <p>We can compare with the quasi-poisson</p>
-<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="aula18.html#cb583-1" tabindex="-1"></a>glmQP1<span class="ot">=</span><span class="fu">glm</span>(species.richness<span class="sc">~</span>dist.coast,<span class="at">family=</span>quasipoisson,<span class="at">data=</span>sponges)</span></code></pre></div>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="aula18.html#cb586-1" tabindex="-1"></a>glmQP1<span class="ot">=</span><span class="fu">glm</span>(species.richness<span class="sc">~</span>dist.coast,<span class="at">family=</span>quasipoisson,<span class="at">data=</span>sponges)</span></code></pre></div>
 <p>and now we compare the two</p>
-<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="aula18.html#cb584-1" tabindex="-1"></a><span class="fu">summary</span>(glmP1)</span></code></pre></div>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="aula18.html#cb587-1" tabindex="-1"></a><span class="fu">summary</span>(glmP1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = species.richness ~ dist.coast, family = poisson(link = &quot;log&quot;), 
@@ -467,7 +469,7 @@ div.csl-indent {
 ## AIC: 975.72
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="aula18.html#cb586-1" tabindex="-1"></a><span class="fu">summary</span>(glmQP1)</span></code></pre></div>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="aula18.html#cb589-1" tabindex="-1"></a><span class="fu">summary</span>(glmQP1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = species.richness ~ dist.coast, family = quasipoisson, 
@@ -489,7 +491,7 @@ div.csl-indent {
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <p>as expected, the only difference is the increase of the standard errors associated with the parameters. Note also that in the Quasi-Poisson we get an estimate of the over-dispersion parameter, and, since we do not have a likelihood, we do not get an AIC. The parameter standard errors are bigger in the quasi case, given that the overdispersion parameter is larger than 1.</p>
 <p>Just for comparison, we look at the output from the negative binomial model</p>
-<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="aula18.html#cb588-1" tabindex="-1"></a><span class="fu">summary</span>(glmNB1)</span></code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="aula18.html#cb591-1" tabindex="-1"></a><span class="fu">summary</span>(glmNB1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm.nb(formula = species.richness ~ dist.coast, data = sponges, 
@@ -517,8 +519,8 @@ div.csl-indent {
 ##  2 x log-likelihood:  -516.337</code></pre>
 <p>Note that in practice all models would lead us to find the <code>dist.coast</code> to be considered relevant to model species richness.</p>
 <p>A bit on model selection, using <code>anova</code>, a Chi-squared test,</p>
-<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="aula18.html#cb590-1" tabindex="-1"></a>glmQP2<span class="ot">=</span><span class="fu">glm</span>(species.richness<span class="sc">~</span><span class="dv">1</span>,<span class="at">family=</span>quasipoisson,<span class="at">data=</span>sponges)</span>
-<span id="cb590-2"><a href="aula18.html#cb590-2" tabindex="-1"></a><span class="fu">anova</span>(glmQP1,glmQP2, <span class="at">test =</span> <span class="st">&quot;Chi&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="aula18.html#cb593-1" tabindex="-1"></a>glmQP2<span class="ot">=</span><span class="fu">glm</span>(species.richness<span class="sc">~</span><span class="dv">1</span>,<span class="at">family=</span>quasipoisson,<span class="at">data=</span>sponges)</span>
+<span id="cb593-2"><a href="aula18.html#cb593-2" tabindex="-1"></a><span class="fu">anova</span>(glmQP1,glmQP2, <span class="at">test =</span> <span class="st">&quot;Chi&quot;</span>)</span></code></pre></div>
 <pre><code>## Analysis of Deviance Table
 ## 
 ## Model 1: species.richness ~ dist.coast
@@ -529,7 +531,7 @@ div.csl-indent {
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>or using <code>drop1</code>, with an F-test</p>
-<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="aula18.html#cb592-1" tabindex="-1"></a><span class="fu">drop1</span>(glmQP1,<span class="at">test=</span><span class="st">&quot;F&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="aula18.html#cb595-1" tabindex="-1"></a><span class="fu">drop1</span>(glmQP1,<span class="at">test=</span><span class="st">&quot;F&quot;</span>)</span></code></pre></div>
 <pre><code>## Single term deletions
 ## 
 ## Model:
@@ -541,24 +543,24 @@ div.csl-indent {
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>again, both tell us that <code>dist.coast</code> is a relevant covariate.</p>
 <p>We could look at the residuals for both models. First the Poisson</p>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="aula18.html#cb594-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
-<span id="cb594-2"><a href="aula18.html#cb594-2" tabindex="-1"></a><span class="fu">plot</span>(glmP1)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
-<p>and then the negative binomial</p>
-<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="aula18.html#cb595-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
-<span id="cb595-2"><a href="aula18.html#cb595-2" tabindex="-1"></a><span class="fu">plot</span>(glmNB1)</span></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="aula18.html#cb597-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb597-2"><a href="aula18.html#cb597-2" tabindex="-1"></a><span class="fu">plot</span>(glmP1)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<p>and then the negative binomial</p>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="aula18.html#cb598-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb598-2"><a href="aula18.html#cb598-2" tabindex="-1"></a><span class="fu">plot</span>(glmNB1)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
 <p>It is quite hard to choose between these based on the residuals, but remember that the AIC does not leave any room for doubts, the Negative Binomial is the most likely road to take here. So now it is time to investigate what might be the best model.</p>
-<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="aula18.html#cb596-1" tabindex="-1"></a><span class="fu">AIC</span>(lm0,glmP1,glmNB1)</span></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="aula18.html#cb599-1" tabindex="-1"></a><span class="fu">AIC</span>(lm0,glmP1,glmNB1)</span></code></pre></div>
 <pre><code>##        df      AIC
 ## lm0     3 578.0226
 ## glmP1   2 975.7237
 ## glmNB1  3 522.3367</code></pre>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="aula18.html#cb598-1" tabindex="-1"></a>glmNB.<span class="fl">0.15</span><span class="ot">=</span><span class="fu">glm.nb</span>(species.richness<span class="sc">~</span>slope_o<span class="sc">+</span>prof_cur5<span class="sc">+</span>entro3 </span>
-<span id="cb598-2"><a href="aula18.html#cb598-2" tabindex="-1"></a><span class="sc">+</span>rugosity7<span class="sc">+</span>tpi3<span class="sc">+</span>prof_cur7<span class="sc">+</span>relief_3 </span>
-<span id="cb598-3"><a href="aula18.html#cb598-3" tabindex="-1"></a><span class="sc">+</span>slope3<span class="sc">+</span>tpi5<span class="sc">+</span>plan_curv3<span class="sc">+</span>slope5 </span>
-<span id="cb598-4"><a href="aula18.html#cb598-4" tabindex="-1"></a><span class="sc">+</span>slope7<span class="sc">+</span>relief_5<span class="sc">+</span>relief_7<span class="sc">+</span>long.sample </span>
-<span id="cb598-5"><a href="aula18.html#cb598-5" tabindex="-1"></a><span class="sc">+</span>lat.sample<span class="sc">+</span>gravel<span class="sc">+</span>dist.coast<span class="sc">+</span>sand,<span class="at">link=</span>log,<span class="at">data=</span>sponges)</span></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="aula18.html#cb601-1" tabindex="-1"></a>glmNB.<span class="fl">0.15</span><span class="ot">=</span><span class="fu">glm.nb</span>(species.richness<span class="sc">~</span>slope_o<span class="sc">+</span>prof_cur5<span class="sc">+</span>entro3 </span>
+<span id="cb601-2"><a href="aula18.html#cb601-2" tabindex="-1"></a><span class="sc">+</span>rugosity7<span class="sc">+</span>tpi3<span class="sc">+</span>prof_cur7<span class="sc">+</span>relief_3 </span>
+<span id="cb601-3"><a href="aula18.html#cb601-3" tabindex="-1"></a><span class="sc">+</span>slope3<span class="sc">+</span>tpi5<span class="sc">+</span>plan_curv3<span class="sc">+</span>slope5 </span>
+<span id="cb601-4"><a href="aula18.html#cb601-4" tabindex="-1"></a><span class="sc">+</span>slope7<span class="sc">+</span>relief_5<span class="sc">+</span>relief_7<span class="sc">+</span>long.sample </span>
+<span id="cb601-5"><a href="aula18.html#cb601-5" tabindex="-1"></a><span class="sc">+</span>lat.sample<span class="sc">+</span>gravel<span class="sc">+</span>dist.coast<span class="sc">+</span>sand,<span class="at">link=</span>log,<span class="at">data=</span>sponges)</span></code></pre></div>
 </div>
 </div>
 <div id="extra-glm-stuff" class="section level2 hasAnchor" number="21.3">
@@ -571,7 +573,7 @@ div.csl-indent {
 </div>
 </div>
 <h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-Martin2005" class="csl-entry">
 Martin, Tara G., Brendan A. Wintle, Jonathan R. Rhodes, Petra M. Kuhnert, Scott A. Field, Samantha J. Low-Choy, Andrew J. Tyre, and Hugh P. Possingham. 2005. <span>“Zero Tolerance Ecology: Improving Ecological Inference by Modelling the Source of Zero Observations.”</span> <em>Ecology Letters</em> 8: 1235–46.
 </div>

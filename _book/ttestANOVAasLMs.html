@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 t-tests and ANOVAs are just linear models | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 t-tests and ANOVAs are just linear models | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2023-11-03" />
+<meta name="date" content="2024-11-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -128,6 +128,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -179,6 +180,7 @@ div.csl-indent {
 <li class="chapter" data-level="7" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>7</b> Hands On Regression</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
+<li class="chapter" data-level="7.2" data-path="handson.html"><a href="handson.html#conditional-versus-marginal-distribution"><i class="fa fa-check"></i><b>7.2</b> Conditional versus marginal distribution</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="RIO.html"><a href="RIO.html"><i class="fa fa-check"></i><b>8</b> Regression inside out</a>
 <ul>
@@ -299,14 +301,14 @@ div.csl-indent {
 <div id="a-one-sample-t-test-is-the-simplest-possible-linear-model" class="section level2 hasAnchor" number="9.1">
 <h2><span class="header-section-number">9.1</span> A one sample t-test is the simplest possible linear model<a href="ttestANOVAasLMs.html#a-one-sample-t-test-is-the-simplest-possible-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When you want to test whether a sample might have been taken from a population with a mean equal to a given value, say <span class="math inline">\(\mu_0\)</span>, then one can use a simple t-test. That t-test is in fact a linear model in disguise.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="ttestANOVAasLMs.html#cb94-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb94-2"><a href="ttestANOVAasLMs.html#cb94-2" tabindex="-1"></a>n1<span class="ot">&lt;-</span><span class="dv">100</span></span>
-<span id="cb94-3"><a href="ttestANOVAasLMs.html#cb94-3" tabindex="-1"></a>mean1<span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
-<span id="cb94-4"><a href="ttestANOVAasLMs.html#cb94-4" tabindex="-1"></a>sd1<span class="ot">&lt;-</span><span class="fl">0.5</span></span>
-<span id="cb94-5"><a href="ttestANOVAasLMs.html#cb94-5" tabindex="-1"></a>ys<span class="ot">&lt;-</span><span class="fu">rnorm</span>(n1,<span class="at">mean=</span>mean1,<span class="at">sd=</span>sd1)</span>
-<span id="cb94-6"><a href="ttestANOVAasLMs.html#cb94-6" tabindex="-1"></a>mu1<span class="ot">&lt;-</span><span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="ttestANOVAasLMs.html#cb96-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb96-2"><a href="ttestANOVAasLMs.html#cb96-2" tabindex="-1"></a>n1<span class="ot">&lt;-</span><span class="dv">100</span></span>
+<span id="cb96-3"><a href="ttestANOVAasLMs.html#cb96-3" tabindex="-1"></a>mean1<span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
+<span id="cb96-4"><a href="ttestANOVAasLMs.html#cb96-4" tabindex="-1"></a>sd1<span class="ot">&lt;-</span><span class="fl">0.5</span></span>
+<span id="cb96-5"><a href="ttestANOVAasLMs.html#cb96-5" tabindex="-1"></a>ys<span class="ot">&lt;-</span><span class="fu">rnorm</span>(n1,<span class="at">mean=</span>mean1,<span class="at">sd=</span>sd1)</span>
+<span id="cb96-6"><a href="ttestANOVAasLMs.html#cb96-6" tabindex="-1"></a>mu1<span class="ot">&lt;-</span><span class="dv">0</span></span></code></pre></div>
 <p>Here is an example, where we generate a sample of size 100 Gaussian values, with mean 0 and standard deviation 0.5. Then we test if the mean is equal to 0, which given the way the data was simulated, is therefore false.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="ttestANOVAasLMs.html#cb95-1" tabindex="-1"></a><span class="fu">t.test</span>(ys,<span class="at">mu=</span>mu1)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="ttestANOVAasLMs.html#cb97-1" tabindex="-1"></a><span class="fu">t.test</span>(ys,<span class="at">mu=</span>mu1)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -319,7 +321,7 @@ div.csl-indent {
 ## mean of x 
 ##  1.545203</code></pre>
 <p>Then, we can implement a linear model without covariates and check the exact same p-values comes associated with the intercept term</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="ttestANOVAasLMs.html#cb97-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys<span class="sc">~</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="ttestANOVAasLMs.html#cb99-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(ys<span class="sc">~</span><span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ 1)
@@ -341,36 +343,36 @@ div.csl-indent {
 <h2><span class="header-section-number">9.2</span> The t-test<a href="ttestANOVAasLMs.html#the-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>While we did not do the t-test in class, this is useful because it allows you to see how a simple t-test is just a linear model too, and acts as a building block for the next examples. The two sample t-test allows us to test the null hypothesis that two samples have the same mean.</p>
 <p>Create some data</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="ttestANOVAasLMs.html#cb99-1" tabindex="-1"></a><span class="co">#Making up a t-test</span></span>
-<span id="cb99-2"><a href="ttestANOVAasLMs.html#cb99-2" tabindex="-1"></a><span class="co">#making sure everyone gets the same results</span></span>
-<span id="cb99-3"><a href="ttestANOVAasLMs.html#cb99-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">980</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="ttestANOVAasLMs.html#cb101-1" tabindex="-1"></a><span class="co">#Making up a t-test</span></span>
+<span id="cb101-2"><a href="ttestANOVAasLMs.html#cb101-2" tabindex="-1"></a><span class="co">#making sure everyone gets the same results</span></span>
+<span id="cb101-3"><a href="ttestANOVAasLMs.html#cb101-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">980</span>)</span></code></pre></div>
 <p>Then we define the sample size and the number of treatments</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="ttestANOVAasLMs.html#cb100-1" tabindex="-1"></a><span class="co">#define sample size</span></span>
-<span id="cb100-2"><a href="ttestANOVAasLMs.html#cb100-2" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">100</span></span>
-<span id="cb100-3"><a href="ttestANOVAasLMs.html#cb100-3" tabindex="-1"></a><span class="co">#define treatments</span></span>
-<span id="cb100-4"><a href="ttestANOVAasLMs.html#cb100-4" tabindex="-1"></a>tr<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>)</span>
-<span id="cb100-5"><a href="ttestANOVAasLMs.html#cb100-5" tabindex="-1"></a><span class="co">#how many treatments - 2 for a t test</span></span>
-<span id="cb100-6"><a href="ttestANOVAasLMs.html#cb100-6" tabindex="-1"></a>ntr<span class="ot">=</span><span class="fu">length</span>(tr)</span>
-<span id="cb100-7"><a href="ttestANOVAasLMs.html#cb100-7" tabindex="-1"></a><span class="co">#balanced design</span></span>
-<span id="cb100-8"><a href="ttestANOVAasLMs.html#cb100-8" tabindex="-1"></a>n.by.tr<span class="ot">=</span>n<span class="sc">/</span>ntr</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="ttestANOVAasLMs.html#cb102-1" tabindex="-1"></a><span class="co">#define sample size</span></span>
+<span id="cb102-2"><a href="ttestANOVAasLMs.html#cb102-2" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">100</span></span>
+<span id="cb102-3"><a href="ttestANOVAasLMs.html#cb102-3" tabindex="-1"></a><span class="co">#define treatments</span></span>
+<span id="cb102-4"><a href="ttestANOVAasLMs.html#cb102-4" tabindex="-1"></a>tr<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>)</span>
+<span id="cb102-5"><a href="ttestANOVAasLMs.html#cb102-5" tabindex="-1"></a><span class="co">#how many treatments - 2 for a t test</span></span>
+<span id="cb102-6"><a href="ttestANOVAasLMs.html#cb102-6" tabindex="-1"></a>ntr<span class="ot">=</span><span class="fu">length</span>(tr)</span>
+<span id="cb102-7"><a href="ttestANOVAasLMs.html#cb102-7" tabindex="-1"></a><span class="co">#balanced design</span></span>
+<span id="cb102-8"><a href="ttestANOVAasLMs.html#cb102-8" tabindex="-1"></a>n.by.tr<span class="ot">=</span>n<span class="sc">/</span>ntr</span></code></pre></div>
 <p>Now, we can simulate some data. First, the treatments</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="ttestANOVAasLMs.html#cb101-1" tabindex="-1"></a>type<span class="ot">=</span><span class="fu">as.factor</span>(<span class="fu">rep</span>(tr,<span class="at">each=</span>n.by.tr))</span>
-<span id="cb101-2"><a href="ttestANOVAasLMs.html#cb101-2" tabindex="-1"></a>cores<span class="ot">=</span><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>ntr,<span class="at">each=</span>n.by.tr)</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="ttestANOVAasLMs.html#cb103-1" tabindex="-1"></a>type<span class="ot">=</span><span class="fu">as.factor</span>(<span class="fu">rep</span>(tr,<span class="at">each=</span>n.by.tr))</span>
+<span id="cb103-2"><a href="ttestANOVAasLMs.html#cb103-2" tabindex="-1"></a>cores<span class="ot">=</span><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>ntr,<span class="at">each=</span>n.by.tr)</span></code></pre></div>
 <p>Then we define the means by treatment - note that they are indeed different, so the null hypothesis in the t-test, that the mean of a is equal to the mean of b, is known to be false in this case.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="ttestANOVAasLMs.html#cb102-1" tabindex="-1"></a><span class="co">#define 4 means</span></span>
-<span id="cb102-2"><a href="ttestANOVAasLMs.html#cb102-2" tabindex="-1"></a>ms<span class="ot">=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="ttestANOVAasLMs.html#cb104-1" tabindex="-1"></a><span class="co">#define 4 means</span></span>
+<span id="cb104-2"><a href="ttestANOVAasLMs.html#cb104-2" tabindex="-1"></a>ms<span class="ot">=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span></code></pre></div>
 <p>Then, the key part, the response variable, with a different mean by treatment. Note the use of the <code>ifelse</code> function, which evaluates its first argument and then assigns the value of its second argument if the first is true or the value of the second if its first argument is false. An example</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="ttestANOVAasLMs.html#cb103-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&gt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="dv">77</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="ttestANOVAasLMs.html#cb105-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&gt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="dv">77</span>)</span></code></pre></div>
 <pre><code>## [1] 77</code></pre>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="ttestANOVAasLMs.html#cb105-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&lt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="dv">77</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="ttestANOVAasLMs.html#cb107-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&lt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="dv">77</span>)</span></code></pre></div>
 <pre><code>## [1] 55</code></pre>
 <p>So now, generate the response data</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="ttestANOVAasLMs.html#cb107-1" tabindex="-1"></a>ys<span class="ot">=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;a&quot;</span>,ms[<span class="dv">1</span>],ms[<span class="dv">2</span>])<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="fl">1.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="ttestANOVAasLMs.html#cb109-1" tabindex="-1"></a>ys<span class="ot">=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;a&quot;</span>,ms[<span class="dv">1</span>],ms[<span class="dv">2</span>])<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="fl">1.5</span>)</span></code></pre></div>
 <p>Look at the data</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="ttestANOVAasLMs.html#cb108-1" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="ttestANOVAasLMs.html#cb110-1" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a8.7-1.png" width="672" /></p>
 <p>Now, we can run the usual t-test, note below we use a formulation where the function <code>t.test</code> uses two arguments, each of the samples to compare the means, and in the second, it uses the model formulation, more akin to the henceforth use of the linear model</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="ttestANOVAasLMs.html#cb109-1" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x=</span>ys[type<span class="sc">==</span><span class="st">&quot;a&quot;</span>],<span class="at">y=</span>ys[type<span class="sc">==</span><span class="st">&quot;a&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="ttestANOVAasLMs.html#cb111-1" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x=</span>ys[type<span class="sc">==</span><span class="st">&quot;a&quot;</span>],<span class="at">y=</span>ys[type<span class="sc">==</span><span class="st">&quot;a&quot;</span>])</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -382,7 +384,7 @@ div.csl-indent {
 ## sample estimates:
 ## mean of x mean of y 
 ##  3.106656  3.106656</code></pre>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="ttestANOVAasLMs.html#cb111-1" tabindex="-1"></a><span class="fu">t.test</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="ttestANOVAasLMs.html#cb113-1" tabindex="-1"></a><span class="fu">t.test</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -395,8 +397,8 @@ div.csl-indent {
 ## mean in group a mean in group b 
 ##        3.106656        3.941884</code></pre>
 <p>So now we can do it the linear regression way</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="ttestANOVAasLMs.html#cb113-1" tabindex="-1"></a>lm0<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>type)</span>
-<span id="cb113-2"><a href="ttestANOVAasLMs.html#cb113-2" tabindex="-1"></a><span class="fu">summary</span>(lm0)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="ttestANOVAasLMs.html#cb115-1" tabindex="-1"></a>lm0<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>type)</span>
+<span id="cb115-2"><a href="ttestANOVAasLMs.html#cb115-2" tabindex="-1"></a><span class="fu">summary</span>(lm0)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ type)
@@ -416,24 +418,24 @@ div.csl-indent {
 ## Multiple R-squared:  0.07428,    Adjusted R-squared:  0.06484 
 ## F-statistic: 7.864 on 1 and 98 DF,  p-value: 0.006081</code></pre>
 <p>and as you can see, we get the same result for the test statistic. It is the same thing! And we can naturally get the estimated means per group. The mean for a is just the intercept of the model. To get the mean of the group b we add the mean of group b to the intercept, as</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="ttestANOVAasLMs.html#cb115-1" tabindex="-1"></a><span class="co">#mean of ys under treatment a</span></span>
-<span id="cb115-2"><a href="ttestANOVAasLMs.html#cb115-2" tabindex="-1"></a><span class="fu">summary</span>(lm0)<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="ttestANOVAasLMs.html#cb117-1" tabindex="-1"></a><span class="co">#mean of ys under treatment a</span></span>
+<span id="cb117-2"><a href="ttestANOVAasLMs.html#cb117-2" tabindex="-1"></a><span class="fu">summary</span>(lm0)<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 3.106656</code></pre>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="ttestANOVAasLMs.html#cb117-1" tabindex="-1"></a><span class="co">#mean of ys under treatment b</span></span>
-<span id="cb117-2"><a href="ttestANOVAasLMs.html#cb117-2" tabindex="-1"></a><span class="fu">summary</span>(lm0)<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm0<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="ttestANOVAasLMs.html#cb119-1" tabindex="-1"></a><span class="co">#mean of ys under treatment b</span></span>
+<span id="cb119-2"><a href="ttestANOVAasLMs.html#cb119-2" tabindex="-1"></a><span class="fu">summary</span>(lm0)<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm0<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>##    typeb 
 ## 3.941884</code></pre>
 <p>This is required because in a linear model, all the other parameters associated with levels of a factor will be compared to a reference value, that of the intercept, which happens to be the mean under treatment a. Below you will see more examples of this.</p>
 <p>Note we were able to detect the null was false, but this was because we had a decent sample size compared to the variance of the measurements and the magnitude of the true effect (the difference of the means). If we keep the sample size constant but we increase the noise or decrease the magnitude of the difference, we might not get the same result, and make a type II error!</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="ttestANOVAasLMs.html#cb119-1" tabindex="-1"></a><span class="co">#define 2 means</span></span>
-<span id="cb119-2"><a href="ttestANOVAasLMs.html#cb119-2" tabindex="-1"></a>ms<span class="ot">=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span>
-<span id="cb119-3"><a href="ttestANOVAasLMs.html#cb119-3" tabindex="-1"></a><span class="co">#increase the variance of the process</span></span>
-<span id="cb119-4"><a href="ttestANOVAasLMs.html#cb119-4" tabindex="-1"></a>ys<span class="ot">=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;a&quot;</span>,ms[<span class="dv">1</span>],ms[<span class="dv">2</span>])<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="ttestANOVAasLMs.html#cb121-1" tabindex="-1"></a><span class="co">#define 2 means</span></span>
+<span id="cb121-2"><a href="ttestANOVAasLMs.html#cb121-2" tabindex="-1"></a>ms<span class="ot">=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb121-3"><a href="ttestANOVAasLMs.html#cb121-3" tabindex="-1"></a><span class="co">#increase the variance of the process</span></span>
+<span id="cb121-4"><a href="ttestANOVAasLMs.html#cb121-4" tabindex="-1"></a>ys<span class="ot">=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;a&quot;</span>,ms[<span class="dv">1</span>],ms[<span class="dv">2</span>])<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">5</span>)</span></code></pre></div>
 <p>Look at the data, we can see much more variation</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="ttestANOVAasLMs.html#cb120-1" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="ttestANOVAasLMs.html#cb122-1" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a8.12-1.png" width="672" /></p>
 <p>Now, we can run the usual t-test</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="ttestANOVAasLMs.html#cb121-1" tabindex="-1"></a><span class="fu">t.test</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="ttestANOVAasLMs.html#cb123-1" tabindex="-1"></a><span class="fu">t.test</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -446,8 +448,8 @@ div.csl-indent {
 ## mean in group a mean in group b 
 ##        2.024963        3.360189</code></pre>
 <p>and now we can do it the linear regression way</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="ttestANOVAasLMs.html#cb123-1" tabindex="-1"></a>lm0<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>type)</span>
-<span id="cb123-2"><a href="ttestANOVAasLMs.html#cb123-2" tabindex="-1"></a><span class="fu">summary</span>(lm0)</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="ttestANOVAasLMs.html#cb125-1" tabindex="-1"></a>lm0<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>type)</span>
+<span id="cb125-2"><a href="ttestANOVAasLMs.html#cb125-2" tabindex="-1"></a><span class="fu">summary</span>(lm0)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ type)
@@ -468,15 +470,15 @@ div.csl-indent {
 ## F-statistic: 1.852 on 1 and 98 DF,  p-value: 0.1767</code></pre>
 <p>and as you can see, we get the same result for the test statistic, but now with a non significant test.
 The same would have happened if we decreased the true difference, while keeping the original magnitude of the error</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="ttestANOVAasLMs.html#cb125-1" tabindex="-1"></a><span class="co">#define 2 means</span></span>
-<span id="cb125-2"><a href="ttestANOVAasLMs.html#cb125-2" tabindex="-1"></a>ms<span class="ot">=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="fl">3.1</span>)</span>
-<span id="cb125-3"><a href="ttestANOVAasLMs.html#cb125-3" tabindex="-1"></a><span class="co">#increase the variance of the process</span></span>
-<span id="cb125-4"><a href="ttestANOVAasLMs.html#cb125-4" tabindex="-1"></a>ys<span class="ot">=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;a&quot;</span>,ms[<span class="dv">1</span>],ms[<span class="dv">2</span>])<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="fl">1.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="ttestANOVAasLMs.html#cb127-1" tabindex="-1"></a><span class="co">#define 2 means</span></span>
+<span id="cb127-2"><a href="ttestANOVAasLMs.html#cb127-2" tabindex="-1"></a>ms<span class="ot">=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="fl">3.1</span>)</span>
+<span id="cb127-3"><a href="ttestANOVAasLMs.html#cb127-3" tabindex="-1"></a><span class="co">#increase the variance of the process</span></span>
+<span id="cb127-4"><a href="ttestANOVAasLMs.html#cb127-4" tabindex="-1"></a>ys<span class="ot">=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;a&quot;</span>,ms[<span class="dv">1</span>],ms[<span class="dv">2</span>])<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="fl">1.5</span>)</span></code></pre></div>
 <p>Look at the data, we can see again lower variation, but the difference across treatments is very small (so, hard to detect!)</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="ttestANOVAasLMs.html#cb126-1" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="ttestANOVAasLMs.html#cb128-1" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a8.16-1.png" width="672" /></p>
 <p>Now, we can run the usual t-test</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="ttestANOVAasLMs.html#cb127-1" tabindex="-1"></a><span class="fu">t.test</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="ttestANOVAasLMs.html#cb129-1" tabindex="-1"></a><span class="fu">t.test</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -489,8 +491,8 @@ The same would have happened if we decreased the true difference, while keeping 
 ## mean in group a mean in group b 
 ##        3.158868        3.392874</code></pre>
 <p>and now we can do it the linear regression way</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="ttestANOVAasLMs.html#cb129-1" tabindex="-1"></a>lm0<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>type)</span>
-<span id="cb129-2"><a href="ttestANOVAasLMs.html#cb129-2" tabindex="-1"></a><span class="fu">summary</span>(lm0)</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="ttestANOVAasLMs.html#cb131-1" tabindex="-1"></a>lm0<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>type)</span>
+<span id="cb131-2"><a href="ttestANOVAasLMs.html#cb131-2" tabindex="-1"></a><span class="fu">summary</span>(lm0)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ type)
@@ -510,7 +512,7 @@ The same would have happened if we decreased the true difference, while keeping 
 ## Multiple R-squared:  0.006479,   Adjusted R-squared:  -0.003659 
 ## F-statistic: 0.639 on 1 and 98 DF,  p-value: 0.426</code></pre>
 <p>A word of caution regarding the equivalence of the linear model and the <code>t.test</code>. They are really only strictly equivalent if the assumption of equal variances across groups is made. This means in the case of a <code>t.test</code>, that we would use the argument <code>var.equal=TRUE</code>. The default in R is <code>var.equal=FALSe</code>, in other words, the t.test performs a Welsh test which does not assume the same variance for both samples. This is a slight detail but important for the sake of the rigour associated with the equivalence. The impact of the diference is typically small especially if sample sizes are large. Here is an example</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="ttestANOVAasLMs.html#cb131-1" tabindex="-1"></a><span class="fu">t.test</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="ttestANOVAasLMs.html#cb133-1" tabindex="-1"></a><span class="fu">t.test</span>(ys<span class="sc">~</span>type)</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -522,7 +524,7 @@ The same would have happened if we decreased the true difference, while keeping 
 ## sample estimates:
 ## mean in group a mean in group b 
 ##        3.158868        3.392874</code></pre>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="ttestANOVAasLMs.html#cb133-1" tabindex="-1"></a><span class="fu">t.test</span>(ys<span class="sc">~</span>type,<span class="at">var.equal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="ttestANOVAasLMs.html#cb135-1" tabindex="-1"></a><span class="fu">t.test</span>(ys<span class="sc">~</span>type,<span class="at">var.equal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
@@ -540,53 +542,53 @@ The same would have happened if we decreased the true difference, while keeping 
 <p>We move on with perhaps the most famous example of a statistical test/procedure, the ANOVA. An ANOVA is nothing but a linear model, where we have a continuous response variable, which we want to explain as a function of a factor (with several levels, or treatments).</p>
 <p>There is a slight difference in the way we can code the dummy variables that might be worth to explore (this relates to contrasts, but perhaps beyond what I want to let the students know? cf. <a href="https://www.theanalysisfactor.com/why-anova-and-linear-regression-are-the-same-analysis/" class="uri">https://www.theanalysisfactor.com/why-anova-and-linear-regression-are-the-same-analysis/</a>).</p>
 <p>Here we simulate a data set, beginning by making sure everyone gets the same results by using <code>set.seed</code></p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="ttestANOVAasLMs.html#cb135-1" tabindex="-1"></a><span class="co">#Making up an ANOVA</span></span>
-<span id="cb135-2"><a href="ttestANOVAasLMs.html#cb135-2" tabindex="-1"></a><span class="co">#An ANOVA</span></span>
-<span id="cb135-3"><a href="ttestANOVAasLMs.html#cb135-3" tabindex="-1"></a><span class="co">#making sure everyone gets the same results</span></span>
-<span id="cb135-4"><a href="ttestANOVAasLMs.html#cb135-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="ttestANOVAasLMs.html#cb137-1" tabindex="-1"></a><span class="co">#Making up an ANOVA</span></span>
+<span id="cb137-2"><a href="ttestANOVAasLMs.html#cb137-2" tabindex="-1"></a><span class="co">#An ANOVA</span></span>
+<span id="cb137-3"><a href="ttestANOVAasLMs.html#cb137-3" tabindex="-1"></a><span class="co">#making sure everyone gets the same results</span></span>
+<span id="cb137-4"><a href="ttestANOVAasLMs.html#cb137-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span></code></pre></div>
 <p>Then we define the sample size and the number of treatments</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="ttestANOVAasLMs.html#cb136-1" tabindex="-1"></a><span class="co">#define sample size</span></span>
-<span id="cb136-2"><a href="ttestANOVAasLMs.html#cb136-2" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">2000</span></span>
-<span id="cb136-3"><a href="ttestANOVAasLMs.html#cb136-3" tabindex="-1"></a><span class="co">#define treatments</span></span>
-<span id="cb136-4"><a href="ttestANOVAasLMs.html#cb136-4" tabindex="-1"></a>tr<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;d&quot;</span>)</span>
-<span id="cb136-5"><a href="ttestANOVAasLMs.html#cb136-5" tabindex="-1"></a><span class="co">#how many treatments</span></span>
-<span id="cb136-6"><a href="ttestANOVAasLMs.html#cb136-6" tabindex="-1"></a>ntr<span class="ot">=</span><span class="fu">length</span>(tr)</span>
-<span id="cb136-7"><a href="ttestANOVAasLMs.html#cb136-7" tabindex="-1"></a><span class="co">#balanced design</span></span>
-<span id="cb136-8"><a href="ttestANOVAasLMs.html#cb136-8" tabindex="-1"></a>n.by.tr<span class="ot">=</span>n<span class="sc">/</span>ntr</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="ttestANOVAasLMs.html#cb138-1" tabindex="-1"></a><span class="co">#define sample size</span></span>
+<span id="cb138-2"><a href="ttestANOVAasLMs.html#cb138-2" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">2000</span></span>
+<span id="cb138-3"><a href="ttestANOVAasLMs.html#cb138-3" tabindex="-1"></a><span class="co">#define treatments</span></span>
+<span id="cb138-4"><a href="ttestANOVAasLMs.html#cb138-4" tabindex="-1"></a>tr<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;d&quot;</span>)</span>
+<span id="cb138-5"><a href="ttestANOVAasLMs.html#cb138-5" tabindex="-1"></a><span class="co">#how many treatments</span></span>
+<span id="cb138-6"><a href="ttestANOVAasLMs.html#cb138-6" tabindex="-1"></a>ntr<span class="ot">=</span><span class="fu">length</span>(tr)</span>
+<span id="cb138-7"><a href="ttestANOVAasLMs.html#cb138-7" tabindex="-1"></a><span class="co">#balanced design</span></span>
+<span id="cb138-8"><a href="ttestANOVAasLMs.html#cb138-8" tabindex="-1"></a>n.by.tr<span class="ot">=</span>n<span class="sc">/</span>ntr</span></code></pre></div>
 <p>now, we can simulate some data. First, the treatments, but we also generate a independent variable that is not really used for now (<code>xs</code>).</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="ttestANOVAasLMs.html#cb137-1" tabindex="-1"></a><span class="co">#generate data</span></span>
-<span id="cb137-2"><a href="ttestANOVAasLMs.html#cb137-2" tabindex="-1"></a>xs<span class="ot">=</span><span class="fu">runif</span>(n,<span class="dv">10</span>,<span class="dv">20</span>)</span>
-<span id="cb137-3"><a href="ttestANOVAasLMs.html#cb137-3" tabindex="-1"></a>type<span class="ot">=</span><span class="fu">as.factor</span>(<span class="fu">rep</span>(tr,<span class="at">each=</span>n.by.tr))</span>
-<span id="cb137-4"><a href="ttestANOVAasLMs.html#cb137-4" tabindex="-1"></a><span class="co">#if I wanted to recode the levels such that c was the baseline</span></span>
-<span id="cb137-5"><a href="ttestANOVAasLMs.html#cb137-5" tabindex="-1"></a><span class="co">#type=factor(type,levels = c(&quot;c&quot;,&quot;a&quot;,&quot;b&quot;,&quot;d&quot;))</span></span>
-<span id="cb137-6"><a href="ttestANOVAasLMs.html#cb137-6" tabindex="-1"></a><span class="co">#get colors for plotting</span></span>
-<span id="cb137-7"><a href="ttestANOVAasLMs.html#cb137-7" tabindex="-1"></a>cores<span class="ot">=</span><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>ntr,<span class="at">each=</span>n.by.tr)</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="ttestANOVAasLMs.html#cb139-1" tabindex="-1"></a><span class="co">#generate data</span></span>
+<span id="cb139-2"><a href="ttestANOVAasLMs.html#cb139-2" tabindex="-1"></a>xs<span class="ot">=</span><span class="fu">runif</span>(n,<span class="dv">10</span>,<span class="dv">20</span>)</span>
+<span id="cb139-3"><a href="ttestANOVAasLMs.html#cb139-3" tabindex="-1"></a>type<span class="ot">=</span><span class="fu">as.factor</span>(<span class="fu">rep</span>(tr,<span class="at">each=</span>n.by.tr))</span>
+<span id="cb139-4"><a href="ttestANOVAasLMs.html#cb139-4" tabindex="-1"></a><span class="co">#if I wanted to recode the levels such that c was the baseline</span></span>
+<span id="cb139-5"><a href="ttestANOVAasLMs.html#cb139-5" tabindex="-1"></a><span class="co">#type=factor(type,levels = c(&quot;c&quot;,&quot;a&quot;,&quot;b&quot;,&quot;d&quot;))</span></span>
+<span id="cb139-6"><a href="ttestANOVAasLMs.html#cb139-6" tabindex="-1"></a><span class="co">#get colors for plotting</span></span>
+<span id="cb139-7"><a href="ttestANOVAasLMs.html#cb139-7" tabindex="-1"></a>cores<span class="ot">=</span><span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>ntr,<span class="at">each=</span>n.by.tr)</span></code></pre></div>
 <p>Then we define the means by treatment - note that they are different, so the null hypothesis in an ANOVA, that all the means are the same, is false.</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="ttestANOVAasLMs.html#cb138-1" tabindex="-1"></a><span class="co">#define 4 means</span></span>
-<span id="cb138-2"><a href="ttestANOVAasLMs.html#cb138-2" tabindex="-1"></a>ms<span class="ot">=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="ttestANOVAasLMs.html#cb140-1" tabindex="-1"></a><span class="co">#define 4 means</span></span>
+<span id="cb140-2"><a href="ttestANOVAasLMs.html#cb140-2" tabindex="-1"></a>ms<span class="ot">=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">2</span>)</span></code></pre></div>
 <p>Then, the key part, the response variable, with a different mean by treatment. Note the use of the <code>ifelse</code> function, which evaluates its first argument and then assigns the value of its second argument if the first is true or the value of the second if its first argument is false. An example</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="ttestANOVAasLMs.html#cb139-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&gt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="dv">77</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="ttestANOVAasLMs.html#cb141-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&gt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="dv">77</span>)</span></code></pre></div>
 <pre><code>## [1] 77</code></pre>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="ttestANOVAasLMs.html#cb141-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&lt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="dv">77</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="ttestANOVAasLMs.html#cb143-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&lt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="dv">77</span>)</span></code></pre></div>
 <pre><code>## [1] 55</code></pre>
 <p>Note these can be used nested, leading to possible multiple outcomes, and I use that below to define 4 different means depending on the treatment of the observation</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="ttestANOVAasLMs.html#cb143-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&lt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&gt;</span><span class="dv">2</span>,<span class="dv">55</span>,<span class="dv">68</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="ttestANOVAasLMs.html#cb145-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&lt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&gt;</span><span class="dv">2</span>,<span class="dv">55</span>,<span class="dv">68</span>))</span></code></pre></div>
 <pre><code>## [1] 55</code></pre>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="ttestANOVAasLMs.html#cb145-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&gt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&gt;</span><span class="dv">2</span>,<span class="dv">666</span>,<span class="dv">68</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="ttestANOVAasLMs.html#cb147-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&gt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&gt;</span><span class="dv">2</span>,<span class="dv">666</span>,<span class="dv">68</span>))</span></code></pre></div>
 <pre><code>## [1] 666</code></pre>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="ttestANOVAasLMs.html#cb147-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&gt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&lt;</span><span class="dv">2</span>,<span class="dv">666</span>,<span class="dv">68</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="ttestANOVAasLMs.html#cb149-1" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&gt;</span><span class="dv">4</span>,<span class="dv">55</span>,<span class="fu">ifelse</span>(<span class="dv">3</span><span class="sc">&lt;</span><span class="dv">2</span>,<span class="dv">666</span>,<span class="dv">68</span>))</span></code></pre></div>
 <pre><code>## [1] 68</code></pre>
 <p>So now, generate the data</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="ttestANOVAasLMs.html#cb149-1" tabindex="-1"></a><span class="co">#ys, not a function of the xs!!!</span></span>
-<span id="cb149-2"><a href="ttestANOVAasLMs.html#cb149-2" tabindex="-1"></a>ys<span class="ot">=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;a&quot;</span>,ms[<span class="dv">1</span>],<span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;b&quot;</span>,ms[<span class="dv">2</span>],<span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;c&quot;</span>,ms[<span class="dv">3</span>],ms[<span class="dv">4</span>])))<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="ttestANOVAasLMs.html#cb151-1" tabindex="-1"></a><span class="co">#ys, not a function of the xs!!!</span></span>
+<span id="cb151-2"><a href="ttestANOVAasLMs.html#cb151-2" tabindex="-1"></a>ys<span class="ot">=</span><span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;a&quot;</span>,ms[<span class="dv">1</span>],<span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;b&quot;</span>,ms[<span class="dv">2</span>],<span class="fu">ifelse</span>(type<span class="sc">==</span><span class="st">&quot;c&quot;</span>,ms[<span class="dv">3</span>],ms[<span class="dv">4</span>])))<span class="sc">+</span><span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">3</span>)</span></code></pre></div>
 <p>We can actually look at the simulated data</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="ttestANOVAasLMs.html#cb150-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
-<span id="cb150-2"><a href="ttestANOVAasLMs.html#cb150-2" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>type,<span class="at">col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="ttestANOVAasLMs.html#cb152-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb152-2"><a href="ttestANOVAasLMs.html#cb152-2" tabindex="-1"></a><span class="fu">plot</span>(ys<span class="sc">~</span>type,<span class="at">col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a8.26-1.png" width="672" /></p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="ttestANOVAasLMs.html#cb151-1" tabindex="-1"></a><span class="co">#abline(h=ms,col=1:4)</span></span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="ttestANOVAasLMs.html#cb153-1" tabindex="-1"></a><span class="co">#abline(h=ms,col=1:4)</span></span></code></pre></div>
 <p>finally, we can implement the linear model and look at its summary</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="ttestANOVAasLMs.html#cb152-1" tabindex="-1"></a>lm.anova<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>type)</span>
-<span id="cb152-2"><a href="ttestANOVAasLMs.html#cb152-2" tabindex="-1"></a><span class="fu">summary</span>(lm.anova)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="ttestANOVAasLMs.html#cb154-1" tabindex="-1"></a>lm.anova<span class="ot">=</span><span class="fu">lm</span>(ys<span class="sc">~</span>type)</span>
+<span id="cb154-2"><a href="ttestANOVAasLMs.html#cb154-2" tabindex="-1"></a><span class="fu">summary</span>(lm.anova)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ys ~ type)
@@ -608,28 +610,28 @@ The same would have happened if we decreased the true difference, while keeping 
 ## Multiple R-squared:  0.2163, Adjusted R-squared:  0.2151 
 ## F-statistic: 183.6 on 3 and 1996 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>note that, again, we can manipulate any sub-components of the created objects</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="ttestANOVAasLMs.html#cb154-1" tabindex="-1"></a><span class="co">#see the parameters</span></span>
-<span id="cb154-2"><a href="ttestANOVAasLMs.html#cb154-2" tabindex="-1"></a>lm.anova<span class="sc">$</span>coefficients</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="ttestANOVAasLMs.html#cb156-1" tabindex="-1"></a><span class="co">#see the parameters</span></span>
+<span id="cb156-2"><a href="ttestANOVAasLMs.html#cb156-2" tabindex="-1"></a>lm.anova<span class="sc">$</span>coefficients</span></code></pre></div>
 <pre><code>## (Intercept)       typeb       typec       typed 
 ##   2.8694412   2.0787628   2.9806367  -0.8726428</code></pre>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="ttestANOVAasLMs.html#cb156-1" tabindex="-1"></a><span class="co">#see the third parameter</span></span>
-<span id="cb156-2"><a href="ttestANOVAasLMs.html#cb156-2" tabindex="-1"></a>lm.anova<span class="sc">$</span>coefficients[<span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="ttestANOVAasLMs.html#cb158-1" tabindex="-1"></a><span class="co">#see the third parameter</span></span>
+<span id="cb158-2"><a href="ttestANOVAasLMs.html#cb158-2" tabindex="-1"></a>lm.anova<span class="sc">$</span>coefficients[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>##    typec 
 ## 2.980637</code></pre>
 <p>Not surprisingly, because the means were different and we had a large sample size, everything is highly significant. Note that the ANOVA test is actually presented in the regression output, and that is the corresponding F-test</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="ttestANOVAasLMs.html#cb158-1" tabindex="-1"></a><span class="fu">summary</span>(lm.anova)<span class="sc">$</span>fstatistic</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="ttestANOVAasLMs.html#cb160-1" tabindex="-1"></a><span class="fu">summary</span>(lm.anova)<span class="sc">$</span>fstatistic</span></code></pre></div>
 <pre><code>##     value     numdf     dendf 
 ##  183.6156    3.0000 1996.0000</code></pre>
 <p>and we can use the F distribution to calculate the corresponding P-value (note that is already in the output above)</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="ttestANOVAasLMs.html#cb160-1" tabindex="-1"></a>ftest<span class="ot">=</span><span class="fu">summary</span>(lm.anova)<span class="sc">$</span>fstatistic[<span class="dv">1</span>]</span>
-<span id="cb160-2"><a href="ttestANOVAasLMs.html#cb160-2" tabindex="-1"></a>df1<span class="ot">=</span><span class="fu">summary</span>(lm.anova)<span class="sc">$</span>fstatistic[<span class="dv">2</span>]</span>
-<span id="cb160-3"><a href="ttestANOVAasLMs.html#cb160-3" tabindex="-1"></a>df2<span class="ot">=</span><span class="fu">summary</span>(lm.anova)<span class="sc">$</span>fstatistic[<span class="dv">3</span>]</span>
-<span id="cb160-4"><a href="ttestANOVAasLMs.html#cb160-4" tabindex="-1"></a><span class="fu">pt</span>(ftest,df1,df2)</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="ttestANOVAasLMs.html#cb162-1" tabindex="-1"></a>ftest<span class="ot">=</span><span class="fu">summary</span>(lm.anova)<span class="sc">$</span>fstatistic[<span class="dv">1</span>]</span>
+<span id="cb162-2"><a href="ttestANOVAasLMs.html#cb162-2" tabindex="-1"></a>df1<span class="ot">=</span><span class="fu">summary</span>(lm.anova)<span class="sc">$</span>fstatistic[<span class="dv">2</span>]</span>
+<span id="cb162-3"><a href="ttestANOVAasLMs.html#cb162-3" tabindex="-1"></a>df2<span class="ot">=</span><span class="fu">summary</span>(lm.anova)<span class="sc">$</span>fstatistic[<span class="dv">3</span>]</span>
+<span id="cb162-4"><a href="ttestANOVAasLMs.html#cb162-4" tabindex="-1"></a><span class="fu">pt</span>(ftest,df1,df2)</span></code></pre></div>
 <pre><code>##         value 
 ## 1.402786e-131</code></pre>
 <p>OK, this is actually the exact value, while above the value was reported as just a small value (&lt; 2.2 <span class="math inline">\(\times\)</span> 10<span class="math inline">\(^{-16}\)</span>), but it is the same value, believe me!</p>
 <p>Finally, to show (by example) this is just what the ANOVA does, we have the NAOVA itself</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="ttestANOVAasLMs.html#cb162-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(lm.anova))</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="ttestANOVAasLMs.html#cb164-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(lm.anova))</span></code></pre></div>
 <pre><code>##               Df Sum Sq Mean Sq F value Pr(&gt;F)    
 ## type           3   4792  1597.5   183.6 &lt;2e-16 ***
 ## Residuals   1996  17365     8.7                   
@@ -638,80 +640,80 @@ The same would have happened if we decreased the true difference, while keeping 
 <p>where everything is the same (test statistic, degrees of freedom and p-values).</p>
 <p>Conclusion: an ANOVA is just a special case of a linear model, one where we have a continuous response variable and a factor explanatory covariate. In fact, a two way ANOVA is just the extension where we have a continuous response variable and 2 factor explanatory covariates, and, you guessed it, a three way ANOVA means we have a continuous response variable and a 3 factor explanatory covariates.</p>
 <p>Just to finish up this example, we could now plot the true means per treatment, the estimated means per treatment</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="ttestANOVAasLMs.html#cb164-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
-<span id="cb164-2"><a href="ttestANOVAasLMs.html#cb164-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.numeric</span>(type),ys,<span class="at">col=</span><span class="fu">as.numeric</span>(type),<span class="at">xlab=</span><span class="st">&quot;Treatment&quot;</span>,<span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>)</span>
-<span id="cb164-3"><a href="ttestANOVAasLMs.html#cb164-3" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
-<span id="cb164-4"><a href="ttestANOVAasLMs.html#cb164-4" tabindex="-1"></a><span class="co">#plot the estimated line for type a</span></span>
-<span id="cb164-5"><a href="ttestANOVAasLMs.html#cb164-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
-<span id="cb164-6"><a href="ttestANOVAasLMs.html#cb164-6" tabindex="-1"></a><span class="co">#plot the mean line for type a</span></span>
-<span id="cb164-7"><a href="ttestANOVAasLMs.html#cb164-7" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;a&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb164-8"><a href="ttestANOVAasLMs.html#cb164-8" tabindex="-1"></a><span class="co">#plot the real mean for type a</span></span>
-<span id="cb164-9"><a href="ttestANOVAasLMs.html#cb164-9" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">1</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
-<span id="cb164-10"><a href="ttestANOVAasLMs.html#cb164-10" tabindex="-1"></a><span class="co">#and now for the other types</span></span>
-<span id="cb164-11"><a href="ttestANOVAasLMs.html#cb164-11" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">2</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
-<span id="cb164-12"><a href="ttestANOVAasLMs.html#cb164-12" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;b&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb164-13"><a href="ttestANOVAasLMs.html#cb164-13" tabindex="-1"></a><span class="co">#plot the real mean for type b</span></span>
-<span id="cb164-14"><a href="ttestANOVAasLMs.html#cb164-14" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">2</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
-<span id="cb164-15"><a href="ttestANOVAasLMs.html#cb164-15" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">3</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
-<span id="cb164-16"><a href="ttestANOVAasLMs.html#cb164-16" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;c&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb164-17"><a href="ttestANOVAasLMs.html#cb164-17" tabindex="-1"></a><span class="co">#plot the real mean for type c</span></span>
-<span id="cb164-18"><a href="ttestANOVAasLMs.html#cb164-18" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">3</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
-<span id="cb164-19"><a href="ttestANOVAasLMs.html#cb164-19" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">4</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
-<span id="cb164-20"><a href="ttestANOVAasLMs.html#cb164-20" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;d&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb164-21"><a href="ttestANOVAasLMs.html#cb164-21" tabindex="-1"></a><span class="co">#plot the real mean for type a</span></span>
-<span id="cb164-22"><a href="ttestANOVAasLMs.html#cb164-22" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">4</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
-<span id="cb164-23"><a href="ttestANOVAasLMs.html#cb164-23" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="fu">c</span>(<span class="st">&quot;Estimated&quot;</span>,<span class="st">&quot;Mean of data&quot;</span>,<span class="st">&quot;True&quot;</span>),<span class="at">lwd=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>),<span class="at">inset=</span><span class="fl">0.03</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="ttestANOVAasLMs.html#cb166-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb166-2"><a href="ttestANOVAasLMs.html#cb166-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.numeric</span>(type),ys,<span class="at">col=</span><span class="fu">as.numeric</span>(type),<span class="at">xlab=</span><span class="st">&quot;Treatment&quot;</span>,<span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb166-3"><a href="ttestANOVAasLMs.html#cb166-3" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
+<span id="cb166-4"><a href="ttestANOVAasLMs.html#cb166-4" tabindex="-1"></a><span class="co">#plot the estimated line for type a</span></span>
+<span id="cb166-5"><a href="ttestANOVAasLMs.html#cb166-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
+<span id="cb166-6"><a href="ttestANOVAasLMs.html#cb166-6" tabindex="-1"></a><span class="co">#plot the mean line for type a</span></span>
+<span id="cb166-7"><a href="ttestANOVAasLMs.html#cb166-7" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;a&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb166-8"><a href="ttestANOVAasLMs.html#cb166-8" tabindex="-1"></a><span class="co">#plot the real mean for type a</span></span>
+<span id="cb166-9"><a href="ttestANOVAasLMs.html#cb166-9" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">1</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb166-10"><a href="ttestANOVAasLMs.html#cb166-10" tabindex="-1"></a><span class="co">#and now for the other types</span></span>
+<span id="cb166-11"><a href="ttestANOVAasLMs.html#cb166-11" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">2</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb166-12"><a href="ttestANOVAasLMs.html#cb166-12" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;b&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb166-13"><a href="ttestANOVAasLMs.html#cb166-13" tabindex="-1"></a><span class="co">#plot the real mean for type b</span></span>
+<span id="cb166-14"><a href="ttestANOVAasLMs.html#cb166-14" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">2</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb166-15"><a href="ttestANOVAasLMs.html#cb166-15" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">3</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
+<span id="cb166-16"><a href="ttestANOVAasLMs.html#cb166-16" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;c&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb166-17"><a href="ttestANOVAasLMs.html#cb166-17" tabindex="-1"></a><span class="co">#plot the real mean for type c</span></span>
+<span id="cb166-18"><a href="ttestANOVAasLMs.html#cb166-18" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">3</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb166-19"><a href="ttestANOVAasLMs.html#cb166-19" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">4</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
+<span id="cb166-20"><a href="ttestANOVAasLMs.html#cb166-20" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;d&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb166-21"><a href="ttestANOVAasLMs.html#cb166-21" tabindex="-1"></a><span class="co">#plot the real mean for type a</span></span>
+<span id="cb166-22"><a href="ttestANOVAasLMs.html#cb166-22" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">4</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb166-23"><a href="ttestANOVAasLMs.html#cb166-23" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="fu">c</span>(<span class="st">&quot;Estimated&quot;</span>,<span class="st">&quot;Mean of data&quot;</span>,<span class="st">&quot;True&quot;</span>),<span class="at">lwd=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>),<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>),<span class="at">inset=</span><span class="fl">0.03</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a8.32-1.png" width="672" /></p>
 <p>It’s not easy to see because these overlap (large sample size, high precision) but the estimated means are really close to the real means. It’s a bit easier to see if we separate in 4 plots and zoom in on the mean of each treatment, but still the blue lines are all on top of each other, since the mean value was estimated real close to truth (truth=2, estimated = 1.9967984).</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="ttestANOVAasLMs.html#cb165-1" tabindex="-1"></a><span class="co">#see this in 4 plots, less blur</span></span>
-<span id="cb165-2"><a href="ttestANOVAasLMs.html#cb165-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
-<span id="cb165-3"><a href="ttestANOVAasLMs.html#cb165-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.numeric</span>(type),ys,<span class="at">col=</span><span class="fu">as.numeric</span>(type),<span class="at">xlab=</span><span class="st">&quot;Treatment&quot;</span>,<span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>,<span class="at">ylim=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;a&quot;</span>])<span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
-<span id="cb165-4"><a href="ttestANOVAasLMs.html#cb165-4" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
-<span id="cb165-5"><a href="ttestANOVAasLMs.html#cb165-5" tabindex="-1"></a><span class="co">#plot the estimated line for type a</span></span>
-<span id="cb165-6"><a href="ttestANOVAasLMs.html#cb165-6" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
-<span id="cb165-7"><a href="ttestANOVAasLMs.html#cb165-7" tabindex="-1"></a><span class="co">#plot the mean line for type a</span></span>
-<span id="cb165-8"><a href="ttestANOVAasLMs.html#cb165-8" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;a&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb165-9"><a href="ttestANOVAasLMs.html#cb165-9" tabindex="-1"></a><span class="co">#plot the real mean for type a</span></span>
-<span id="cb165-10"><a href="ttestANOVAasLMs.html#cb165-10" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">1</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
-<span id="cb165-11"><a href="ttestANOVAasLMs.html#cb165-11" tabindex="-1"></a><span class="co">#and now for the other types</span></span>
-<span id="cb165-12"><a href="ttestANOVAasLMs.html#cb165-12" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.numeric</span>(type),ys,<span class="at">col=</span><span class="fu">as.numeric</span>(type),<span class="at">xlab=</span><span class="st">&quot;Treatment&quot;</span>,<span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>,<span class="at">ylim=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;b&quot;</span>])<span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
-<span id="cb165-13"><a href="ttestANOVAasLMs.html#cb165-13" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
-<span id="cb165-14"><a href="ttestANOVAasLMs.html#cb165-14" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">2</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
-<span id="cb165-15"><a href="ttestANOVAasLMs.html#cb165-15" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;b&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb165-16"><a href="ttestANOVAasLMs.html#cb165-16" tabindex="-1"></a><span class="co">#plot the real mean for type b</span></span>
-<span id="cb165-17"><a href="ttestANOVAasLMs.html#cb165-17" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">2</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
-<span id="cb165-18"><a href="ttestANOVAasLMs.html#cb165-18" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.numeric</span>(type),ys,<span class="at">col=</span><span class="fu">as.numeric</span>(type),<span class="at">xlab=</span><span class="st">&quot;Treatment&quot;</span>,<span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>,<span class="at">ylim=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;c&quot;</span>])<span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
-<span id="cb165-19"><a href="ttestANOVAasLMs.html#cb165-19" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
-<span id="cb165-20"><a href="ttestANOVAasLMs.html#cb165-20" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">3</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
-<span id="cb165-21"><a href="ttestANOVAasLMs.html#cb165-21" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;c&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb165-22"><a href="ttestANOVAasLMs.html#cb165-22" tabindex="-1"></a><span class="co">#plot the real mean for type c</span></span>
-<span id="cb165-23"><a href="ttestANOVAasLMs.html#cb165-23" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">3</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
-<span id="cb165-24"><a href="ttestANOVAasLMs.html#cb165-24" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.numeric</span>(type),ys,<span class="at">col=</span><span class="fu">as.numeric</span>(type),<span class="at">xlab=</span><span class="st">&quot;Treatment&quot;</span>,<span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>,<span class="at">ylim=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;d&quot;</span>])<span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
-<span id="cb165-25"><a href="ttestANOVAasLMs.html#cb165-25" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
-<span id="cb165-26"><a href="ttestANOVAasLMs.html#cb165-26" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">4</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
-<span id="cb165-27"><a href="ttestANOVAasLMs.html#cb165-27" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;d&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb165-28"><a href="ttestANOVAasLMs.html#cb165-28" tabindex="-1"></a><span class="co">#plot the real mean for type a</span></span>
-<span id="cb165-29"><a href="ttestANOVAasLMs.html#cb165-29" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">4</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">lty=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="ttestANOVAasLMs.html#cb167-1" tabindex="-1"></a><span class="co">#see this in 4 plots, less blur</span></span>
+<span id="cb167-2"><a href="ttestANOVAasLMs.html#cb167-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb167-3"><a href="ttestANOVAasLMs.html#cb167-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.numeric</span>(type),ys,<span class="at">col=</span><span class="fu">as.numeric</span>(type),<span class="at">xlab=</span><span class="st">&quot;Treatment&quot;</span>,<span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>,<span class="at">ylim=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;a&quot;</span>])<span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb167-4"><a href="ttestANOVAasLMs.html#cb167-4" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
+<span id="cb167-5"><a href="ttestANOVAasLMs.html#cb167-5" tabindex="-1"></a><span class="co">#plot the estimated line for type a</span></span>
+<span id="cb167-6"><a href="ttestANOVAasLMs.html#cb167-6" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">1</span>)</span>
+<span id="cb167-7"><a href="ttestANOVAasLMs.html#cb167-7" tabindex="-1"></a><span class="co">#plot the mean line for type a</span></span>
+<span id="cb167-8"><a href="ttestANOVAasLMs.html#cb167-8" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;a&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb167-9"><a href="ttestANOVAasLMs.html#cb167-9" tabindex="-1"></a><span class="co">#plot the real mean for type a</span></span>
+<span id="cb167-10"><a href="ttestANOVAasLMs.html#cb167-10" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">1</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb167-11"><a href="ttestANOVAasLMs.html#cb167-11" tabindex="-1"></a><span class="co">#and now for the other types</span></span>
+<span id="cb167-12"><a href="ttestANOVAasLMs.html#cb167-12" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.numeric</span>(type),ys,<span class="at">col=</span><span class="fu">as.numeric</span>(type),<span class="at">xlab=</span><span class="st">&quot;Treatment&quot;</span>,<span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>,<span class="at">ylim=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;b&quot;</span>])<span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb167-13"><a href="ttestANOVAasLMs.html#cb167-13" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
+<span id="cb167-14"><a href="ttestANOVAasLMs.html#cb167-14" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">2</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">2</span>)</span>
+<span id="cb167-15"><a href="ttestANOVAasLMs.html#cb167-15" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;b&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb167-16"><a href="ttestANOVAasLMs.html#cb167-16" tabindex="-1"></a><span class="co">#plot the real mean for type b</span></span>
+<span id="cb167-17"><a href="ttestANOVAasLMs.html#cb167-17" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">2</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb167-18"><a href="ttestANOVAasLMs.html#cb167-18" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.numeric</span>(type),ys,<span class="at">col=</span><span class="fu">as.numeric</span>(type),<span class="at">xlab=</span><span class="st">&quot;Treatment&quot;</span>,<span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>,<span class="at">ylim=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;c&quot;</span>])<span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb167-19"><a href="ttestANOVAasLMs.html#cb167-19" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
+<span id="cb167-20"><a href="ttestANOVAasLMs.html#cb167-20" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">3</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">3</span>)</span>
+<span id="cb167-21"><a href="ttestANOVAasLMs.html#cb167-21" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;c&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb167-22"><a href="ttestANOVAasLMs.html#cb167-22" tabindex="-1"></a><span class="co">#plot the real mean for type c</span></span>
+<span id="cb167-23"><a href="ttestANOVAasLMs.html#cb167-23" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">3</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb167-24"><a href="ttestANOVAasLMs.html#cb167-24" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.numeric</span>(type),ys,<span class="at">col=</span><span class="fu">as.numeric</span>(type),<span class="at">xlab=</span><span class="st">&quot;Treatment&quot;</span>,<span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>,<span class="at">ylim=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;d&quot;</span>])<span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb167-25"><a href="ttestANOVAasLMs.html#cb167-25" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>,<span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>])</span>
+<span id="cb167-26"><a href="ttestANOVAasLMs.html#cb167-26" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">4</span>],<span class="at">lwd=</span><span class="dv">3</span>,<span class="at">col=</span><span class="dv">4</span>)</span>
+<span id="cb167-27"><a href="ttestANOVAasLMs.html#cb167-27" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(ys[type<span class="sc">==</span><span class="st">&quot;d&quot;</span>]),<span class="at">lwd=</span><span class="dv">1</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb167-28"><a href="ttestANOVAasLMs.html#cb167-28" tabindex="-1"></a><span class="co">#plot the real mean for type a</span></span>
+<span id="cb167-29"><a href="ttestANOVAasLMs.html#cb167-29" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span>ms[<span class="dv">4</span>],<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">4</span>,<span class="at">lty=</span><span class="dv">3</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a8.33-1.png" width="672" /></p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="ttestANOVAasLMs.html#cb166-1" tabindex="-1"></a><span class="co">#legend(&quot;bottomright&quot;,c(&quot;Estimated&quot;,&quot;Mean of data&quot;,&quot;True&quot;),lwd=c(4,1,2),lty=c(1,3,2),inset=0.05)</span></span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="ttestANOVAasLMs.html#cb168-1" tabindex="-1"></a><span class="co">#legend(&quot;bottomright&quot;,c(&quot;Estimated&quot;,&quot;Mean of data&quot;,&quot;True&quot;),lwd=c(4,1,2),lty=c(1,3,2),inset=0.05)</span></span></code></pre></div>
 <p>Now we can check how we can obtain the estimated means from the actual parameters of the regression model (yes, that is what the regression does, it calculates the expected mean of the response, conditional on the treatment).</p>
 <p>This is the estimated mean per treatment, using function <code>tapply</code> (very useful function to get any statistics over a variable, inside groups defined by a second variable, here the treatment)</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="ttestANOVAasLMs.html#cb167-1" tabindex="-1"></a><span class="fu">tapply</span>(<span class="at">X=</span>ys,<span class="at">INDEX=</span>type,<span class="at">FUN=</span>mean)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="ttestANOVAasLMs.html#cb169-1" tabindex="-1"></a><span class="fu">tapply</span>(<span class="at">X=</span>ys,<span class="at">INDEX=</span>type,<span class="at">FUN=</span>mean)</span></code></pre></div>
 <pre><code>##        a        b        c        d 
 ## 2.869441 4.948204 5.850078 1.996798</code></pre>
 <p>and checking these are obtained from the regression coefficients.
 An important note. When you fit models with factors (like here), the intercept term will correspond to the mean of the reference level of the factor(s). Hence, to get the other means, you always have to sum the parameter of the corresponding level to the intercept. So we do it below</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="ttestANOVAasLMs.html#cb169-1" tabindex="-1"></a><span class="co">#check ANOVA is just computing the mean in each group</span></span>
-<span id="cb169-2"><a href="ttestANOVAasLMs.html#cb169-2" tabindex="-1"></a>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="ttestANOVAasLMs.html#cb171-1" tabindex="-1"></a><span class="co">#check ANOVA is just computing the mean in each group</span></span>
+<span id="cb171-2"><a href="ttestANOVAasLMs.html#cb171-2" tabindex="-1"></a>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## (Intercept) 
 ##    2.869441</code></pre>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="ttestANOVAasLMs.html#cb171-1" tabindex="-1"></a>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="ttestANOVAasLMs.html#cb173-1" tabindex="-1"></a>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>## (Intercept) 
 ##    4.948204</code></pre>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="ttestANOVAasLMs.html#cb173-1" tabindex="-1"></a>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="ttestANOVAasLMs.html#cb175-1" tabindex="-1"></a>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## (Intercept) 
 ##    5.850078</code></pre>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="ttestANOVAasLMs.html#cb175-1" tabindex="-1"></a>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">4</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="ttestANOVAasLMs.html#cb177-1" tabindex="-1"></a>lm.anova<span class="sc">$</span>coefficients[<span class="dv">1</span>]<span class="sc">+</span>lm.anova<span class="sc">$</span>coefficients[<span class="dv">4</span>]</span></code></pre></div>
 <pre><code>## (Intercept) 
 ##    1.996798</code></pre>
 <p>and we can see these are exactly the same values.</p>
@@ -722,26 +724,26 @@ An important note. When you fit models with factors (like here), the intercept t
 <p>I found out about this data in this twitter post by Trevor Branch (@ TrevorABranch, <a href="https://twitter.com/TrevorABranch/status/1333844966632607745" class="uri">https://twitter.com/TrevorABranch/status/1333844966632607745</a>). This dataset was made as an R package by Allison Horst (yes, the same person that makes the amazing R abd RStudio related artwork that we used before, <a href="https://www.allisonhorst.com/" class="uri">https://www.allisonhorst.com/</a>). Here we brighten up our book with Allison’s artwork again, for a reminder that the residuals of the ANOVA should be approximately Gaussian, with constant variance! If they are not Gaussian, you might more elaborate models, like a GLM, say.</p>
 <p><img src="extfiles/not_normal.png" />
 Looking at the dataset in question, explore the two way ANOVA as a linear model, and then, we move way past beyhond that into a bit of how to interpret a multiple regression output.</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="ttestANOVAasLMs.html#cb177-1" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb177-2"><a href="ttestANOVAasLMs.html#cb177-2" tabindex="-1"></a><span class="fu">data</span>(penguins)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="ttestANOVAasLMs.html#cb179-1" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb179-2"><a href="ttestANOVAasLMs.html#cb179-2" tabindex="-1"></a><span class="fu">data</span>(penguins)</span></code></pre></div>
 <p>Just to make it easier, we remove some records of penguins for which there is no sex. Always think about what might be the impact of removing data, but here we assume these are missing at random and hence would not bias inferences.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="ttestANOVAasLMs.html#cb178-1" tabindex="-1"></a>penguins<span class="ot">&lt;-</span>penguins[<span class="sc">!</span><span class="fu">is.na</span>(penguins<span class="sc">$</span>sex),]</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="ttestANOVAasLMs.html#cb180-1" tabindex="-1"></a>penguins<span class="ot">&lt;-</span>penguins[<span class="sc">!</span><span class="fu">is.na</span>(penguins<span class="sc">$</span>sex),]</span></code></pre></div>
 <p>Lets check how many animals we have in each treatment (a treatment is jargon for the level of a factor covariate, or for a combination of levels in a factorial experiment).</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="ttestANOVAasLMs.html#cb179-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">with</span>(penguins,<span class="fu">table</span>(species,sex)))</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="ttestANOVAasLMs.html#cb181-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">with</span>(penguins,<span class="fu">table</span>(species,sex)))</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a8.38-1.png" width="672" /></p>
 <p>Perhaps surprisingly given this is observational data, the number of animals per island is balanced across sexes. On the other hane, more animals are coming from Adelie than from Gentoo, and Chinstrap presents overall a lower number of animals.</p>
 <p>Imagine you are researcher wanting to explain how the flipper length depends on the animal’s sex and species. Given that we have a response variable as a function of two factor covariates, an interaction plot comes in handy. This visualization, available through function <code>interaction.plot</code>, allows us to see how the data varies as a function of the level of multiple factors. The interaction plot below illustrates the data of the flipper length (in millimeters) as a function of sex and species.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="ttestANOVAasLMs.html#cb180-1" tabindex="-1"></a><span class="fu">with</span>(penguins,<span class="fu">interaction.plot</span>(<span class="at">x.factor=</span>species,<span class="at">trace.factor=</span>sex,<span class="at">response=</span>flipper_length_mm,<span class="at">ylab=</span><span class="st">&quot;Flipper length (mm)&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="ttestANOVAasLMs.html#cb182-1" tabindex="-1"></a><span class="fu">with</span>(penguins,<span class="fu">interaction.plot</span>(<span class="at">x.factor=</span>species,<span class="at">trace.factor=</span>sex,<span class="at">response=</span>flipper_length_mm,<span class="at">ylab=</span><span class="st">&quot;Flipper length (mm)&quot;</span>))</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a8.39-1.png" width="672" /></p>
 <p>Looking at this plot tells us little about whether the two variables are significant or not, because we do not really have a notion of variability associated with it. But it does seem like size might be different by sex and by species, with males being apparently larger than females, and animals from Gentoo being considerably larger than those from Adelie and Chinstrap. There do not seem to be strong interactions, but whether possible interactions are present or not remains to be seen. If the lines are parallel then there are by definition no interactions, i.e., the effect of a variable does not depend on the effect of another, and vice versa. The problem is that looking at the plot alone tells us nothing about how much those lines deviate from being parallel or not.</p>
 <p>Note that strictly the interaction plot needs to be interpreted with care because the lines are not in any way supposed to be taken as if the relationship is continuous. The slope of the lines dows give us however an idea about the differences between the different treatments.</p>
 <p>We can actually look at the observation in each of the treatments (i.e. combinations of sex and island)</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="ttestANOVAasLMs.html#cb181-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
-<span id="cb181-2"><a href="ttestANOVAasLMs.html#cb181-2" tabindex="-1"></a><span class="fu">with</span>(penguins,<span class="fu">boxplot</span>(flipper_length_mm <span class="sc">~</span> species <span class="sc">+</span> sex,<span class="at">las=</span><span class="dv">2</span>,<span class="at">xlab=</span><span class="st">&quot;&quot;</span>,<span class="at">col=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="ttestANOVAasLMs.html#cb183-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">4</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb183-2"><a href="ttestANOVAasLMs.html#cb183-2" tabindex="-1"></a><span class="fu">with</span>(penguins,<span class="fu">boxplot</span>(flipper_length_mm <span class="sc">~</span> species <span class="sc">+</span> sex,<span class="at">las=</span><span class="dv">2</span>,<span class="at">xlab=</span><span class="st">&quot;&quot;</span>,<span class="at">col=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)))</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/a8.40-1.png" width="672" /></p>
 <p>This plot does allow us to see the variability of the data, and it is likely that several terms will be considered statistically significant. We can implement the linear model that corresponds to the two way ANOVA to formally test that</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="ttestANOVAasLMs.html#cb182-1" tabindex="-1"></a>lm2wayANOVA<span class="ot">&lt;-</span><span class="fu">lm</span>(flipper_length_mm<span class="sc">~</span>species<span class="sc">+</span>sex,<span class="at">data=</span>penguins)</span>
-<span id="cb182-2"><a href="ttestANOVAasLMs.html#cb182-2" tabindex="-1"></a><span class="fu">summary</span>(lm2wayANOVA)</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="ttestANOVAasLMs.html#cb184-1" tabindex="-1"></a>lm2wayANOVA<span class="ot">&lt;-</span><span class="fu">lm</span>(flipper_length_mm<span class="sc">~</span>species<span class="sc">+</span>sex,<span class="at">data=</span>penguins)</span>
+<span id="cb184-2"><a href="ttestANOVAasLMs.html#cb184-2" tabindex="-1"></a><span class="fu">summary</span>(lm2wayANOVA)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = flipper_length_mm ~ species + sex, data = penguins)
@@ -763,7 +765,7 @@ Looking at the dataset in question, explore the two way ANOVA as a linear model,
 ## Multiple R-squared:  0.8346, Adjusted R-squared:  0.8331 
 ## F-statistic: 553.4 on 3 and 329 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>we can actually implement this same model as a standard ANOVA</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="ttestANOVAasLMs.html#cb184-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(lm2wayANOVA))</span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="ttestANOVAasLMs.html#cb186-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(lm2wayANOVA))</span></code></pre></div>
 <pre><code>##              Df Sum Sq Mean Sq F value Pr(&gt;F)    
 ## species       2  50526   25263   770.5 &lt;2e-16 ***
 ## sex           1   3906    3906   119.1 &lt;2e-16 ***
@@ -771,7 +773,7 @@ Looking at the dataset in question, explore the two way ANOVA as a linear model,
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>and even conduct post hoc comparisons</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="ttestANOVAasLMs.html#cb186-1" tabindex="-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(lm2wayANOVA))</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="ttestANOVAasLMs.html#cb188-1" tabindex="-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(lm2wayANOVA))</span></code></pre></div>
 <pre><code>##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
 ## 
@@ -787,36 +789,36 @@ Looking at the dataset in question, explore the two way ANOVA as a linear model,
 ##                 diff     lwr      upr p adj
 ## male-female 6.849169 5.61456 8.083779     0</code></pre>
 <p>Everything is statistically significant from everything else, but what does it all mean? In fact, the two way ANOVA is just a really fancy way of estimating the mean in each one of the 6 treatments, while assuming a constant variance (since we are using a simple linear model). The coeficiet estimates are these</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="ttestANOVAasLMs.html#cb188-1" tabindex="-1"></a>coefs<span class="ot">&lt;-</span><span class="fu">coef</span>(lm2wayANOVA)</span>
-<span id="cb188-2"><a href="ttestANOVAasLMs.html#cb188-2" tabindex="-1"></a>coefs</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="ttestANOVAasLMs.html#cb190-1" tabindex="-1"></a>coefs<span class="ot">&lt;-</span><span class="fu">coef</span>(lm2wayANOVA)</span>
+<span id="cb190-2"><a href="ttestANOVAasLMs.html#cb190-2" tabindex="-1"></a>coefs</span></code></pre></div>
 <pre><code>##      (Intercept) speciesChinstrap    speciesGentoo          sexmale 
 ##       186.677655         5.720790        27.046208         6.850169</code></pre>
 <p>Therefore, the estimate of the mean of the flipper for a female penguin from Adelie island is (just the intercept!)</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="ttestANOVAasLMs.html#cb190-1" tabindex="-1"></a><span class="fu">as.numeric</span>(coefs[<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="ttestANOVAasLMs.html#cb192-1" tabindex="-1"></a><span class="fu">as.numeric</span>(coefs[<span class="dv">1</span>])</span></code></pre></div>
 <pre><code>## [1] 186.6777</code></pre>
 <p>for a male in Adelie you need to add the male coefficient</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="ttestANOVAasLMs.html#cb192-1" tabindex="-1"></a><span class="fu">as.numeric</span>(coefs[<span class="dv">1</span>]<span class="sc">+</span>coefs[<span class="dv">4</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="ttestANOVAasLMs.html#cb194-1" tabindex="-1"></a><span class="fu">as.numeric</span>(coefs[<span class="dv">1</span>]<span class="sc">+</span>coefs[<span class="dv">4</span>])</span></code></pre></div>
 <pre><code>## [1] 193.5278</code></pre>
 <p>for a female in Chinstrap and in Gentoo their respective island parameters</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="ttestANOVAasLMs.html#cb194-1" tabindex="-1"></a><span class="fu">as.numeric</span>(coefs[<span class="dv">1</span>]<span class="sc">+</span>coefs[<span class="dv">2</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="ttestANOVAasLMs.html#cb196-1" tabindex="-1"></a><span class="fu">as.numeric</span>(coefs[<span class="dv">1</span>]<span class="sc">+</span>coefs[<span class="dv">2</span>])</span></code></pre></div>
 <pre><code>## [1] 192.3984</code></pre>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="ttestANOVAasLMs.html#cb196-1" tabindex="-1"></a><span class="fu">as.numeric</span>(coefs[<span class="dv">1</span>]<span class="sc">+</span>coefs[<span class="dv">3</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="ttestANOVAasLMs.html#cb198-1" tabindex="-1"></a><span class="fu">as.numeric</span>(coefs[<span class="dv">1</span>]<span class="sc">+</span>coefs[<span class="dv">3</span>])</span></code></pre></div>
 <pre><code>## [1] 213.7239</code></pre>
 <p>and for the males in these two islands just need to add the male effect, respectively</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="ttestANOVAasLMs.html#cb198-1" tabindex="-1"></a><span class="fu">as.numeric</span>(coefs[<span class="dv">1</span>]<span class="sc">+</span>coefs[<span class="dv">2</span>]<span class="sc">+</span>coefs[<span class="dv">4</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="ttestANOVAasLMs.html#cb200-1" tabindex="-1"></a><span class="fu">as.numeric</span>(coefs[<span class="dv">1</span>]<span class="sc">+</span>coefs[<span class="dv">2</span>]<span class="sc">+</span>coefs[<span class="dv">4</span>])</span></code></pre></div>
 <pre><code>## [1] 199.2486</code></pre>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="ttestANOVAasLMs.html#cb200-1" tabindex="-1"></a><span class="fu">as.numeric</span>(coefs[<span class="dv">1</span>]<span class="sc">+</span>coefs[<span class="dv">3</span>]<span class="sc">+</span>coefs[<span class="dv">4</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="ttestANOVAasLMs.html#cb202-1" tabindex="-1"></a><span class="fu">as.numeric</span>(coefs[<span class="dv">1</span>]<span class="sc">+</span>coefs[<span class="dv">3</span>]<span class="sc">+</span>coefs[<span class="dv">4</span>])</span></code></pre></div>
 <pre><code>## [1] 220.574</code></pre>
 <p>We can contrast these with the empirical mean in each group. These are given by</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="ttestANOVAasLMs.html#cb202-1" tabindex="-1"></a><span class="fu">with</span>(penguins,<span class="fu">tapply</span>(<span class="at">X=</span>flipper_length_mm,<span class="at">INDEX=</span><span class="fu">paste0</span>(species,sex),mean))</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="ttestANOVAasLMs.html#cb204-1" tabindex="-1"></a><span class="fu">with</span>(penguins,<span class="fu">tapply</span>(<span class="at">X=</span>flipper_length_mm,<span class="at">INDEX=</span><span class="fu">paste0</span>(species,sex),mean))</span></code></pre></div>
 <pre><code>##    Adeliefemale      Adeliemale Chinstrapfemale   Chinstrapmale    Gentoofemale 
 ##        187.7945        192.4110        191.7353        199.9118        212.7069 
 ##      Gentoomale 
 ##        221.5410</code></pre>
 <p>The minor differences in the estimated values for the means arise given that the number of animals per group are not perfectly balanced. Hence these are simply slightly different estimators of the same quantities, the treatment means. If the sample size per group were exactly the same these would coincide exactly (challenge: show that with a simulation!).</p>
 <p>We could now formally assess whether the interaction term was required, in other words, if the influence of sex and species on the length of the flipper is independent or the effect of one variable depends on the level of the other. This is implemented as</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="ttestANOVAasLMs.html#cb204-1" tabindex="-1"></a>lm2wayANOVA.I<span class="ot">&lt;-</span><span class="fu">lm</span>(flipper_length_mm<span class="sc">~</span>species<span class="sc">+</span>sex<span class="sc">+</span>species<span class="sc">:</span>sex,<span class="at">data=</span>penguins)</span>
-<span id="cb204-2"><a href="ttestANOVAasLMs.html#cb204-2" tabindex="-1"></a><span class="fu">summary</span>(lm2wayANOVA.I)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="ttestANOVAasLMs.html#cb206-1" tabindex="-1"></a>lm2wayANOVA.I<span class="ot">&lt;-</span><span class="fu">lm</span>(flipper_length_mm<span class="sc">~</span>species<span class="sc">+</span>sex<span class="sc">+</span>species<span class="sc">:</span>sex,<span class="at">data=</span>penguins)</span>
+<span id="cb206-2"><a href="ttestANOVAasLMs.html#cb206-2" tabindex="-1"></a><span class="fu">summary</span>(lm2wayANOVA.I)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = flipper_length_mm ~ species + sex + species:sex, 
@@ -842,7 +844,7 @@ Looking at the dataset in question, explore the two way ANOVA as a linear model,
 ## F-statistic: 342.4 on 5 and 327 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Note that in an R model formula, <code>y~x*z</code> is a shortcut for <code>y~x+z+x:z</code>, i.e. a model with both main effects, <code>x</code> and <code>z</code>, and the interaction term between <code>x</code> and <code>z</code>.</p>
 <p>Considering the usual significance levels, the interaction term is significant</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="ttestANOVAasLMs.html#cb206-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(lm2wayANOVA.I))</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="ttestANOVAasLMs.html#cb208-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(lm2wayANOVA.I))</span></code></pre></div>
 <pre><code>##              Df Sum Sq Mean Sq F value  Pr(&gt;F)    
 ## species       2  50526   25263 789.912 &lt; 2e-16 ***
 ## sex           1   3906    3906 122.119 &lt; 2e-16 ***
@@ -852,7 +854,7 @@ Looking at the dataset in question, explore the two way ANOVA as a linear model,
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>The interpretation is as follows, and was naturally apparent in the interaction plot above. The length of the flipper depends on sex (males are larger) and species (Gentoo larger than Chinstrap larger than Adelie), but the interaction means that the difference between males and females in Adelie is actually smaller than that in Chinstrap and Gentoo.</p>
 <p>And now we’ve done all this, let’s jump a few steps forward and think about all this in an integrated way. This dataset contains also the weight of the penguins (<code>body_mass_g</code>). Let’s see how all the other variables explain those weights</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="ttestANOVAasLMs.html#cb208-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(body_mass_g<span class="sc">~</span>.,<span class="at">data=</span>penguins))</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="ttestANOVAasLMs.html#cb210-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(body_mass_g<span class="sc">~</span>.,<span class="at">data=</span>penguins))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = body_mass_g ~ ., data = penguins)
@@ -880,7 +882,7 @@ Looking at the dataset in question, explore the two way ANOVA as a linear model,
 ## Multiple R-squared:  0.8768, Adjusted R-squared:  0.8734 
 ## F-statistic: 255.4 on 9 and 323 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Interestingly, but not surprisingly, everything seems to be relevant to explain the weights of the animals, except, the islands they come from. It makes sense, given we know the species, sex and some measurements on beak and flippers, we can predict the weight really well. But now, the cautionary tale… what if we didn’t record all this, and we only had measurements from different islands</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="ttestANOVAasLMs.html#cb210-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(body_mass_g<span class="sc">~</span>island,<span class="at">data=</span>penguins))</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="ttestANOVAasLMs.html#cb212-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(body_mass_g<span class="sc">~</span>island,<span class="at">data=</span>penguins))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = body_mass_g ~ island, data = penguins)

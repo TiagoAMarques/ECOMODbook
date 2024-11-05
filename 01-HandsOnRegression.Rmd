@@ -124,6 +124,7 @@ hist(residuals(lm(ys~type)),main="",xlab="Residuals")
 
 The take home message from the story: what the data looks like might be irrelevant. The patterns that remain in the residuals, if any, those are the ones we might need to worry about. So do not transform data just because the data looks odd. It might just be Gaussian data in disguise!
 
+
 ## Conditional versus marginal distribution
 
 (I have a vague recollection I have written this somewhere else in this document before, but can't find it - if this is redundant might need to consolidate material later)
@@ -139,14 +140,14 @@ $$Y|X=Gaussian(\beta_0+\beta_1 X,\sigma^2)$$
 This highlights a different way to simulate data for a Gaussian regression
 
 
-```{r reg1again,echo=FALSE}
+```{r reg1again}
 set.seed(2)
 beta0<-0.8
 beta1<-0.3
 n<-50
 noise <- 0.2
 temp<-runif(n,10,20)
-react<-rnorm(n,mean=-beta0+beta1*temp,sd=noise)
+react<-rnorm(n,mean=beta0+beta1*temp,sd=noise)
 reaction<-data.frame(react=react,temp=temp)
 ```
 

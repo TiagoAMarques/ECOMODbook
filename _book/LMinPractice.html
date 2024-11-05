@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 13 Real life examples using linear models | Notes for Ecological Modelling</title>
   <meta name="description" content="This is based on Yihui Xie’s a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 13 Real life examples using linear models | Notes for Ecological Modelling" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Tiago A. Marques" />
 
 
-<meta name="date" content="2023-11-03" />
+<meta name="date" content="2024-11-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -128,6 +128,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -179,6 +180,7 @@ div.csl-indent {
 <li class="chapter" data-level="7" data-path="handson.html"><a href="handson.html"><i class="fa fa-check"></i><b>7</b> Hands On Regression</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="handson.html"><a href="handson.html#the-assumptions-are-on-the-residuals-not-the-data"><i class="fa fa-check"></i><b>7.1</b> The assumptions are on the residuals, not the data</a></li>
+<li class="chapter" data-level="7.2" data-path="handson.html"><a href="handson.html#conditional-versus-marginal-distribution"><i class="fa fa-check"></i><b>7.2</b> Conditional versus marginal distribution</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="RIO.html"><a href="RIO.html"><i class="fa fa-check"></i><b>8</b> Regression inside out</a>
 <ul>
@@ -302,7 +304,7 @@ div.csl-indent {
 <p>This dataset contains the abundance of 75 species of invertebrates at 45 sites across 9 beaches in the Netherlands. Each data row represents a site. Columns 2 to 76 contain species and their abundances. In the following columns several explanatory variables are available.</p>
 <p>The data was originally used in <span class="citation">Zuur, Ieno, and Smith (<a href="#ref-Zuur2007">2007</a>)</span> and is freely available at said book website. The dataset is used in several chapters of <span class="citation">Zuur, Ieno, and Smith (<a href="#ref-Zuur2007">2007</a>)</span>, in particular chapter 27 <span class="citation">Janssen et al. (<a href="#ref-Janssen2007">2007</a>)</span> where it is used to illustrate a set of both univariate and multivariate analysis. The data was later also used by <span class="citation">Zuur et al. (<a href="#ref-Zuur2009b">2009b</a>)</span>, in particular to explore the notion of random effects in a mixed model context. Here, we simply use it to try to model the number of species per site, usually referred to as species richness by ecologists, as a function of available covariates assuming a linear model. This does not mean that the linear model would be the best tool in practice - it would not, for multiple reasons, see the discussion at the end - but it is a useful dataset to illustrate fitting a linear model to data.</p>
 <p>We begin by reading the data</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="LMinPractice.html#cb337-1" tabindex="-1"></a>RIKZlm <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">&quot;extfiles/RIKZlm.txt&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="LMinPractice.html#cb339-1" tabindex="-1"></a>RIKZlm <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">&quot;extfiles/RIKZlm.txt&quot;</span>)</span></code></pre></div>
 <p>and noting that it contains:</p>
 <ul>
 <li>a first column with a site indicator variable</li>
@@ -326,41 +328,41 @@ div.csl-indent {
 </ul></li>
 </ul>
 <p>We begin by creating the response variable, which is conveniently obtained by summing across rows, i.e. per site, how many species had 1 or more individuals:</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="LMinPractice.html#cb338-1" tabindex="-1"></a>RIKZlm<span class="sc">$</span>nsp<span class="ot">&lt;-</span><span class="fu">rowSums</span>(RIKZlm[,<span class="dv">2</span><span class="sc">:</span><span class="dv">76</span>]<span class="sc">&gt;</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="LMinPractice.html#cb340-1" tabindex="-1"></a>RIKZlm<span class="sc">$</span>nsp<span class="ot">&lt;-</span><span class="fu">rowSums</span>(RIKZlm[,<span class="dv">2</span><span class="sc">:</span><span class="dv">76</span>]<span class="sc">&gt;</span><span class="dv">0</span>)</span></code></pre></div>
 <p>The first thing to do in any statistical modelling exercise is to look at the data, so we begin by exploring the response variable, noting that we had on average 5.69 species present per site, ranging from 0 to 22 species per site. While counts like these should be treated as such, hence using at the very least a generalized linear model with a count response, we ignore that fact here.</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="LMinPractice.html#cb339-1" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>nsp,<span class="at">xlab=</span><span class="st">&quot;Species richness&quot;</span>,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<p>Next, it seems relevant to explore the available covariates to be used to explain species richness. Beach and week are rather uninteresting for our current objectives - even though they might be fundamental for the full story behind this dataset - and so we ignore them here. We can distinguish variables available at the beach level, hence with only 9 different measurements for each variable, for which we have four</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="LMinPractice.html#cb340-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
-<span id="cb340-2"><a href="LMinPractice.html#cb340-2" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>angle2,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb340-3"><a href="LMinPractice.html#cb340-3" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>exposure,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb340-4"><a href="LMinPractice.html#cb340-4" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>salinity,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb340-5"><a href="LMinPractice.html#cb340-5" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>temperature,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="LMinPractice.html#cb341-1" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>nsp,<span class="at">xlab=</span><span class="st">&quot;Species richness&quot;</span>,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<p>from those at the site level, for which we have eight, hence with 45 measurements each. Presumably the later might be more useful to explain the species richness, since there is variability within beach on the number of species present at a site</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="LMinPractice.html#cb341-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
-<span id="cb341-2"><a href="LMinPractice.html#cb341-2" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>angle2,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb341-3"><a href="LMinPractice.html#cb341-3" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>NAP,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb341-4"><a href="LMinPractice.html#cb341-4" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>penetrability,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb341-5"><a href="LMinPractice.html#cb341-5" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>grainsize,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb341-6"><a href="LMinPractice.html#cb341-6" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>humus,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb341-7"><a href="LMinPractice.html#cb341-7" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>chalk,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb341-8"><a href="LMinPractice.html#cb341-8" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>sorting1,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p>Next, it seems relevant to explore the available covariates to be used to explain species richness. Beach and week are rather uninteresting for our current objectives - even though they might be fundamental for the full story behind this dataset - and so we ignore them here. We can distinguish variables available at the beach level, hence with only 9 different measurements for each variable, for which we have four</p>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="LMinPractice.html#cb342-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb342-2"><a href="LMinPractice.html#cb342-2" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>angle2,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb342-3"><a href="LMinPractice.html#cb342-3" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>exposure,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb342-4"><a href="LMinPractice.html#cb342-4" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>salinity,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb342-5"><a href="LMinPractice.html#cb342-5" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>temperature,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-<p>Finally, we can explore the correlations betweeen the diferent covariates between themselves and with the response variable, and for that <code>corrplot</code> can be most useful.</p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="LMinPractice.html#cb342-1" tabindex="-1"></a><span class="co">#get a simpler data.frame for modelling</span></span>
-<span id="cb342-2"><a href="LMinPractice.html#cb342-2" tabindex="-1"></a>RIKZ4m <span class="ot">&lt;-</span> RIKZlm[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">76</span>)]</span>
-<span id="cb342-3"><a href="LMinPractice.html#cb342-3" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code></pre></div>
-<pre><code>## corrplot 0.92 loaded</code></pre>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="LMinPractice.html#cb344-1" tabindex="-1"></a><span class="fu">corrplot</span>(<span class="fu">cor</span>(RIKZ4m[,<span class="sc">-</span><span class="dv">1</span>]), <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, <span class="at">order =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.srt =</span> <span class="dv">45</span>)</span></code></pre></div>
+<p>from those at the site level, for which we have eight, hence with 45 measurements each. Presumably the later might be more useful to explain the species richness, since there is variability within beach on the number of species present at a site</p>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="LMinPractice.html#cb343-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>),<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="fl">0.5</span>,<span class="fl">0.5</span>))</span>
+<span id="cb343-2"><a href="LMinPractice.html#cb343-2" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>angle2,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb343-3"><a href="LMinPractice.html#cb343-3" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>NAP,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb343-4"><a href="LMinPractice.html#cb343-4" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>penetrability,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb343-5"><a href="LMinPractice.html#cb343-5" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>grainsize,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb343-6"><a href="LMinPractice.html#cb343-6" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>humus,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb343-7"><a href="LMinPractice.html#cb343-7" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>chalk,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb343-8"><a href="LMinPractice.html#cb343-8" tabindex="-1"></a><span class="fu">hist</span>(RIKZlm<span class="sc">$</span>sorting1,<span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="ECOMODbook_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Finally, we can explore the correlations betweeen the diferent covariates between themselves and with the response variable, and for that <code>corrplot</code> can be most useful.</p>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="LMinPractice.html#cb344-1" tabindex="-1"></a><span class="co">#get a simpler data.frame for modelling</span></span>
+<span id="cb344-2"><a href="LMinPractice.html#cb344-2" tabindex="-1"></a>RIKZ4m <span class="ot">&lt;-</span> RIKZlm[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">76</span>)]</span>
+<span id="cb344-3"><a href="LMinPractice.html#cb344-3" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code></pre></div>
+<pre><code>## corrplot 0.94 loaded</code></pre>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="LMinPractice.html#cb346-1" tabindex="-1"></a><span class="fu">corrplot</span>(<span class="fu">cor</span>(RIKZ4m[,<span class="sc">-</span><span class="dv">1</span>]), <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>, <span class="at">order =</span> <span class="st">&quot;hclust&quot;</span>, <span class="at">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.srt =</span> <span class="dv">45</span>)</span></code></pre></div>
+<p><img src="ECOMODbook_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>We can see that variables <code>NAP</code> and <code>exposure</code> seem negatively related to the response, while <code>salinity</code> and <code>humus</code> seem positively related to the response. We can also note some explanatory variables are considerably correlated, as an example, <code>salinity</code> with <code>exposure</code> or <code>exposure</code> with <code>temperature.</code> That could create instability in models including these pairs of variables.</p>
 <p>Just to start exploring models, we fit univariate models of the apparent best single predictors.</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="LMinPractice.html#cb345-1" tabindex="-1"></a>modNAP<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ4m)</span>
-<span id="cb345-2"><a href="LMinPractice.html#cb345-2" tabindex="-1"></a>modExp<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>exposure,<span class="at">data=</span>RIKZ4m)</span>
-<span id="cb345-3"><a href="LMinPractice.html#cb345-3" tabindex="-1"></a>modSal<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>salinity,<span class="at">data=</span>RIKZ4m)</span>
-<span id="cb345-4"><a href="LMinPractice.html#cb345-4" tabindex="-1"></a>modHum<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>humus,<span class="at">data=</span>RIKZ4m)</span>
-<span id="cb345-5"><a href="LMinPractice.html#cb345-5" tabindex="-1"></a><span class="fu">summary</span>(modExp)</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="LMinPractice.html#cb347-1" tabindex="-1"></a>modNAP<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>NAP,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb347-2"><a href="LMinPractice.html#cb347-2" tabindex="-1"></a>modExp<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>exposure,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb347-3"><a href="LMinPractice.html#cb347-3" tabindex="-1"></a>modSal<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>salinity,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb347-4"><a href="LMinPractice.html#cb347-4" tabindex="-1"></a>modHum<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>humus,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb347-5"><a href="LMinPractice.html#cb347-5" tabindex="-1"></a><span class="fu">summary</span>(modExp)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = nsp ~ exposure, data = RIKZ4m)
@@ -379,7 +381,7 @@ div.csl-indent {
 ## Residual standard error: 4.113 on 43 degrees of freedom
 ## Multiple R-squared:  0.3396, Adjusted R-squared:  0.3243 
 ## F-statistic: 22.11 on 1 and 43 DF,  p-value: 2.664e-05</code></pre>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="LMinPractice.html#cb347-1" tabindex="-1"></a><span class="fu">summary</span>(modNAP)</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="LMinPractice.html#cb349-1" tabindex="-1"></a><span class="fu">summary</span>(modNAP)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = nsp ~ NAP, data = RIKZ4m)
@@ -398,7 +400,7 @@ div.csl-indent {
 ## Residual standard error: 4.16 on 43 degrees of freedom
 ## Multiple R-squared:  0.3245, Adjusted R-squared:  0.3088 
 ## F-statistic: 20.66 on 1 and 43 DF,  p-value: 4.418e-05</code></pre>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="LMinPractice.html#cb349-1" tabindex="-1"></a><span class="fu">summary</span>(modSal)</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="LMinPractice.html#cb351-1" tabindex="-1"></a><span class="fu">summary</span>(modSal)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = nsp ~ salinity, data = RIKZ4m)
@@ -417,7 +419,7 @@ div.csl-indent {
 ## Residual standard error: 4.269 on 43 degrees of freedom
 ## Multiple R-squared:  0.2885, Adjusted R-squared:  0.2719 
 ## F-statistic: 17.43 on 1 and 43 DF,  p-value: 0.0001423</code></pre>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="LMinPractice.html#cb351-1" tabindex="-1"></a><span class="fu">summary</span>(modHum)</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="LMinPractice.html#cb353-1" tabindex="-1"></a><span class="fu">summary</span>(modHum)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = nsp ~ humus, data = RIKZ4m)
@@ -437,8 +439,8 @@ div.csl-indent {
 ## Multiple R-squared:  0.1644, Adjusted R-squared:  0.1449 
 ## F-statistic: 8.457 on 1 and 43 DF,  p-value: 0.005732</code></pre>
 <p>on their own, all these would seem like relevant predictors. If we only had one of them, we might be happy enough. But here we have several. What happens if we use a pair of them, say <code>NAP</code> and <code>exposure</code>:</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="LMinPractice.html#cb353-1" tabindex="-1"></a>modNAPExp<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>NAP<span class="sc">+</span>exposure,<span class="at">data=</span>RIKZ4m)</span>
-<span id="cb353-2"><a href="LMinPractice.html#cb353-2" tabindex="-1"></a><span class="fu">summary</span>(modNAPExp)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="LMinPractice.html#cb355-1" tabindex="-1"></a>modNAPExp<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>NAP<span class="sc">+</span>exposure,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb355-2"><a href="LMinPractice.html#cb355-2" tabindex="-1"></a><span class="fu">summary</span>(modNAPExp)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = nsp ~ NAP + exposure, data = RIKZ4m)
@@ -459,8 +461,8 @@ div.csl-indent {
 ## Multiple R-squared:  0.6321, Adjusted R-squared:  0.6146 
 ## F-statistic: 36.09 on 2 and 42 DF,  p-value: 7.577e-10</code></pre>
 <p>The model seems to have improved. What should we try next? Perhaps <code>salinity</code></p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="LMinPractice.html#cb355-1" tabindex="-1"></a>modNAPExpSal<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>NAP<span class="sc">+</span>exposure<span class="sc">+</span>salinity,<span class="at">data=</span>RIKZ4m)</span>
-<span id="cb355-2"><a href="LMinPractice.html#cb355-2" tabindex="-1"></a><span class="fu">summary</span>(modNAPExpSal)</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="LMinPractice.html#cb357-1" tabindex="-1"></a>modNAPExpSal<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>NAP<span class="sc">+</span>exposure<span class="sc">+</span>salinity,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb357-2"><a href="LMinPractice.html#cb357-2" tabindex="-1"></a><span class="fu">summary</span>(modNAPExpSal)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = nsp ~ NAP + exposure + salinity, data = RIKZ4m)
@@ -482,8 +484,8 @@ div.csl-indent {
 ## Multiple R-squared:  0.6793, Adjusted R-squared:  0.6558 
 ## F-statistic: 28.94 on 3 and 41 DF,  p-value: 3.257e-10</code></pre>
 <p>it seems like we have again improved model fit. What if we try <code>humus</code></p>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="LMinPractice.html#cb357-1" tabindex="-1"></a>modNAPExpSalHum<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>NAP<span class="sc">+</span>exposure<span class="sc">+</span>salinity<span class="sc">+</span>humus,<span class="at">data=</span>RIKZ4m)</span>
-<span id="cb357-2"><a href="LMinPractice.html#cb357-2" tabindex="-1"></a><span class="fu">summary</span>(modNAPExpSalHum)</span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="LMinPractice.html#cb359-1" tabindex="-1"></a>modNAPExpSalHum<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>NAP<span class="sc">+</span>exposure<span class="sc">+</span>salinity<span class="sc">+</span>humus,<span class="at">data=</span>RIKZ4m)</span>
+<span id="cb359-2"><a href="LMinPractice.html#cb359-2" tabindex="-1"></a><span class="fu">summary</span>(modNAPExpSalHum)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = nsp ~ NAP + exposure + salinity + humus, data = RIKZ4m)
@@ -507,8 +509,8 @@ div.csl-indent {
 ## F-statistic: 21.44 on 4 and 40 DF,  p-value: 1.646e-09</code></pre>
 <p>it seems like, given the previous 3 variables, <code>humus</code> is no longer relevant, even if it was apparently random on its own. That should not be a surprise. Just most of your friends might be useful in explaining you to me, they became redundant once I ask your best to explain you to me!</p>
 <p>Imagine for a second we would have started from a full model</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="LMinPractice.html#cb359-1" tabindex="-1"></a>modFull<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>.,<span class="at">data=</span>RIKZ4m[,<span class="sc">-</span><span class="dv">1</span>])</span>
-<span id="cb359-2"><a href="LMinPractice.html#cb359-2" tabindex="-1"></a><span class="fu">summary</span>(modFull)</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="LMinPractice.html#cb361-1" tabindex="-1"></a>modFull<span class="ot">&lt;-</span><span class="fu">lm</span>(nsp<span class="sc">~</span>.,<span class="at">data=</span>RIKZ4m[,<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb361-2"><a href="LMinPractice.html#cb361-2" tabindex="-1"></a><span class="fu">summary</span>(modFull)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = nsp ~ ., data = RIKZ4m[, -1])
@@ -540,15 +542,15 @@ div.csl-indent {
 ## Multiple R-squared:  0.7226, Adjusted R-squared:  0.6063 
 ## F-statistic: 6.211 on 13 and 31 DF,  p-value: 1.527e-05</code></pre>
 <p>in such a case, several of the variables we think are relevant seem irrelevant, and only <code>NAP</code> stands out. Using the friends analogy, if I ask ten of your friends, including your best friend, about yourself, all the chatter across the 9 friends just seems contradictory, and only your best friend might be reliable. The problem with data is that you never know to begin whom our best friend might be, in other words, who might be the best in explaining the response.</p>
-<p>One possible approach might be to consider all possible model combinations. Here, excluding interaction terms for now, with 11 potential covariates, that would be a large number of models to fit to the data, namely 1 model with no variables, 11 models with 1 variable, plus combinations of 11, 2 by 2, of two variables, and hence forth, up to combinations of 11, 10 by 10 variables (that’s 11 again!), plus 1 model with all covariates. That corresponds to 2048 (=<span class="math inline">\(2^11\)</span>) models, which is a lot to run manually.</p>
+<p>One possible approach might be to consider all possible model combinations. Here, excluding interaction terms for now, with 11 potential covariates, that would be a large number of models to fit to the data, namely 1 model with no variables, 11 models with 1 variable, plus combinations of 11, 2 by 2, of two variables, and hence forth, up to combinations of 11, 10 by 10 variables (that’s 11 again!), plus 1 model with all covariates. That corresponds to 2048 (=<span class="math inline">\(2^{11}\)</span>) models, which is a lot to run manually.</p>
 <p>We can leverage the ability of function <code>bestglm</code> from package <code>bestglm</code> to do so and report on the best model across all of them, conditional on some model performance metric. This package requires the data to be in a single <code>data.frame</code> with all variables named, and one of them, the response, named <code>y</code>. We do so here</p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="LMinPractice.html#cb361-1" tabindex="-1"></a><span class="fu">names</span>(RIKZ4m)[<span class="fu">names</span>(RIKZ4m)<span class="sc">==</span><span class="st">&quot;nsp&quot;</span>]<span class="ot">&lt;-</span><span class="st">&quot;y&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="LMinPractice.html#cb363-1" tabindex="-1"></a><span class="fu">names</span>(RIKZ4m)[<span class="fu">names</span>(RIKZ4m)<span class="sc">==</span><span class="st">&quot;nsp&quot;</span>]<span class="ot">&lt;-</span><span class="st">&quot;y&quot;</span></span></code></pre></div>
 <p>and then run the procedure, selecting here AIC (Akaike’s Information Criteria) as the criteria for selecting the most parsimonious model.</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="LMinPractice.html#cb362-1" tabindex="-1"></a><span class="fu">library</span>(bestglm)</span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="LMinPractice.html#cb364-1" tabindex="-1"></a><span class="fu">library</span>(bestglm)</span></code></pre></div>
 <pre><code>## Loading required package: leaps</code></pre>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="LMinPractice.html#cb364-1" tabindex="-1"></a>bestGML1<span class="ot">&lt;-</span><span class="fu">bestglm</span>(RIKZ4m[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">family =</span> gaussian, <span class="at">IC =</span> <span class="st">&quot;AIC&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="LMinPractice.html#cb366-1" tabindex="-1"></a>bestGML1<span class="ot">&lt;-</span><span class="fu">bestglm</span>(RIKZ4m[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">family =</span> gaussian, <span class="at">IC =</span> <span class="st">&quot;AIC&quot;</span>)</span></code></pre></div>
 <p>The most parsimonious model according to AIC is</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="LMinPractice.html#cb365-1" tabindex="-1"></a>bestGML1</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="LMinPractice.html#cb367-1" tabindex="-1"></a>bestGML1</span></code></pre></div>
 <pre><code>## AIC
 ## BICq equivalent for q in (0.234777596202668, 0.788421926315081)
 ## Best Model:
@@ -564,7 +566,7 @@ div.csl-indent {
 </div>
 </div>
 <h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-Janssen2007" class="csl-entry">
 Janssen, G. M., S. Mulder, A. F. Zuur, E. N. Ieno, and G. M. Smith. 2007. <span>“Univariate and Multivariate Analysis Applied on a Dutch Sandy Beach Community.”</span> In <em>Statistics for Biology and Health</em>, 485–501. Springer New York. <a href="https://doi.org/10.1007/978-0-387-45972-1_27">https://doi.org/10.1007/978-0-387-45972-1_27</a>.
 </div>
